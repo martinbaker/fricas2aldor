@@ -1,0 +1,818 @@
+ /* Copyright 2017 Martin John Baker
+ *
+ * This file is part of EuclideanSpace.
+ *
+ * EuclideanSpace is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * EuclideanSpace is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with EuclideanSpace. If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+ /*
+  * Preformatting
+  * boot code must first be preformatted manually.
+  * 
+  * Whitespace
+  * ----------
+  * comments must be on separate line and at same indent as adjacent statements.
+  * Lines cannot be extended by indenting.
+  * Line folding:
+  *   Lists can only be split after comma
+  * Lisp literal: new line must start with '('
+  * if-then-else must be on 1 line or
+  * if a then
+  *    b
+  * else
+  *    c  * 
+  * Keywords
+  * --------
+  * if changed to if1
+  * FunctionDef [x] == changed to FunctionDef([x])==
+  * 
+  * juxtapose
+  * ---------
+  * Only works if parameter is an ID, I would like this to be an expression but changing TK_ID to Expression
+  * 
+  * Indent with exit
+  * ----------------
+  *  x :=
+  *    numEqs = 1 => '"Enter the {\em Equation}:"
+  *    '"Enter the {\em Equations}:"
+  * 
+  * must be changed to:
+  * 
+  *  x := (
+  *    numEqs = 1 => '"Enter the {\em Equation}:"
+  *    '"Enter the {\em Equations}:"
+  *  )
+  * 
+  * unary int
+  * ---------
+  * -1 changed to (-1)
+  * 
+  * open ended segment
+  * ------------------
+  * parenthesis must be added around start if not int or ID
+  * [i for i in (index+1)..]
+  */
+
+grammar com.euclideanspace.bootSyntax.Editor hidden (WS)
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate editor "http://www.euclideanspace.com/bootSyntax/Editor"
+
+Model:
+	(declarations+=Declaration NL)*
+	;
+
+/* Where may follow FunctionDef def: see i-output coccatTrouble */
+Declaration:
+	Comment | Package | Defparameter | Defconstant | Defconst | Defvar | FunctionDef | GlobalVariable | Documentation;
+
+Comment:
+	c=TK_COMMENT
+;
+
+Package: KW_CPAREN 'package' p=TK_STRING;
+
+Documentation:
+	KW_CPAREN ('if' e=Expression | ei?='endif')
+;
+
+Defparameter: 'DEFPARAMETER' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
+Defconstant: 'DEFCONSTANT' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
+Defconst: 'DEFCONST' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
+Defvar: 'DEFVAR' KW_OPAREN name=TK_ID (KW_COMMA e=Expression)? KW_CPAREN;
+
+/* FunctionDef definition */
+FunctionDef:
+    name=TK_ID fp+=KW_PRIME*
+    (
+      (KW_OPAREN (params+=Expression (KW_COMMA params+=Expression)*)? KW_CPAREN)
+      |  j=TK_ID // support juxtapose
+    )
+	((KW_EQ2|m?=KW_MARROW) b=Block)? // FunctionDef may be abstract
+	
+	(NL w=Where)?
+;
+
+GlobalVariable:
+  name=TK_ID KW_ASSIGN e=Expression
+;
+
+/* A block may be either a single statement or multiple statements with an indent.
+ * the block must always be the last part of the statement.
+ * 
+ * An inner block (below) is similar but is not the last part of the statement.
+ */
+Block:
+	s+=Statement | (
+	b?=BEGIN
+		(s+=Statement NL)*
+	END
+	)
+;
+
+InnerBlock:
+	s+=Statement | (
+	b?=BEGIN
+		(s+=Statement NL)*
+	END NL
+	)
+;
+
+/*
+ * 'Where' can follow any statement so put it here.
+ */
+Statement:
+	( Comment | Loop | =>MultiAssign | =>MultiDefine | =>MultiExit | WhereExpression | Where | Do)
+;
+
+MultiAssign:
+	e=Expression KW_ASSIGN BEGIN (s+=Statement NL)* END
+;
+
+MultiDefine:
+	e=Expression KW_EQ2 BEGIN (s+=Statement NL)* END
+;
+
+MultiExit:
+	e=Expression KW_EXIT BEGIN (s+=Statement NL)* END
+;
+
+Loop:
+	c+=LoopCondition* (KW_BAR e=Expression)? 'repeat' b=Block
+;
+
+LoopCondition:
+	(w=While | f=For | u=Until)
+;
+
+While:
+	'while' b=InnerBlock
+;
+
+Do:
+	'do' b=Block
+;
+
+Until:
+	'until' b=InnerBlock
+;
+
+/* Expression after 'for' may be ID or list
+ * The expression will contain 'in'
+ */
+For:
+	'for' e=Expression
+;
+
+/*
+ * 'Where' allows a function definition inside another
+ * one. It can follow any statement.
+ */
+Where:
+	'where' b=Block
+;
+
+///////////// Expression syntax follows //////////////
+/* This is the top level for expressions
+*
+* This level handles special cases such as:
+* if x then y else z
+*
+* We can consider expressions as elements of statements
+* expressions contain no newlines unless preceded by underscore
+* (which is handled by WS)
+* 
+* We use different names for 'b2' and 'b2i' because otherwise they
+* would have type Model rather than Block and InnerBlock
+* 
+* 'Where' can follow any statement but this is expression.
+* This allows 'where' to follow on same line (before newline).
+* It would be more tidy to force 'where' to be on a new line but
+* this causes order to be changed when doing boot->ast->boot.
+*/
+WhereExpression returns Expr:
+	(Expression ({WhereExpression.left=current} w=Where)?)
+	|
+	c?=KW_OCURLY (st+=Statement NL)*  KW_CCURLY (KW_EXIT eexp=Expression)?
+	|
+	(
+	    'if' b1=InnerBlock
+	    (
+          =>('then' b2i=InnerBlock 'else' b3=Block) |
+          ('then' b2=Block)
+        )	
+	)
+;
+
+IfExpression returns Expr:
+	Expression
+	|
+	({IfExpression} KW_AT 'if' i1=Expression 'then' i2=InnerBlock ('else' i3=InnerBlock)? KW_AT)
+//	|
+//	(
+//	    KW_AT 'if' b1=InnerBlock
+//	    (
+//          =>('then' b2i=InnerBlock 'else' b3=Block) |
+//          ('then' b2=Block)
+//        )	
+//	)
+;
+
+/*
+ * combines statements as in
+ * test => true;false */
+Expression returns Expr:	
+MapExpression
+( {Expression.left=current}
+(op=KW_SEMICOLON NL?) (right = MapExpression | KW_OCURLY2 right2=Statement KW_CCURLY2)
+)*
+;
+
+/* Map or Lambda expression
+* var +-> FunctionDef
+*
+* +-> is an infix operator meaning 'maps-to'
+* It can be used to create a FunctionDef literal (an anonymous FunctionDef), so
+* instead of:
+* myFunct(x:Type):Type == if x >0 then x else -x
+* we can have forms such as:
+* x +-> if x >0 then x else -x
+* or:
+* (x,y) +-> if x >0 then y else -x
+*/
+MapExpression returns Expr:
+// (PretendExpression | LPAREN PretendExpression (COMMA t25+=PretendExpression)+ RPAREN) (COLON rightType2 =TypeExpression)?
+LambdaExpression
+({MapExpression.left=current}
+op=KW_MAPSTO right = LambdaExpression
+//(par = TK_ID)? // optional parameter which FunctionDef
+// is applied to
+)*
+;
+
+LambdaExpression returns Expr:
+ExitExpression
+({LambdaExpression.left=current} op=KW_EQ2 (
+right = ExitExpression
+)
+)*
+;
+
+/*
+* condition '=>' expr1 ';' expr2
+*/
+ExitExpression returns Expr:
+AssignExpression
+({ExitExpression.left=current} op=KW_EXIT right = AssignExpression)*
+;
+
+/*
+* an assign expression like this:
+* x := y
+* can also be an inner assign like this:
+* x := (y := z)
+* or just:
+* x := y := z
+*
+* right is expression to allow forms like
+* x := if y<0 then -y else y
+*/
+AssignExpression returns Expr:
+OrExpression
+({AssignExpression.left=current} op=KW_ASSIGN (
+right = OrExpression
+)
+)*
+;
+
+/*
+* Boolean or
+*/
+OrExpression returns Expr:
+AndExpression
+( {OrExpression.left=current} op='or' right = AndExpression)*
+;
+/*
+* Boolean and
+*/
+AndExpression returns Expr:
+InExpression
+( {AndExpression.left=current} op='and' right = InExpression)*
+;
+/* used for in-by in list comprehension
+*/
+InExpression returns Expr:
+EqualityExpression
+( {InExpression.left=current} op='in'
+    (right = EqualityExpression  ('by' r2=EqualityExpression)?
+))?
+;
+/*
+* "~=" not equal
+* "="  equal
+*/
+EqualityExpression returns Expr:
+RelationalExpression
+// ambiguous because EQ can be in top level expression
+( {EqualityExpression.left=current}
+( op=KW_EQ | op=KW_TILDEE)
+right = RelationalExpression
+)*
+;
+/* numerical comparison
+* ">="
+* "<="
+* ">>"
+* "<<"
+* ">"
+* "<"
+*/
+RelationalExpression returns Expr:
+IsExpression
+( {RelationalExpression.left=current}
+( op=KW_LT | op=KW_GT | op=KW_LE | op=KW_GE )
+right = IsExpression
+)?
+;
+/*
+*
+* "isnt"
+* "is"
+*/
+IsExpression returns Expr:
+SegmentExpression
+({IsExpression.left=current} (op='is' | op='isnt') right = SegmentExpression)*
+;
+/*
+* "..", "SEGMENT"
+* this is used to indicate a range:
+* 1..4 means the range from 1 to 4
+* 1.. means the range from 1 to infinity. This is used in cases where
+* no top bounds is necessary, when the end point is determined by other
+* means.
+*/
+SegmentExpression returns Expr:
+AdditiveExpression
+( {SegmentExpression.left=current} op=KW_2DOT right = AdditiveExpression)*
+;
+/*
+* add expression
+* we include both '+' and '-' in the same case as this allows a
+* multiple sequence like:
+* a + b + c - d + e -f
+*/
+AdditiveExpression returns Expr:
+ExquoExpression
+( {AdditiveExpression.left=current}
+( op=KW_PLUS | op=KW_MINUS)
+right = ExquoExpression
+)*
+;
+/*
+* "exquo",
+*/
+ExquoExpression returns Expr:
+DivisionExpression
+({ExquoExpression.left=current} op='exquo' right = DivisionExpression)*
+;
+/*
+* division expression
+* "/",
+*/
+DivisionExpression returns Expr:
+QuoExpression
+( {DivisionExpression.left=current}
+(op=KW_SLASH)
+right = QuoExpression
+)*
+;
+/*
+*"quo"
+*/
+QuoExpression returns Expr:
+ModExpression
+({QuoExpression.left=current} op='quo' right = ModExpression)*
+;
+/*
+*"mod"
+*/
+ModExpression returns Expr:
+RemExpression
+({ModExpression.left=current} op='mod' right = RemExpression)*
+;
+/*
+*"rem"
+*/
+RemExpression returns Expr:
+MultiplicativeExpression
+({RemExpression.left=current} op='rem' right = MultiplicativeExpression)*
+;
+/*
+* multiplication expression
+* a * b * c
+*
+* "*",
+*/
+MultiplicativeExpression returns Expr:
+ExponentExpression
+( {MultiplicativeExpression.left=current}
+(op=KW_STAR )
+right = ExponentExpression
+)*
+;
+/*
+* exponent is "^" not '**'
+*/
+ExponentExpression returns Expr:
+EltExpression
+({ExponentExpression.left=current} (op=KW_HAT /* | op=KW_2STAR*/) right = EltExpression)*
+;
+
+/* Elt is Lisp terminology for the use of '.' to select parameters
+* the left expression is something that has selectable elements such as
+* a list, array, string, Record or union, the right element should be a
+* non-negative integer.
+*/
+EltExpression returns Expr:	
+UnaryExpression
+( {EltExpression.left=current}
+op=KW_DOT right = UnaryExpression
+)*
+;
+////////////// unary expressions ////////////////////
+/* UnaryExpression
+* unary prefixes:
+*
+* 
+* '$' KW_DOLLAR : prefix to symbol for global variables
+* 'not' KW_DOLLAR : boolean not (was '^' KW_HAT but this is now exponent)
+* ':' KW_COLON : used in list parameters
+* "'" KW_ : literal value
+*
+*
+* "~" TILDE : precedence 260, 259, nil
+* ":" COLON : precedence 194, 195
+* "-" MINUS : precedence 701, 700
+* "#" HASH : precedence 999, 998
+* KW_QUOTE : precedence 999, 999, ["parse_Data"]
+* unary suffixes
+* ".." : range can be unary suffix
+*/
+UnaryExpression returns Expr:
+PrimaryExpression |
+({UnaryExpression} name=TK_ID =>p2?=KW_PRIME? expr=UnaryExpression?) |
+({UnaryExpression} uop='not' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON expr=UnaryExpression) |
+({UnaryExpression} uop='or/' expr=UnaryExpression) |
+({UnaryExpression} uop='and/' expr=UnaryExpression) |
+({UnaryExpression} uop='+/' expr=UnaryExpression) |
+({UnaryExpression} uop='*./' expr=UnaryExpression) | // needs . otherwise causes errors in xtext files
+({UnaryExpression} uop='return' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_SHARP expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON loc?='local')
+;
+
+/*
+*
+*/
+PrimaryExpression returns Expr:
+  (
+	Literal
+	| p?=KW_OPAREN m?=KW_MINUS? (t4=WhereExpression (KW_COMMA t5+=WhereExpression)*)?
+    (
+	b?=BEGIN
+		(s+=Statement NL)*
+	END NL
+	)? KW_CPAREN
+	|
+	c2?=KW_OCURLY BEGIN (s+=Statement NL)* END NL KW_CCURLY
+	|
+	c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV
+	
+  )
+  d=KW_2DOT? // for segment with no end part
+;
+
+/* Literals are actual values of a given type
+* Outstanding issues:
+* 1) Float literals are parsed as elt(Int,Int) so we need to recognise this
+* and convert to float literal
+* 2) We need to be able to recognise exponent notation for floats
+* 3) Integers without '-' prefix can be converted to PI or NNI
+* 4) need to add hex or octal notation for integers (0xhhhh)
+* 5) String and Character literals need to have backslash "\" doubled to
+* "\\" otherwise xtext will interpret backslash as an escape character.
+* 6) values following immediately after string literal such as "abc"d should
+* represent an implied concat: concat("abc",d)
+*/
+Literal:
+  // numeric literal
+  value=Numeric
+  // boolean literals
+| bool='true'
+| bool='false'
+  // null
+| nil='NIL'
+| nil='nil'
+  // other
+//| lst=ListLiteral
+//| lsp=LispLiteral
+| ListLiteral
+| LispLiteral
+| str=TK_STRING
+;
+
+/* use AT to ensure matches prime
+ * that is x '(y) should not be parsed as x' (y) */
+LispLiteral:
+  KW_AT? pr+=KW_PRIME+ sll=SubLispLiteral
+;
+
+SubLispLiteral:
+	name=TK_ID /* need to accept '%a */
+	|
+	/* allow keywords to be used in lisp literals */
+    key=('not' | 'and' | 'or' | 'for' | 'while' | 'where' | 'local' | 'package' | 'exquo' |
+    'true' | 'false' | 'is' | 'isnt' | 'repeat' |'until' | 'DEFPARAMETER' | 'DEFCONST'|
+    'DEFCONSTANT' | 'DEFVAR' |
+	'NIL' | 'nil')
+	|
+	m?=KW_MINUS? num=Numeric
+	|
+	NL? st=TK_STRING
+	|
+	( NL? oparen?=KW_OPAREN asl+=AnnotatedSubLispLiteral* KW_CPAREN)
+;
+
+AnnotatedSubLispLiteral:
+	p?=KW_PRIME? sl=SubLispLiteral d?=KW_DOT?
+;
+
+/*
+ * numeric literals int or float */
+Numeric hidden ():
+	(TK_INT (KW_2HAT TK_INT)*
+    =>(KW_DOT (TK_INT | TK_FLOAT))?
+    )
+;
+
+/*
+* a list literal may consist of:
+* [] an empty list
+* [a] a single element
+* [a,b] multiple elements
+* [a for b in c] a list comprehension
+* 
+* [] is translated to the empty list NIL
+* [a] is translated to the 1-list (LIST a) or (CONS a NIL)
+* [:a] is translated to a
+* [a,b] is translated to the 2-list (LIST a b) or (CONS a (CONS b NIL))
+* [:a,b] is translated to (APPEND a (CONS b NIL))
+* [a,:b] is translated to (CONS a b)
+* [:a,:b] is translated to (APPEND a b)
+* [:a,b,c] is translated to (APPEND a (CONS b (CONS c NIL)))
+* [a,:b,c] is translated to (CONS a (APPEND b (CONS c NIL)))
+* [a,b,:c] is translated to (CONS a (CONS b c))
+* 
+* ['attribute,: =$sig]
+*/
+ListLiteral:
+// may be empty list so ob ensures literal is created
+ob?= KW_OBRACK
+le+=ListElement?
+(KW_COMMA NL? le+=ListElement)*
+sl+=ListComprehension*
+KW_CBRACK
+;
+
+/* If part only works with Expression we need Block
+ * 'if' i1=Expression 'then' i2=Expression ('else' i3=Expression)? |
+ */
+ListElement:
+	(
+		(c?=KW_COLON? e?=KW_EQ)? l2=IfExpression |
+		c2?=KW_COLON? d?=KW_DOT
+	)
+;
+
+ListComprehension:
+  (sl1=('for'|'while'|'where'|KW_BAR) sl2=Expression
+  	|
+  	r?='repeat'
+  )
+;
+////////// start of lexer rules ///////////////
+
+/* ID consists of alpha (upper or lower case) followed by alphanumeric
+ * any other character can stand in for alpha if prefixed by '_'
+ * for instance a multiply FunctionDef is often named '_*'
+ * For Aldor % is also considered an ID, it means this representation.
+ * IDs can also end with ? or ! where:
+ * '?' indicates a FunctionDef which returns a boolean value
+ * '!' indicates a FunctionDef which changes an existing domain value
+ * (in a mutable domain)
+ * '$' is global variable
+ */
+terminal TK_ID : ('%'+ |'?' |'$'+ |'a'..'z'|'A'..'Z'|('_'.)) ('a'..'z'|'A'..'Z'|'?' |('_'.)|'0'..'9')* '!'? "'"?;
+
+/* whitespace on single line overrides default whitespace
+ * does not include newline unless it follows underscore.
+ * I would have liked to do this as follows:
+ * terminal WS : (' '|'\t'|'_'(('\r'|'\n')+))+;
+ * problem: unfortunately use of underscore in this way masks the use of underscore
+ * in ID. We therefore need to remove this type of underscore in a
+ * preprocessor
+ */
+terminal WS: (' '|'\t'|'\r'|'\n')+;
+
+/* overwriting TK_COMMENTS we do not want Java syntax (//) but boot syntax comments (--)
+ * This absorbs everything from '--' to the end of the line (but not
+ * including the newline or carriage return characters)
+ */
+
+terminal TK_COMMENT :
+  ('--' | '++') !('\n'|'\r')* ;
+
+/* string literals are enclosed in double quotes
+ * escapes:
+ * _" is "
+ * __ is _
+ */
+terminal TK_STRING :
+//'"' (('_' '"')| !('"') )* '"'
+'"'
+(('_' .)| !('"'|'_') )*
+'"'
+;
+
+/*
+ * Integer Literal
+ */
+terminal TK_INT : ('0'..'9')+;
+
+/*
+ * Floating Point Literal
+ * This must be defined after: integer literal, otherwise integers will be hidden.
+ * 
+ * For a discussion about how to implement floats see this page:
+ * http://www.euclideanspace.com/software/development/eclipse/xtext/grammar/lexer/index.htm#float
+ */
+terminal TK_FLOAT:
+TK_INT ('e' | 'E') ('+' | '-')? TK_INT;
+
+/* .. 2Dot or seg
+* 
+*/
+terminal KW_2DOT: '..';
+/* .
+ * must be before NUMERIC
+ */
+terminal KW_DOT: '.';
+
+/*
+ * this will not work because it matches to segments such as: 0..
+ * This is because lexer can't backtrack
+terminal NUMERIC:
+	('0'..'9')+ ('^^' ('0'..'9')+)* ('.' ('0'..'9')+ (('e' | 'E') ('+' | '-')? ('0'..'9')+ )? )?
+;
+*/
+
+/* '
+*/
+terminal KW_QUOTE: '"';
+
+terminal KW_PRIME: "'";
+/* (
+*/
+terminal KW_OPAREN: '(';
+/* )
+*/
+terminal KW_CPAREN: ')';
+/* {
+*/
+terminal KW_OCURLY: '{';
+terminal KW_OCURLY2: '{{';
+terminal KW_OCHEV: '<<<';
+/* }
+*/
+terminal KW_CCURLY: '}';
+terminal KW_CCURLY2: '}}';
+terminal KW_CCHEV: '>>>';
+/* [
+*/
+terminal KW_OBRACK: '[';
+/* ]
+*/
+terminal KW_CBRACK: ']';
+
+/* = Function definition
+*/
+terminal KW_EQ2: '==';
+// operators
+/* ==> MDEF or MARROW
+*/
+terminal KW_MARROW: '==>';
+/* |
+*/
+terminal KW_BAR: '|';
+/* :
+*/
+terminal KW_COLON: ':';
+/* @
+*/
+terminal KW_AT: '@';
+/* ,
+ */
+terminal KW_COMMA: ',';
+/* ;
+*/
+terminal KW_SEMICOLON: ';';
+/* * times or star
+*/
+terminal KW_STAR: '*';
+/* + plus
+*/
+terminal KW_PLUS: '+';
+/* -
+*/
+//terminal KW_UMINUS: '!-';
+
+terminal KW_MINUS: '-';
+
+/* <
+*/
+terminal KW_LT: '<';
+/* > */
+terminal KW_GT: '>';
+/* <= */
+terminal KW_LE: '<=';
+/* >= */
+terminal KW_GE: '>=';
+/* = equal
+*/
+terminal KW_EQ: '=';
+/* ~= not-equal or tilde-equal
+ */
+terminal KW_TILDEE: '~=';
+/* ^= hat-equal
+*/
+terminal KW_HATE: '^=';
+/* ~
+*/
+terminal KW_TILDE: '~';
+/* ^ hat or carat
+*/
+terminal KW_2HAT: '^^';
+/* ^ hat or carat
+*/
+terminal KW_HAT: '^';
+/* # Hash or Sharp
+*/
+terminal KW_SHARP: '#';
+/* &
+*/
+terminal KW_AMPERSAND: '&';
+/* $ for boot code $ is part of ID
+*/
+//terminal KW_DOLLAR: '$';
+/* /
+*/
+terminal KW_SLASH: '/';
+/*
+ */
+/* '=>' implies or exit
+*/
+terminal KW_EXIT: '=>';
+/* := Assign or Becomes
+*/
+terminal KW_ASSIGN: ':=';
+/* -> right-arrow
+*/
+terminal KW_RARROW: '->';
+terminal KW_LARROW: '<-';
+/* +-> gives or maps-to
+*/
+terminal KW_MAPSTO: '+->';
+/* +->*
+*/
+
+// The following synthetic tokens are used for the indentation-aware blocks
+terminal BEGIN: 'synthetic:BEGIN';  // increase indentation
+terminal END: 'synthetic:END';      // decrease indentation
+terminal NL: 'synthetic:NL';      // same indentation
+
+terminal ANY_OTHER: .;
+
+////////// end of lexer rules ///////////////
