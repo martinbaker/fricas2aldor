@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="CyclotomicPolynomialPackage" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="cyclotomicDecomposition" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="cyclotomic" />
+<list>
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="cyclotomicFactorization" />
+<list>
+<list>
+<leaf symbol="Factored" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cyclotomic" />
+<leaf symbol="n" />
+</list>
+<list>
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol="LISTOF" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+<leaf symbol="z" />
+<leaf symbol="l" />
+</list>
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="g" />
+<list>
+<leaf symbol="factors" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="IntegerFactorizationPackage" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<leaf symbol="factor" />
+</list>
+<leaf symbol="n" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="u" />
+<leaf symbol="g" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<list>
+<leaf symbol="monicDivide" />
+<list>
+<leaf symbol="multiplyExponents" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="factor" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<leaf symbol="l" />
+</list>
+<leaf symbol="quotient" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16046764" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&gt;" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16046764" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="multiplyExponents" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="^" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="factor" />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cyclotomicDecomposition" />
+<leaf symbol="n" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol="LISTOF" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+<leaf symbol="z" />
+</list>
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol="LISTOF" />
+<leaf symbol="l" />
+<leaf symbol="ll" />
+<leaf symbol="m" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="rr" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="g" />
+<list>
+<leaf symbol="factors" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="IntegerFactorizationPackage" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<leaf symbol="factor" />
+</list>
+<leaf symbol="n" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="u" />
+<leaf symbol="g" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="z" />
+<leaf symbol="l" />
+</list>
+<list>
+<list>
+<leaf symbol="monicDivide" />
+<list>
+<leaf symbol="multiplyExponents" />
+<leaf symbol="z" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="factor" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<leaf symbol="z" />
+</list>
+<leaf symbol="quotient" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="rr" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="append" />
+<leaf symbol="l" />
+<leaf symbol="m" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="z" />
+<leaf symbol="m" />
+</list>
+<list>
+<leaf symbol="multiplyExponents" />
+<leaf symbol="z" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="u" />
+<leaf symbol="factor" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="append" />
+<leaf symbol="l" />
+<leaf symbol="m" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cyclotomicFactorization" />
+<leaf symbol="n" />
+</list>
+<list>
+<list>
+<leaf symbol="Factored" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="f" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="fr" />
+<list>
+<leaf symbol="Factored" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Factored" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="f" />
+<list>
+<leaf symbol="cyclotomicDecomposition" />
+<leaf symbol="n" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="fr" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="fr" />
+<list>
+<leaf symbol="primeFactor" />
+<leaf symbol="f" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="fr" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

@@ -1,0 +1,859 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Export3D" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="writeObj" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="SubSpace" />
+<leaf int="3" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="faceIndex" />
+<leaf symbol="subSp" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol="SubSpace" />
+<leaf int="3" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="faceIndexList" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="poly" />
+<list>
+<leaf symbol="children" />
+<leaf symbol="subSp" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="faceIndexList" />
+<list>
+<leaf symbol="cons" />
+<list>
+<leaf symbol="extractIndex" />
+<leaf symbol="poly" />
+</list>
+<leaf symbol="faceIndexList" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="reverse" />
+<leaf symbol="faceIndexList" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="writePolygon" />
+<leaf symbol="f1" />
+<leaf symbol="curves" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="TextFile" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="SubSpace" />
+<leaf int="3" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="faceIndexList" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="curve" />
+<leaf symbol="curves" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="faceIndexList" />
+<list>
+<leaf symbol="append" />
+<leaf symbol="faceIndexList" />
+<list>
+<leaf symbol="faceIndex" />
+<leaf symbol="curve" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="f " />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<leaf symbol="faceIndexList" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="concat" />
+</list>
+<leaf symbol="s" />
+<list>
+<leaf symbol="string" />
+<leaf symbol="i" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="concat" />
+</list>
+<leaf symbol="s" />
+<leaf string=" " />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="writeLine!" />
+<leaf symbol="f1" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="writeMesh" />
+<leaf symbol="f1" />
+<leaf symbol="curves" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="TextFile" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="SubSpace" />
+<leaf int="3" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="curve" />
+<leaf symbol="curves" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="cons" />
+<list>
+<leaf symbol="faceIndex" />
+<leaf symbol="curve" />
+</list>
+<leaf symbol="meshIndexArray" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="reverse" />
+<leaf symbol="meshIndexArray" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="rowLength" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="meshIndexArray" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="colLength" />
+<list>
+<leaf symbol="#" />
+<list>
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="-" />
+<leaf symbol="rowLength" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="-" />
+<leaf symbol="colLength" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf string="f " />
+<list>
+<leaf symbol="string" />
+<list>
+<list>
+<leaf symbol="meshIndexArray" />
+<leaf symbol="i" />
+</list>
+<leaf symbol="j" />
+</list>
+</list>
+<leaf string=" " />
+<list>
+<leaf symbol="string" />
+<list>
+<list>
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<leaf symbol="j" />
+</list>
+</list>
+<leaf string=" " />
+<list>
+<leaf symbol="string" />
+<list>
+<list>
+<leaf symbol="meshIndexArray" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<leaf string=" " />
+<list>
+<leaf symbol="string" />
+<list>
+<list>
+<leaf symbol="meshIndexArray" />
+<leaf symbol="i" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="writeLine!" />
+<leaf symbol="f1" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="toString" />
+<leaf symbol="d" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="unparse" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<leaf symbol="d" />
+</list>
+<list>
+<leaf symbol="InputForm" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="writeObj" />
+<leaf symbol="subSp" />
+<leaf symbol="filename" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="SubSpace" />
+<leaf int="3" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="f1" />
+<list>
+<leaf symbol="TextFile" />
+</list>
+</list>
+<list>
+<leaf symbol="open" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="filename" />
+<list>
+<leaf symbol="FileName" />
+</list>
+</list>
+<leaf string="output" />
+</list>
+</list>
+<list>
+<leaf symbol="writeLine!" />
+<leaf symbol="f1" />
+<leaf string="# mesh generated by axiom" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="verts" />
+<list>
+<leaf symbol="pointData" />
+<leaf symbol="subSp" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="v" />
+<leaf symbol="verts" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16871437" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="v" />
+</list>
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16871437" />
+<list>
+<leaf symbol="error" />
+<leaf string="Can't write OBJ file from 2D points" />
+</list>
+<list>
+<leaf symbol="writeLine!" />
+<leaf symbol="f1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="concat" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="v " />
+<list>
+<leaf symbol="toString" />
+<list>
+<leaf symbol="v" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<leaf string=" " />
+<list>
+<leaf symbol="toString" />
+<list>
+<leaf symbol="v" />
+<leaf int="2" />
+</list>
+</list>
+<leaf string=" " />
+<list>
+<leaf symbol="toString" />
+<list>
+<leaf symbol="v" />
+<leaf int="3" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="component" />
+<list>
+<leaf symbol="children" />
+<leaf symbol="subSp" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="curves" />
+<list>
+<leaf symbol="children" />
+<leaf symbol="component" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16871438" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="curves" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16871438" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sayBrightly" />
+</list>
+<leaf string="Can't write point or curve to OBJ file" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16871441" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&gt;" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="curves" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16871441" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16871439" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="numberOfChildren" />
+<list>
+<leaf symbol="curves" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16871439" />
+<list>
+<leaf symbol="writePolygon" />
+<leaf symbol="f1" />
+<leaf symbol="curves" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G16871440" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&gt;" />
+<list>
+<leaf symbol="numberOfChildren" />
+<list>
+<leaf symbol="curves" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G16871440" />
+<list>
+<leaf symbol="writeMesh" />
+<leaf symbol="f1" />
+<leaf symbol="curves" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="close!" />
+<leaf symbol="f1" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

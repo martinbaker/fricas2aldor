@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ParadoxicalCombinatorsForStreams" />
+<leaf symbol="A" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="Y" />
+<list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="Y" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="UninitializedStream" />
+<leaf symbol="S" />
+</list>
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$UninitializedStream" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Y" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="y" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="CONS" />
+</list>
+<leaf symbol="UninitializedStream" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="f" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="RPLACA" />
+</list>
+<leaf symbol="y" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="j" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="RPLACD" />
+</list>
+<leaf symbol="y" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="j" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Y" />
+<leaf symbol="g" />
+<leaf symbol="n" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="A" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="n" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="CONS" />
+</list>
+<leaf symbol="UninitializedStream" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="xi" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="ji" />
+<leaf symbol="j" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="RPLACA" />
+</list>
+<leaf symbol="xi" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="ji" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="RPLACD" />
+</list>
+<leaf symbol="xi" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="ji" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

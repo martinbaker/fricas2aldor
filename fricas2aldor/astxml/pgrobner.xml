@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="PolyGroebner" />
+<leaf symbol="F" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="lexGroebner" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="totalGroebner" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="GcdDomain" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="lexGroebner" />
+<leaf symbol="lp" />
+<leaf symbol="lv" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="PP" />
+<list>
+<leaf symbol="PolToPol" />
+<leaf symbol="lv" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="DPoly" />
+<list>
+<leaf symbol="DistributedMultivariatePolynomial" />
+<leaf symbol="lv" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="DP" />
+<list>
+<leaf symbol="DirectProduct" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="lv" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="OV" />
+<list>
+<leaf symbol="OrderedVariableList" />
+<leaf symbol="lv" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="b" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="DPoly" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pol" />
+<leaf symbol="lp" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PP" />
+<leaf symbol="pToDmp" />
+</list>
+<leaf symbol="pol" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="gb" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="DPoly" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="GroebnerPackage" />
+<leaf symbol="F" />
+<leaf symbol="DP" />
+<leaf symbol="OV" />
+<leaf symbol="DPoly" />
+</list>
+<leaf symbol="groebner" />
+</list>
+<leaf symbol="b" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pp" />
+<leaf symbol="gb" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PP" />
+<leaf symbol="dmpToP" />
+</list>
+<leaf symbol="pp" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="totalGroebner" />
+<leaf symbol="lp" />
+<leaf symbol="lv" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Polynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="PP" />
+<list>
+<leaf symbol="PolToPol" />
+<leaf symbol="lv" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="HDPoly" />
+<list>
+<leaf symbol="HomogeneousDistributedMultivariatePolynomial" />
+<leaf symbol="lv" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="HDP" />
+<list>
+<leaf symbol="HomogeneousDirectProduct" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="lv" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="OV" />
+<list>
+<leaf symbol="OrderedVariableList" />
+<leaf symbol="lv" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="b" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="HDPoly" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pol" />
+<leaf symbol="lp" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PP" />
+<leaf symbol="pToHdmp" />
+</list>
+<leaf symbol="pol" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="gb" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="GroebnerPackage" />
+<leaf symbol="F" />
+<leaf symbol="HDP" />
+<leaf symbol="OV" />
+<leaf symbol="HDPoly" />
+</list>
+<leaf symbol="groebner" />
+</list>
+<leaf symbol="b" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pp" />
+<leaf symbol="gb" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PP" />
+<leaf symbol="hdmpToP" />
+</list>
+<leaf symbol="pp" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

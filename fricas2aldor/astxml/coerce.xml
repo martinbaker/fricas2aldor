@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="RetractableFrom" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="add" />
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="S" />
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retractIfCan" />
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="$" />
+<leaf string="failed" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retract" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="S" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="retract" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="u" />
+<list>
+<leaf symbol="retractIfCan" />
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="u" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="not retractable" />
+</list>
+<leaf symbol="u" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="RetractableTo" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="add" />
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retractIfCan" />
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="S" />
+<leaf string="failed" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retract" />
+<list>
+<leaf symbol="S" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="retract" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="u" />
+<list>
+<leaf symbol="retractIfCan" />
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="u" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="not retractable" />
+</list>
+<leaf symbol="u" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ConvertibleFrom" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="convert" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="S" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ConvertibleTo" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="convert" />
+<list>
+<leaf symbol="S" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="CoercibleFrom" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="S" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="CoercibleTo" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="S" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Type" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+</list>
+</list>
+</func>
+</file>

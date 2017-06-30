@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ResolveLatticeCompletion" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="S" />
+<list>
+<leaf symbol="Exit" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="S" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="void" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="e" />
+</list>
+<list>
+<leaf symbol="S" />
+<list>
+<leaf symbol="Exit" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Bug: Should not be able to obtain value of type Exit" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="n" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Cannot use an Exit value." />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="n1" />
+<leaf symbol="n2" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Cannot use an Exit value." />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="void" />
+<list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="void" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="voidValue" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="v" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="coerce" />
+</list>
+<list>
+<leaf symbol="void" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="Any" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retractIfCan" />
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="S" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retractable?" />
+<list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="retract" />
+<list>
+<leaf symbol="S" />
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="NoneFunctions1" />
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="Sexpr" />
+<list>
+<leaf symbol="SExpression" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="devaluate" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="retractable?" />
+<leaf symbol="a" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="dom" />
+<leaf symbol="a" />
+</list>
+<leaf symbol="Sexpr" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="Any" />
+</list>
+<leaf symbol="S" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="any" />
+<leaf symbol="Sexpr" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="retractIfCan" />
+<leaf symbol="a" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343977" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="retractable?" />
+<leaf symbol="a" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343977" />
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="obj" />
+<leaf symbol="a" />
+</list>
+<leaf symbol="S" />
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="retract" />
+<leaf symbol="a" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343978" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="retractable?" />
+<leaf symbol="a" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343978" />
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="obj" />
+<leaf symbol="a" />
+</list>
+<leaf symbol="S" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Cannot retract value." />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Any" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="any" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="SExpression" />
+</list>
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="domainOf" />
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="objectOf" />
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="dom" />
+<list>
+<list>
+<leaf symbol="SExpression" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="obj" />
+<list>
+<list>
+<leaf symbol="None" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="showTypeInOutput" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="dm" />
+<list>
+<leaf symbol="SExpression" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="ob" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="printTypeInOutputP" />
+<list>
+<leaf symbol="Reference" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="ref" />
+<leaf symbol="false" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="obj" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="ob" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="dom" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="dm" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="domainOf" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="typeToOutputForm" />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="dm" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dx" />
+<list>
+<leaf symbol="dom" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dy" />
+<list>
+<leaf symbol="dom" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343944" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<leaf symbol="dx" />
+<leaf symbol="dy" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343944" />
+<leaf symbol="false" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="Dx" />
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="evalType" />
+</list>
+<leaf symbol="dx" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Dx" />
+<list>
+<leaf symbol="BasicType" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="obj" />
+<leaf symbol="x" />
+</list>
+<leaf symbol="Dx" />
+</list>
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="obj" />
+<leaf symbol="y" />
+</list>
+<leaf symbol="Dx" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="EQ" />
+</list>
+<list>
+<leaf symbol="obj" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="obj" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="objectOf" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="spad2BootCoerce" />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="ob" />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="dm" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<leaf symbol="list" />
+</list>
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="showTypeInOutput" />
+<leaf symbol="b" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="printTypeInOutputP" />
+<list>
+<leaf symbol="ref" />
+<leaf symbol="b" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="b" />
+<leaf string="Type of object will be displayed in output of a member of Any" />
+<leaf string="Type of object will not be displayed in output of a member of Any" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="obj1" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<list>
+<leaf symbol="objectOf" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343945" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="deref" />
+<leaf symbol="printTypeInOutputP" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343945" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<leaf symbol="obj1" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dom1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="SExpression" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="prefix2String" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="devaluate" />
+</list>
+<list>
+<leaf symbol="x" />
+<leaf symbol="dm" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343946" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="atom?" />
+<leaf symbol="p" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343946" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<leaf symbol="list" />
+</list>
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="hconcat" />
+<list>
+<leaf symbol="cons" />
+<leaf symbol="obj1" />
+<list>
+<leaf symbol="cons" />
+<list>
+<leaf symbol="message" />
+<leaf string=":" />
+</list>
+<leaf symbol="dom1" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="any" />
+<leaf symbol="domain" />
+<leaf symbol="object" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343947" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="isValidType" />
+</list>
+<leaf symbol="domain" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343947" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="domain" />
+<leaf symbol="object" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="domain" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="devaluate" />
+</list>
+<leaf symbol="domain" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G15343948" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="isValidType" />
+</list>
+<leaf symbol="domain" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G15343948" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="domain" />
+<leaf symbol="object" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="function any must have a domain as first argument" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="NoneFunctions1" />
+<leaf symbol="S" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="None" />
+</list>
+<leaf symbol="S" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="None" />
+</list>
+<leaf symbol="S" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="None" />
+</list>
+<list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="none" />
+</list>
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="message" />
+<leaf string="NONE" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="EQ" />
+</list>
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="PlotTools" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="calcRanges" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="GraphicsDefaults" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Plot" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="TwoDimensionalPlotClipping" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="DrawOptionFunctions0" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="ViewportPackage" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<leaf symbol="POINT" />
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="PointPackage" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="xRange0" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="xRange" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="yRange0" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="yRange" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="drawToScaleRanges" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="drawToScaleRanges" />
+<leaf symbol="xVals" />
+<leaf symbol="yVals" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xDiff" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xHi" />
+<list>
+<leaf symbol="high" />
+<leaf symbol="xVals" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xLo" />
+<list>
+<leaf symbol="low" />
+<leaf symbol="xVals" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yDiff" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yHi" />
+<list>
+<leaf symbol="high" />
+<leaf symbol="yVals" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yLo" />
+<list>
+<leaf symbol="low" />
+<leaf symbol="yVals" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="pad" />
+<list>
+<leaf symbol="/" />
+<list>
+<leaf symbol="abs" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="yDiff" />
+<leaf symbol="xDiff" />
+</list>
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="yDiff" />
+<leaf symbol="xDiff" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="xLo" />
+<leaf symbol="pad" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="xHi" />
+<leaf symbol="pad" />
+</list>
+</list>
+<leaf symbol="yVals" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="xVals" />
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="yLo" />
+<leaf symbol="pad" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="yHi" />
+<leaf symbol="pad" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="select" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="select" />
+<leaf symbol="l" />
+<leaf symbol="f" />
+<leaf symbol="g" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="f" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="rest" />
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="f" />
+<leaf symbol="p" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="m" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="xRange0" />
+<leaf symbol="list" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="select" />
+<leaf symbol="list" />
+<leaf symbol="xCoord" />
+<leaf symbol="min" />
+</list>
+<list>
+<leaf symbol="select" />
+<leaf symbol="list" />
+<leaf symbol="xCoord" />
+<leaf symbol="max" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="yRange0" />
+<leaf symbol="list" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="select" />
+<leaf symbol="list" />
+<leaf symbol="yCoord" />
+<leaf symbol="min" />
+</list>
+<list>
+<leaf symbol="select" />
+<leaf symbol="list" />
+<leaf symbol="yCoord" />
+<leaf symbol="max" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="select2" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="select2" />
+<leaf symbol="l" />
+<leaf symbol="f" />
+<leaf symbol="g" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="f" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="rest" />
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="f" />
+<leaf symbol="p" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="m" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="xRange" />
+<leaf symbol="list" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="select2" />
+<leaf symbol="list" />
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="u1" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="xRange0" />
+<leaf symbol="u1" />
+</list>
+</list>
+</list>
+<leaf symbol="min" />
+</list>
+<list>
+<leaf symbol="select2" />
+<leaf symbol="list" />
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="v1" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="xRange0" />
+<leaf symbol="v1" />
+</list>
+</list>
+</list>
+<leaf symbol="max" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="yRange" />
+<leaf symbol="list" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="select2" />
+<leaf symbol="list" />
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="u1" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="yRange0" />
+<leaf symbol="u1" />
+</list>
+</list>
+</list>
+<leaf symbol="min" />
+</list>
+<list>
+<leaf symbol="select2" />
+<leaf symbol="list" />
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="v1" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="yRange0" />
+<leaf symbol="v1" />
+</list>
+</list>
+</list>
+<leaf symbol="max" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="calcRanges" />
+<leaf symbol="llp" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="drawToScale" />
+</list>
+<list>
+<leaf symbol="drawToScaleRanges" />
+<list>
+<leaf symbol="xRange" />
+<leaf symbol="llp" />
+</list>
+<list>
+<leaf symbol="yRange" />
+<leaf symbol="llp" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="xRange" />
+<leaf symbol="llp" />
+</list>
+<list>
+<leaf symbol="yRange" />
+<leaf symbol="llp" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

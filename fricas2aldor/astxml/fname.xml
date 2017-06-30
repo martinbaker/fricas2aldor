@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="FileName" />
+</list>
+<list>
+<list>
+<leaf symbol="FileNameCategory" />
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="f1" />
+<leaf symbol="f2" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="EQUAL" />
+</list>
+<leaf symbol="f1" />
+<leaf symbol="f2" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="f" />
+</list>
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="f" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="f" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="NAMESTRING" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="s" />
+</list>
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="PARSE-NAMESTRING" />
+</list>
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="filename" />
+<leaf symbol="d" />
+<leaf symbol="n" />
+<leaf symbol="e" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameMake" />
+</list>
+<leaf symbol="d" />
+<leaf symbol="n" />
+<leaf symbol="e" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="directory" />
+<leaf symbol="f" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameDirectory" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="name" />
+<leaf symbol="f" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameName" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="extension" />
+<leaf symbol="f" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameType" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="exists?" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameExists?" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="readable?" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameReadable?" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="writable?" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameWritable?" />
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="new" />
+<leaf symbol="d" />
+<leaf symbol="pref" />
+<leaf symbol="e" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="fnameNew" />
+</list>
+<leaf symbol="d" />
+<leaf symbol="pref" />
+<leaf symbol="e" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="FileNameCategory" />
+</list>
+<list>
+<list>
+<leaf symbol="Category" />
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="filename" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="directory" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="name" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="extension" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="exists?" />
+<list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="readable?" />
+<list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="writable?" />
+<list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="new" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

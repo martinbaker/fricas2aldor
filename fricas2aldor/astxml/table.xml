@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="SparseTable" />
+<leaf symbol="Key" />
+<leaf symbol="Ent" />
+<leaf symbol="dent" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="BasicType" />
+</list>
+<leaf symbol="Ent" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="GeneralSparseTable" />
+<leaf symbol="Key" />
+<leaf symbol="Ent" />
+<list>
+<leaf symbol="Table" />
+<leaf symbol="Key" />
+<leaf symbol="Ent" />
+</list>
+<leaf symbol="dent" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="GeneralSparseTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<leaf symbol="Tbl" />
+<leaf symbol="dent" />
+</list>
+<list>
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="BasicType" />
+</list>
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<leaf symbol="Entry" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="add" />
+<leaf symbol="Tbl" />
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<leaf symbol="Tbl" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="elt" />
+<leaf symbol="t" />
+<leaf symbol="k" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="Key" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="u" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="search" />
+</list>
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="u" />
+<leaf string="failed" />
+</list>
+<leaf symbol="dent" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="u" />
+<leaf symbol="Entry" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="setelt!" />
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="e" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="e" />
+<leaf symbol="dent" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="remove!" />
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="e" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="setelt!" />
+</list>
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="e" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="search" />
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+<list>
+<list />
+<leaf symbol="Key" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="u" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="search" />
+</list>
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="u" />
+<leaf string="failed" />
+</list>
+<leaf symbol="dent" />
+<leaf symbol="u" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="StringTable" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="HashTable" />
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="Entry" />
+<leaf string="CVEC" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="EqTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="HashTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<leaf string="EQ" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Table" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<leaf symbol="finiteAggregate" />
+</list>
+</list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="InnerTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G32651647" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="hashable" />
+</list>
+<leaf symbol="Key" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G32651647" />
+<list>
+<leaf symbol="HashTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<leaf string="UEQUAL" />
+</list>
+<list>
+<leaf symbol="AssociationList" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="InnerTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<leaf symbol="addDom" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<leaf symbol="finiteAggregate" />
+</list>
+</list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<leaf symbol="finiteAggregate" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<leaf symbol="addDom" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="HashTable" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+<leaf symbol="hashfn" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="TableAggregate" />
+<leaf symbol="Key" />
+<leaf symbol="Entry" />
+</list>
+<list>
+<leaf symbol="finiteAggregate" />
+</list>
+</list>
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="Type" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="Pair" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="key" />
+<leaf symbol="Key" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="entry" />
+<leaf symbol="Entry" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="Ex" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="failMsg" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="GENSYM" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="keys" />
+<leaf symbol="t" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HKEYS" />
+</list>
+<leaf symbol="t" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="t" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HCOUNT" />
+</list>
+<leaf symbol="t" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="setelt!" />
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="e" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HPUT" />
+</list>
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="e" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="remove!" />
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+<list>
+<list />
+<leaf symbol="Key" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="r" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HGET2" />
+</list>
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="failMsg" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G32650997" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="EQ" />
+</list>
+<leaf symbol="r" />
+<leaf symbol="failMsg" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G32650997" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HREM" />
+</list>
+<leaf symbol="t" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="r" />
+<leaf symbol="Entry" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf string="failed" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="empty" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="MAKE-HASHTABLE" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="INTERN" />
+</list>
+<leaf symbol="hashfn" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="search" />
+<leaf symbol="k" />
+<leaf symbol="t" />
+</list>
+<list>
+<list />
+<leaf symbol="Key" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="r" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="HGET2" />
+</list>
+<leaf symbol="t" />
+<leaf symbol="k" />
+<leaf symbol="failMsg" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G32650998" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="EQ" />
+</list>
+<leaf symbol="r" />
+<leaf symbol="failMsg" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G32650998" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="r" />
+<leaf symbol="Entry" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

@@ -1,0 +1,7841 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="GeneralizedUnivariatePowerSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="UnivariatePowerSeriesCategory" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="infsum" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="removeZeros" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Field" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="AbelianGroup" />
+</list>
+</list>
+<list>
+<leaf symbol="ATTRIBUTE" />
+<list>
+<leaf symbol="Field" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="ATTRIBUTE" />
+<list>
+<leaf symbol="TranscendentalFunctionCategory" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Ring" />
+</list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="OrderedAbelianMonoid" />
+</list>
+<list>
+<leaf symbol="SemiRing" />
+</list>
+</list>
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf symbol="Coef" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="Term" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="k" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="c" />
+<leaf symbol="Coef" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Term" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="terms" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="x" />
+<leaf symbol="Rep" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="center" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<leaf symbol="cen" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="variable" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<leaf symbol="var" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="pole?" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704307" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704307" />
+<leaf symbol="false" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="reductum" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704308" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704308" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="characteristic" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Coef" />
+<leaf symbol="characteristic" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="monomial" />
+<leaf symbol="ci" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="ki" />
+<leaf symbol="ci" />
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="OUT" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="termOutput" />
+<leaf symbol="ki" />
+<leaf symbol="ci" />
+<leaf symbol="vv" />
+</list>
+<list>
+<leaf symbol="OUT" />
+<leaf symbol="Expon" />
+<leaf symbol="Coef" />
+<leaf symbol="OUT" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="ki" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="ci" />
+<leaf symbol="OUT" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="mon" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="ki" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="vv" />
+<list>
+<leaf symbol="^" />
+<leaf symbol="vv" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="ki" />
+<leaf symbol="OUT" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="ci" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="mon" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704309" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="ci" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704309" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="mon" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="ci" />
+<leaf symbol="OUT" />
+</list>
+<leaf symbol="mon" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="OUT" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704310" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704310" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<leaf symbol="OUT" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="vv" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704311" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="zero?" />
+<leaf symbol="cen" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704311" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="var" />
+<leaf symbol="OUT" />
+</list>
+<list>
+<leaf symbol="paren" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="var" />
+<leaf symbol="OUT" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="cen" />
+<leaf symbol="OUT" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="count" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$streamCount" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="OUT" />
+</list>
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="ti" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf symbol="count" />
+</list>
+</list>
+<list>
+<leaf symbol="WHILE" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704312" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704312" />
+<leaf symbol="false" />
+<leaf symbol="true" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ti" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704313" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704313" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="termOutput" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+<leaf symbol="vv" />
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704314" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="explicitlyEmpty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704314" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="prefix" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="OUT" />
+<leaf symbol="message" />
+</list>
+<leaf string="o" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="^" />
+<leaf symbol="vv" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="OUT" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704315" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704315" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<leaf symbol="OUT" />
+</list>
+<list>
+<leaf symbol="reduce" />
+<leaf string="+" />
+<list>
+<leaf symbol="reverse!" />
+<leaf symbol="l" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Expon" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704316" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704316" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="map" />
+<leaf symbol="fn" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Mapping" />
+<leaf symbol="Coef" />
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="map" />
+</list>
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ti" />
+<leaf symbol="Term" />
+</list>
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="fn" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="c1" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<leaf symbol="Coef" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="map" />
+</list>
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ti" />
+<leaf symbol="Term" />
+</list>
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+<leaf symbol="c1" />
+</list>
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="multiplyExponents" />
+<leaf symbol="x" />
+<leaf symbol="n" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="map" />
+</list>
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ti" />
+<leaf symbol="Term" />
+</list>
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+</list>
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="map" />
+</list>
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ti" />
+<leaf symbol="Term" />
+</list>
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="ti" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704317" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704317" />
+<leaf symbol="y" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704318" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704318" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="tx" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ty" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704319" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704319" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704320" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704320" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704321" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704321" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="y" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704322" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704322" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="tx" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ty" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704323" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704323" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704324" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704324" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704325" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704325" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704326" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704326" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ty" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="CancellationAbelianMonoid" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="exquo1" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+<leaf symbol="cyinv" />
+<leaf symbol="ky" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704327" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704327" />
+<list>
+<leaf symbol="empty" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="tx" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dkiu" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Expon" />
+<leaf symbol="subtractIfCan" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="ky" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="dkiu" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="cannot subtract exponents" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dki" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="dkiu" />
+<leaf symbol="Expon" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ci" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="cyinv" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="dki" />
+<leaf symbol="ci" />
+</list>
+<list>
+<leaf symbol="exquo1" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="monomial" />
+<leaf symbol="ci" />
+<leaf symbol="dki" />
+</list>
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+<leaf symbol="y" />
+<leaf symbol="cyinv" />
+<leaf symbol="ky" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="exquo2" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="$" />
+<leaf string="failed" />
+</list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ty" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="n" />
+<leaf int="1000" />
+</list>
+<list>
+<leaf symbol="return" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704328" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704328" />
+<list>
+<leaf symbol="return" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ty" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704329" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704329" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="y" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="y" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ky" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="k" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="cyinv" />
+<list>
+<leaf symbol="recip" />
+<list>
+<leaf symbol="ty" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="cyinv" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="n" />
+<leaf int="1000" />
+</list>
+<list>
+<leaf symbol="return" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704330" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704330" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704331" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="case" />
+<list>
+<leaf symbol="subtractIfCan" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="ky" />
+</list>
+<leaf symbol="Expon" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704331" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704332" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704332" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="exquo1" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="cyinv" />
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="ky" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="exquo" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="exquo2" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="recip" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="$" />
+<leaf string="failed" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="exquo2" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Field" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="AbelianGroup" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="/" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="resu" />
+<list>
+<leaf symbol="exquo" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="resu" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="division by possibly zero series" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="resu" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="infsum1" />
+<leaf symbol="stx" />
+<leaf symbol="k1" />
+<leaf symbol="c1" />
+</list>
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="$" />
+</list>
+<leaf symbol="Expon" />
+<leaf symbol="Coef" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704333" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704333" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="k1" />
+<leaf symbol="c1" />
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="stx1" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704334" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704334" />
+<list>
+<leaf symbol="infsum1" />
+<leaf symbol="stx1" />
+<leaf symbol="k1" />
+<leaf symbol="c1" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="t1" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704335" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="k1" />
+<list>
+<leaf symbol="t1" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704335" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="k1" />
+<leaf symbol="c1" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="infsum1" />
+<leaf symbol="stx1" />
+<list>
+<leaf symbol="t1" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="t1" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704336" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="t1" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="k1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704336" />
+<list>
+<leaf symbol="error" />
+<leaf string="infsum: degrees not monotone" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="infsum1" />
+<leaf symbol="stx1" />
+<leaf symbol="k1" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="t1" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="infsum" />
+<leaf symbol="stx" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704337" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704337" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704338" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704338" />
+<list>
+<leaf symbol="infsum" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="stx" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="t1" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="x1" />
+</list>
+<list>
+<leaf symbol="infsum1" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="stx" />
+</list>
+<list>
+<leaf symbol="t1" />
+<leaf symbol="k" />
+</list>
+<list>
+<leaf symbol="t1" />
+<leaf symbol="c" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="apply_taylor1" />
+<leaf symbol="stc" />
+<leaf symbol="x" />
+<leaf symbol="xn" />
+</list>
+<list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="$" />
+</list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704339" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="stc" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704339" />
+<list>
+<leaf symbol="empty" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="stc" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="c1" />
+<leaf symbol="xn" />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="stc" />
+</list>
+<leaf symbol="x" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="x" />
+<leaf symbol="xn" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="tx" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704340" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704340" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="xs" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704341" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="ki" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704341" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704342" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704342" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="apply_taylor" />
+<leaf symbol="stc" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="tx" />
+<leaf symbol="Term" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704343" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704343" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704344" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704344" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704345" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704345" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704347" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704347" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704346" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="stc" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704346" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="frst" />
+<leaf symbol="stc" />
+</list>
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704348" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704348" />
+<list>
+<leaf symbol="infsum" />
+<list>
+<leaf symbol="apply_taylor1" />
+<leaf symbol="stc" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="apply_taylor: x does not have positive order" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="st" />
+<leaf symbol="Rep" />
+</list>
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$streamCount" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf symbol="n" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704349" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="st" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704349" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tst" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="st" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704350" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tst" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704350" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="false" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="st" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="st" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="st" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="order" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="Expon" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704351" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704351" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704352" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="ki" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704352" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="ki" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704353" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704353" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="order" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Expon" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704354" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704354" />
+<list>
+<leaf symbol="error" />
+<leaf string="series of infinite order" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704355" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704355" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="extend" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704356" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704356" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704357" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="ki" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704357" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="return" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="truncate" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="delay" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704358" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704358" />
+<list>
+<leaf symbol="empty" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704359" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="ki" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704359" />
+<list>
+<leaf symbol="empty" />
+</list>
+<list>
+<leaf symbol="concat" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="truncate" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+<leaf symbol="ki" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="truncate" />
+<leaf symbol="x" />
+<leaf symbol="k1" />
+<leaf symbol="k2" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="k2" />
+<leaf symbol="k1" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="@Tuple" />
+<leaf symbol="k1" />
+<leaf symbol="k2" />
+</list>
+<list>
+<leaf symbol="@Tuple" />
+<leaf symbol="k2" />
+<leaf symbol="k1" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704360" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704360" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704361" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+<leaf symbol="k1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704361" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="leave" />
+<leaf int="1" />
+<leaf symbol="$NoValue" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="truncate" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="xs" />
+<leaf symbol="$" />
+</list>
+<leaf symbol="k2" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="complete" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Rep" />
+<leaf symbol="complete" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="x" />
+<leaf symbol="Rep" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="Coef" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xs" />
+<leaf symbol="Rep" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704362" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704362" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tx" />
+<list>
+<leaf symbol="frst" />
+<leaf symbol="xs" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704363" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="ki" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704363" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704364" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="ki" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704364" />
+<list>
+<leaf symbol="return" />
+<list>
+<leaf symbol="tx" />
+<leaf symbol="c" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xs" />
+<list>
+<leaf symbol="rst" />
+<leaf symbol="xs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="elt" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+<list>
+<leaf symbol="Coef" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<leaf symbol="ki" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="leadingMonomial" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19704365" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19704365" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="empty" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="apply_or_error" />
+<leaf symbol="fn" />
+<leaf symbol="xs" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Union" />
+<leaf symbol="$" />
+<leaf string="failed" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="resu" />
+<list>
+<leaf symbol="fn" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="resu" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="xs" />
+<leaf string=": failed" />
+</list>
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="resu" />
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="EFS" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="ElementaryFunctionsGeneralizedUnivariatePowerSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="exp" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="expIfCan" />
+</list>
+<leaf string="exp" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="log" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="logIfCan" />
+</list>
+<leaf string="log" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sin" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="sinIfCan" />
+</list>
+<leaf string="sin" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cos" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="cosIfCan" />
+</list>
+<leaf string="cos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="tan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="tanIfCan" />
+</list>
+<leaf string="tan" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cot" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="cotIfCan" />
+</list>
+<leaf string="cot" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sec" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="secIfCan" />
+</list>
+<leaf string="sec" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="csc" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="cscIfCan" />
+</list>
+<leaf string="csc" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asin" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="asinIfCan" />
+</list>
+<leaf string="asin" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acos" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acosIfCan" />
+</list>
+<leaf string="acos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="atan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="atanIfCan" />
+</list>
+<leaf string="atan" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acot" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acotIfCan" />
+</list>
+<leaf string="acot" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asec" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="asecIfCan" />
+</list>
+<leaf string="asec" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acsc" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acscIfCan" />
+</list>
+<leaf string="acsc" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sinh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="sinhIfCan" />
+</list>
+<leaf string="sinh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cosh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="coshIfCan" />
+</list>
+<leaf string="cosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="tanh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="tanhIfCan" />
+</list>
+<leaf string="tanh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coth" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="cothIfCan" />
+</list>
+<leaf string="coth" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sech" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="sechIfCan" />
+</list>
+<leaf string="sech" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="csch" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="cschIfCan" />
+</list>
+<leaf string="csch" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asinh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="asinhIfCan" />
+</list>
+<leaf string="asinh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acosh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acoshIfCan" />
+</list>
+<leaf string="acosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="atanh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="atanhIfCan" />
+</list>
+<leaf string="atanh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acoth" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acothIfCan" />
+</list>
+<leaf string="acoth" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asech" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="asechIfCan" />
+</list>
+<leaf string="asech" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acsch" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_or_error" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="EFS" />
+<leaf symbol="acschIfCan" />
+</list>
+<leaf string="acsch" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="TranscendentalFunctionCategory" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="pi" />
+</list>
+<list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="monomial" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Coef" />
+<leaf symbol="pi" />
+</list>
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ElementaryFunctionsGeneralizedUnivariatePowerSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+<leaf symbol="PS" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="PartialTranscendentalFunctions" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="do_quo" />
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="PS" />
+<leaf string="failed" />
+</list>
+<leaf symbol="PS" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="OrderedAbelianMonoid" />
+</list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="UnivariatePowerSeriesCategory" />
+<leaf symbol="Coef" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="removeZeros" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<leaf symbol="Expon" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="STTF" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="StreamTranscendentalFunctions" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="STSO" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="StreamTaylorSeriesOperations" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="TRANSFCN" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="TranscendentalFunctionCategory" />
+</list>
+</list>
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="CommutativeRing" />
+</list>
+</list>
+<leaf symbol="false" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="apply_taylor1" />
+<leaf symbol="ft" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="Union" />
+<leaf symbol="PS" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<leaf symbol="PS" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19699196" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19699196" />
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c0" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="+" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="monom" />
+</list>
+<leaf symbol="c0" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="monom" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="fxu" />
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+<leaf string="failed" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="trappedSpadEval" />
+</list>
+<list>
+<leaf symbol="ft" />
+<leaf symbol="s1" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="fxu" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="fxu" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<leaf symbol="monomial" />
+</list>
+<leaf symbol="c0" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="nthRootIfCan" />
+<leaf symbol="x" />
+<leaf symbol="n" />
+</list>
+<list>
+<list />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="n" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="x" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ord" />
+<leaf symbol="Expon" />
+</list>
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;=" />
+<leaf symbol="ord" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="50" />
+</list>
+</list>
+<list>
+<leaf symbol="WHILE" />
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<leaf symbol="ord" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="ord" />
+<list>
+<leaf symbol="*" />
+<leaf int="10" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Expon" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ord" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c0" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<leaf symbol="ord" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="c0" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="ord" />
+</list>
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="res1" />
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="+-&gt;" />
+<list>
+<leaf symbol=":" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<list>
+<leaf symbol="Stream" />
+<leaf symbol="Coef" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="powern" />
+</list>
+<list>
+<leaf symbol="/" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="n" />
+</list>
+<leaf symbol="s" />
+</list>
+</list>
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="res1" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="/" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="n" />
+</list>
+<leaf symbol="ord" />
+</list>
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="res1" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="expIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<leaf symbol="PS" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19699197" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19699197" />
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="expx" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="exp" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="monom" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="apply_taylor" />
+<leaf symbol="expx" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="IF" />
+<leaf symbol="TRANSFCN" />
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="exp" />
+<leaf symbol="c1" />
+</list>
+<list>
+<leaf symbol="apply_taylor" />
+<leaf symbol="expx" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<leaf symbol="monomial" />
+</list>
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="logIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<leaf symbol="PS" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="log" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+<leaf string="failed" />
+</list>
+<leaf symbol="PS" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19699198" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19699198" />
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="scst" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="sincos" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="monom" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="sin" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="cos" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<leaf symbol="TRANSFCN" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<leaf symbol="monomial" />
+</list>
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="sx1" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="sin" />
+</list>
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="cx1" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="cos" />
+</list>
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="sc1" />
+<list>
+<leaf symbol="sin" />
+<leaf symbol="c1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="cc1" />
+<list>
+<leaf symbol="cos" />
+<leaf symbol="c1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="sc1" />
+<leaf symbol="cx1" />
+</list>
+<list>
+<leaf symbol="*" />
+<leaf symbol="cc1" />
+<leaf symbol="sx1" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="cc1" />
+<leaf symbol="cx1" />
+</list>
+<list>
+<leaf symbol="*" />
+<leaf symbol="sc1" />
+<leaf symbol="sx1" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sinIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sin" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cosIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cos" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="tanIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sin" />
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cos" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cotIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cos" />
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sin" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="secIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cos" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cscIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sincos" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sin" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cos" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sin" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asinIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="asin" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acosIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acos" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="atanIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="atan" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acotIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acot" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asecIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="asec" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acscIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acsc" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+<list>
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+<leaf string="failed" />
+</list>
+<leaf symbol="PS" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="removeZeros" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G19699199" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="degree" />
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G19699199" />
+<leaf string="failed" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="scst" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="sinhcosh" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STSO" />
+<leaf symbol="monom" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="coefficient" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="sinh" />
+</list>
+<leaf symbol="x" />
+</list>
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="cosh" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<leaf symbol="TRANSFCN" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x1" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="x" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<leaf symbol="monomial" />
+</list>
+<leaf symbol="c1" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="sx1" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="sinh" />
+</list>
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="cx1" />
+<list>
+<leaf symbol="apply_taylor" />
+<list>
+<leaf symbol="scst" />
+<leaf symbol="cosh" />
+</list>
+<leaf symbol="x1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="sc1" />
+<list>
+<leaf symbol="sinh" />
+<leaf symbol="c1" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="cc1" />
+<list>
+<leaf symbol="cosh" />
+<leaf symbol="c1" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="sc1" />
+<leaf symbol="cx1" />
+</list>
+<list>
+<leaf symbol="*" />
+<leaf symbol="cc1" />
+<leaf symbol="sx1" />
+</list>
+</list>
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="cc1" />
+<leaf symbol="cx1" />
+</list>
+<list>
+<leaf symbol="*" />
+<leaf symbol="sc1" />
+<leaf symbol="sx1" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sinhIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sinh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coshIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cosh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="tanhIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sinh" />
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cosh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cothIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cosh" />
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sinh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sechIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="cosh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="cschIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="sinhcosh" />
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="usc" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="do_quo" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="PS" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="usc" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sinh" />
+<leaf symbol="PS" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="cosh" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+<leaf symbol="sinh" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asinhIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="asinh" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acoshIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acosh" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="atanhIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="atanh" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acothIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acoth" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="asechIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="asech" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="acschIfCan" />
+<leaf symbol="x" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="apply_taylor1" />
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="STTF" />
+<leaf symbol="acsch" />
+</list>
+<leaf symbol="x" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="IntegralDomain" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="do_quo" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="exquo" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="do_quo" />
+<leaf symbol="x" />
+<leaf symbol="y" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yinv" />
+<list>
+<leaf symbol="recip" />
+<leaf symbol="y" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="yinv" />
+<leaf string="failed" />
+</list>
+<leaf string="failed" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="yinv" />
+<leaf symbol="PS" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="PolynomialInterpolation" />
+<leaf symbol="xx" />
+<leaf symbol="F" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="interpolate" />
+<list>
+<list>
+<leaf symbol="UnivariatePolynomial" />
+<leaf symbol="xx" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="UnivariatePolynomial" />
+<leaf symbol="xx" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="interpolate" />
+<list>
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Symbol" />
+</list>
+<list>
+<leaf symbol="Field" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="PIA" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<leaf symbol="PolynomialInterpolationAlgorithms" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="interpolate" />
+<leaf symbol="qx" />
+<leaf symbol="lx" />
+<leaf symbol="ly" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="px" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="PIA" />
+<leaf symbol="F" />
+<list>
+<leaf symbol="UnivariatePolynomial" />
+<leaf symbol="xx" />
+<leaf symbol="F" />
+</list>
+</list>
+<leaf symbol="LagrangeInterpolation" />
+</list>
+<leaf symbol="lx" />
+<leaf symbol="ly" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="elt" />
+<leaf symbol="px" />
+<leaf symbol="qx" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="interpolate" />
+<leaf symbol="lx" />
+<leaf symbol="ly" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="PIA" />
+<leaf symbol="F" />
+<list>
+<leaf symbol="SparseUnivariatePolynomial" />
+<leaf symbol="F" />
+</list>
+</list>
+<leaf symbol="LagrangeInterpolation" />
+</list>
+<leaf symbol="lx" />
+<leaf symbol="ly" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="PolynomialInterpolationAlgorithms" />
+<leaf symbol="F" />
+<leaf symbol="P" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="LagrangeInterpolation" />
+<list>
+<leaf symbol="P" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="List" />
+<leaf symbol="F" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Field" />
+</list>
+<list>
+<leaf symbol="UnivariatePolynomialCategory" />
+<leaf symbol="F" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="LagrangeInterpolation" />
+<leaf symbol="lx" />
+<leaf symbol="ly" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29616026" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="lx" />
+</list>
+<list>
+<leaf symbol="#" />
+<leaf symbol="ly" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29616026" />
+<list>
+<leaf symbol="error" />
+<leaf string="Different number of points and values." />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="ip" />
+<leaf symbol="P" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="xi" />
+<leaf symbol="lx" />
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="yi" />
+<leaf symbol="ly" />
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="pp" />
+<leaf symbol="P" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="xp" />
+<leaf symbol="F" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="xj" />
+<leaf symbol="lx" />
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="j" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="|" />
+<list>
+<leaf symbol="~=" />
+<leaf symbol="i" />
+<leaf symbol="j" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="pp" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="pp" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="monomial" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="monomial" />
+<leaf symbol="xj" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xp" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="xp" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="xi" />
+<leaf symbol="xj" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="ip" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="ip" />
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="/" />
+<leaf symbol="yi" />
+<leaf symbol="xp" />
+</list>
+<leaf symbol="pp" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="ip" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

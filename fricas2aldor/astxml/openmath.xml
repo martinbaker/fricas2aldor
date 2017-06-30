@@ -1,0 +1,2624 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ExpressionToOpenMath" />
+<leaf symbol="R" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMwrite" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMwrite" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMwrite" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMwrite" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="OpenMath" />
+</list>
+<list>
+<leaf symbol="OrderedSet" />
+</list>
+<list>
+<leaf symbol="Ring" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<leaf symbol="MDEF" />
+<list>
+<leaf symbol="SymInfo" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="cd" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="name" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<leaf symbol="SymInfo" />
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="key" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="entry" />
+<leaf symbol="SymInfo" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="AssociationList" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf symbol="SymInfo" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<leaf symbol="OMENC" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="nullaryFunctionAList" />
+<list>
+<leaf symbol="AssociationList" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf symbol="SymInfo" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="pi" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="nums1" />
+<leaf string="pi" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="unaryFunctionAList" />
+<list>
+<leaf symbol="AssociationList" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf symbol="SymInfo" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="exp" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="exp" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="log" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="ln" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="sin" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="sin" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="cos" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="cos" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="tan" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="tan" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="cot" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="cot" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="sec" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="sec" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="csc" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="csc" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="asin" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arcsin" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acos" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccos" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="atan" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arctan" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acot" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccot" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="asec" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arcsec" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acsc" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccsc" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="sinh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="sinh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="cosh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="cosh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="tanh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="tanh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="coth" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="coth" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="sech" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="sech" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="csch" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="csch" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="asinh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arcsinh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acosh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccosh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="atanh" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arctanh" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acoth" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccoth" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="asech" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arcsech" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="acsch" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="transc1" />
+<leaf string="arccsch" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="factorial" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="integer1" />
+<leaf string="factorial" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="abs" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf string="arith1" />
+<leaf string="abs" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="outputOMExpr" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMArith1" />
+<leaf symbol="dev" />
+<leaf symbol="sym" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="arith1" />
+<leaf symbol="sym" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="arg" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="arg" />
+<leaf symbol="false" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMLambda" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+<leaf symbol="var" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputBind" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="fns1" />
+<leaf string="lambda" />
+</list>
+<list>
+<leaf symbol="OMputBVar" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="var" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="OMputEndBVar" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndBind" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMInterval" />
+<leaf symbol="dev" />
+<leaf symbol="lo" />
+<leaf symbol="hi" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="interval1" />
+<leaf string="interval" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="lo" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="hi" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMIntInterval" />
+<leaf symbol="dev" />
+<leaf symbol="lo" />
+<leaf symbol="hi" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="interval1" />
+<leaf string="integer_interval" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="lo" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="hi" />
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMBinomial" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324548" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324548" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="error" />
+<leaf string="Wrong number of arguments to binomial" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="combinat1" />
+<leaf string="binomial" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="arg" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="arg" />
+<leaf symbol="false" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMPower" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324549" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324549" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="error" />
+<leaf string="Wrong number of arguments to power" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="outputOMArith1" />
+<leaf symbol="dev" />
+<leaf string="power" />
+<leaf symbol="args" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMDefsum" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324550" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324550" />
+<list>
+<leaf symbol="error" />
+<leaf string="Unexpected number of arguments to a defsum" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="arith1" />
+<leaf string="sum" />
+</list>
+<list>
+<leaf symbol="outputOMIntInterval" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="args" />
+<leaf int="4" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="outputOMLambda" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="eval" />
+<list>
+<leaf symbol="args" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="2" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMDefprod" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324551" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324551" />
+<list>
+<leaf symbol="error" />
+<leaf string="Unexpected number of arguments to a defprod" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="arith1" />
+<leaf string="product" />
+</list>
+<list>
+<leaf symbol="outputOMIntInterval" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="args" />
+<leaf int="4" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="outputOMLambda" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="eval" />
+<list>
+<leaf symbol="args" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="2" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMDefint" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324552" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324552" />
+<list>
+<leaf symbol="error" />
+<leaf string="Unexpected number of arguments to a defint" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="calculus1" />
+<leaf string="defint" />
+</list>
+<list>
+<leaf symbol="outputOMInterval" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="args" />
+<leaf int="4" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="5" />
+</list>
+</list>
+<list>
+<leaf symbol="outputOMLambda" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="eval" />
+<list>
+<leaf symbol="args" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="2" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMInt" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324553" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324553" />
+<list>
+<leaf symbol="error" />
+<leaf string="Unexpected number of arguments to a defint" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="calculus1" />
+<leaf string="int" />
+</list>
+<list>
+<leaf symbol="outputOMLambda" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="eval" />
+<list>
+<leaf symbol="args" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="2" />
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="args" />
+<leaf int="3" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMFunction" />
+<leaf symbol="dev" />
+<leaf symbol="op" />
+<leaf symbol="args" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Symbol" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="nargs" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="args" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324554" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="zero?" />
+<leaf symbol="nargs" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324554" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="omOp" />
+<list>
+<leaf symbol="Union" />
+<leaf symbol="SymInfo" />
+<leaf string="failed" />
+</list>
+</list>
+<list>
+<leaf symbol="search" />
+<leaf symbol="op" />
+<leaf symbol="nullaryFunctionAList" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="omOp" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf string="No OpenMath definition for nullary function " />
+<list>
+<leaf symbol="string" />
+<leaf symbol="op" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="omOp" />
+<leaf symbol="cd" />
+</list>
+<list>
+<leaf symbol="omOp" />
+<leaf symbol="name" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="nargs" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="omOp" />
+<list>
+<leaf symbol="Union" />
+<leaf symbol="SymInfo" />
+<leaf string="failed" />
+</list>
+</list>
+<list>
+<leaf symbol="search" />
+<leaf symbol="op" />
+<leaf symbol="unaryFunctionAList" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="omOp" />
+<leaf string="failed" />
+</list>
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf string="No OpenMath definition for unary function " />
+<list>
+<leaf symbol="string" />
+<leaf symbol="op" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="omOp" />
+<leaf symbol="cd" />
+</list>
+<list>
+<leaf symbol="omOp" />
+<leaf symbol="name" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="arg" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="arg" />
+<leaf symbol="false" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324555" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="%defint" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324555" />
+<list>
+<leaf symbol="outputOMDefint" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324556" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="integral" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324556" />
+<list>
+<leaf symbol="outputOMInt" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324557" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="%defsum" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324557" />
+<list>
+<leaf symbol="outputOMDefsum" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324558" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="%defprod" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324558" />
+<list>
+<leaf symbol="outputOMDefprod" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324559" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="%power" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324559" />
+<list>
+<leaf symbol="outputOMPower" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324560" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="op" />
+<list>
+<leaf symbol="QUOTE" />
+<leaf symbol="binomial" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324560" />
+<list>
+<leaf symbol="outputOMBinomial" />
+<leaf symbol="dev" />
+<leaf symbol="args" />
+</list>
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf string="No OpenMath definition for function " />
+<list>
+<leaf symbol="string" />
+<leaf symbol="op" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="outputOMExpr" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324561" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="ground?" />
+<leaf symbol="ex" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324561" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="ground" />
+<leaf symbol="ex" />
+</list>
+<leaf symbol="false" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="v" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="retractIfCan" />
+<leaf symbol="ex" />
+</list>
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="v" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="OMputVariable" />
+<leaf symbol="dev" />
+<leaf symbol="v" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="w" />
+<list>
+<leaf symbol="isPlus" />
+<leaf symbol="ex" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="w" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="outputOMArith1" />
+<leaf symbol="dev" />
+<leaf string="plus" />
+<leaf symbol="w" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="w" />
+<list>
+<leaf symbol="isTimes" />
+<leaf symbol="ex" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="w" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="outputOMArith1" />
+<leaf symbol="dev" />
+<leaf string="times" />
+<leaf symbol="w" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="isExpt" />
+<leaf symbol="ex" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="x" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324562" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="x" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324562" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="3" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="symbolIfCan" />
+<list>
+<leaf symbol="x" />
+<leaf symbol="var" />
+</list>
+</list>
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf string="failed" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="s" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="4" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputApp" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="OMputSymbol" />
+<leaf symbol="dev" />
+<leaf string="arith1" />
+<leaf string="power" />
+</list>
+<list>
+<leaf symbol="OMputVariable" />
+<leaf symbol="dev" />
+<leaf symbol="s" />
+</list>
+<list>
+<leaf symbol="OMputInteger" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="x" />
+<leaf symbol="exponent" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndApp" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="z" />
+<list>
+<leaf symbol="isPower" />
+<leaf symbol="ex" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="z" />
+<leaf string="failed" />
+</list>
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29324563" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="z" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29324563" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="3" />
+<list>
+<leaf symbol="outputOMPower" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="z" />
+<leaf symbol="val" />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="z" />
+<leaf symbol="exponent" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="k" />
+<list>
+<leaf symbol="Kernel" />
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="first" />
+<list>
+<leaf symbol="kernels" />
+<leaf symbol="ex" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="outputOMFunction" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="name" />
+<list>
+<leaf symbol="operator" />
+<leaf symbol="k" />
+</list>
+</list>
+<list>
+<leaf symbol="argument" />
+<leaf symbol="k" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="ex" />
+<leaf symbol="wholeObj" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="sp" />
+<list>
+<leaf symbol="None" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="OM-STRINGTOSTRINGPTR" />
+</list>
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+</list>
+<list>
+<leaf symbol="OMopenString" />
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="sp" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="OMencodingXML" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+<leaf symbol="wholeObj" />
+</list>
+<list>
+<leaf symbol="OMclose" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="pretend" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="OM-STRINGPTRTOSTRING" />
+</list>
+<leaf symbol="sp" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="OMputObject" />
+<leaf symbol="dev" />
+</list>
+<list>
+<leaf symbol="outputOMExpr" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMputEndObject" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+<leaf symbol="wholeObj" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="wholeObj" />
+<list>
+<leaf symbol="OMputObject" />
+<leaf symbol="dev" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="outputOMExpr" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="wholeObj" />
+<list>
+<leaf symbol="OMputEndObject" />
+<leaf symbol="dev" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<leaf symbol="ex" />
+<leaf symbol="true" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="ex" />
+</list>
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="Expression" />
+<leaf symbol="R" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="ex" />
+<leaf symbol="true" />
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

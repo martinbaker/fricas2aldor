@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ErrorFunctions" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="error" />
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="error" />
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="error" />
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="error" />
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="prefix1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="Error signalled from user code: %l " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="prefix2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="Error signalled from user code in function %b " />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="doit" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="throwPatternMsg" />
+</list>
+<leaf symbol="s" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="pretend" />
+<leaf string="exit" />
+<list>
+<leaf symbol="Exit" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="error" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="doit" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="prefix1" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="error" />
+<leaf symbol="l" />
+</list>
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf symbol="prefix1" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="x" />
+<leaf symbol="l" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="s" />
+<leaf string=" " />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="doit" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="error" />
+<leaf symbol="fn" />
+<leaf symbol="s" />
+</list>
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="doit" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="prefix2" />
+<leaf symbol="fn" />
+<leaf string=": %d %l " />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="error" />
+<leaf symbol="fn" />
+<leaf symbol="l" />
+</list>
+<list>
+<list>
+<leaf symbol="Exit" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="prefix2" />
+<leaf symbol="fn" />
+<leaf string=": %d %l" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="x" />
+<leaf symbol="l" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="concat" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="s" />
+<leaf string=" " />
+<leaf symbol="x" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="doit" />
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

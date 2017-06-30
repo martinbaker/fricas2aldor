@@ -1,0 +1,10976 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="TwoDimensionalViewport" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="getPickedPoints" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="viewport2D" />
+<list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="makeViewport2D" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="options" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="options" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="makeViewport2D" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="graphState" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="graphStates" />
+<list>
+<list>
+<leaf symbol="Vector" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="points" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="connect" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="spline" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axes" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axesColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="units" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="unitsColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="showing" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="graphs" />
+<list>
+<list>
+<leaf symbol="Vector" />
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<leaf string="undefined" />
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="title" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="putGraph" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="getGraph" />
+<list>
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="axes" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="axes" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="units" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="units" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="points" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="region" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="connect" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="controlPanel" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="close" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="dimensions" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="scale" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="translate" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="show" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="move" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="update" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="resize" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="write" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="write" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="write" />
+<list>
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="reset" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="key" />
+<list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Color" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="ViewDefaultsPackage" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="DrawOptionFunctions0" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="key" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="graphsField" />
+<list>
+<leaf symbol="Vector" />
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<leaf string="undefined" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="graphStatesField" />
+<list>
+<leaf symbol="Vector" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="points" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="connect" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="spline" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axes" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axesColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="units" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="unitsColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="showing" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="title" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="moveTo" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="X" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="Y" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="size" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="X" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="Y" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="flags" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="showCP" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="optionsField" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="showCP" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="defaultGS" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaX" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="deltaY" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="points" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="connect" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="spline" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axes" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="axesColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="units" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="unitsColor" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="showing" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="9" />
+<leaf int="-1" />
+<leaf int="10" />
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="9" />
+<leaf int="-1" />
+<leaf int="10" />
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="axesColorDefault" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="unitsColorDefault" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list>
+<leaf symbol="Boolean" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="key" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055943" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055943" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="key" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<leaf string="This viewport has already been closed!" />
+</list>
+</list>
+</list>
+<leaf symbol="true" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="doOptions" />
+<leaf symbol="v" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="Rep" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="v" />
+<leaf symbol="title" />
+</list>
+<list>
+<leaf symbol="title" />
+<list>
+<leaf symbol="v" />
+<leaf symbol="optionsField" />
+</list>
+<leaf string="FriCAS2D" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="options" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="optionsField" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="options" />
+<leaf symbol="viewport" />
+<leaf symbol="opts" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="optionsField" />
+</list>
+<leaf symbol="opts" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="viewport" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="putGraph" />
+<leaf symbol="viewport" />
+<leaf symbol="aGraph" />
+<leaf symbol="which" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="which" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Trying to put a graph with a negative index or too big an index" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="which" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Trying to put a graph with a negative index or too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+<leaf symbol="which" />
+</list>
+<leaf symbol="aGraph" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="getGraph" />
+<leaf symbol="viewport" />
+<leaf symbol="which" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="which" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Trying to get a graph with a negative index or too big an index" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="which" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Trying to get a graph with a negative index or too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055944" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="case" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+<leaf symbol="which" />
+</list>
+<leaf string="undefined" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055944" />
+<list>
+<leaf symbol="error" />
+<leaf string="Graph is undefined!" />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+<leaf symbol="which" />
+</list>
+<list>
+<leaf symbol="GraphImage" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="graphStates" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="graphs" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="key" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="dimensions" />
+<leaf symbol="viewport" />
+<leaf symbol="ViewX" />
+<leaf symbol="ViewY" />
+<leaf symbol="ViewWidth" />
+<leaf symbol="ViewHeight" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="moveTo" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="ViewX" />
+<leaf symbol="ViewY" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="size" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="ViewWidth" />
+<leaf symbol="ViewHeight" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="move" />
+<leaf symbol="viewport" />
+<leaf symbol="xLoc" />
+<leaf symbol="yLoc" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="moveTo" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="xLoc" />
+<leaf symbol="yLoc" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055946" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055946" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="102" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055945" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055945" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="xLoc" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="yLoc" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="update" />
+<leaf symbol="viewport" />
+<leaf symbol="graph" />
+<leaf symbol="slot" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055948" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055948" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="106" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055947" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055947" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="key" />
+<leaf symbol="graph" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="slot" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="void" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="resize" />
+<leaf symbol="viewport" />
+<leaf symbol="xSize" />
+<leaf symbol="ySize" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="size" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="xSize" />
+<leaf symbol="ySize" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055950" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055950" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="103" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055949" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055949" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="xSize" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="ySize" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="translate" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="xTranslateF" />
+<leaf symbol="yTranslateF" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xTranslate" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<leaf symbol="xTranslateF" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yTranslate" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<leaf symbol="yTranslateF" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="deltaX" />
+</list>
+<leaf symbol="xTranslate" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="deltaY" />
+</list>
+<leaf symbol="yTranslate" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055952" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055952" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055951" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055951" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="xTranslate" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="yTranslate" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="scale" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="xScaleF" />
+<leaf symbol="yScaleF" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="xScale" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<leaf symbol="xScaleF" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="yScale" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<leaf symbol="yScaleF" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="scaleX" />
+</list>
+<leaf symbol="xScale" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="scaleY" />
+</list>
+<leaf symbol="yScale" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055954" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055954" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055953" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055953" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="xScale" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="yScale" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="viewport2D" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="new" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<leaf string="undefined" />
+</list>
+<list>
+<leaf symbol="new" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="copy" />
+<leaf symbol="defaultGS" />
+</list>
+</list>
+<leaf string="FriCAS2D" />
+<list>
+<leaf symbol="construct" />
+<list>
+<list>
+<leaf symbol="viewPosDefault" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="viewPosDefault" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<list>
+<leaf symbol="viewSizeDefault" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="viewSizeDefault" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="makeViewport2D0" />
+<list>
+<leaf symbol="Mapping" />
+<leaf symbol="$" />
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeViewport2D" />
+<leaf symbol="g" />
+<leaf symbol="opts" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="viewport" />
+<list>
+<leaf symbol="viewport2D" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf symbol="g" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="optionsField" />
+</list>
+<leaf symbol="opts" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="makeViewport2D0" />
+<leaf symbol="viewport" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeViewport2D" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="makeViewport2D0" />
+<list>
+<leaf symbol="copy" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="viewport" />
+<leaf symbol="Rep" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="send_graphs" />
+<leaf symbol="vg" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="Vector" />
+<list>
+<leaf symbol="Union" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<leaf string="undefined" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="#" />
+<leaf symbol="vg" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="gu" />
+<list>
+<leaf symbol="vg" />
+<leaf symbol="i" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="gu" />
+<leaf string="undefined" />
+</list>
+<leaf string="iterate" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="g" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="gu" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055955" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="g" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055955" />
+<list>
+<leaf symbol="sendGraphImage" />
+<leaf symbol="g" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeViewport2D0" />
+<leaf symbol="viewportDollar" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="viewport" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="viewportDollar" />
+<leaf symbol="Rep" />
+</list>
+</list>
+<list>
+<leaf symbol="send_graphs" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphsField" />
+</list>
+</list>
+<list>
+<leaf symbol="doOptions" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sayBrightly" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<leaf symbol="construct" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="message" />
+</list>
+<leaf string="   FriCAS2D data being transmitted to the viewport manager..." />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+<leaf symbol="-" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendString" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="title" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="moveTo" />
+</list>
+<leaf symbol="X" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="moveTo" />
+</list>
+<leaf symbol="Y" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="size" />
+</list>
+<leaf symbol="X" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="size" />
+</list>
+<leaf symbol="Y" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="flags" />
+</list>
+<leaf symbol="showCP" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="g" />
+<list>
+<list>
+<leaf symbol="graphs" />
+<leaf symbol="viewport" />
+</list>
+<leaf symbol="i" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="g" />
+<leaf string="undefined" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="key" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="g" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="gs" />
+<list>
+<list>
+<leaf symbol="graphStates" />
+<leaf symbol="viewport" />
+</list>
+<leaf symbol="i" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="scaleX" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="scaleY" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="deltaX" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="deltaY" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="points" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="connect" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="spline" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="axes" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="gs" />
+<leaf symbol="axesColor" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="shade" />
+<list>
+<leaf symbol="gs" />
+<leaf symbol="axesColor" />
+</list>
+</list>
+<list>
+<leaf symbol="numberOfHues" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="units" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="gs" />
+<leaf symbol="unitsColor" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="shade" />
+<list>
+<leaf symbol="gs" />
+<leaf symbol="unitsColor" />
+</list>
+</list>
+<list>
+<leaf symbol="numberOfHues" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="gs" />
+<leaf symbol="showing" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="key" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="viewport" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="graphState" />
+<leaf symbol="viewport" />
+<leaf symbol="num" />
+<leaf symbol="sX" />
+<leaf symbol="sY" />
+<leaf symbol="dX" />
+<leaf symbol="dY" />
+<leaf symbol="Points" />
+<leaf symbol="Lines" />
+<leaf symbol="Spline" />
+<leaf symbol="Axes" />
+<leaf symbol="AxesColor" />
+<leaf symbol="Units" />
+<leaf symbol="UnitsColor" />
+<leaf symbol="Showing" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="num" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="sX" />
+<leaf symbol="sY" />
+<leaf symbol="dX" />
+<leaf symbol="dY" />
+<leaf symbol="Points" />
+<leaf symbol="Lines" />
+<leaf symbol="Spline" />
+<leaf symbol="Axes" />
+<leaf symbol="AxesColor" />
+<leaf symbol="Units" />
+<leaf symbol="UnitsColor" />
+<leaf symbol="Showing" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="title" />
+<leaf symbol="viewport" />
+<leaf symbol="Title" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="title" />
+</list>
+<leaf symbol="Title" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055957" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055957" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="104" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055956" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055956" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendString" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="Title" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="reset" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055959" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055959" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="100" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055958" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055958" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="5" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="void" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="axes" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="axes" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055961" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055961" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="8" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055960" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055960" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="axes" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="color" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="axesColor" />
+</list>
+<leaf symbol="color" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055963" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055963" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="112" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055962" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055962" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<leaf symbol="color" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="shade" />
+<leaf symbol="color" />
+</list>
+<list>
+<leaf symbol="numberOfHues" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="units" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="units" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055965" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055965" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="9" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055964" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055964" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="units" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="color" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="unitsColor" />
+</list>
+<leaf symbol="color" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055967" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055967" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="113" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055966" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055966" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<leaf symbol="color" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="shade" />
+<leaf symbol="color" />
+</list>
+<list>
+<leaf symbol="numberOfHues" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="connect" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="connect" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055969" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055969" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055968" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055968" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="points" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="points" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055971" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055971" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="2" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055970" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055970" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="region" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="spline" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055973" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055973" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="4" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055972" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055972" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="show" />
+<leaf symbol="viewport" />
+<leaf symbol="graphIndex" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="graphIndex" />
+<list>
+<leaf symbol="::" />
+<leaf int="9" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="Referring to a graph with too big an index" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="status" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="graphStatesField" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<leaf symbol="showing" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055975" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055975" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="105" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055974" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055974" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="graphIndex" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="status" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="controlPanel" />
+<leaf symbol="viewport" />
+<leaf symbol="onOff" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="onOff" />
+<leaf string="on" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="flags" />
+</list>
+<leaf symbol="showCP" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="flags" />
+</list>
+<leaf symbol="showCP" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055977" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055977" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="6" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055976" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055976" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="flags" />
+</list>
+<leaf symbol="showCP" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="close" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055979" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055979" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="7" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055978" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055978" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="key" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="void" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055980" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055980" />
+<list>
+<leaf symbol="hconcat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="message" />
+<leaf string="Closed or Undefined TwoDimensionalViewport: " />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="title" />
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="hconcat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="message" />
+<leaf string="TwoDimensionalViewport: " />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="viewport" />
+<leaf symbol="title" />
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="write" />
+<leaf symbol="viewport" />
+<leaf symbol="Filename" />
+<leaf symbol="aThingToWrite" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="write" />
+<leaf symbol="viewport" />
+<leaf symbol="Filename" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="aThingToWrite" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="write" />
+<leaf symbol="viewport" />
+<leaf symbol="Filename" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="write" />
+<leaf symbol="viewport" />
+<leaf symbol="Filename" />
+<list>
+<leaf symbol="viewWriteDefault" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="write" />
+<leaf symbol="viewport" />
+<leaf symbol="Filename" />
+<leaf symbol="thingsToWrite" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="String" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="stringToSend" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055982" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="viewport" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055982" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="3" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="110" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33055981" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="checkViewport" />
+<leaf symbol="viewport" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33055981" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendString" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="Filename" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="m" />
+<list>
+<leaf symbol="minIndex" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="avail" />
+<list>
+<leaf symbol="viewWriteAvailable" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="aTypeOfFile" />
+<leaf symbol="thingsToWrite" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="writeTypeInt" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="position" />
+<list>
+<leaf symbol="upperCase" />
+<leaf symbol="aTypeOfFile" />
+</list>
+<leaf symbol="avail" />
+</list>
+<leaf symbol="m" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="writeTypeInt" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sayBrightly" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<leaf symbol="construct" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="message" />
+</list>
+<leaf string="  &gt; " />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="aTypeOfFile" />
+<leaf string=" is not a valid file type for writing a 2D viewport" />
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="+" />
+<leaf symbol="writeTypeInt" />
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="Filename" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="GraphImage" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="SetCategory" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="graphImage" />
+<list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="sendGraphImage" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="makeGraphImage" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="makeGraphImage" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="makeGraphImage" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="pointLists" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="key" />
+<list>
+<list>
+<leaf symbol="Integer" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="ranges" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="ranges" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="units" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="units" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="component" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="component" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="component" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="appendPoint" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="point" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="putColorInfo" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Color" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="ViewDefaultsPackage" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="PlotTools" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="DrawOptionFunctions0" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="PointPackage" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="CoordinateSystems" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="Record" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="key" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="rangesField" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="unitsField" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="llPoints" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="pointColors" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="lineColors" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="pointSizes" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="optionsField" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DrawOption" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="graph" />
+<list>
+<leaf symbol="Mapping" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleStep" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="numberCheck" />
+<leaf symbol="nums" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="minIndex" />
+<leaf symbol="nums" />
+</list>
+<list>
+<leaf symbol="maxIndex" />
+<leaf symbol="nums" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041744" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="COMPLEXP" />
+</list>
+<list>
+<leaf symbol="nums" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041744" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="error" />
+<leaf string="An unexpected complex number was encountered in the calculations." />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="doOptions" />
+<leaf symbol="g" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<leaf symbol="Rep" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="lr" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="ranges" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="optionsField" />
+</list>
+<list>
+<leaf symbol="ranges" />
+<leaf symbol="g" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041745" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&gt;" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="lr" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041745" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="segment" />
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="lr" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="lr" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="segment" />
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="lr" />
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="lr" />
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="lu" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="units" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="optionsField" />
+</list>
+<list>
+<leaf symbol="units" />
+<leaf symbol="g" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041746" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&gt;" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="lu" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041746" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="unitsField" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="lu" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="lu" />
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="g" />
+<leaf symbol="unitsField" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="putColorInfo" />
+<leaf symbol="llp" />
+<leaf symbol="listOfPalettes" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="llp2" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="lp" />
+<leaf symbol="llp" />
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pal" />
+<leaf symbol="listOfPalettes" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="lp2" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="daHue" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<leaf symbol="pal" />
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="daShade" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="shade" />
+<leaf symbol="pal" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="p" />
+<leaf symbol="lp" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="d" />
+<list>
+<leaf symbol="dimension" />
+<leaf symbol="p" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="d" />
+<leaf int="3" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="extend" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="daHue" />
+<leaf symbol="daShade" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="p" />
+<leaf int="3" />
+</list>
+<leaf symbol="daHue" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="d" />
+<leaf int="4" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="extend" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="daShade" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="p" />
+<leaf int="4" />
+</list>
+<leaf symbol="daShade" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="lp2" />
+<list>
+<leaf symbol="cons" />
+<leaf symbol="p" />
+<leaf symbol="lp2" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="llp2" />
+<list>
+<leaf symbol="cons" />
+<list>
+<leaf symbol="reverse!" />
+<leaf symbol="lp2" />
+</list>
+<leaf symbol="llp2" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="reverse!" />
+<leaf symbol="llp2" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="graph" />
+<leaf symbol="demRanges" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041747" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="demRanges" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041747" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="demRangesSF" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="segment" />
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="demRanges" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="demRanges" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="segment" />
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="demRanges" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="demRanges" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf symbol="demRangesSF" />
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="scaleStep" />
+<leaf symbol="range_seg" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="range" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="high" />
+<leaf symbol="range_seg" />
+</list>
+<list>
+<leaf symbol="low" />
+<leaf symbol="range_seg" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="adjust" />
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="tryStep" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="scaleDown" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="numerals" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="adjust" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="WHILE" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="range" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="100" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="adjust" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="adjust" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="range" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="range" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="10" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tryStep" />
+<list>
+<leaf symbol="/" />
+<leaf symbol="range" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="10" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="numerals" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="String" />
+</list>
+<leaf symbol="string" />
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<leaf symbol="retract" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+<leaf symbol="ceiling" />
+</list>
+<leaf symbol="tryStep" />
+</list>
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="scaleDown" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<leaf symbol="^" />
+</list>
+<list>
+<leaf symbol="@" />
+<leaf int="10" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="pretend" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="numerals" />
+</list>
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="/" />
+<list>
+<leaf symbol="*" />
+<leaf symbol="scaleDown" />
+<list>
+<leaf symbol="ceiling" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="/" />
+<leaf symbol="tryStep" />
+<leaf symbol="scaleDown" />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="5" />
+<leaf int="-1" />
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<leaf symbol="^" />
+</list>
+<leaf int="10" />
+<leaf symbol="adjust" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="figureUnits" />
+<leaf symbol="ranges" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="scaleStep" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="ranges" />
+</list>
+</list>
+<list>
+<leaf symbol="scaleStep" />
+<list>
+<leaf symbol="second" />
+<leaf symbol="ranges" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="roundRange" />
+<leaf symbol="range" />
+</list>
+<list>
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="single_eps" />
+<list>
+<leaf symbol="^" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<leaf int="2" />
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<leaf int="19" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="low" />
+<list>
+<leaf symbol="low" />
+<leaf symbol="range" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="low" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041748" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="abs" />
+<leaf symbol="low" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041748" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="low" />
+<leaf symbol="single_eps" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="low" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="single_eps" />
+</list>
+<leaf symbol="low" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="single_eps" />
+</list>
+<leaf symbol="low" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="high" />
+<list>
+<leaf symbol="high" />
+<leaf symbol="range" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="high" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041749" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="&lt;" />
+<list>
+<leaf symbol="abs" />
+<leaf symbol="high" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041749" />
+<list>
+<leaf symbol="+" />
+<leaf symbol="high" />
+<leaf symbol="single_eps" />
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="high" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="single_eps" />
+</list>
+<leaf symbol="high" />
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="::" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="Float" />
+</list>
+<leaf symbol="float" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+<leaf int="10" />
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="single_eps" />
+</list>
+<leaf symbol="high" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="SEGMENT" />
+<leaf symbol="low" />
+<leaf symbol="high" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="roundRanges" />
+<leaf symbol="ranges" />
+</list>
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="roundRange" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="ranges" />
+</list>
+</list>
+<list>
+<leaf symbol="roundRange" />
+<list>
+<leaf symbol="second" />
+<leaf symbol="ranges" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="plotLists" />
+<leaf symbol="graf" />
+<leaf symbol="listOfListsOfPoints" />
+<leaf symbol="listOfPointColors" />
+<leaf symbol="listOfLineColors" />
+<leaf symbol="listOfPointSizes" />
+</list>
+<list>
+<leaf symbol="$" />
+<leaf symbol="Rep" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Palette" />
+</list>
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="givenLen" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="listOfListsOfPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="listOfListsOfPoints" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="l" />
+<leaf symbol="listOfListsOfPoints" />
+</list>
+<list>
+<leaf symbol="|" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041750" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041750" />
+<leaf symbol="false" />
+<leaf symbol="true" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041751" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<leaf symbol="listOfListsOfPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041751" />
+<list>
+<leaf symbol="error" />
+<leaf string="GraphImage was given a list that contained no valid point lists" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041752" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="len" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="listOfListsOfPoints" />
+</list>
+</list>
+<leaf symbol="givenLen" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041752" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sayBrightly" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf string="   Warning: Ignoring pointless point list" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<leaf symbol="listOfListsOfPoints" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="givenLen" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="listOfPointColors" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="givenLen" />
+<leaf symbol="len" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+<list>
+<leaf symbol="concat" />
+<leaf symbol="listOfPointColors" />
+<list>
+<leaf symbol="new" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="len" />
+<leaf symbol="givenLen" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="pointColorDefault" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+<list>
+<leaf symbol="first" />
+<leaf symbol="listOfPointColors" />
+<leaf symbol="len" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="givenLen" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="listOfLineColors" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="givenLen" />
+<leaf symbol="len" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="lineColors" />
+</list>
+<list>
+<leaf symbol="concat" />
+<leaf symbol="listOfLineColors" />
+<list>
+<leaf symbol="new" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="len" />
+<leaf symbol="givenLen" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="lineColorDefault" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="lineColors" />
+</list>
+<list>
+<leaf symbol="first" />
+<leaf symbol="listOfLineColors" />
+<leaf symbol="len" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="givenLen" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="listOfPointSizes" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&gt;" />
+<leaf symbol="givenLen" />
+<leaf symbol="len" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointSizes" />
+</list>
+<list>
+<leaf symbol="concat" />
+<leaf symbol="listOfPointSizes" />
+<list>
+<leaf symbol="new" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="-" />
+<leaf symbol="len" />
+<leaf symbol="givenLen" />
+</list>
+<list>
+<leaf symbol="NonNegativeInteger" />
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<list>
+<leaf symbol="pointSizeDefault" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointSizes" />
+</list>
+<list>
+<leaf symbol="first" />
+<leaf symbol="listOfPointSizes" />
+<leaf symbol="len" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="graf" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="sendGraphImage" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="doOptions" />
+<leaf symbol="graf" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="#" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="You are trying to make a graph with no points" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041753" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="~=" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="graf" />
+</list>
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041753" />
+<list>
+<leaf symbol="error" />
+<leaf string="You are trying to draw over an existing graph" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="transform" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DrawOptionFunctions0" />
+</list>
+<leaf symbol="coord" />
+</list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="optionsField" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="CoordinateSystems" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="cartesian" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<list>
+<leaf symbol="putColorInfo" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041754" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<list>
+<leaf symbol="ranges" />
+<leaf symbol="graf" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041754" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="calcRanges" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="roundRanges" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041755" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<list>
+<leaf symbol="units" />
+<leaf symbol="graf" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041755" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+<list>
+<leaf symbol="figureUnits" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sayBrightly" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<leaf symbol="construct" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="message" />
+</list>
+<leaf string="   Graph data being transmitted to the viewport manager..." />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf int="2" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+<leaf symbol="-" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="tonto" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Segment" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="tonto" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="first" />
+<leaf symbol="tonto" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="second" />
+<leaf symbol="tonto" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="second" />
+<leaf symbol="tonto" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="first" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="second" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="s" />
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="aList" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="pColor" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="lColor" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="lineColors" />
+</list>
+</list>
+<list>
+<leaf symbol="IN" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointSizes" />
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="#" />
+<leaf symbol="aList" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="p" />
+<leaf symbol="aList" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="aPoint" />
+<list>
+<leaf symbol="transform" />
+<leaf symbol="p" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="xCoord" />
+<leaf symbol="aPoint" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<leaf symbol="yCoord" />
+<leaf symbol="aPoint" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="PointPackage" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="hue" />
+</list>
+<leaf symbol="p" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendFloat" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="PointPackage" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="shade" />
+</list>
+<leaf symbol="p" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<leaf symbol="pColor" />
+</list>
+</list>
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="shade" />
+<leaf symbol="pColor" />
+</list>
+<list>
+<leaf symbol="numberOfHues" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="hueShade" />
+<list>
+<leaf symbol="+" />
+<list>
+<leaf symbol="*" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="hue" />
+<list>
+<leaf symbol="hue" />
+<leaf symbol="lColor" />
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf int="5" />
+</list>
+<list>
+<leaf symbol="shade" />
+<leaf symbol="lColor" />
+</list>
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="hueShade" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockSendInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+<leaf symbol="s" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="key" />
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="sockGetInt" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<leaf symbol="Lisp" />
+<leaf symbol="$ViewportServer" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="key" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="key" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="pointLists" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ranges" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041756" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041756" />
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="ranges" />
+<leaf symbol="graf" />
+<leaf symbol="rangesList" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="rangesField" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="rangesList" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="rangesList" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="segment" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="low" />
+<list>
+<leaf symbol="rangesList" />
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="high" />
+<list>
+<leaf symbol="rangesList" />
+<leaf int="2" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="rangesList" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="units" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G33041757" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="empty?" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G33041757" />
+<list>
+<leaf symbol="construct" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="units" />
+<leaf symbol="graf" />
+<leaf symbol="unitsToBe" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="unitsField" />
+</list>
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="unitsToBe" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="@" />
+<list>
+<leaf symbol="convert" />
+<list>
+<leaf symbol="unitsToBe" />
+<leaf int="2" />
+</list>
+</list>
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="unitsToBe" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="graphImage" />
+</list>
+<list>
+<list />
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="graph" />
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="llp" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="pointColorDefault" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="lineColorDefault" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="pointSizeDefault" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+<leaf symbol="lpc" />
+<leaf symbol="llc" />
+<leaf symbol="lps" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+<leaf symbol="lpc" />
+<leaf symbol="llc" />
+<leaf symbol="lps" />
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+<leaf symbol="lpc" />
+<leaf symbol="llc" />
+<leaf symbol="lps" />
+<leaf symbol="opts" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="graf" />
+<list>
+<leaf symbol="graph" />
+<list>
+<leaf symbol="ranges" />
+<leaf symbol="opts" />
+<list>
+<leaf symbol="construct" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="optionsField" />
+</list>
+<leaf symbol="opts" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="graf" />
+<list>
+<leaf symbol="plotLists" />
+<leaf symbol="graf" />
+<leaf symbol="llp" />
+<leaf symbol="lpc" />
+<leaf symbol="llc" />
+<leaf symbol="lps" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="transform" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="DrawOptionFunctions0" />
+</list>
+<leaf symbol="coord" />
+</list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="optionsField" />
+</list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="CoordinateSystems" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="cartesian" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="aList" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="p" />
+<leaf symbol="aList" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="aPoint" />
+<list>
+<leaf symbol="transform" />
+<leaf symbol="p" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="numberCheck" />
+<leaf symbol="aPoint" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<leaf symbol="graf" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<leaf symbol="ListOfPoints" />
+<leaf symbol="PointColor" />
+<leaf symbol="LineColor" />
+<leaf symbol="PointSize" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<list>
+<leaf symbol="append" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="ListOfPoints" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+<list>
+<leaf symbol="append" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointColors" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="PointColor" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="lineColors" />
+</list>
+<list>
+<leaf symbol="append" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="lineColors" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="LineColor" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointSizes" />
+</list>
+<list>
+<leaf symbol="append" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="pointSizes" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="PointSize" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+<list>
+<leaf symbol="pointColorDefault" />
+</list>
+<list>
+<leaf symbol="lineColorDefault" />
+</list>
+<list>
+<leaf symbol="pointSizeDefault" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+<leaf symbol="PointColor" />
+<leaf symbol="LineColor" />
+<leaf symbol="PointSize" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="Palette" />
+</list>
+<list>
+<leaf symbol="PositiveInteger" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<list>
+<leaf symbol="construct" />
+<leaf symbol="aPoint" />
+</list>
+<leaf symbol="PointColor" />
+<leaf symbol="LineColor" />
+<leaf symbol="PointSize" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="appendPoint" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="num" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="#" />
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+</list>
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="&lt;" />
+<leaf symbol="num" />
+<list>
+<leaf symbol="Zero" />
+</list>
+</list>
+<list>
+<leaf symbol="error" />
+<leaf string="No point lists to append to!" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<leaf symbol="num" />
+</list>
+<list>
+<leaf symbol="append" />
+<list>
+<list>
+<leaf symbol="graf" />
+<leaf symbol="llPoints" />
+</list>
+<leaf symbol="num" />
+</list>
+<list>
+<leaf symbol="construct" />
+<leaf symbol="aPoint" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="point" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+<leaf symbol="PointColor" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="component" />
+<leaf symbol="graf" />
+<leaf symbol="aPoint" />
+<leaf symbol="PointColor" />
+<list>
+<leaf symbol="lineColorDefault" />
+</list>
+<list>
+<leaf symbol="pointSizeDefault" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="llp" />
+</list>
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Point" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="makeGraphImage" />
+<leaf symbol="llp" />
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="l" />
+<list>
+<leaf symbol="#" />
+<leaf symbol="llp" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="pointColorDefault" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="lineColorDefault" />
+</list>
+</list>
+<list>
+<leaf symbol="COLLECT" />
+<list>
+<leaf symbol="IN" />
+<leaf symbol="i" />
+<list>
+<leaf symbol="SEGMENT" />
+<list>
+<leaf symbol="One" />
+</list>
+<leaf symbol="l" />
+</list>
+</list>
+<list>
+<leaf symbol="pointSizeDefault" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="graf" />
+</list>
+<list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+<leaf symbol="$" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="hconcat" />
+<list>
+<leaf symbol="construct" />
+<list>
+<leaf symbol="message" />
+<leaf string="Graph with " />
+</list>
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="#" />
+<list>
+<leaf symbol="pointLists" />
+<leaf symbol="graf" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="OutputForm" />
+</list>
+</list>
+<list>
+<leaf symbol="message" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="=" />
+<leaf symbol="p" />
+<list>
+<leaf symbol="One" />
+</list>
+</list>
+<leaf string=" point list" />
+<leaf string=" point lists" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

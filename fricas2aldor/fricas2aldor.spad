@@ -1,0 +1,76 @@
+)abbrev package F2A FriCAS2Aldor
+++ Author: Martin Baker
+++ Date Created: April 2017
+++ Also See:
+++ AMS Classifications:
+++ Keywords:
+++ Description:
+++ This package builds XML structures which hold information about
+++ SPAD code.
+
+FriCAS2Aldor() : with
+
+  buildXmlAst : (filename : String,dest:String) -> Void
+  bootOut : (filename : String) -> Void
+
+ == add
+  import XmlAttribute
+  import XmlElement
+  import ExportXml
+  import SExpression
+  --import parse4.lisp
+
+  replaceString(a : String) : String ==
+    es : List(Character) := entries(a)
+    res : List(Character) := []
+    for e in es repeat
+      f : List(Character) := [e]
+      if e = char("&") then f := [char("&") ,char("a") ,char("m") ,char("p") ,char(";") ]
+      if e = char("<") then f := [char("&") ,char("l") ,char("t") ,char(";") ]
+      if e = char(">") then f := [char("&") ,char("g") ,char("t") ,char(";") ]
+      if e = char("_"") then f := [char("&") ,char("q") ,char("u") ,char("o") ,char("t") ,char(";") ]
+      res := concat(res,f)
+    construct(res)
+
+  toXml1(s : SExpression,lstName:String):XmlElement ==
+    --print ("parse toXml")$OutputForm
+    if float?(s) then
+      f:DoubleFloat := float s
+      a:XmlAttribute := xmlAttribute("float",mathObject2String(f)$Lisp :: String)
+      return xmlElement("leaf",[]$List(XmlElement),[a])
+    if integer?(s) then
+      i:Integer := integer s
+      a:XmlAttribute := xmlAttribute("int",string(i))
+      return xmlElement("leaf",[]$List(XmlElement),[a])
+    if string?(s) then
+      st:String := replaceString(string s)
+      a:XmlAttribute := xmlAttribute("string",st)
+      return xmlElement("leaf",[]$List(XmlElement),[a])
+    if symbol?(s) then
+      sy:Symbol := symbol s
+      st:String := replaceString(string(sy))
+      a:XmlAttribute := xmlAttribute("symbol",st)
+      return xmlElement("leaf",[]$List(XmlElement),[a])
+    if list?(s) then
+      lst: List(XmlElement) := [toXml1(x,"list") for x in destruct s]
+      return xmlElement(lstName,lst,[]$List(XmlAttribute))
+    xmlElement("error",[]$List(XmlElement),[]$List(XmlAttribute))
+
+  -- writeXml(content, filename) writes an xml element and all the
+  -- elements below it to an xml file. This assumes that all
+  -- elements, in a file, have a single root which is usually the case.
+  buildXmlAst(filename : String,dest:String) : Void ==
+    f:SExpression := convert(filename)$SExpression
+    --res:SExpression := spadCompile(f)$Lisp -- int-top.boot
+    res:SExpression := parsespadCompile(f)$Lisp -- scwrap2.boot
+    --res:SExpression := parsedo_read(f)$Lisp -- int-top.boot
+    funcEles : XmlElement := toXml1(res,"func")
+    ele:XmlElement := xmlElement("file",[funcEles],[]$List(XmlAttribute))
+    fileName : String := concat(["astxml/",dest,".xml"])$String
+    writeXml(ele,fileName)
+    void
+
+  bootOut(filename : String) : Void ==
+    f:SExpression := convert(filename)$SExpression
+    e:SExpression := parseshoeTransformToConsole(f)$Lisp
+    void

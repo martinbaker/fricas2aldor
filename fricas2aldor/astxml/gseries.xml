@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="GeneralUnivariatePowerSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+<list>
+<list>
+<leaf symbol="Join" />
+<list>
+<leaf symbol="UnivariatePuiseuxSeriesCategory" />
+<leaf symbol="Coef" />
+</list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="domain" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="Variable" />
+<leaf symbol="var" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="coerce" />
+<list>
+<leaf symbol="$" />
+<list>
+<leaf symbol="UnivariatePuiseuxSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="differentiate" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Variable" />
+<leaf symbol="var" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="integrate" />
+<list>
+<leaf symbol="$" />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Variable" />
+<leaf symbol="var" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="Ring" />
+</list>
+<list>
+<leaf symbol="Symbol" />
+</list>
+<leaf symbol="Coef" />
+</list>
+<list>
+<list />
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="add" />
+<list>
+<leaf symbol="UnivariatePuiseuxSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="coerce" />
+<leaf symbol="upxs" />
+</list>
+<list>
+<list />
+<list>
+<leaf symbol="UnivariatePuiseuxSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="upxs" />
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="puiseux" />
+<list>
+<leaf symbol="Mapping" />
+<list>
+<leaf symbol="UnivariatePuiseuxSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="puiseux" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="pretend" />
+<leaf symbol="f" />
+<list>
+<leaf symbol="UnivariatePuiseuxSeries" />
+<leaf symbol="Coef" />
+<leaf symbol="var" />
+<leaf symbol="cen" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Algebra" />
+<list>
+<leaf symbol="Fraction" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="differentiate" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="'differentiate' unavailable on this domain;  " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="use 'approximate' first" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="str1" />
+<leaf symbol="str2" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="differentiate" />
+<leaf symbol="f" />
+<leaf symbol="v" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Variable" />
+<leaf symbol="var" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="differentiate" />
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="PartialDifferentialRing" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="differentiate" />
+<leaf symbol="f" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G20050257" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="variable" />
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G20050257" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="'differentiate' unavailable on this domain;  " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="use 'approximate' first" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="str1" />
+<leaf symbol="str2" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="dcds" />
+<list>
+<leaf symbol="differentiate" />
+<list>
+<leaf symbol="center" />
+<leaf symbol="f" />
+</list>
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="LET" />
+<leaf symbol="deriv" />
+<list>
+<leaf symbol="::" />
+<list>
+<leaf symbol="differentiate" />
+<list>
+<leaf symbol="puiseux" />
+<leaf symbol="f" />
+</list>
+</list>
+<leaf symbol="$" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="-" />
+<list>
+<leaf symbol="map" />
+<list>
+<leaf symbol="+-&gt;" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="differentiate" />
+<leaf symbol="x" />
+<leaf symbol="s" />
+</list>
+</list>
+<leaf symbol="f" />
+</list>
+<list>
+<leaf symbol="*" />
+<leaf symbol="dcds" />
+<leaf symbol="deriv" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="f" />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="'integrate' unavailable on this domain;  " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="use 'approximate' first" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="str1" />
+<leaf symbol="str2" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="f" />
+<leaf symbol="v" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Variable" />
+<leaf symbol="var" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="f" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="integrate" />
+<list>
+<leaf symbol="Coef" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="variables" />
+<list>
+<list>
+<leaf symbol="List" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<leaf symbol="Coef" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="f" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G20050258" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="variable" />
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G20050258" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="'integrate' unavailable on this domain;  " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="use 'approximate' first" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="str1" />
+<leaf symbol="str2" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G20050259" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="entry?" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="variables" />
+<list>
+<leaf symbol="center" />
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G20050259" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="map" />
+<list>
+<leaf symbol="+-&gt;" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="x" />
+<leaf symbol="s" />
+</list>
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<leaf string="integrate: center is a function of variable of integration" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="TranscendentalFunctionCategory" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="PrimitiveFunctionCategory" />
+</list>
+</list>
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="has" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="AlgebraicallyClosedFunctionSpace" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="integrateWithOneAnswer" />
+<list>
+<leaf symbol="Mapping" />
+<leaf symbol="Coef" />
+<leaf symbol="Coef" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="integrateWithOneAnswer" />
+<leaf symbol="f" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="res" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="FunctionSpaceIntegration" />
+<list>
+<leaf symbol="Integer" />
+</list>
+<leaf symbol="Coef" />
+</list>
+<leaf symbol="integrate" />
+</list>
+<leaf symbol="f" />
+<leaf symbol="s" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<list>
+<leaf symbol="case" />
+<leaf symbol="res" />
+<leaf symbol="Coef" />
+</list>
+<list>
+<leaf symbol="::" />
+<leaf symbol="res" />
+<leaf symbol="Coef" />
+</list>
+<list>
+<leaf symbol="first" />
+<list>
+<leaf symbol="::" />
+<leaf symbol="res" />
+<list>
+<leaf symbol="List" />
+<leaf symbol="Coef" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="integrate" />
+<leaf symbol="f" />
+<leaf symbol="s" />
+</list>
+<list>
+<list />
+<leaf symbol="$" />
+<list>
+<leaf symbol="Symbol" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G20050260" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="=" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="variable" />
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G20050260" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="'integrate' unavailable on this domain;  " />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="str2" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf string="use 'approximate' first" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<list>
+<leaf symbol="concat" />
+<leaf symbol="str1" />
+<leaf symbol="str2" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G20050261" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<leaf symbol="entry?" />
+<leaf symbol="s" />
+<list>
+<leaf symbol="variables" />
+<list>
+<leaf symbol="center" />
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G20050261" />
+<leaf symbol="noBranch" />
+<list>
+<leaf symbol="exit" />
+<leaf int="2" />
+<list>
+<leaf symbol="map" />
+<list>
+<leaf symbol="+-&gt;" />
+<leaf symbol="x" />
+<list>
+<leaf symbol="integrateWithOneAnswer" />
+<leaf symbol="x" />
+<leaf symbol="s" />
+</list>
+</list>
+<leaf symbol="f" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="error" />
+<leaf string="integrate: center is a function of variable of integration" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>

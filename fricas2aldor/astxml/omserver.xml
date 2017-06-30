@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<file>
+<func>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OpenMathServerPackage" />
+</list>
+<list>
+<list>
+<leaf symbol="CATEGORY" />
+<leaf symbol="package" />
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMreceive" />
+<list>
+<list>
+<leaf symbol="Any" />
+</list>
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMsend" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="SIGNATURE" />
+<leaf symbol="OMserve" />
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<list />
+</list>
+<list>
+<leaf symbol="CAPSULE" />
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="OpenMathPackage" />
+</list>
+</list>
+<list>
+<leaf symbol="import" />
+<list>
+<leaf symbol="OpenMath" />
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMreceive" />
+<leaf symbol="conn" />
+</list>
+<list>
+<list>
+<leaf symbol="Any" />
+</list>
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+</list>
+<list>
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+</list>
+<list>
+<leaf symbol="OMconnInDevice" />
+<leaf symbol="conn" />
+</list>
+</list>
+<list>
+<leaf symbol="OMsetEncoding" />
+<leaf symbol="dev" />
+<leaf symbol="OMencodingUnknown" />
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMread" />
+<leaf symbol="dev" />
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMsend" />
+<leaf symbol="conn" />
+<leaf symbol="value" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="dev" />
+<list>
+<leaf symbol="OpenMathDevice" />
+</list>
+</list>
+<list>
+<leaf symbol="OMconnOutDevice" />
+<leaf symbol="conn" />
+</list>
+</list>
+<list>
+<leaf symbol="OMsetEncoding" />
+<leaf symbol="dev" />
+<leaf symbol="OMencodingXML" />
+</list>
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29300092" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<leaf symbol="retractable?" />
+</list>
+<leaf symbol="value" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29300092" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="Integer" />
+</list>
+</list>
+<leaf symbol="retract" />
+</list>
+<leaf symbol="value" />
+</list>
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29300093" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<leaf symbol="retractable?" />
+</list>
+<leaf symbol="value" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29300093" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="Float" />
+</list>
+</list>
+<leaf symbol="retract" />
+</list>
+<leaf symbol="value" />
+</list>
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29300094" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+</list>
+<leaf symbol="retractable?" />
+</list>
+<leaf symbol="value" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29300094" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+</list>
+<leaf symbol="retract" />
+</list>
+<leaf symbol="value" />
+</list>
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29300095" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="retractable?" />
+</list>
+<leaf symbol="value" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29300095" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="DoubleFloat" />
+</list>
+</list>
+<leaf symbol="retract" />
+</list>
+<leaf symbol="value" />
+</list>
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="G29300096" />
+<list>
+<leaf symbol="Boolean" />
+</list>
+</list>
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf symbol="retractable?" />
+</list>
+<leaf symbol="value" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="IF" />
+<leaf symbol="G29300096" />
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMwrite" />
+<leaf symbol="dev" />
+<list>
+<list>
+<leaf symbol="Sel" />
+<list>
+<leaf symbol="AnyFunctions1" />
+<list>
+<leaf symbol="String" />
+</list>
+</list>
+<leaf symbol="retract" />
+</list>
+<leaf symbol="value" />
+</list>
+<leaf symbol="true" />
+</list>
+</list>
+<leaf symbol="noBranch" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+<list>
+<leaf symbol="DEF" />
+<list>
+<leaf symbol="OMserve" />
+<leaf symbol="portNum" />
+<leaf symbol="timeout" />
+</list>
+<list>
+<list>
+<leaf symbol="Void" />
+</list>
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+<list>
+<leaf symbol="SingleInteger" />
+</list>
+</list>
+<list>
+<list />
+<list />
+<list />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<list>
+<leaf symbol=":" />
+<leaf symbol="conn" />
+<list>
+<leaf symbol="OpenMathConnection" />
+</list>
+</list>
+<list>
+<leaf symbol="OMmakeConn" />
+<leaf symbol="timeout" />
+</list>
+</list>
+<list>
+<leaf symbol="OMbindTCP" />
+<leaf symbol="conn" />
+<leaf symbol="portNum" />
+</list>
+<list>
+<leaf symbol=":" />
+<leaf symbol="val" />
+<list>
+<leaf symbol="Any" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="REPEAT" />
+<list>
+<leaf symbol="WHILE" />
+<leaf symbol="true" />
+</list>
+<list>
+<leaf symbol="SEQ" />
+<list>
+<leaf symbol="LET" />
+<leaf symbol="val" />
+<list>
+<leaf symbol="OMreceive" />
+<leaf symbol="conn" />
+</list>
+</list>
+<list>
+<leaf symbol="exit" />
+<leaf int="1" />
+<list>
+<leaf symbol="OMsend" />
+<leaf symbol="conn" />
+<leaf symbol="val" />
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</list>
+</func>
+</file>
