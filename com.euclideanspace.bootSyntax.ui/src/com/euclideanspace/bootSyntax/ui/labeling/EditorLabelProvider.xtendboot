@@ -16,10 +16,12 @@ import com.euclideanspace.bootSyntax.editor.Defconst
 import com.euclideanspace.bootSyntax.editor.Defvar
 import com.euclideanspace.bootSyntax.editor.FunctionDef
 import com.euclideanspace.bootSyntax.editor.GlobalVariable
+import com.euclideanspace.bootSyntax.editor.Block
+import com.euclideanspace.bootSyntax.editor.InnerBlock
 import com.euclideanspace.bootSyntax.editor.Statement
-//import com.euclideanspace.bootSyntax.editor.MultiAssign
-//import com.euclideanspace.bootSyntax.editor.MultiDefine
-//import com.euclideanspace.bootSyntax.editor.MultiExit
+import com.euclideanspace.bootSyntax.editor.MultiAssign
+import com.euclideanspace.bootSyntax.editor.MultiDefine
+import com.euclideanspace.bootSyntax.editor.MultiExit
 import com.euclideanspace.bootSyntax.editor.Loop
 import com.euclideanspace.bootSyntax.editor.While
 import com.euclideanspace.bootSyntax.editor.Do
@@ -48,8 +50,6 @@ import com.euclideanspace.bootSyntax.editor.AssignExpression
 import com.euclideanspace.bootSyntax.editor.ExitExpression
 import com.euclideanspace.bootSyntax.editor.EltExpression
 import com.euclideanspace.bootSyntax.editor.UnaryExpression
-import com.euclideanspace.bootSyntax.editor.VarOrFunction
-import com.euclideanspace.bootSyntax.editor.Tuple
 import com.euclideanspace.bootSyntax.editor.Literal
 import com.euclideanspace.bootSyntax.editor.LispLiteral
 import com.euclideanspace.bootSyntax.editor.SubLispLiteral
@@ -61,7 +61,6 @@ import com.euclideanspace.bootSyntax.editor.LoopCondition
 import com.euclideanspace.bootSyntax.editor.WhereExpression
 import com.euclideanspace.bootSyntax.editor.IfExpression
 import com.euclideanspace.bootSyntax.editor.LambdaExpression
-import com.euclideanspace.bootSyntax.editor.Block
 
 /**
  * Provides labels for EObjects.
@@ -124,19 +123,19 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  return "GlobalVariable";
 	}
 	
-/* 	def String text(Block ele) {
+	def String text(Block ele) {
 	  return "Block";
 	}
 	
 	def String text(InnerBlock ele) {
 	  return "InnerBlock";
 	}
-*/	
+	
 	def String text(Statement ele) {
 	  return "Statement";
 	}
 	
-/* 	def String text(MultiAssign ele) {
+	def String text(MultiAssign ele) {
 	  if (ele.getE()!==null)  return "MultiAssign ..."
 	  return "MultiAssign";
 	}
@@ -149,7 +148,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	def String text(MultiExit ele) {
 	  if (ele.getE()!==null)  return "MultiExit ..."
 	  return "MultiExit";
-	}*/
+	}
 
 /* Loop:
 	c+=LoopCondition* (KW_BAR e=Expression)? 'repeat' b=Block */
@@ -186,12 +185,12 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	'until' b=Block
 */
 	def String text(Until ele) {
-	  if (ele.getB()!==null)  return "Until ..."
+	  if (ele.getB()!==null)  return "Until ..."+ele.getB()
 	  return "Until";
 	}
 	
 	def String text(For ele) {
-	  if (ele.getE()!==null)  return "For ..."
+	  if (ele.getE()!==null)  return "For ..."+ele.getE()
 	  return "For";
 	}
 	
@@ -239,27 +238,14 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
  */
 	def String text(Expr ele) {
 	  var String res = "";
+	  if (ele.isC())  res = res+ "{...}"
 	  if (ele.getB1()!==null) res = res+ "if .. then .."
 	  if (ele.getB3()!==null) res = res+ "else .."
-	  return "Expr "+res;
-	}
-
-/*{Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)? */
-	def String text(Tuple ele) {
-	  var String res = "(";
-	  if (ele.isM2())  res = res+ "-"
-	  if (ele.getT3()!==null)  res = res+ "exp"
-//	  if (ele.getT5()!==null) res = res+ ",exp..."
-	  return "Tuple "+res+")";
-	}
-	
-	def String text(Block ele) {
-	  var String res = "(";
-	  if (ele.isC2())  res = res+ "{...}"
+	  if (ele.isP())  res = res+ "(...)"
 	  if (ele.isM())  res = res+ "-"
 	  if (ele.isB())  res = res+ " block"
 	  if (ele.getD()!==null) res = res+ ".."
-	  return "Block "+res+")";
+	  return "Expr "+res;
 	}
 	
 	def String text(Expression ele) {
@@ -395,29 +381,11 @@ PrimaryExpression |
  */
 	def String text(UnaryExpression ele) {
 	  var String res = "";
+	  if (ele.getName()!==null) res=res+ele.getName()
+	  if (ele.p2) res=res+"'"
 	  if (ele.getUop()!==null) res=res+ele.getUop()
 	  if (ele.loc) res=res+"local"
 	  return "UnaryExpression " +res;
-	}
-
-/*UnaryExpression returns Expr:
-PrimaryExpression  |
-({VarOrFunction} name=TK_ID =>p2?=KW_PRIME? expr=UnaryExpression?) |
-({UnaryExpression} uop='not' expr=UnaryExpression) |
-({UnaryExpression} uop=KW_COLON expr=UnaryExpression) |
-({UnaryExpression} uop='or/' expr=UnaryExpression) |
-({UnaryExpression} uop='and/' expr=UnaryExpression) |
-({UnaryExpression} uop='+/' expr=UnaryExpression) |
-({UnaryExpression} uop='*./' expr=UnaryExpression) | // needs . otherwise causes errors in xtext files
-({UnaryExpression} uop='return' expr=UnaryExpression) |
-({UnaryExpression} uop=KW_SHARP expr=UnaryExpression) |
-({UnaryExpression} uop=KW_COLON loc?='local') */
-	def String text(VarOrFunction ele) {
-	  var String res = "";
-	  if (ele.getName()!==null) res=res+ele.getName()
-//	  if (ele.p2) res=res+"'"
-	  if (ele.expr!==null) res=res+" expr"
-	  return "VarOrFunction " +res;
 	}
 
 /*Literal:
