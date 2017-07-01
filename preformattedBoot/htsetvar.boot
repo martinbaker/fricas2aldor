@@ -402,12 +402,11 @@ htCacheSet htPage ==
     $cacheAlist := deleteAssoc('all,$cacheAlist)
   htInitPage('"Cache Summary",nil)
   bcHt '"In general, interpreter functions "
-  bcHt (
+  bcHt
     $cacheCount = 0 => "will {\em not} be cached."
     bcHt '"cache "
     htAllOrNum $cacheCount
     '"} values."
-  )
   bcHt '"\vspace{1}\newline "
   if $cacheAlist then
     --    bcHt '" However, \indent{3}"
@@ -421,11 +420,10 @@ htCacheSet htPage ==
   htShowPage()
 
 htAllOrNum val ==
- bcHt (
+ bcHt
   val = 'all => '"{\em all"
   val = 0 => '"{\em no"
   STRCONC('"the last {\em ",stringize val)
- )
 
 htCacheOne names ==
   page := htInitPage(mkSetTitle(),nil)

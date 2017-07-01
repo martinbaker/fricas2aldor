@@ -60,10 +60,9 @@ showImp(dom,:options) ==
     key = 'constant => constants := [x,:constants]
     others := [x,:others]
     --add chain domains go here
-  sayBrightly (
+  sayBrightly
     nowheres => ['"Functions exported but not implemented by",:bright form2String domainForm,'":"]
     [:bright form2String domainForm,'"implements all exported operations"]
-  )
   showDomainsOp1(nowheres,'nowhere)
   missingOnlyFlag => 'done
 
@@ -71,11 +70,10 @@ showImp(dom,:options) ==
   u := [:domexports,:constants,:SORTBY('CDDR,others)]
   while u repeat
     [., ., :key] := first u
-    sayBrightly (
+    sayBrightly
       key = 'constant =>
         ["Constants implemented by",:bright form2String key,'":"]
       ["Functions implemented by",:bright form2String key,'":"]
-    )
     u := showDomainsOp1(u,key)
   u := SORTBY('CDDR,defexports)
   while u repeat

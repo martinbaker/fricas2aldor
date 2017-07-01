@@ -84,11 +84,10 @@ kdPageInfo(name,abbrev,nargs,conform,signature,file?) ==
     }
   else
     if abbrev ~= name then bcHt '" and"
-    bcHt (
+    bcHt
       nargs = 1 =>
         '" takes one argument:"
       [" takes ",STRINGIMAGE nargs," arguments:"]
-    )
   htSaturnBreak()
   htSayStandard '"\indentrel{2}"
   if nargs > 0 then kPageArgs(conform,signature)
@@ -308,11 +307,10 @@ dbSearchOrder(conform,domname,$domain) ==
   catvec     := CADDR u
   catforms := [[pakform,:pred] for i in 0..MAXINDEX catvec | test ] where
     test ==
-      pred := simpCatPredicate (
+      pred := simpCatPredicate
         p:=SUBLISLIS(rest conform,$FormalMapVariableList,kTestPred catpredvec.i)
         $domain => EVAL p
         p
-      )
       if domname and CONTAINED('$,pred) then pred := SUBST(domname,'$,pred)
       --    which = '"attribute" => pred    --all categories
       (pak := catinfo . i) and pred
@@ -804,10 +802,9 @@ dbGetDocTable(op,$sig,docTable,$which,aux) == main where
     [$conform,first comments,:code]
   hn [sig,:doc] ==
     $which = '"attribute" => sig is ['attribute,: =$sig] and doc
-    pred := #$sig = #sig and (
+    pred := #$sig = #sig and
       alteredSig := SUBLISLIS(IFCDR $conform, $FormalMapVariableList, sig)
       alteredSig = $sig
-    )
     pred =>
       doc =>
         doc is ['constant,:r] => r
@@ -877,10 +874,9 @@ dbShowCons1(htPage,cAlist,key) ==
       item := first x
       $exposedOnlyIfTrue => isExposedConstructor opOf item
       item
-  conlist is [.] => conPage (
+  conlist is [.] => conPage
     htPage and htpProperty(htPage,'domname) => first conlist
     opOf first conlist
-  )
   conlist := [opOf x for x in conlist]
   kinds := "union"/[dbConstructorKind x for x in conlist]
   kind :=

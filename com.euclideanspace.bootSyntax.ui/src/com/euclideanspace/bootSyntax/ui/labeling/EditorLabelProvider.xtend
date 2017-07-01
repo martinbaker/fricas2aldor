@@ -170,7 +170,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 /* While:
 	'while' b=InnerBlock */
 	def String text(While ele) {
-	  if (ele.getB()!==null)  return "While ..."
+	  if (ele.getE()!==null)  return "While ..."
 	  return "While";
 	}
 
@@ -178,7 +178,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	'do' b=Block
  */
 	def String text(Do ele) {
-	  if (ele.getB()!==null)  return "Do ..."
+	  if (ele.getE()!==null)  return "Do ..."
 	  return "Do";
 	}
 
@@ -186,7 +186,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	'until' b=Block
 */
 	def String text(Until ele) {
-	  if (ele.getB()!==null)  return "Until ..."
+	  if (ele.getE()!==null)  return "Until ..."
 	  return "Until";
 	}
 	
@@ -258,7 +258,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  if (ele.isC2())  res = res+ "{...}"
 	  if (ele.isM())  res = res+ "-"
 	  if (ele.isB())  res = res+ " block"
-	  if (ele.getD()!==null) res = res+ ".."
+	  if (ele.isD()) res = res+ ".."
 	  return "Block "+res+")";
 	}
 	
@@ -434,7 +434,11 @@ PrimaryExpression  |
 | lsp=LispLiteral
 | str=TK_STRING */
 	def String text(Literal ele) {
-	  if (ele.getValue()!==null)  return "Numeric Literal "+ele.getValue()
+	  if (ele.getValue()!==null) {
+	  	var res= "Numeric Literal "+ele.getValue()
+	    if (ele.isD()) res = res+ ".."
+	  	return res
+	  }
 	  if (ele.getBool()!==null)  return "Boolean Literal "+ele.getBool()
 	  if (ele.getNil()!==null)  return "Nil Literal "+ele.getNil()
 	  if (ele.getStr()!==null)  return "String Literal "+ele.getStr()

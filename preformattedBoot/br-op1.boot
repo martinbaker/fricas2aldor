@@ -931,7 +931,7 @@ fortexp0 x ==
   NREVERSE ['"...",:l]
 
 mathform2HtString form ==
- escapeString (
+ escapeString
   form is ['QUOTE,a] => STRCONC('"'","STRCONC"/fortexp0 a)
   form is ['BRACKET,['AGGLST,:arg]] =>
     if arg is ['construct,:r] then arg := r
@@ -946,7 +946,7 @@ mathform2HtString form ==
     STRCONC('"[",first arg,tailPart,'"]")
   atom form => form
   "STRCONC"/fortexp0 form
- )
+
 --============================================================================
 --                Getting Operations from Domain
 --============================================================================

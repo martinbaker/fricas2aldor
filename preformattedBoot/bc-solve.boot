@@ -155,19 +155,17 @@ bcInputEquations(htPage,solutionMethod) ==
   htpSetProperty(page, 'numberOfEquations, numEqs)
   htpSetProperty(page, 'solutionMethod,solutionMethod)
   htSay '"\newline\menuitemstyle{}\tab{2}"
-  htSay (
+  htSay
     numEqs = 1 => '"Enter the {\em Equation}:"
     '"Enter the {\em Equations}:"
-  )
   htSay '"\newline\tab{2}"
   htMakePage equationPart
   bcHt '"\blankline "
   htSay '"\newline\menuitemstyle{}\tab{2}"
-  htMakePage (
+  htMakePage
   	numEqs = 1 =>
   	  '((text ."Enter the {\em unknown} (leave blank if implied): ")(text . "\tab{48}")(bcStrings (6 "x" unknowns S . quoteString)))
   	['(text . "Enter the unknowns (leave blank if implied):"),'(text . "\tab{44}"),['bcStrings, [10,bcMakeUnknowns(numEqs),'unknowns,'P]]]
-  )
   htMakeDoneButton('"Continue", 'bcInputEquationsEnd)
   htShowPage()
 
@@ -288,10 +286,9 @@ bcLinearMatrixGen(htPage,key) ==
   vector := [x.1 for x in REVERSE htpInputAreaAlist htPage]
   vecform := bcVectorGen vector
   form := bcMkFunction('"solve",matform,[vecform])
-  bcGen (
+  bcGen
   	key = 'particular => STRCONC(form,'".particular")
   	form
-  )
 
 linearFinalRequest(nhh,mat,vect) ==
   sayBrightly '"Do you want more information on the meaning of the output"

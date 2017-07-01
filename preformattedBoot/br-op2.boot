@@ -44,12 +44,11 @@ htSayConstructor(key,u) ==
   key = 'is1 =>
     htSay '"the domain "
     bcConform(u,true)
-  htSay (
+  htSay
     key = 'is1 => '"the domain "
     kind := GETDATABASE(opOf u,'CONSTRUCTORKIND)
     kind = 'domain => '"an element of "
     '"a domain of "
-  )
   u is ['Join,:middle,r] =>
     rest middle =>
       htSay '"categories "
@@ -286,10 +285,9 @@ whoUsesOperation(htPage,which,key) ==
   noOneUses := SETDIFFERENCE(opl,usedList)
   if #noOneUses > 0 then
     htSay('"No constructor uses the ")
-    htSay (
+    htSay
         #noOneUses = 1 => '"operation: "
         [#noOneUses,'" operations:"]
-    )
     htSay '"\newline "
     for [op,:sig] in noOneUses repeat
       htSay('"\tab{2}{\em ",escapeSpecialChars STRINGIMAGE op,'": ")

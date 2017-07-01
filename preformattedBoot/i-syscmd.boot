@@ -1551,12 +1551,11 @@ undoInCore(n) ==
   for i in n..$HistListLen repeat li := rest li
   undoChanges(li)
   n:= $IOindex-n-1
-  n>0 and (
+  n>0 and
     $HiFiAccess =>
       vec := rest UNWIND_-PROTECT(readHiFi(n), disableHist())
       val := (p := ASSQ('%, vec)) and (p1 := ASSQ('value, rest p)) and rest p1
     sayKeyedMsg("S2IH0019",[n])
-  )
   $InteractiveFrame:= putHist('%,'value,val,$InteractiveFrame)
   updateHist()
 

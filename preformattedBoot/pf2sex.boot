@@ -365,10 +365,9 @@ pfRule2Sex pf ==
   lhs := pfLhsRule2Sex pfRuleLhsItems pf
   rhs := pfRhsRule2Sex pfRuleRhs pf
   lhs := ruleLhsTran lhs
-  rulePredicateTran (
+  rulePredicateTran
     $quotedOpList => ["rule", lhs, rhs, ["construct", :$quotedOpList]]
     ["rule", lhs, rhs]
-  )
 
 ruleLhsTran ruleLhs ==
   for pred in $predicateList repeat

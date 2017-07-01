@@ -421,7 +421,7 @@ canCoerce1(t1,t2) ==
   -- general test for coercion
   -- the result is NIL if it fails
   t1 = t2 => true
-  absolutelyCanCoerceByCheating(t1,t2) or t1 = '(None) or t2 = '(Any) or (
+  absolutelyCanCoerceByCheating(t1,t2) or t1 = '(None) or t2 = '(Any) or
     t1 in '((Mode) (Type) (Category)) =>
       t2 = $OutputForm => true
       NIL
@@ -461,33 +461,27 @@ canCoerce1(t1,t2) ==
     (ans := canCoerceTopMatching(t1,t2,nt1,nt2)) ~= 'maybe => ans
     t2 = $Integer => canCoerceLocal(t1,t2)
     -- is true
-    ans := canCoerceTower(t1,t2) or (
+    ans := canCoerceTower(t1,t2) or
       [.,:arg]:= deconstructT t2
-      arg and (
+      arg and
         t:= last arg
         canCoerce(t1,t) and canCoerceByFunction(t,t2) and 'T
-      )
-    )
     ans or (t1 in '((PositiveInteger) (NonNegativeInteger)) and canCoerce($Integer,t2))
-  )
 
 canCoerceFrom0(t1,t2) ==
   -- top level test for coercion, which transfers all RN, RF and RR into
   -- equivalent types
   startTimingProcess 'querycoerce
   q :=
-    isEqualOrSubDomain(t1,t2) or t1 = '(None) or t2 = '(Any) or (
-
+    isEqualOrSubDomain(t1,t2) or t1 = '(None) or t2 = '(Any) or
       -- make sure we are trying to coerce to a legal type
       -- in particular, polynomials are repeated, etc.
       null isValidType(t2) => NIL
       null isLegitimateMode(t2,nil,nil) => NIL
-
       t1 = $RationalNumber =>
         isEqualOrSubDomain(t2,$Integer) => NIL
         canCoerce(t1, t2)
       canCoerce(t1, t2)
-    )
   stopTimingProcess 'querycoerce
   q
 
@@ -592,31 +586,26 @@ canCoerceByMap(t1,t2) ==
 canCoerceTower(t1,t2) ==
   -- tries to find a coercion between top level t2 and somewhere inside t1
   -- builds new bubbled type, for which coercion is called recursively
-  canCoerceByMap(t1,t2) or newCanCoerceCommute(t1,t2) or (
-   canCoerceLocal(t1,t2) or canCoercePermute(t1,t2) or (
+  canCoerceByMap(t1,t2) or newCanCoerceCommute(t1,t2) or
+   canCoerceLocal(t1,t2) or canCoercePermute(t1,t2) or
     [c1,:arg1]:= deconstructT t1
-    arg1 and (
+    arg1 and
       TL:= NIL
       arg:= arg1
       until x or not arg repeat x:=
         t:= last arg
         [c,:arg]:= deconstructT t
         TL:= [c,arg,:TL]
-        arg and coerceIntTest(t,t2) and (
+        arg and coerceIntTest(t,t2) and
           CDDR TL =>
             s := constructM(c1, replaceLast(arg1, bubbleConstructor TL))
-            canCoerceLocal(t1,s) and (
+            canCoerceLocal(t1,s) and
               [c2,:arg2]:= deconstructT last s
               s1:= bubbleConstructor [c2,arg2,c1,arg1]
               canCoerceCommute(s,s1) and canCoerceLocal(s1,t2)
-            )
           s:= bubbleConstructor [c,arg,c1,arg1]
           newCanCoerceCommute(t1,s) and canCoerceLocal(s,t2)
-        )
       x
-    )
-   )
-  )
 
 canCoerceLocal(t1,t2) ==
   -- test for coercion on top level
@@ -906,13 +895,11 @@ coerceInt1(triple,t2) ==
 
   EQ(first(t1), 'Variable) and PAIRP(t2) and (isEqualOrSubDomain(t2,$Integer) or (t2 = [$QuotientField, $Integer]) or MEMQ(first(t2), '(Float DoubleFloat))) => NIL
 
-  ans := coerceRetract(triple,t2) or coerceIntTower(triple,t2) or (
+  ans := coerceRetract(triple,t2) or coerceIntTower(triple,t2) or
     [.,:arg]:= deconstructT t2
-    arg and (
+    arg and
       t:= coerceInt(triple,last arg)
       t and coerceByFunction(t,t2)
-    )
-  )
   ans or (isSubDomain(t1,$Integer) and coerceInt(objNew(val,$Integer),t2)) or coerceIntAlgebraicConstant(triple,t2) or coerceIntX(val,t1,t2)
 
 coerceSubDomain(val, tSuper, tSub) ==
@@ -1116,7 +1103,7 @@ coerceIntTower(triple,t2) ==
   x := coerceIntTableOrFunction(triple,t2) => x
   t1 := objMode triple
   [c1,:arg1]:= deconstructT t1
-  arg1 and (
+  arg1 and
     TL:= NIL
     arg:= arg1
     until x or not arg repeat
@@ -1138,7 +1125,7 @@ coerceIntTower(triple,t2) ==
         x:= coerceIntCommute(triple,s) =>
           x:= (coerceIntByMap(x,t2) or coerceIntTableOrFunction(x,t2))
     x
-  )
+
 coerceIntSpecial(triple,t2) ==
   t1 := objMode triple
   t2 is ['SimpleAlgebraicExtension,R,U,.] and t1 = R =>
@@ -1294,13 +1281,11 @@ permuteToOrder(p,n,start) ==
 coerceIntTest(t1,t2) ==
   -- looks whether there exists a table entry or a coercion function
   -- thus the type can be bubbled before coerceIntTableOrFunction is called
-  t1=t2 or (
-    b:= (
+  t1=t2 or
+    b:=
       p := ASSQ(first t1, $CoerceTable)
       p and ASSQ(first t2, rest p)
-    )
     b or coerceConvertMmSelection('coerce,t1,t2) or ($useConvertForCoercions and coerceConvertMmSelection('convert,t1,t2))
-  )
   
 coerceByTable(fn,x,t1,t2,isTotalCoerce) ==
   -- catch point for 'failure in boot coercions

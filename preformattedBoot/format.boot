@@ -163,10 +163,9 @@ substInOrder(alist,x) ==
 
 sayMms(op, mms, label) ==
     m := # mms
-    sayMSG (
+    sayMSG
       m = 1 => ['"There is one", :bright label, '"function called",:bright op, '":"]
       ['"There are ", m, :bright label, '"functions called",:bright op, '":"]
-    )
     for mm in mms for i in 1.. repeat
         sayModemapWithNumber(mm, i)
 

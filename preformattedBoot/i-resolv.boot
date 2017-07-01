@@ -133,13 +133,11 @@ resolveTT1(t1,t2) ==
   t := resolveTTCC(t1,t2) => t
   (t := resolveTTEq(t1,t2)) and isValidType t => t
   [c1,:arg1] := deconstructT t1
-  arg1 and (
+  arg1 and
     [c2,:arg2] := deconstructT t2
-    arg2 and (
+    arg2 and
       t := resolveTT1(last arg1,last arg2)
       t and ( resolveTT2(c1,c2,arg1,arg2,t) or resolveTT2(c2,c1,arg2,arg1,t) )
-    )
-  )
 
 acceptableTypesToResolve(t1,t2) ==
   -- this is temporary. It ensures that two types that have coerces
@@ -160,10 +158,9 @@ acceptableTypesToResolve1(t1,t2) ==
 resolveTT2(c1,c2,arg1,arg2,t) ==
   -- builds a tower and tests for all the necessary coercions
   t0 := constructM(c2,replaceLast(arg2,t))
-  canCoerceFrom(t,t0) and (
+  canCoerceFrom(t,t0) and
     t1 := constructM(c1,replaceLast(arg1,t0))
     canCoerceFrom(t0,t1) and t1
-  )
 
 resolveTTUnion(t1 is ['Union,:doms],t2) ==
   unionDoms1 :=
@@ -329,18 +326,16 @@ resolveTTEq1(c1,arg1,TL is [c2,arg2,:.]) ==
   null arg1 and null arg2 =>
     canCoerceFrom(c1,c2) => constructTowerT(c2,CDDR TL)
     canCoerceFrom(c2,c1) and constructTowerT(c1,CDDR TL)
-  c1=c2 and (
+  c1=c2 and
     [c2,arg2,:TL] := bubbleType TL
     until null arg1 or null arg2 or not t repeat
       t := resolveTT1(first arg1, first arg2) =>
         arg := CONS(t,arg)
         arg1 := rest arg1
         arg2 := rest arg2
-    t and null arg1 and null arg2 and (
+    t and null arg1 and null arg2 and
       t0 := constructM(c1,nreverse arg)
       constructTowerT(t0,TL)
-    )
-  )
 
 resolveTTEq2(c1,arg1,TL is [c,arg,:.]) ==
   -- tries to resolveTTEq the type [c1,arg1] with the last argument
@@ -548,10 +543,9 @@ resolveTM1(t,m) ==
     if isEqualOrSubDomain(t, $Integer) then
       t := $Integer
     tt := resolveTMEq(t,m) => tt
-    $Coerce and (
+    $Coerce and
       tt := resolveTMRed(t,m) => tt
       resolveTM2(t,m)
-    )
   $Coerce and canCoerceFrom(t,m) and m
 
 resolveTMRecord(tr,mr) ==
@@ -613,13 +607,11 @@ spliceTypeListForEmptyMode(tl,ml) ==
 resolveTM2(t,m) ==
   -- resolves t with the last argument of m and builds up a tower
   [cm,:argm] := deconstructT m
-  argm and (
+  argm and
     tt := resolveTM1(t,last argm)
-    tt and (
+    tt and
       ttt := constructM(cm,replaceLast(argm,tt))
       ttt and canCoerceFrom(tt,ttt) and ttt
-    )
-  )
 
 resolveTMEq(t,m) ==
   -- tests whether t and m have the same top level constructor, which,
@@ -638,11 +630,10 @@ resolveTMEq(t,m) ==
     not b =>
       TL := [ct,argt,:TL]
       t := argt and last argt
-  b and (
+  b and
     t := resolveTMEq2(cm,argm,[ct,argt,:TL])
     if t then for p in SL repeat $Subst := augmentSub(first p, rest p, $Subst)
     t
-  )
 
 resolveTMSpecial(t,m) ==
   -- a few special cases
@@ -686,11 +677,10 @@ resolveTMEq1(ct,cm) ==
         xt := CADDR xt
     b :=
       xt=xm => 'T
-      isPatternVar(xm) and (
+      isPatternVar(xm) and
         p := ASSQ(xm, $Subst) => xt = rest p
         p := ASSQ(xm, SL) => xt = rest p
         SL := augmentSub(xm,xt,SL)
-      )
   b => SL
   'failed
 
@@ -701,7 +691,7 @@ resolveTMEq2(cm,argm,TL) ==
     $Coerce => bubbleType TL
     TL
   argt0 := argt
-  null TL and (
+  null TL and
     null argm => constructM(ct,argt)
     --  null argm => NIL
     arg := NIL
@@ -714,7 +704,6 @@ resolveTMEq2(cm,argm,TL) ==
         arg := CONS(tt,arg)
     tt and arg = argt0 => constructT(ct, argt0)
     null argt and null argm and tt and constructM(ct,nreverse arg)
-  )
 
 resolveTMRed(t,m) ==
   -- looks for an applicable rewrite rule at any level of t and tries
@@ -722,18 +711,15 @@ resolveTMRed(t,m) ==
   TL := NIL
   until b or not t repeat
     [ct,:argt] := deconstructT t
-    b := not EQ(t,term1RW(['Resolve,t,m],$ResMode)) and (
+    b := not EQ(t,term1RW(['Resolve,t,m],$ResMode)) and
       [c0,arg0,:TL0] := bubbleType [ct,argt,:TL]
-      null TL0 and (
+      null TL0 and
         l := term1RWall(['Resolve,constructM(c0,arg0),m],$ResMode)
         for t0 in l until t repeat t := resolveTMRed1 t0
         l and t
-      )
-    )
-    b or (
+    b or
       TL := [ct,argt,:TL]
       t := argt and last argt
-    )
   b and t
 
 resolveTMRed1(t) ==
@@ -843,9 +829,8 @@ bubbleConstructor(TL) ==
 compareTT(t1,t2) ==
   -- 'T if type t1 is more nested than t2
   -- otherwise 'T if t1 is lexicographically greater than t2
-  EQCAR(t1,$QuotientField) or (
+  EQCAR(t1,$QuotientField) or
     MEMQ(opOf t2,[$QuotientField, 'SimpleAlgebraicExtension]) =>
       NIL
     CGREATERP(PRIN2CVEC opOf t1,PRIN2CVEC opOf t2)
-  )
 

@@ -249,7 +249,7 @@ getSignatureDocumentation2(n1, n2) ==
 --          ;
 
 parse_category_list(closer) ==
-    MUST (
+    MUST
         match_symbol(closer) => push_form0("CATEGORY")
         MUST(parse_Category())
         tail_val :=
@@ -259,7 +259,6 @@ parse_category_list(closer) ==
         val1 := pop_stack_1()
         IFCAR(val1) = "if" and tail_val = nil => push_lform0(val1)
         push_lform2("CATEGORY", val1, tail_val)
-    )
 
 parse_Category() ==
     match_symbol("if") =>
@@ -278,9 +277,8 @@ parse_Category() ==
     match_symbol("SETTAB") => parse_category_list("BACKTAB")
     G1 := current_line_number()
     not(parse_Application()) => nil
-    MUST (
+    MUST
       OR(AND(match_symbol ":", MUST parse_Expression(),push_form3("Signature", pop_stack_2(), pop_stack_1(),getSignatureDocumentation2(G1, current_line_number()))), AND(push_form1("Attribute", pop_stack_1()),ACTION recordAttributeDocumentation(top_of_stack(), G1)))
-    )
     
 parse_Expression() ==
     prior_sym := MAKE_-SYMBOL_-OF PRIOR_-TOKEN

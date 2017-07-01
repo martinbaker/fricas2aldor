@@ -83,11 +83,10 @@ grepConstructDo(x, key) ==
 
 ++ does line come from an unexposed constructor?
 dbExposed?(line,kind) ==
-  conname := INTERN (
+  conname := INTERN
     kind = char 'a or kind = char 'o => dbNewConname line
     --get conname from middle
     dbName line
-  )
   isExposedConstructor conname
 
 dbScreenForDefaultFunctions lines == [x for x in lines | not isDefaultOpAtt x]
@@ -915,13 +914,12 @@ replaceGrepStar s ==
   STRCONC(SUBSTRING(s,0,i),'"[^`]*",replaceGrepStar SUBSTRING(s,i + 1,nil))
 
 standardizeSignature(s) ==
-  underscoreDollars (
+  underscoreDollars
     s.0 = char '_( => s
     k := STRPOS('"->",s,0,nil) or return s
     --will fail except perhaps on constants
     s.(k - 1) = char '_) => STRCONC(char '_(,s)
     STRCONC(char '_(,SUBSTRING(s,0,k),char '_),SUBSTRING(s,k,nil))
-  )
 
 underscoreDollars(s) == fn(s,0,MAXINDEX s) where
   fn(s,i,n) ==
@@ -969,10 +967,9 @@ grepSource key ==
   key = 'libdb   => STRCONC($SPADROOT,'"/algebra/libdb.text")
   key = 'gloss   => STRCONC($SPADROOT,'"/algebra/glosskey.text")
   key = $localLibdb => $localLibdb
-  mkGrepTextfile (
+  mkGrepTextfile
   	MEMQ(key, '(_. a c d k o p x)) => 'libdb
   	'comdb
-  )
 
 mkGrepTextfile s == STRCONC($SPADROOT,"/algebra/", STRINGIMAGE s, '".text")
 

@@ -611,10 +611,9 @@ NRToptimizeHas u ==
   --u is a list ((pred cond)...) -- see optFunctorBody
   --produces an alist: (((HasCategory a b) . GENSYM)...)
   u is [a,:b] =>
-    a='HasCategory => LASSOC(u,$hasCategoryAlist) or (
+    a='HasCategory => LASSOC(u,$hasCategoryAlist) or
       $hasCategoryAlist := [[u,:(y:=GENSYM())],:$hasCategoryAlist]
       y
-    )
     a='has => NRToptimizeHas ['HasCategory,first b,MKQ first rest b]
     a = 'QUOTE => u
     [NRToptimizeHas a,:NRToptimizeHas b]
@@ -770,7 +769,7 @@ NRTdescendCodeTran(u, condList) ==
 --=======================================================================
 NRTaddInner x ==
   --called by genDeltaEntry and others that affect $NRTdeltaList
-  PROGN (
+  PROGN
     atom x => nil
     x is ['Record, :l] =>
         for [., ., y] in l repeat NRTinnerGetLocalIndex y
@@ -783,7 +782,6 @@ NRTaddInner x ==
         for y in rest x for m in ml | not (y = '$) repeat
             isCategoryForm(m, $CategoryFrame) => NRTinnerGetLocalIndex y
     keyedSystemError("S2NR0003", [x])
-  )
   x
 
 -- NRTaddInner should call following function instead of NRTgetLocalIndex

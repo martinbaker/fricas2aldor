@@ -478,10 +478,9 @@ hashNewLookupInTable(op,sig,dollar,[domain,opvec],flag) ==
   numvec := getDomainByteVector domain
   predvec := domain.3
   max := MAXINDEX opvec
-  k := getOpCode(op,opvec,max) or return (
+  k := getOpCode(op,opvec,max) or return
     flag => newLookupInAddChain(op,sig,domain,dollar)
     nil
-  )
   maxIndex := MAXINDEX numvec
   start := ELT(opvec,k)
   finish :=
@@ -494,7 +493,7 @@ hashNewLookupInTable(op,sig,dollar,[domain,opvec],flag) ==
     -- use special defaulting handler when dollar non-trivial
     dollar ~= domain and isDefaultPackageForm? devaluate domain
   while finish > start repeat
-    PROGN (
+    PROGN
       i := start
       numTableArgs :=numvec.i
       predIndex := numvec.(i := inc_SI i)
@@ -528,7 +527,6 @@ hashNewLookupInTable(op,sig,dollar,[domain,opvec],flag) ==
         --recursive call from above 'replaceGoGetSlot
         return (success := newLookupInAddChain(op,sig,domain,dollar))
       systemError '"unexpected format"
-    )
     start := add_SI(start, add_SI(numTableArgs, 4))
   success ~= 'failed and success =>
     if $monitorNewWorld then

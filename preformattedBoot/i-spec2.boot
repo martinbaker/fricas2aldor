@@ -735,13 +735,12 @@ isInterpMacro name ==
 
 upQUOTE t ==
   t isnt [op,expr] => NIL
-  ms:= list (
+  ms:= list
     m:= getBasicMode expr => m
     IDENTP expr =>
       --    $useSymbolNotVariable => $Symbol
       ['Variable,expr]
     $OutputForm
-  )
   evalQUOTE(op,[expr],ms)
   putModeSet(op,ms)
 

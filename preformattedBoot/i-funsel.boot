@@ -403,18 +403,16 @@ defaultTarget(opNode,op,nargs,args) ==
       isEqualOrSubDomain(a1,$Integer) and a2 is ['Variable,.] =>
         putTarget(opNode,target := mkRationalFunction @'(Integer))
         target
-      a1 is ['Variable,.] and (
+      a1 is ['Variable,.] and
         a2 is ['Polynomial,D] =>
           putTarget(opNode,target := mkRationalFunction D)
           target
         target
-      )
-      a2 is ['Variable,.] and (
+      a2 is ['Variable,.] and
         a1 is ['Polynomial,D] =>
           putTarget(opNode,target := mkRationalFunction D)
           target
         target
-      )
       a2 is ['Polynomial,D] and (a1 = D) =>
           putTarget(opNode,target := mkRationalFunction D)
           target
@@ -778,7 +776,7 @@ findFunctionInDomain(op,dc,tar,args1,args2,$Coerce,$SubDom) ==
       findFunctionInCategory(op,dc,tar,args1,args2,$Coerce,$SubDom)
     NIL
   fun:= NIL
-  ( p := ASSQ(op,getOperationAlistFromLisplib dcName) ) and (
+  ( p := ASSQ(op,getOperationAlistFromLisplib dcName) ) and
     SL := constructSubst dc
     -- if the arglist is homogeneous, first look for homogeneous
     -- functions. If we don't find any, look at remaining ones
@@ -800,7 +798,6 @@ findFunctionInDomain(op,dc,tar,args1,args2,$Coerce,$SubDom) ==
       -- consider remaining modemaps
       for mm in r repeat
         fun:= nconc(fun,findFunctionInDomain1(mm,op,tar,args1,args2,SL))  
-  )
   if not fun and $reportBottomUpFlag then
     sayMSG concat ['"   -> no appropriate",:bright op,'"found in",:bright prefix2String dc]
   fun
@@ -839,7 +836,7 @@ findFunctionInDomain1(omm,op,tar,args1,args2,SL) ==
   if CONTAINED('_#, sig) or CONTAINED('construct, sig) then
     sig := [replaceSharpCalls t for t in sig]
   rtcp := [[]]
-  matchMmCond cond and matchMmSig(mm,tar,args1,args2, rtcp) and (
+  matchMmCond cond and matchMmSig(mm,tar,args1,args2, rtcp) and
     -- RTC is a list of run-time checks to be performed
     RTC := nreverse CAR(rtcp)
     EQ(y, 'ELT) => [[CONS(dc, sig), osig, RTC]]
@@ -848,7 +845,6 @@ findFunctionInDomain1(omm,op,tar,args1,args2,SL) ==
     y is ['XLAM, :.] => [[CONS(dc,sig), y, RTC]]
     sayKeyedMsg("S2IF0006",[y])
     NIL
-  )
 --------------------> NEW DEFINITION (override in xrun.boot.pamphlet)
 findFunctionInCategory(op,dc,tar,args1,args2,$Coerce,$SubDom) ==
   -- looks for a modemap for op with signature  args1 -> tar
@@ -876,11 +872,10 @@ findFunctionInCategory(op,dc,tar,args1,args2,$Coerce,$SubDom) ==
     SL:= NIL
     for i in 1..maxargs repeat
       impls := SUBSTQ(GENSYM(),INTERNL('"#",STRINGIMAGE i),impls)
-  impls and (
+  impls and
     SL:= constructSubst dc
     for mm in impls repeat
       fun:= nconc(fun,findFunctionInDomain1(mm,op,tar,args1,args2,SL))
-  )
   if not fun and $reportBottomUpFlag then
     sayMSG concat ['"   -> no appropriate",:bright op,'"found in",:bright prefix2String dc]
   fun
@@ -889,7 +884,7 @@ matchMmCond(cond) ==
   -- tests the condition, which comes with a modemap
   -- cond is 'T or a list, but I hate to test for 'T (ALBI)
   $domPvar: local := nil
-  atom cond or (
+  atom cond or
     cond is ['AND,:conds] or cond is ['and,:conds] =>
       and/[matchMmCond c for c in conds]
     cond is ['OR,:conds] or cond is ['or,:conds] =>
@@ -898,7 +893,7 @@ matchMmCond(cond) ==
       hasCaty(dom,x,NIL) ~= 'failed
     cond is ['not,cond1] => not matchMmCond cond1
     keyedSystemError("S2GE0016",['"matchMmCond",'"unknown form of condition"])
-  )
+
 matchMmSig(mm, tar, args1, args2, rtcp) ==
   -- matches the modemap signature against  args1 -> tar
   -- if necessary, runtime checks are created for subdomains
@@ -918,29 +913,26 @@ matchMmSig(mm, tar, args1, args2, rtcp) ==
     a := rest a
     rtc:= NIL
     if x is ['SubDomain,y,:.] then x:= y
-    b := isEqualOrSubDomain(x1,x) or (STRINGP(x) and (x1 is ['Variable,v]) and (x = PNAME v)) or (
+    b := isEqualOrSubDomain(x1,x) or (STRINGP(x) and (x1 is ['Variable,v]) and (x = PNAME v)) or
         $SubDom and isSubDomain(x,x1) => rtc:= 'T
         $Coerce => x2=x or canCoerceFrom(x1,x)
         x1 is ['Variable,:.] and x = '(Symbol)
-    )
     RPLACA(rtcp, CONS(rtc, CAR(rtcp)))
   null args1 and null a and b and matchMmSigTar(tar, first sig)
 
 ++ t1 is a target type specified by :: or by a declared variable
 ++ t2 is the target of a modemap signature
 matchMmSigTar(t1,t2) ==
-  null t1 or (
+  null t1 or
     isEqualOrSubDomain(t2,t1) => true
     if t2 is ['Union,a,b] then
       if a='"failed" then return matchMmSigTar(t1, b)
       if b='"failed" then return matchMmSigTar(t1, a)
     -- I think this should be true  -SCM
     --    true
-    $Coerce and (
+    $Coerce and
       isPartialMode t1 => resolveTM(t2,t1)
       canCoerceFrom(t2,t1)
-    )
-  )
   
 ++ constructs a substitution which substitutes d for $
 ++ and the arguments of d for #1, #2 ..
@@ -1174,14 +1166,14 @@ evalMmCond0(op,sig,st) ==
   SL='failed => 'failed
   for p in SL until p1 and not b repeat b:=
     p1 := ASSQ(first p, $Subst)
-    p1 and (
+    p1 and
       t1 := rest p1
       t := rest p
-      t=t1 or (
+      t=t1 or
         containsVars t =>
           if $Coerce and EQCAR(t1, 'Symbol) then t1 := getSymbolType first p
           resolveTM1(t1,t)
-        $Coerce and (
+        $Coerce and
           -- if we are looking at the result of a function, the coerce
           -- goes the opposite direction
           (t1 = $AnonymousFunction and t is ['Mapping, :.]) => t
@@ -1191,9 +1183,6 @@ evalMmCond0(op,sig,st) ==
           canCoerceFrom(t1,t) => 'T
           isSubDomain(t,t1) => RPLACD(p,t1)
           EQCAR(t1, 'Symbol) and canCoerceFrom(getSymbolType first p, t)
-        )
-      )
-    )
   ( SL and p1 and not b and 'failed ) or evalMmCat(op,sig,st,SL)
 
 fixUpTypeArgs SL ==
@@ -1655,14 +1644,12 @@ containsVars1(t) ==
   -- recursive version, which works on a list
   [t1,:t2]:= t
   atom t1 =>
-    isPatternVar t1 or (
+    isPatternVar t1 or
       atom t2 => isPatternVar t2
       containsVars1(t2)
-    )
-  containsVars1(t1) or (
+  containsVars1(t1) or
     atom t2 => isPatternVar t2
     containsVars1(t2)
-  )
 
 -- [[isPartialMode]] tests whether m contains [[$EmptyMode]]. The
 -- constant [[$EmptyMode]] (defined in bootfuns.lisp) evaluates to

@@ -404,10 +404,9 @@ isMenuItemStyle? s ==
   nil
 
 getCallBack callTail ==
-  LASSOC(callTail, $callTailList) or (
+  LASSOC(callTail, $callTailList) or
   	callTail is [fn] => callTail
   	error nil
-  )
 
 --=======================================================================
 --              Redefinitions from hypertex.boot
@@ -421,10 +420,9 @@ endHTPage() ==
 --              Redefinitions from ht-util.boot
 --=======================================================================
 htSayHrule() ==
-  bcHt (
+  bcHt
     $saturn => '"\hrule{}\newline{}"
     '"\horizontalline{}\newline{}"
-  )
 
 --------------------> NEW DEFINITION (override in ht-util.boot.pamphlet)
 htpAddInputAreaProp(htPage, label, prop) ==
@@ -885,10 +883,9 @@ addParameterTemplates(page, conform) ==
   w := (manuelsCode? => 55; 23)
   htSaySaturn '"\colorbuttonbox{lightgray}{"
   htSay '"Optional argument value"
-  htSay (
+  htSay
     rest parlist => '"s:"
     '":"
-  )
   htSaySaturn '"}"
   if rest conform then htSaySaturn '"\newline{}"
   htSaySaturn '"\begin{tabular}{p{.25in}l}"
@@ -937,10 +934,9 @@ kPageArgs([op,:args],[.,.,:source]) ==
     else htSay('"{\em ",x,'"}")
     htSayStandard( '"\tab{",STRINGIMAGE( # PNAME x),'"}, ")
     htSaySaturnAmpersand()
-    htSay (
+    htSay
       pred => '"a domain of category "
       '"an element of the domain "
-    )
     bcConform(typeForm,true)
   htEndTabular()
 
@@ -972,7 +968,7 @@ dbGatherThenShow(htPage,opAlist,which,data,constructorIfTrue,word,fn) ==
       htMakePageSaturn [['bcLinks,[button,'"",'dbShowOps,which,bincount]]]
     htSaySaturn '"]"
     htSay '"{\em "
-    htSay (
+    htSay
       thing = 'nowhere => '"implemented nowhere"
       thing = 'constant => '"constant"
       thing = '_$ => '"by the domain"
@@ -983,7 +979,6 @@ dbGatherThenShow(htPage,opAlist,which,data,constructorIfTrue,word,fn) ==
         '""
       atom thing => '"unconditional"
       '""
-    )
     htSay '"}"
     if null atom thing then
       if constructorIfTrue then htSay('" {\em ",dbShowKind thing,'"}")
@@ -1290,10 +1285,9 @@ displayDomainOp(htPage,which,origin,op,sig,predicate,doc,index,chooseFn,unexpose
       htSaySaturnAmpersand()
       htSayStandard '"{\em \$} is "
       htSaySaturn '"{\em \%} is "
-      htSay (
+      htSay
         $conkind = '"category" => '"of category "
         '"the domain "
-      )
       bcConform(conform,true,true)
       firstTime := false
       htSayIndentRel((-15),true)
@@ -1367,12 +1361,11 @@ htSayIndentRel(n,:options) ==
   m := ABS n
   if flag then m := m + 2
   if $standard then
-    htSayStandard (
+    htSayStandard
       n > 0 =>
         flag => ['"\indent{",STRINGIMAGE m,'"}\tab{-2}"]
         ['"\indent{",STRINGIMAGE m,'"}\tab{0}"]
       n < 0 => ['"\indent{0}\newline "]
-    )
 
 htSayUnexposed() ==
   htSay '"{\em *}"
@@ -1402,11 +1395,10 @@ htBeginMenu(kind,:options) ==
   if $saturn then
     kind = 'description => htSaySaturn '"\begin{description}"
     htSaySaturn '"\begin{tabular}"
-    htSaySaturn (
+    htSaySaturn
     	kind = 3 => '"{llp{0in}}"
     	kind = 2 => '"{lp{0in}}"
     	error nil
-    )
   null skip => htSayStandard '"\beginmenu "
   nil
 
@@ -1508,13 +1500,12 @@ purgeNewConstructorLines(lines, conlist) ==
 
 screenLocalLine(line, conlist) ==
   k := dbKind line
-  con := INTERN (
+  con := INTERN
     k = char 'o or k = char 'a =>
       s := dbPart(line,5,1)
       k := charPosition(char '_(,s,1)
       SUBSTRING(s,1,k - 1)
     dbName line
-  )
   MEMQ(con, conlist)
 
 --------------> NEW DEFINITION (see br-data.boot.pamphlet)

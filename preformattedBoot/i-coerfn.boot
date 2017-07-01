@@ -127,12 +127,12 @@ Dmp2Dmp(u,source is [dmp,v1,S], target is [.,v2,T]) ==
   -- the variable lists must share some variables, or u is a constant
   u = '_$fromCoerceable_$ =>
     v:= intersection(v1,v2)
-    v and (
+    v and
       w2:= SETDIFFERENCE(v2,v)
       t1:= (if w1 then [dmp,w1,S] else S)
       t2:= (if w2 then [dmp,w2,T] else T)
       canCoerce(t1,t2)
-    )
+
   null u => domainZero(target)
   u is [[e,:c]] and e=LIST2VEC [0 for v in v1] =>
     z:= coerceInt(objNewWrap(c,S),target) => objValUnwrap(z)

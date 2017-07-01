@@ -1046,10 +1046,9 @@ getMapBody(op,mapDef) ==
 
 getLocalVars(op,body) ==
   -- looks in $e for local vars; if not found, computes then stores them
-  get(op,'localVars,$e) or (
+  get(op,'localVars,$e) or
     $e:= putHist(op,'localVars,lv:=findLocalVars(op,body),$e)
     lv
-  )
 
 --  DO NOT BELIEVE ALL OF THE FOLLOWING (IT IS OLD)
 

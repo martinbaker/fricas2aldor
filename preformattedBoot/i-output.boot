@@ -216,10 +216,9 @@ print(x,domain) ==
 mathprintWithNumber x ==
   ioHook("startAlgebraOutput")
   x:= outputTran2 x
-  maprin (
+  maprin
     $IOindex => ['EQUATNUM,$IOindex,x]
     x
-  )
   ioHook("endOfAlgebraOutput")
 
 mathprint x ==
@@ -1952,11 +1951,10 @@ bracketagglist(u, start, linelength, tchr, open, close) ==
              lastx := x
              ((s := s + WIDTH first x + 1) >= linelength) => return(s)
              null rest x => return(s := (-1))
-    nil or (
+    nil or
        EQ(s, (-1)) => (nextu := nil)
        EQ(lastx, u) => ((nextu := rest u); RPLACD(u, nil) )
        true => ((nextu := lastx); RPLACD(PREDECESSOR(lastx, u), nil))
-    )
     for x in tails u repeat
            RPLACA(x, LIST('CONCAT, first x, tchr))
     if null nextu then RPLACA(CDDR last u, close)

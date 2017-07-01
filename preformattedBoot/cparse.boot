@@ -254,7 +254,7 @@ npInfixOp()==
   EQ(CAAR $stok,"key") and GET($ttok,"INFGENERIC") and npPushId()
 
 npInfixOperator()==
-      npInfixOp() or (
+      npInfixOp() or
         a:=npState()
         b:=$stok
         npEqKey "'" and npInfixOp() =>
@@ -265,12 +265,11 @@ npInfixOperator()==
                 npPush tokConstruct("idsy",tokPart a,tokPosn a)
         npRestore a
         false
-      )
 
 npInfKey s==  EQ(CAAR $stok,"key") and  MEMQ($ttok,s) and npPushId()
 
 npDDInfKey s==
-    npInfKey s or (
+    npInfKey s or
         a:=npState()
         b:=$stok
         npEqKey "'" and npInfKey s =>
@@ -281,7 +280,6 @@ npDDInfKey s==
                 npPush tokConstruct("idsy",tokPart a,tokPosn a)
         npRestore a
         false
-    )
 
 npInfGeneric s== npDDInfKey s  and (npEqKey "BACKSET" or true)
 
@@ -374,16 +372,14 @@ npAtom1()== npPDefinition() or ((npName() or npConstTok() or npDollar() or npBDe
 npAtom2()== (npInfixOperator() or npAmpersand() or npPrefixColon()) and npFromdom()
 
 npDollar()==
-   npEqPeek "$" and (
+   npEqPeek "$" and
    	 npPush tokConstruct("id","$",tokPosn $stok)
    	 npNext()
-   )
 
 npPrefixColon()==
-   npEqPeek "COLON" and (
+   npEqPeek "COLON" and
      npPush tokConstruct("id",":",tokPosn $stok)
      npNext()
-   )
 
 -- silly
 npEncAp(f)== APPLY(f,nil) and npAnyNo function npEncl and npFromdom()
@@ -478,16 +474,14 @@ npSuch() == npLeftAssoc( '(BAR),function npLogical)
 npMatch()   ==  npLeftAssoc(["is", "isnt"], function npSuch)
 
 npType() ==
-  npMatch()  and (
+  npMatch() and
   	a:=npPop1()
   	npWith(a) or npPush a
-  )
 
 npADD() ==
-  npType() and (
+  npType() and
   	a:=npPop1()
   	npAdd(a) or npPush a
-  )
 
 npConditionalStatement()==npConditional function npQualifiedDefinition
 
@@ -535,12 +529,11 @@ npAssignment()==
     npAssignVariable() and (npEqKey "BECOMES" or npTrap()) and (npGives() or npTrap()) and npPush pfAssign (npPop2(),npPop1())
 
 npAssignVariableName()==
-  npApplication() and (
+  npApplication() and
       a:=npPop1()
       if pfId? a then
          (npPush a and npDecl() or npPush pfTyped(npPop1(),pfNothing()))
       else npPush a
-  )
 
 npAssignVariable()== npColon() and npPush pfListOf [npPop1()]
 
@@ -613,26 +606,25 @@ npMacro()== npEqKey "MACRO" and  npPP function npMdef
 npRule()== npEqKey "RULE" and  npPP function npSingleRule
 
 npAdd(extra)==
-     npEqKey "add" and (
+     npEqKey "add" and
        a:=npState()
        npDefinitionOrStatement() or npTrap()
        npEqPeek "in" =>
                npRestore a
                (npVariable() or npTrap()) and npCompMissing "in"  and (npDefinitionOrStatement() or npTrap()) and npPush pfAdd(npPop2(),npPop1(),extra)
        npPush pfAdd(pfNothing(),npPop1(),extra)
-     )
+
 npDefaultValue()==
       npEqKey "DEFAULT" and (npDefinitionOrStatement() or npTrap()) and  npPush [pfAdd(pfNothing(),npPop1(),pfNothing())]
 
 npWith(extra)==
-     npEqKey "with" and (
+     npEqKey "with" and
        a:=npState()
        npCategoryL() or npTrap()
        npEqPeek "in" =>
                npRestore a
                (npVariable() or npTrap()) and npCompMissing "in"  and (npCategoryL() or npTrap()) and npPush pfWith(npPop2(),npPop1(),extra)
        npPush pfWith(pfNothing(),npPop1(),extra)
-     )
 
 npCategoryL()== npCategory() and npPush pfUnSequence npPop1 ()
 
@@ -768,7 +760,7 @@ npSingleRule()==
     false
 
 npDefinitionItem()==
-   npTyping() or npImport()  or (
+   npTyping() or npImport() or
           a:=npState()
           npStatement() =>
                npEqPeek "DEF" =>
@@ -777,7 +769,6 @@ npDefinitionItem()==
                npRestore a
                npMacro() or npDefn()
           npTrap()
-   )
 
 npDefinition()== npPP function npDefinitionItem and npPush  pfSequenceToList npPop1 ()
 

@@ -105,10 +105,9 @@ finalizeDocumentation() ==
           litcnt := litcnt + 1
           for [op,sig] in signatures repeat
             s := formatOpSignature(op,sig)
-            sayMSG (
+            sayMSG
               atom s => ['%x9,s]
               ['%x9,:s]
-            )
       if unusedCommentLineNumbers then
         say_msg('"%1 The constructor %2b has incorrectly placed documentation.",[STRCONC(STRINGIMAGE bigcnt,'"."),name])
         for [n,r] in unusedCommentLineNumbers repeat
@@ -958,7 +957,7 @@ checkSayBracket x ==
 checkBeginEnd u ==
   beginEndStack := nil
   while u repeat
-    IDENTITY (
+    IDENTITY
       x := first u
       STRINGP x and x.0 = $charBack and #x > 2 and not HGET($htMacroTable,x) and not (x = '"\spadignore") and IFCAR IFCDR u = $charLbrace and not (substring?('"\radiobox",x,0) or substring?('"\inputbox",x,0)) =>
              --allow 0 argument guys to pass through
@@ -984,7 +983,6 @@ checkBeginEnd u ==
             u := r
           checkDocError ['"Trying to match \begin{",IFCAR beginEndStack,'"} with \end{",y,"}"]
         checkDocError ['"Improper \end command"]
-    )
     u := rest u
   beginEndStack => checkDocError ['"Missing \end{",first beginEndStack,'"}"]
   'ok

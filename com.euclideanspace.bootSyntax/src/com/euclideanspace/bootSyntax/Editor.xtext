@@ -157,15 +157,18 @@ LoopCondition:
 ;
 
 While:
-	'while' b=Statement NL?
+	//'while' b=Statement NL?
+	'while' e=Expression n?=NL?
 ;
 
 Do:
-	'do' b=Statement
+	//'do' b=Statement
+	'do' e=Expression
 ;
 
 Until:
-	'until' b=Statement NL?
+	//'until' b=Statement NL?
+	'until' e=Expression n?=NL?
 ;
 
 /* Expression after 'for' may be ID or list
@@ -207,9 +210,9 @@ WhereExpression returns Expr:
 //	c?=KW_OCURLY (st+=Statement NL)*  KW_CCURLY (KW_EXIT eexp=Expression)?
 	|
 	(
-	    'if' b1=Statement NL?
+	    'if' b1=Statement n1?=NL?
 	    (
-          =>('then' b2i=Statement NL? 'else' b3=Statement) |
+          =>('then' b2i=Statement n2?=NL? 'else' b3=Statement) |
           ('then' b2=Statement)
         )	
 	)
@@ -493,24 +496,17 @@ PrimaryExpression returns Expr:
 	|
 	({Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)?
     KW_CPAREN)
-/* 	| p?=KW_OPAREN m?=KW_MINUS? (t4=WhereExpression (KW_COMMA t5+=WhereExpression)*)?
-    (
-	b?=BEGIN
-		(s+=Statement NL)*
-	END NL
-	)? KW_CPAREN*/
 	|
 	({Block} b?=BEGIN
 		(s+=Statement NL)*
 	END )
 	|
 	({Block} c2?=KW_OCURLY (s+=Statement NL)* KW_CCURLY )
-//	c2?=KW_OCURLY e=Expression KW_CCURLY
 	|
 	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
 	
   )
-  d=KW_2DOT? // for segment with no end part
+  d?=KW_2DOT? // for segment with no end part
 ;
 
 /* Literals are actual values of a given type

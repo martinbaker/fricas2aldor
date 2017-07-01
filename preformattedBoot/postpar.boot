@@ -215,7 +215,7 @@ postFlatten(x,op) ==
   LIST x
 
 postForm (u is [op,:argl]) ==
-  x:= (
+  x:=
     atom op =>
       argl':= postTranList argl
       [op,:argl']
@@ -223,7 +223,6 @@ postForm (u is [op,:argl]) ==
     if u is [["@Tuple", :.], :.] then
       postError ['"  ",:bright u,'"is illegal because tuples cannot be applied!",'%l,'"   Did you misuse infix dot?"]
     u
-  )
   x is [., ["@Tuple", :y]] => [first x, :y]
   x
 

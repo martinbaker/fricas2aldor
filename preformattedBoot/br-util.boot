@@ -115,11 +115,10 @@ capitalize s ==
   LASSOC(s,'( ("domain"   . "Domain")
   ("category" . "Category")
   ("package"  . "Package")
-  ("default package" . "Default Package"))) or (
+  ("default package" . "Default Package"))) or
     res := COPY_-SEQ s
     SETELT(res,0,UPCASE res.0)
     res
-  )
 
 escapeSpecialIds u ==
   --very expensive function
@@ -336,10 +335,9 @@ bcConform1 form == main where
         tl QCDR form
     mapping [target,:source] ==
         tuple source
-        bcHt (
+        bcHt
           $saturn => '" {\ttrarrow} "
           '" -> "
-        )
         hd target
     tuple u ==
         null u => bcHt '"()"

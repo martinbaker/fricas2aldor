@@ -483,11 +483,10 @@ getParentsFor(cname,formalParams,constructorCategory) ==
 parentsOf con ==
   --called by kcpPage, ancestorsRecur
   if null BOUNDP '$parentsCache then SETQ($parentsCache,MAKE_-HASHTABLE 'ID)
-  HGET($parentsCache,con) or (
+  HGET($parentsCache,con) or
     parents := getParentsForDomain con
     HPUT($parentsCache,con,parents)
     parents
-  )
 
 parentsOfForm([op,:argl])==
   parents := parentsOf op
@@ -662,11 +661,10 @@ transKCatAlist(conform,domname,s) == main where
           --pair has form [con,[conargs,:pred],...]]
           leftForm := getConstructorForm first pair
           for (ap := [args, :pred]) in rest pair repeat
-            match? := (
+            match? :=
               domargs = args => true
               HAS_SHARP_VAR args => domargs = sublisFormal(IFCDR domname, args)
               nil
-            )
             null match? => 'skip
             npred := sublisFormal(IFCDR leftForm, pred)
             acc := [[leftForm,:npred],:acc]

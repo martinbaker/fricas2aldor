@@ -463,13 +463,12 @@ dcOpPrint(op,index) ==
   suffix :=
     predNumber = 0 => nil
     [:bright '"if",:pred2English $predvec.(predNumber - 1)]
-  namePart := bright (
+  namePart := bright
     slotNumber = 0 => '"subsumed by next entry"
     slotNumber = 1 => '"missing"
     name := $infovec.0.slotNumber
     atom name => name
     '"looked up"
-  )
   sayBrightly [:formatOpSignature(op,signumList),:namePart, :suffix]
   index + 1
 
@@ -651,10 +650,9 @@ dcAll con ==
     $infovec.4 = 'lookupComplete
   sayBrightly '"----------------Template-----------------"
   dcSlots con
-  sayBrightly (
+  sayBrightly
     complete? => '"----------Complete Ops----------------"
     '"----------Incomplete Ops---------------"
-  )
   dcOpTable con
   sayBrightly '"----------------Preds-----------------"
   dcPreds con

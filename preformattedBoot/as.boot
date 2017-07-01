@@ -889,10 +889,9 @@ asyCattranOp([op,:items])==
 
 asyCattranOp1(op, item, predlist) ==
   item is ['IF, p, x] =>
-    pred := asyPredTran (
+    pred := asyPredTran
       p is ['Test,t] => t
       p
-    )
     --    x is ['IF,:.] => "append"/[asyCattranOp1('IF, x, [pred,:predlist])]
     --  This line used to call asyCattranOp1 with too few arguments.  Following
     --  fix suggested by RDJ.
@@ -911,10 +910,9 @@ asyPredTran1 p ==
 
 asyCattranConstructors(item, predlist) ==
   item is ['IF, p, x] =>
-    pred := asyPredTran (
+    pred := asyPredTran
       p is ['Test,t] => t
       p
-    )
     x is ['IF,:.] => "append"/[asyCattranConstructors(x, [pred,:predlist])]
     form := ['ATTRIBUTE, asyJoinPart x]
     [['IF, asySimpPred(pred,predlist), form, 'noBranch]]
