@@ -249,7 +249,7 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  var String res = "(";
 	  if (ele.isM2())  res = res+ "-"
 	  if (ele.getT3()!==null)  res = res+ "exp"
-//	  if (ele.getT5()!==null) res = res+ ",exp..."
+	  if (ele.isD()) res = res+ ".."
 	  return "Tuple "+res+")";
 	}
 	

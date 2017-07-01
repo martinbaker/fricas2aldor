@@ -194,13 +194,12 @@ compileRecurrenceRelation(op,nam,argl,junk,[body,sharpArg,n,:initCode]) ==
   computeFunction:= [auxfn,['LAMBDA, cargl, cbody]] where
     cargl:= [:argl,lastArg]
     returnValue:= ['PROGN,newStateCode,first gsList]
-    cbody:=(
+    cbody:=
       endTest:=
         ['COND, [['EQL,sharpArg,gIndex],['RETURN,returnValue]]]
       newValueCode := ['LET, g, substitute(gIndex, sharpArg,EQSUBSTLIST(gsList,rest $TriangleVariableList,body))]
       ['PROGN,:decomposeCode,
       ['REPEAT,['WHILE,'T],['PROGN,endTest,advanceCode,newValueCode,:rotateCode]]]
-    )
   fromScratchInit:=
     [['LET,gIndex,n],:[['LET,g,x] for g in gsList for x in initCode]]
   continueInit:=

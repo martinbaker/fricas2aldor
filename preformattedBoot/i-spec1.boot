@@ -1098,11 +1098,10 @@ upRecordConstruct(op,l,tar) ==
   argCode :=
     [(getArgValue(arg,type) or throwKeyedMsgCannotCoerceWithValue(objVal getValue arg,objMode getValue arg,type)) for arg in l for ['_:,.,type] in types]
   len := #l
-  code := (
+  code :=
     (len = 1) => ['CONS, :argCode, '()]
     (len = 2) => ['CONS,:argCode]
     ['VECTOR,:argCode]
-  )
   if $genValue then code :=  wrap timedEVALFUN code
   putValue(op,objNew(code,tar))
   putModeSet(op,[tar])

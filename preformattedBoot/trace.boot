@@ -91,13 +91,12 @@ trace1(l, options) ==
   hasOption(options, 'off) =>
     (ops := hasOption(options, 'ops)) or (lops := hasOption(options, 'local)) =>
         null l => throwKeyedMsg("S2IT0019",NIL)
-        constructor := unabbrev(
+        constructor := unabbrev
           atom l => l
           null rest l =>
             atom first l => first l
             first first l
           NIL
-        )
         not(isFunctor constructor) => throwKeyedMsg("S2IT0020",NIL)
         if ops then
           ops := getTraceOption ops
@@ -145,14 +144,12 @@ trace1(l, options) ==
   if (domainList := LASSOC("of", optionList)) then
       LASSOC("ops", optionList) =>
         throwKeyedMsg("S2IT0004", NIL)
-      opList:= (
+      opList:=
         traceList => [["ops", :traceList]]
         nil
-      )
-      varList:= (
+      varList:=
         y:= LASSOC("vars", optionList) => [["vars", :y]]
         nil
-      )
       optionList := [:opList, :varList]
       traceList := domainList
   for funName in traceList repeat
@@ -197,7 +194,7 @@ flat_bv_list(bv_list) ==
 DEFVAR($embedded_functions, [])
 
 embeded_function(name, new_def, old_def) ==
-    new_def := (
+    new_def :=
         NOT(CONSP(new_def)) => new_def
         body := IFCDR(IFCDR(new_def))
         op := first(new_def)
@@ -206,7 +203,6 @@ embeded_function(name, new_def, old_def) ==
                 [op, bv, [['LAMBDA, [name], :body],['QUOTE, old_def]]]
             new_def
         BREAK()
-    )
     COERCE(new_def, 'FUNCTION)
 
 embed2(name, new_def, old_def) ==
@@ -703,11 +699,10 @@ spadTrace(domain,options) ==
     tracedModemap := subTypes(mm, constructSubst(domain.0))
     dn1 := first domain.n
     fgg := FUNCTION newGoGet
-    tf := (
+    tf :=
         dn1 = fgg =>
             goGetTracerHelper(domain.n, fgg, pair, alias,options, tracedModemap)
         BPITRACE(dn1, alias, tracedModemap, options)
-    )
     NCONC(pair, [listOfVariables, first domain.n])
     rplac(first domain.n, tf)
   sigSlotNumberAlist:= [x for x in sigSlotNumberAlist | CDDDR x]

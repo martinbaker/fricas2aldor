@@ -697,7 +697,7 @@ WIDTH u ==
 
     -- Try and be fairly exact for smallish integers:
     u < 100000000 =>
-        l := (
+        l :=
               u < 10 =>       1
               u < 100 =>      2
               u < 1000 =>     3
@@ -706,7 +706,6 @@ WIDTH u ==
               u < 1000000 =>  6
               u < 10000000 => 7
               8
-        )
         l + negative
     k := INTEGER_-LENGTH(u)
     k > MOST_-POSITIVE_-DOUBLE_-FLOAT =>

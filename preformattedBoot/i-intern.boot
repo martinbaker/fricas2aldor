@@ -253,13 +253,12 @@ mkAtree3(x,op,argl) ==
     [mkAtreeNode 'ADEF,[v.0,types,[NIL for a in types],funbody],(if v.2 then v.2 else true), false]
   x is ['ADEF,arg,:r] =>
     r := mkAtreeValueOf r
-    v := (
+    v :=
       null arg => VECTOR(NIL,NIL,NIL)
       PAIRP arg and rest arg and first arg~= "|" =>
         collectDefTypesAndPreds ['Tuple,:arg]
       null rest arg => collectDefTypesAndPreds first arg
       collectDefTypesAndPreds arg
-    )
     [types,:r'] := r
     at := [mkAtree3fn(x, y) for x in rest types for y in v.1]
     r := [[first types,:at],:r']
@@ -271,13 +270,12 @@ mkAtree3(x,op,argl) ==
   x is ['DEF,a,:r] =>
     r := mkAtreeValueOf r
     a is [op,:arg] =>
-      v := (
+      v :=
         null arg => VECTOR(NIL,NIL,NIL)
         PAIRP arg and rest arg and first arg~= "|" =>
           collectDefTypesAndPreds ['Tuple,:arg]
         null rest arg => collectDefTypesAndPreds first arg
         collectDefTypesAndPreds arg
-      )
       [types,:r'] := r
       at := [mkAtree3fn(x, y) for x in rest types for y in v.1]
       r := [[first types,:at],:r']

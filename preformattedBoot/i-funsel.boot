@@ -161,7 +161,7 @@ selectMms2(op,tar,args1,args2,$Coerce) ==
   if tar = $EmptyMode then tar := NIL
   nargs := #args1
   mmS := NIL
-  mmS := (
+  mmS :=
     -- special case map for the time being
     $Coerce and (op = 'map) and (2 = nargs) and (first(args1) is ['Variable,fun]) =>
         null (ud := underDomainOf CADR args1) => NIL
@@ -241,7 +241,6 @@ selectMms2(op,tar,args1,args2,$Coerce) ==
         mmS := append(mmS,findFunctionInDomain(op,x,tar,args1,args2,$Coerce,NIL))
 
     mmS or selectMmsGen(op,tar,args1,args2)
-  )
   mmS and orderMms(op, mmS,args1,args2,tar)
 
 isAVariableType t ==
@@ -613,14 +612,13 @@ mmCost0(name, sig,cond,tar,args1,args2) ==
 
   if args1 then
     for x1 in args1 for x2 in args2 for x3 in sigArgs repeat
-      n := n + (
+      n := n +
         isEqualOrSubDomain(x1,x3) => 0
         topcon := first deconstructT x1
         topcon2 := first deconstructT x3
         topcon = topcon2 => 3
         first topcon2 = 'Mapping => 2
         4
-      )
       if isApproximate(x1) ~= isApproximate(x3) then
           n := n + 10*nargs
   else
@@ -1525,7 +1523,7 @@ hasSig(dom,foo,sig,SL) ==
     S0:= constructSubst dom
     p := ASSQ(foo, getOperationAlistFromLisplib first dom) =>
       for [x, ., cond, .] in rest p until not (S = 'failed) repeat
-        S:= (
+        S:=
           atom cond => copy SL
           cond is ['has,a,b] =>
             hasCate(subCopy(a,S0),subCopy(b,S0),copy SL)
@@ -1534,7 +1532,6 @@ hasSig(dom,foo,sig,SL) ==
           cond is ['OR,:orCls] or cond is ['or,:orCls] =>
             hasSigOr(orCls, S0, SL)
           keyedSystemError("S2GE0016",['"hasSig",'"unexpected condition for signature"])
-        )
         not (S='failed) => S:= unifyStruct(subCopy(x,S0),sig,S)
       S
     'failed

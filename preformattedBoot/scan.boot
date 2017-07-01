@@ -661,7 +661,7 @@ scanExponent(a,w)==
                   lffloat(a,w,e)
              else
                   c1 := STR_ELT($ln, $n)
-                  if c1=PLUSCOMMENT or c1=MINUSCOMMENT then (
+                  if c1=PLUSCOMMENT or c1=MINUSCOMMENT then
                     $n:=$n+1
                     if $n>=$sz then
                       $n:=n
@@ -673,7 +673,6 @@ scanExponent(a,w)==
                       else
                         $n:=n
                         lffloat(a,w,'"0")
-                  )
         else lffloat(a,w,'"0")
 
 rdigit? x==
@@ -701,7 +700,7 @@ substringMatch (l,d,i)==
        for j in 0..(SIZE u - 1) while not done repeat
           s:=ELT(u,j)
           ls:=SIZE s
-          done:=(
+          done:=
             if ls+i > ll then
                  false
             else
@@ -712,7 +711,6 @@ substringMatch (l,d,i)==
                  s1:=s
                  true
                else false
-          )
        s1
 
 punctuation? c == c < 256 and ELT_BVEC(scanPun, c) = 1

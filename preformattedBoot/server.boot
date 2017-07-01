@@ -76,7 +76,7 @@ serverReadLine(stream) ==
   not $SpadServer =>
       read_line(stream)
   _*EOF_*: fluid := NIL
-  line := (
+  line :=
    while not $EndServerSession and not _*EOF_* repeat
     if $NeedToSignalSessionManager then
       sockSendInt($SessionManager, $EndOfOutput)
@@ -122,7 +122,6 @@ serverReadLine(stream) ==
     action = $KillLispSystem =>
       QUIT()
     NIL
-  )
   line => line
   ""
 

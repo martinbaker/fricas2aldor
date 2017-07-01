@@ -747,7 +747,8 @@ PrimaryExpression |
 	    IF expr.m2»-«ENDIF»«
 	    IF expr.t3 !== null»«compile(indent,0,expr.t3)»«ENDIF»«
 	    FOR x:expr.t5»,«compile(indent,0,x)»«ENDFOR»«
-	    IF (!removeBrackets) »)«ENDIF»'''
+	    IF (!removeBrackets) »)«ENDIF»«
+	    IF expr.d»..«ENDIF»'''
 
 /*PrimaryExpression returns Expr:
   (
@@ -787,16 +788,16 @@ PrimaryExpression |
 //	      IF expr.eexp !== null» => «compile(indent+1,precidence,expr.eexp)»«ENDIF»«
 	    ENDIF»«
 	    IF expr.c3»«
-	      var Boolean removeBrackets =false»«
-	      IF expr.m»«
-	        IF expr.t4 !== null»«
-	          IF expr.t4 instanceof Literal»«{removeBrackets =true;null}»«ENDIF»«
-	        ENDIF»«
-	      ENDIF»«
-	      IF (!expr.b && !removeBrackets) »(«ENDIF»«
+//	      var Boolean removeBrackets =false»«
+//	      IF expr.m»«
+//	        IF expr.t4 !== null»«
+//	          IF expr.t4 instanceof Literal»«{removeBrackets =true;null}»«ENDIF»«
+//	        ENDIF»«
+//	      ENDIF»«
+//	      IF (!expr.b && !removeBrackets) »(«ENDIF»«
 	      IF expr.m»-«ENDIF»«
 	      IF expr.t4 !== null»«compile(indent,0,expr.t4)»«ENDIF»«
-	      IF (!expr.b && !removeBrackets) »)«ENDIF»«
+//	      IF (!expr.b && !removeBrackets) »)«ENDIF»«
 	    ENDIF»«
 	    IF expr.d»..«ENDIF»'''
 	    //IF (expr.c2) »(«ENDIF»«
@@ -809,7 +810,7 @@ PrimaryExpression |
 	def CharSequence compile(int indent,int precidence,VarOrFunction varOrFunction)
         '''
 	    «cop(48,precidence)»«
-	    varOrFunction.name»«
+	    cleanID(varOrFunction.name)»«
 	    var Boolean addSpace =false»«
 	    //IF varOrFunction.p2»'«ENDIF»«
 	    IF varOrFunction.expr !== null»«

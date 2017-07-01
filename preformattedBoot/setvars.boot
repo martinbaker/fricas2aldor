@@ -139,11 +139,10 @@ set1(l,setTree) ==
 
   st = 'INTEGER  =>
     -- validate the option, allowing the user to set the default
-    arg2 := (
+    arg2 :=
       num := l.1
       (FIXP num) and (num >= (setData.setLeaf).0) and (null (upperlimit := setData.setLeaf.1) or num <= upperlimit) => num
       selectOption(l.1,['default,:setData.setLeaf],nil)
-    )
     if arg2 = 'DEFAULT then
       SET(setData.setVar, setData.setDef)
     else

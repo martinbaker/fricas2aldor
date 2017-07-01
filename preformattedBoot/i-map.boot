@@ -569,10 +569,9 @@ rewriteMap0(op,opName,argl) ==
       if argTypes then
         t := first argTypes
         argTypes := rest argTypes
-        val := (
+        val :=
           t is ['Mapping,:.] => getValue arg
           coerceInteractive(getValue arg,t)
-        )
       else
         val:= getValue arg
       $env:=put(var,'value,val,$env)
@@ -602,10 +601,9 @@ rewriteMap1(opName,argl,sig) ==
       if argTypes then
         t := first argTypes
         argTypes := rest argTypes
-        val := (
+        val :=
           t is ['Mapping,:.] => evArg
           coerceInteractive(evArg,t)
-        )
       else
         val:= evArg
       $env:=put(var,'value,val,$env)
