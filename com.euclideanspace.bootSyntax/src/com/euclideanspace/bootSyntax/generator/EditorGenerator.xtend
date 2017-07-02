@@ -82,8 +82,10 @@ import com.euclideanspace.bootSyntax.editor.Block
  */
 class EditorGenerator extends AbstractGenerator {
 
+    variableTracker vars = new variableTracker();
+
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-       fsa.generateFile(resource.className+".boot1", compile(0,0,resource.contents.head as Model))
+       fsa.generateFile(resource.className+".spad", compile(0,0,resource.contents.head as Model))
    }
 
 	def className(Resource res) {
@@ -117,6 +119,17 @@ class EditorGenerator extends AbstractGenerator {
 		if (innerPrecidence < outerPrecidence) return ")" else return ""
 	}
 
+    /**
+     * converts long filename to format used by old Microsoft OS
+     */
+	def String shortName(String a) {
+		var int last=4;
+		var String b = a.replaceAll("-","");
+		b = b.replaceAll("_","");
+		if (b.length()<4) last= b.length();
+		"BOOL"+b.substring(0,last).toUpperCase();
+	}
+
 /*
  * some keywords are changed so that they are not taken as keywords
  * in our language. This changes them back to what they should be.
@@ -135,7 +148,31 @@ class EditorGenerator extends AbstractGenerator {
 
 	def CharSequence compile(int indent,int precidence,Model model)
 	    '''
-	    «FOR x:model.declarations»«compile(indent,precidence,x)»«ENDFOR»'''
+	    «var String longName = "** no resource **"»«
+	    IF model.eResource !== null»«{longName = model.eResource.className;null}»«
+	    ENDIF»)abbrev package «shortName(longName)» «longName»
+	    «longName»() : Exports == Implementation where«
+	    compileExports(indent+1,precidence,model)»«
+	    compileImplementation(indent+1,precidence,model)»'''
+
+	def CharSequence compileExports(int indent,int precidence,Model model)
+	    '''
+	    «newline(indent)»Exports ==> with«
+	    FOR x:model.declarations»«compileExports(indent+1,precidence,x)»«ENDFOR»'''
+
+	def CharSequence compileImplementation(int indent,int precidence,Model model)
+	    '''
+	    «newline(indent)»«
+	    newline(indent)»Implementation ==> add«
+	    newline(indent+1)»«
+	    FOR x:model.declarations»«compile(indent+1,precidence,x)»«ENDFOR»'''
+
+	def CharSequence compileExports(int indent,int precidence,Declaration declaration)
+	    '''
+	    «IF declaration instanceof FunctionDef»«
+	       newline(indent)»«
+	       compileExports(indent,precidence,declaration as FunctionDef)»«ENDIF»'''
+
 
 	def CharSequence compile(int indent,int precidence,Declaration declaration)
 	    '''
@@ -162,9 +199,7 @@ class EditorGenerator extends AbstractGenerator {
 	       compile(indent,precidence,declaration as GlobalVariable)»«ENDIF»'''
 	
 	def CharSequence compile(int indent,int precidence,Package package1)
-	    '''
-	    «IF package1.p !== null»)package «package1.p»«ENDIF»«
-	    newline(indent)»'''
+	    '''«null»'''
 
 	def CharSequence compile(int indent,int precidence,Comment comment)
 	    '''
@@ -215,6 +250,30 @@ class EditorGenerator extends AbstractGenerator {
         IF defvar.name !== null»«defvar.name»«ENDIF»«
         IF defvar.e !== null»,«compile(indent,precidence,defvar.e)»«ENDIF»)'''
 
+	def CharSequence compileExports(int indent,int precidence,FunctionDef function)
+        '''
+        «var int ind = indent»«
+        var boolean loadCode = false»«null»«
+	    IF function.name !== null»«
+	     { if (function.name.equals("loadInit")) {
+	      	ind = -1;loadCode=true
+	       }
+	       null
+         }»«
+	    ENDIF»«
+	    IF (!loadCode) »«
+	      IF function.name !== null»«function.name»«ENDIF»«
+	      FOR x:function.fp»'«ENDFOR»(«
+	      IF function.j !== null»«function.j»«ELSE»«
+	        var testparams=false»«
+	        FOR x:function.params»«if(testparams)','»SExpression«{testparams=true;null}»«ENDFOR»«
+	      ENDIF»)«
+	    ENDIF»«
+	    IF function.w !== null»«
+	      newline(ind)»«
+	      compile(ind,precidence,function.w)»«
+	    ENDIF»'''
+
 /* FunctionDef definition
 Function:
     name=TK_ID fp+=KW_PRIME*
@@ -228,6 +287,7 @@ Function:
 	def CharSequence compile(int indent,int precidence,FunctionDef function)
         '''
         «var int ind = indent»«
+        vars.clearLocal()»«
         var boolean loadCode = false»«null»«
 	    IF function.name !== null»«
 	     { if (function.name.equals("loadInit")) {
@@ -477,7 +537,12 @@ PrimaryExpression returns Expr:
 	def CharSequence compile(int indent,int precidence,AssignExpression assignExpression)
         '''
 	    «cop(16,precidence)»«
-	    IF assignExpression.left !== null»«compile(indent,16,assignExpression.left)»«ENDIF»«
+	    IF assignExpression.left !== null»«
+	      compile(indent,16,assignExpression.left)»«
+	      IF assignExpression.left instanceof VarOrFunction»«
+	        if (vars.addIfNew((assignExpression.left as VarOrFunction).name)) ":SExpression" else ""»«
+	      ENDIF»«
+	    ENDIF»«
 	    IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
 	    IF assignExpression.right !== null»«compile(indent,16,assignExpression.right)»«ENDIF»«
 	    cop(16,precidence)»'''
