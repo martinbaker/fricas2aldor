@@ -18,12 +18,12 @@ import com.euclideanspace.bootSyntax.editor.Defconst
 import com.euclideanspace.bootSyntax.editor.Defvar
 import com.euclideanspace.bootSyntax.editor.FunctionDef
 import com.euclideanspace.bootSyntax.editor.GlobalVariable
-import com.euclideanspace.bootSyntax.editor.Block
-import com.euclideanspace.bootSyntax.editor.InnerBlock
+//import com.euclideanspace.bootSyntax.editor.Block
+//import com.euclideanspace.bootSyntax.editor.InnerBlock
 import com.euclideanspace.bootSyntax.editor.Statement
-import com.euclideanspace.bootSyntax.editor.MultiAssign
-import com.euclideanspace.bootSyntax.editor.MultiDefine
-import com.euclideanspace.bootSyntax.editor.MultiExit
+//import com.euclideanspace.bootSyntax.editor.MultiAssign
+//import com.euclideanspace.bootSyntax.editor.MultiDefine
+//import com.euclideanspace.bootSyntax.editor.MultiExit
 import com.euclideanspace.bootSyntax.editor.Loop
 import com.euclideanspace.bootSyntax.editor.LoopCondition
 import com.euclideanspace.bootSyntax.editor.While
@@ -53,6 +53,8 @@ import com.euclideanspace.bootSyntax.editor.MapExpression
 import com.euclideanspace.bootSyntax.editor.AssignExpression
 import com.euclideanspace.bootSyntax.editor.EltExpression
 import com.euclideanspace.bootSyntax.editor.UnaryExpression
+import com.euclideanspace.bootSyntax.editor.VarOrFunction
+import com.euclideanspace.bootSyntax.editor.Tuple
 import com.euclideanspace.bootSyntax.editor.Literal
 import com.euclideanspace.bootSyntax.editor.LispLiteral
 import com.euclideanspace.bootSyntax.editor.SubLispLiteral
@@ -63,6 +65,7 @@ import com.euclideanspace.bootSyntax.editor.ListComprehension
 import com.euclideanspace.bootSyntax.editor.WhereExpression
 import com.euclideanspace.bootSyntax.editor.IfExpression
 import com.euclideanspace.bootSyntax.editor.LambdaExpression
+import com.euclideanspace.bootSyntax.editor.Block
 
 /* rules for indentation
  * ---------------------
@@ -78,15 +81,6 @@ import com.euclideanspace.bootSyntax.editor.LambdaExpression
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class EditorGenerator extends AbstractGenerator {
-
-//	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-//		fsa.generateFile('greetings.txt', 'People to greet: ' + 
-//			resource.allContents
-//				.filter(Greeting)
-//				.map[name]
-//				.join(', '))
-//        fsa.generateFile(resource.className+".boot", compile(int indent,int precidence,resource.contents.head as Model))
-//	}
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
        fsa.generateFile(resource.className+".boot1", compile(0,0,resource.contents.head as Model))
@@ -107,6 +101,8 @@ class EditorGenerator extends AbstractGenerator {
 
     /*
      * cop (conditional open parenthesis)
+     * This inserts open parenthesis only if it is required by
+     * precidence rules.
      */
 	def String cop(int innerPrecidence,int outerPrecidence) {
 		if (innerPrecidence < outerPrecidence) return "(" else return ""
@@ -114,11 +110,17 @@ class EditorGenerator extends AbstractGenerator {
 
     /*
      * ccp (conditional close parenthesis)
+     * This inserts close parenthesis only if it is required by
+     * precidence rules.
      */
 	def String ccp(int innerPrecidence,int outerPrecidence) {
 		if (innerPrecidence < outerPrecidence) return ")" else return ""
 	}
 
+/*
+ * some keywords are changed so that they are not taken as keywords
+ * in our language. This changes them back to what they should be.
+ */
 	def String cleanID(String a) {
 		if (a.equals("if1")) return "if"
 		if (a.equals("and1")) return "and"
@@ -130,7 +132,6 @@ class EditorGenerator extends AbstractGenerator {
 		if (a.equals("until1")) return "until"
 		return a
 	}
-
 
 	def CharSequence compile(int indent,int precidence,Model model)
 	    '''
@@ -226,11 +227,11 @@ Function:
 	*/
 	def CharSequence compile(int indent,int precidence,FunctionDef function)
         '''
-        «var int ind = indent+1»«
+        «var int ind = indent»«
         var boolean loadCode = false»«null»«
 	    IF function.name !== null»«
 	     { if (function.name.equals("loadInit")) {
-	      	ind = ind-1;loadCode=true
+	      	ind = -1;loadCode=true
 	       }
 	       null
          }»«
@@ -243,65 +244,22 @@ Function:
 	        FOR x:function.params»«if(testparams)','»«compile(indent,precidence,x)»«{testparams=true;null}»«ENDFOR»«
 	      ENDIF»)«
 	    ENDIF»«
-	    IF function.b !== null»«
+	    IF function.st !== null»«
 	      IF (!loadCode) »«IF function.m» ==>«ELSE» ==«ENDIF»«ENDIF»«
-	      compile(ind,precidence,function.b)»«
+	      compile(ind,precidence,function.st)»«
 	    ENDIF»«
 	    IF function.w !== null»«
-	      newline(indent)»«
+	      newline(ind)»«
 	      compile(ind,precidence,function.w)»«
 	    ENDIF»«
-	    newline(indent)»'''
+	    newline(ind)»'''
 
 /*
  * name=TK_ID KW_ASSIGN e=Expression */
 	def CharSequence compile(int indent,int precidence,GlobalVariable globalVariable)
         '''
 	    «IF globalVariable.name !== null»«globalVariable.name»«ENDIF» :=«
-	    IF globalVariable.e !== null»«compile(indent+1,precidence,globalVariable.e)»«ENDIF»'''
-
-/*
- * Block:
-	s+=Statement | (
-	b?=BEGIN
-		(s+=Statement NL)*
-	END
-	)
-
-  */
-	def CharSequence compile(int indent,int precidence,Block block)
-        '''
-        «IF block.b»«
-	      FOR x:block.s»«
-	        newline(indent)»«
-	        compile(indent,0,x)»«
-	      ENDFOR»«
-	    ELSE»«
-	      FOR x:block.s»«
-	        compile(indent,0,x)»«
-	      ENDFOR»«
-	    ENDIF»'''
-
-/*
- * InnerBlock:
-	s+=Statement | (
-	b?=BEGIN
-		(s+=Statement NL)*
-	END NL
-	)
-  */
-	def CharSequence compile(int indent,int precidence,InnerBlock innerBlock)
-         '''
-        «IF innerBlock.b»«
-	      FOR x:innerBlock.s»«
-	        newline(indent)»«
-	        compile(indent,0,x)»«
-	      ENDFOR»«
-	    ELSE»«
-	      FOR x:innerBlock.s»«
-	        compile(indent,0,x)»«
-	      ENDFOR»«
-	    ENDIF»'''
+	    IF globalVariable.e !== null»«compile(indent,precidence,globalVariable.e)»«ENDIF»'''
 
 /*
  * Statement:
@@ -309,14 +267,8 @@ Function:
   */
 	def CharSequence compile(int indent,int precidence,Statement statement)
         '''
-	    «IF statement instanceof MultiAssign»«
-	       compile(indent,precidence,statement as MultiAssign)»«ENDIF»«
-	    IF statement instanceof Comment»«
+	    «IF statement instanceof Comment»«
 	       compile(indent,precidence,statement as Comment)»«ENDIF»«
-	    IF statement instanceof MultiDefine»«
-	       compile(indent,precidence,statement as MultiDefine)»«ENDIF»«
-	    IF statement instanceof MultiExit»«
-	       compile(indent,precidence,statement as MultiExit)»«ENDIF»«
 	    IF statement instanceof Loop»«
 	       compile(indent,precidence,statement as Loop)»«ENDIF»«
 	    IF statement instanceof Do»«
@@ -325,42 +277,6 @@ Function:
 	       compile(indent,precidence,statement as Where)»«ENDIF»«
 	    IF statement instanceof Expr»«
 	       compile(indent,precidence,statement as Expr)»«ENDIF»'''
-
-/*
- * MultiAssign:
- * e=Expression KW_ASSIGN BEGIN (s+=Statement NL)* END
- */
-	def CharSequence compile(int indent,int precidence,MultiAssign multiAssign)
-        '''
-        «IF multiAssign.e !== null»«compile(indent,precidence,multiAssign.e)»«ENDIF» := «
-        FOR x:multiAssign.s»«
-          newline(indent+1)»«
-          compile(indent+1,precidence,x)»«
-        ENDFOR»'''
-
-/*
- * MultiDefine:
- * e=Expression KW_EQ2 BEGIN (s+=Statement NL)* END
- */
-	def CharSequence compile(int indent,int precidence,MultiDefine multiDefine)
-        '''
-        «IF multiDefine.e !== null»«compile(indent,precidence,multiDefine.e)»«ENDIF» == «
-        FOR x:multiDefine.s»«
-          newline(indent+1)»«
-          compile(indent+1,precidence,x)»«
-        ENDFOR»'''
-
-/*
- * MultiExit:
- * e=Expression KW_EXIT BEGIN (s+=Statement NL)* END
- */
-	def CharSequence compile(int indent,int precidence,MultiExit multiExit)
-        '''
-        «IF multiExit.e !== null»«compile(indent,precidence,multiExit.e)»«ENDIF» => «
-        FOR x:multiExit.s»«
-          newline(indent+1)»«
-          compile(indent+1,precidence,x)»«
-        ENDFOR»'''
 
 /*
  * Loop:
@@ -376,59 +292,22 @@ Function:
         '''
         «FOR x:loop.c»«
           IF x.f !== null»«
-            »for «IF x.f.e !== null»«compile(indent+1,0,x.f.e)» «ENDIF»«
+            »for «IF x.f.e !== null»«compile(indent,0,x.f.e)» «ENDIF»«
           ENDIF»«
           IF x.w !== null»«
-            »while «IF x.w.b !== null»«compile(indent+2,0,x.w.b)»«
-              IF x.w.b.b»«newline(indent+1)»«ELSE» «ENDIF»«
+            »while «IF x.w.e !== null»«compile(indent,0,x.w.e)»«
+              IF x.w.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
           IF x.u !== null»«
-            »until «IF x.u.b !== null»«compile(indent+2,0,x.u.b)»«
-              IF x.u.b.b»«newline(indent+1)»«ELSE» «ENDIF»«
+            »until «IF x.u.e !== null»«compile(indent,0,x.u.e)»«
+              IF x.u.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
         ENDFOR»«
         IF loop.e !== null»|«compile(indent,0,loop.e)» «ENDIF»repeat «
         IF loop.b !== null»«
-          compile(indent+2,precidence,loop.b)»«
-        ENDIF»'''
-
-/*
- * LoopCondition:
- *  (w=While | f=For | u=Until)
- * 
- * This code is not used.
- * Code for this is generated directly by Loop rather than calling the 'compile' functions
- * of LoopCondition, While, For and Until directly.
- * This is because trailing spaces after newline are changed by auto-indent code.
- */
-	def CharSequence compile(int indent,int precidence,LoopCondition loopCondition)
-        '''
-        «IF loopCondition.f !== null»«
-          »for «IF loopCondition.f.e !== null»«compile(indent+1,0,loopCondition.f.e)» «ENDIF»«
-        ENDIF»«
-        IF loopCondition.w !== null»«
-          »while «IF loopCondition.w.b !== null»«compile(indent+1,0,loopCondition.w.b)»«
-            IF loopCondition.w.b.b»«newline(indent)»«ELSE» «ENDIF»«
-          ENDIF»«
-        ENDIF»«
-        IF loopCondition.u !== null»«
-          »until «IF loopCondition.u.b !== null»«compile(indent+1,0,loopCondition.u.b)»«
-            IF loopCondition.u.b.b»«newline(indent)»«ELSE» «ENDIF»«
-          ENDIF»«
-        ENDIF»'''
-/*
- * While:
- * 'while' b=InnerBlock
- * This code is not used.
- * Code for this is generated directly by Loop rather than calling the 'compile' functions
- * of LoopCondition, While, For and Until directly.
- * This is because trailing spaces after newline are changed by auto-indent code.
- */
-	def CharSequence compile(int indent,int precidence,While while1)
-        '''while «IF while1.b !== null»«compile(indent+1,0,while1.b)»«
-          IF while1.b.b»«newline(indent)»«ELSE» «ENDIF»«
+          compile(indent,precidence,loop.b)»«
         ENDIF»'''
 
 /*
@@ -437,40 +316,14 @@ Function:
  */
 	def CharSequence compile(int indent,int precidence,Do do1)
         '''
-        do «IF do1.b !== null»«compile(indent+1,0,do1.b)»«ENDIF»'''
-
-
-/*
- * Until:
- * 'until' b=Block
- * This code is not used.
- * Code for this is generated directly by Loop rather than calling the 'compile' functions
- * of LoopCondition, While, For and Until directly.
- * This is because trailing spaces after newline are changed by auto-indent code.
- */
-	def CharSequence compile(int indent,int precidence,Until until)
-        '''until «IF until.b !== null»«compile(indent+1,0,until.b)»«
-          IF until.b.b»«newline(indent)»«ELSE» «ENDIF»«
-        ENDIF»'''
-
-/*
- * For:
- * 'for' e=Expression
- * This code is not used.
- * Code for this is generated directly by Loop rather than calling the 'compile' functions
- * of LoopCondition, While, For and Until directly.
- * This is because trailing spaces after newline are changed by auto-indent code.
- */
-	def CharSequence compile(int indent,int precidence,For for1)
-        '''
-        for «IF for1.e !== null»«compile(indent+1,0,for1.e)» «ENDIF»'''
+        do «IF do1.e !== null»«compile(indent,0,do1.e)»«ENDIF»'''
 
 /*
  * Where:
  * 'where' b=Block
  */
 	def CharSequence compile(int indent,int precidence,Where where)
-        ''' where «IF where.b !== null»«compile(indent+1,precidence,where.b)»«ENDIF»'''
+        ''' where «IF where.b !== null»«compile(indent,precidence,where.b)»«ENDIF»'''
 
 /* Expr holds both Expression and WhereExpression
  * 
@@ -536,49 +389,23 @@ PrimaryExpression returns Expr:
 	    IF expr instanceof ExitExpression»«compile(indent,precidence,expr as ExitExpression)»«ENDIF»«
 	    IF expr instanceof EltExpression»«compile(indent,precidence,expr as EltExpression)»«ENDIF»«
 	    IF expr instanceof UnaryExpression»«compile(indent,precidence,expr as UnaryExpression)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compile(indent,precidence,expr as VarOrFunction)»«ENDIF»«
+	    IF expr instanceof Tuple»«compile(indent,precidence,expr as Tuple)»«ENDIF»«
+	    IF expr instanceof Block»«compile(indent,precidence,expr as Block)»«ENDIF»«
 	    IF expr instanceof Literal»«compile(indent,precidence,expr as Literal)»«ENDIF»«
-	    IF expr.c»(«
-	      var int a= 0»«
-	      FOR x:expr.st»«
-	        if (a>0) newline(indent) else ""»«
-	        compile(indent,0,x)»«
-	        {a=a+1;null}»«
-	      ENDFOR»)«
-	      IF expr.eexp !== null» => «compile(indent+1,precidence,expr.eexp)»«ENDIF»«
-	    ENDIF»«
-	    var boolean indentIf = false»«
 	    IF expr.b1 !== null»if «
-	      compile(indent+1,precidence,expr.b1)»«
-	      {if (expr.b1.b) indentIf = true;null}»«
+	      compile(indent,precidence,expr.b1)»«
+	      IF expr.n1»«newline(indent)»«ELSE» «ENDIF»«
 	    ENDIF»«
-	    IF expr.b2 !== null»«
-	      if (indentIf) newline(indent)»«
-	      if (indentIf) "then " else " then "»«
-	      compile(indent+1,precidence,expr.b2)»«ENDIF»«
-	    IF expr.b2i !== null»«
-	      if (indentIf) newline(indent)»«
-	      if (indentIf) "then " else " then "»«
-	      compile(indent+1,precidence,expr.b2i)»«ENDIF»«
-	    IF expr.b3 !== null»«
-	      newline(indent)»else «
-	      compile(indent+1,precidence,expr.b3)»«ENDIF»«
-	    var Boolean removeBrackets =false»«
-	    IF expr.m»«
-	      IF expr.t4 !== null»«
-	        IF expr.t4 instanceof Literal»«{removeBrackets =true;null}»«ENDIF»«
-	      ENDIF»«
+	    IF expr.b2 !== null»then «
+	      compile(indent,precidence,expr.b2)» «
 	    ENDIF»«
-	    IF (expr.p && !expr.b && !removeBrackets) »(«ENDIF»«
-	    IF expr.m»-«ENDIF»«
-	    IF expr.t4 !== null»«compile(indent,0,expr.t4)»«ENDIF»«
-	    FOR x:expr.t5»,«compile(indent,0,x)»«ENDFOR»«
-	    IF (expr.p && !expr.b && !removeBrackets) »)«ENDIF»«
-	    IF (expr.c2) »(«ENDIF»«
-	    var stest = false»«
-	    FOR x:expr.s»«newline(indent+1)»«compile(indent+1,0,x)»«{stest = true;null}»«ENDFOR»«
-	    if (stest) newline(indent)»«
-	    IF (expr.c2) »)«ENDIF»«
-	    IF expr.d !== null»«expr.d»«ENDIF»'''
+	    IF expr.b2i !== null»then «
+	      compile(indent,precidence,expr.b2i)»«
+	      IF expr.n2»«newline(indent)»«ELSE» «ENDIF»«
+	    ENDIF»«
+	    IF expr.b3 !== null»else «
+	      compile(indent,precidence,expr.b3)»«ENDIF»'''
 
 /* WhereExpression returns Expr:
 	(Expression ({WhereExpression.left=current} w=Where?))
@@ -601,10 +428,10 @@ PrimaryExpression returns Expr:
 	def CharSequence compile(int indent,int precidence,IfExpression ifExpression)
         '''
         «IF ifExpression.i1 !== null»if «compile(indent,0,ifExpression.i1)» «ENDIF»«
-        IF ifExpression.i2 !== null»then «compile(indent+1,0,ifExpression.i2)» «ENDIF»«
+        IF ifExpression.i2 !== null»then «compile(indent,0,ifExpression.i2)» «ENDIF»«
         IF ifExpression.i3 !== null»«
           newline(indent)»else «
-          compile(indent+1,0,ifExpression.i3)» «
+          compile(indent,0,ifExpression.i3)» «
         ENDIF»'''
 
 
@@ -810,22 +637,78 @@ PrimaryExpression |
 	    IF unaryExpression.b1 !== null»«compile(indent,48,unaryExpression.b1)»«ENDIF»«
 	    IF unaryExpression.b2 !== null»«unaryExpression.b2»«ENDIF»«
 	    IF unaryExpression.b3 !== null»«compile(indent,48,unaryExpression.b3)»«ENDIF»«
-	    IF unaryExpression.name !== null»«cleanID(unaryExpression.name)»«
-	      IF unaryExpression.expr!== null»«
-	        IF unaryExpression.expr.p»«ELSE» «ENDIF»«
-	      ENDIF»«
-	    ENDIF»«
 	    IF unaryExpression.uop !== null»«
 	      if (unaryExpression.uop.compareTo("*./")==0) "*/" else unaryExpression.uop»«
 	      if (unaryExpression.uop.compareTo("not")==0) " "»«
 	      if (unaryExpression.uop.compareTo("return")==0) " "»«
 	    ENDIF»«
-	    IF unaryExpression.p2»'«ENDIF»«
 	    IF unaryExpression.loc»local«ENDIF»«
-	    IF unaryExpression.expr !== null»«
-	      IF unaryExpression.name !== null» «ENDIF»«
-	    ENDIF»«
 	    IF unaryExpression.expr !== null»«compile(indent,48,unaryExpression.expr)»«ENDIF»«
+	    ccp(48,precidence)»'''
+
+/*{Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)? */
+	def CharSequence compile(int indent,int precidence,Tuple expr)
+        '''
+	    «var Boolean removeBrackets =false»«
+ 	    IF expr.m2»«
+	      IF expr.t3 !== null»«
+	        IF expr.t3 instanceof Literal»«{removeBrackets =true;null}»«ENDIF»«
+	      ENDIF»«
+	    ENDIF»«
+	    IF (!removeBrackets) »(«ENDIF»«
+	    IF expr.m2»-«ENDIF»«
+	    IF expr.t3 !== null»«compile(indent,0,expr.t3)»«ENDIF»«
+	    FOR x:expr.t5»,«compile(indent,0,x)»«ENDFOR»«
+	    IF (!removeBrackets) »)«ENDIF»«
+	    IF expr.d»..«ENDIF»'''
+
+/*PrimaryExpression returns Expr:
+  (
+	Literal
+	|
+	({Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)?
+    KW_CPAREN)
+	|
+	({Block} b?=BEGIN
+		(s+=Statement NL)*
+	END )
+	|
+	({Block} c2?=KW_OCURLY (s+=Statement NL)* KW_CCURLY )
+	|
+	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
+  )
+  d=KW_2DOT? // for segment with no end part */
+	def CharSequence compile(int indent,int precidence,Block expr)
+        '''
+	    «IF expr.c2»(«
+	      FOR x:expr.s»«
+	        newline(indent+1)»«
+	        compile(indent+1,0,x)»«
+	      ENDFOR»)«
+	    ENDIF»«
+	    IF expr.b»«
+	      FOR x:expr.s»«
+	        newline(indent+1)»«
+	        compile(indent+1,0,x)»«
+	      ENDFOR»«
+	    ENDIF»«
+	    IF expr.c3»«
+	      IF expr.m»-«ENDIF»«
+	      IF expr.t4 !== null»«compile(indent,0,expr.t4)»«ENDIF»«
+	    ENDIF»«
+	    IF expr.d»..«ENDIF»'''
+
+/* see UnaryExpression for syntax */
+	def CharSequence compile(int indent,int precidence,VarOrFunction varOrFunction)
+        '''
+	    «cop(48,precidence)»«
+	    cleanID(varOrFunction.name)»«
+	    var Boolean addSpace =false»«
+	    IF varOrFunction.expr !== null»«
+	      IF !(varOrFunction.expr instanceof Tuple)»«{addSpace =true;null}»«ENDIF»«
+	    ENDIF»«
+	    if (addSpace) " " else ""»«
+	    IF varOrFunction.expr !== null»«compile(indent,48,varOrFunction.expr)»«ENDIF»«
 	    ccp(48,precidence)»'''
 
 /*
@@ -847,11 +730,12 @@ PrimaryExpression |
         '''
 	    «IF literal instanceof LispLiteral»«compile(indent,precidence,literal as LispLiteral)»«ENDIF»«
 	    IF literal instanceof ListLiteral»[«compile(indent,precidence,literal as ListLiteral)»]«ENDIF»«
-		IF literal.value !== null»«literal.value»«ENDIF»«
+		IF literal.value !== null»«
+		  literal.value»«
+		  IF literal.d»..«ENDIF»«
+		ENDIF»«
 		IF literal.bool !== null»«literal.bool»«ENDIF»«
 		IF literal.nil !== null»«literal.nil»«ENDIF»«
-//		IF literal.lst !== null»[«compile(indent,50,literal.lst)»]«ENDIF»«
-//		IF literal.lsp !== null»«compile(indent,50,literal.lsp)»«ENDIF»«
 		IF literal.str !== null»«literal.str»«ENDIF»'''
 
 /*

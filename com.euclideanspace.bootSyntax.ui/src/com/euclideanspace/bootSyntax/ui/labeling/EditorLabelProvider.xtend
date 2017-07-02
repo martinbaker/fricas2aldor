@@ -123,33 +123,10 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  if (ele.getName()!==null)  return "GlobalVariable="+ele.getName()
 	  return "GlobalVariable";
 	}
-	
-/* 	def String text(Block ele) {
-	  return "Block";
-	}
-	
-	def String text(InnerBlock ele) {
-	  return "InnerBlock";
-	}
-*/	
+		
 	def String text(Statement ele) {
 	  return "Statement";
 	}
-	
-/* 	def String text(MultiAssign ele) {
-	  if (ele.getE()!==null)  return "MultiAssign ..."
-	  return "MultiAssign";
-	}
-	
-	def String text(MultiDefine ele) {
-	  if (ele.getE()!==null)  return "MultiDefine ..."
-	  return "MultiDefine";
-	}
-	
-	def String text(MultiExit ele) {
-	  if (ele.getE()!==null)  return "MultiExit ..."
-	  return "MultiExit";
-	}*/
 
 /* Loop:
 	c+=LoopCondition* (KW_BAR e=Expression)? 'repeat' b=Block */
@@ -301,36 +278,30 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  return "InExpression";
 	}
 	
-	
 	def String text(SegmentExpression ele) {
 	  if (ele.getOp()!==null)  return "SegmentExpression "+ele.getOp()
 	  return "SegmentExpression";
 	}
-	
 	
 	def String text(AdditiveExpression ele) {
 	  if (ele.getOp()!==null)  return "AdditiveExpression "+ele.getOp()
 	  return "AdditiveExpression";
 	}
 	
-	
 	def String text(ExquoExpression ele) {
 	  if (ele.getOp()!==null)  return "ExquoExpression "+ele.getOp()
 	  return "ExquoExpression";
 	}
-	
-	
+
 	def String text(DivisionExpression ele) {
 	  if (ele.getOp()!==null)  return "DivisionExpression "+ele.getOp()
 	  return "DivisionExpression";
 	}
 	
-	
 	def String text(QuoExpression ele) {
 	  if (ele.getOp()!==null)  return "QuoExpression "+ele.getOp()
 	  return "QuoExpression";
 	}
-	
 	
 	def String text(ModExpression ele) {
 	  if (ele.getOp()!==null)  return "ModExpression "+ele.getOp()
@@ -341,7 +312,6 @@ class EditorLabelProvider extends DefaultEObjectLabelProvider {
 	  if (ele.getOp()!==null)  return "RemExpression "+ele.getOp()
 	  return "RemExpression";
 	}
-	
 	
 	def String text(MultiplicativeExpression ele) {
 	  if (ele.getOp()!==null)  return "MultiplicativeExpression "+ele.getOp()
