@@ -2,19 +2,12 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-public class variableTracker {
+public class BootNamespace {
   /**
    * Holds local variables that have been initialised so far.
    */
   private ArrayList<String> localVars = new ArrayList<String>();
-  /**
-   * Holds parameters for current function definition.
-   */
-  private ArrayList<String> paramaters = new ArrayList<String>();
-  /**
-   * Holds variables we don't yet know about.
-   */
-  private ArrayList<String> unbound = new ArrayList<String>();
+
 
   /**
    * Arrays for holding names of various types of global variables.
@@ -37,10 +30,27 @@ public class variableTracker {
    */
   private ArrayList<String> globals = new ArrayList<String>();
   private ArrayList<String> dynamicGlobals = new ArrayList<String>();
+  private ArrayList<String> unDefinedGlobals = new ArrayList<String>();
   private ArrayList<String> defvar = new ArrayList<String>();
   private ArrayList<String> defparameter = new ArrayList<String>();
   private ArrayList<String> defconstant = new ArrayList<String>();
   private ArrayList<String> defconst = new ArrayList<String>();
+
+  /**
+   * Holds function definition names.
+   */
+  private ArrayList<String> functions = new ArrayList<String>();
+
+  
+  public void addFunction(String varName) {
+	  if (functions.contains(varName)) return;
+	  functions.add(varName);
+  }
+
+  public void addUnDefinedGlobal(String varName) {
+	  if (unDefinedGlobals.contains(varName)) return;
+	  unDefinedGlobals.add(varName);
+  }
 
   public void addGlobal(String varName) {
 	  if (globals.contains(varName)) return;
@@ -80,6 +90,7 @@ public class variableTracker {
   public boolean isGlobal(String varName) {
 	  if (globals.contains(varName)) return true;
 	  if (dynamicGlobals.contains(varName)) return true;
+	  if (unDefinedGlobals.contains(varName)) return true;
 	  if (defparameter.contains(varName)) return true;
 	  if (defconstant.contains(varName)) return true;
 	  if (defconst.contains(varName)) return true;
@@ -111,6 +122,13 @@ public class variableTracker {
 
   public String showDefs() {
 	  StringBuffer res = new StringBuffer("");
+	  
+	  
+	  res.append("\nFunctions\n");
+	  for (String s:functions) {
+		  res.append(s);
+		  res.append("\n");
+	  }
 	  res.append("\nGlobals\n");
 	  for (String s:globals) {
 		  res.append(s);
@@ -118,6 +136,11 @@ public class variableTracker {
 	  }
 	  res.append("\nDynamic Globals\n");
 	  for (String s:dynamicGlobals) {
+		  res.append(s);
+		  res.append("\n");
+	  }
+	  res.append("\nUnDefined Globals\n");
+	  for (String s:unDefinedGlobals) {
 		  res.append(s);
 		  res.append("\n");
 	  }
