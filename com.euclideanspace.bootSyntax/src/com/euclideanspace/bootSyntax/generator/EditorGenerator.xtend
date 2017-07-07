@@ -61,6 +61,7 @@ import com.euclideanspace.bootSyntax.editor.WhereExpression
 import com.euclideanspace.bootSyntax.editor.IfExpression
 import com.euclideanspace.bootSyntax.editor.LambdaExpression
 import com.euclideanspace.bootSyntax.editor.Block
+import java.util.ArrayList
 
 /* rules for indentation
  * ---------------------
@@ -78,14 +79,20 @@ import com.euclideanspace.bootSyntax.editor.Block
 class EditorGenerator extends AbstractGenerator {
 
     BootNamespace vars = new BootNamespace();
+    var String currentFile ="";
+    var String currentFunction ="";
+    var ArrayList<Statement> pendingWheres = new ArrayList<Statement>();
+    
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-       fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model))
+      fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model))
+      fsa.generateFile("namespace.txt",vars.showDefs())
    }
 
-	def className(Resource res) {
+ 	def className(Resource res) {
 		var name = res.URI.lastSegment
-		return name.substring(0, name.indexOf('.'))
+		currentFile = name.substring(0, name.indexOf('.'))
+		return currentFile;
 	}
 
 	def CharSequence newline(int indent) {
@@ -162,8 +169,7 @@ class EditorGenerator extends AbstractGenerator {
 	    ENDIF»)abbrev package «shortName(longName)» «longName»
 	    «longName»() : Exports == Implementation where«
 	    compileExports(indent+1,precidence,model)»«
-	    compileImplementation(indent+1,precidence,model)»«
-	    vars.showDefs()»'''
+	    compileImplementation(indent+1,precidence,model)»'''
 
 	def CharSequence compileExports(int indent,int precidence,Model model)
 	    '''
@@ -188,7 +194,7 @@ class EditorGenerator extends AbstractGenerator {
 	    IF declaration instanceof Defvar»«
 	       compileExports(indent,precidence,declaration as Defvar)»«ENDIF»«
 	    IF declaration instanceof FunctionDef»«
-	       compileExports(indent,precidence,declaration as FunctionDef)»«ENDIF»«
+	       compileExportsTopLevel(indent,precidence,declaration as FunctionDef)»«ENDIF»«
 	    IF declaration instanceof GlobalVariable»«
 	       compileExports(indent,precidence,declaration as GlobalVariable)»«ENDIF»'''
 
@@ -249,13 +255,22 @@ class EditorGenerator extends AbstractGenerator {
 	def CharSequence compileExports(int indent,int precidence,Defvar defvar)
 	    '''«vars.addDefvar(defvar.name)»'''
 
+	def CharSequence compileExportsTopLevel(int indent,int precidence,FunctionDef function) '''
+		«compileExports(indent,precidence,function)»«
+		FOR Statement st:pendingWheres»«
+	    	//compileExports(indent,precidence,st)»«
+	    	compile(indent,precidence,false,st)»«
+	    ENDFOR»«
+	    {pendingWheres.clear();null}»'''
+
 	def CharSequence compileExports(int indent,int precidence,FunctionDef function)
         '''
         «var int ind = indent»«
         var boolean loadCode = false»«null»«
         newline(indent)»«
 	    IF function.name !== null»«
-	     { vars.addFunction(function.name);
+	     {currentFunction = function.name;
+	       vars.addFunction(function.name,null,currentFile,null);
 	       if (function.name.equals("loadInit")) {
 	      	ind = -1;loadCode=true
 	       }
@@ -274,7 +289,7 @@ class EditorGenerator extends AbstractGenerator {
 	    ENDIF»«
 	    IF function.w !== null»«
 	      newline(ind)»«
-	      compile(ind,precidence,false,function.w)»«
+	      compileExports(ind,precidence,function.w)»«
 	    ENDIF»'''
 
 /* FunctionDef definition
@@ -331,7 +346,9 @@ Function:
 
 	def CharSequence compileExports(int indent,int precidence,Statement statement)
         '''
-	    «IF statement instanceof Expr»«
+	    «IF statement instanceof Where»«
+	       compileExports(indent,precidence,statement as Where)»«ENDIF»«
+	    IF statement instanceof Expr»«
 	       compileExports(indent,precidence,statement as Expr)»«
 	    ENDIF»'''
 
@@ -392,6 +409,11 @@ Function:
         '''
         do «IF do1.e !== null»«compile(indent,0,lhs,do1.e)»«ENDIF»'''
 
+
+	def CharSequence compileExports(int indent,int precidence,Where where) {
+	    if (where.b !== null) pendingWheres.add(where.b)
+        return "";
+        }
 /*
  * Where:
  * 'where' b=Block
@@ -401,7 +423,8 @@ Function:
 
 	def CharSequence compileExports(int indent,int precidence,Expr expr)
         '''
-	    «IF expr instanceof VarOrFunction»«compileExports(indent,precidence,expr as VarOrFunction)»«ENDIF»«
+	    «IF expr instanceof WhereExpression»«compileExports(indent,precidence,expr as WhereExpression)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compileExports(indent,precidence,expr as VarOrFunction)»«ENDIF»«
 	    IF expr instanceof AssignExpression»«compileExports(indent,precidence,expr as AssignExpression)»«ENDIF»«
 	    IF expr instanceof Block»«compileExports(indent,precidence,expr as Block)»«ENDIF»'''
 
@@ -486,6 +509,11 @@ PrimaryExpression returns Expr:
 	    ENDIF»«
 	    IF expr.b3 !== null»else «
 	      compile(indent,precidence,lhs,expr.b3)»«ENDIF»'''
+
+	def CharSequence compileExports(int indent,int precidence,WhereExpression whereExpression)
+        '''
+	    «IF whereExpression.left !== null»«compileExports(indent,1,whereExpression.left)»«ENDIF»«
+	    IF whereExpression.w !== null» «compileExports(indent,1,whereExpression.w)» «ENDIF»'''
 
 /* WhereExpression returns Expr:
 	(Expression ({WhereExpression.left=current} w=Where?))

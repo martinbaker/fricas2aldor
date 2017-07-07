@@ -1,6 +1,7 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BootNamespace {
   /**
@@ -39,12 +40,12 @@ public class BootNamespace {
   /**
    * Holds function definition names.
    */
-  private ArrayList<String> functions = new ArrayList<String>();
+  private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
 
-  
-  public void addFunction(String varName) {
-	  if (functions.contains(varName)) return;
-	  functions.add(varName);
+  public void addFunction(String n,String p,String f,ArrayList<String> pars) {
+	  FunctionSignature fs = new FunctionSignature(n,p,f,pars);
+	  if (functions.contains(fs)) return;
+	  functions.add(fs);
   }
 
   public void addUnDefinedGlobal(String varName) {
@@ -122,11 +123,12 @@ public class BootNamespace {
 
   public String showDefs() {
 	  StringBuffer res = new StringBuffer("");
-	  
-	  
+
 	  res.append("\nFunctions\n");
-	  for (String s:functions) {
-		  res.append(s);
+	  // order by alphabetical order of file name
+      Collections.sort(functions, (a, b) -> a.getFile().compareToIgnoreCase(b.getFile()));
+	  for (FunctionSignature fs:functions) {
+		  res.append(fs.display());
 		  res.append("\n");
 	  }
 	  res.append("\nGlobals\n");
