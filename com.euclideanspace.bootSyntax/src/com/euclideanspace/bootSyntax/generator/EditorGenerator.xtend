@@ -82,10 +82,11 @@ class EditorGenerator extends AbstractGenerator {
     var String currentFile ="";
     var String currentFunction ="";
     var ArrayList<Statement> pendingWheres = new ArrayList<Statement>();
+    var ArrayList<LambdaExpression> pendingLambda = new ArrayList<LambdaExpression>();
     
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-      fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model))
+      fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,WhereState.NotWhere))
       fsa.generateFile("namespace.txt",vars.showDefs())
    }
 
@@ -162,63 +163,63 @@ class EditorGenerator extends AbstractGenerator {
 		return a
 	}
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,Model model)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Model model,WhereState insideWhere)
 	    '''
 	    «var String longName = "** no resource **"»«
 	    IF model.eResource !== null»«{longName = model.eResource.className;null}»«
 	    ENDIF»)abbrev package «shortName(longName)» «longName»
 	    «longName»() : Exports == Implementation where«
-	    compileExports(indent+1,precidence,model)»«
-	    compileImplementation(indent+1,precidence,model)»'''
+	    compileExports(indent+1,precidence,model,WhereState.NotWhere)»«
+	    compileImplementation(indent+1,precidence,model,insideWhere)»'''
 
-	def CharSequence compileExports(int indent,int precidence,Model model)
+	def CharSequence compileExports(int indent,int precidence,Model model,WhereState insideWhere)
 	    '''
 	    «newline(indent)»Exports ==> with«
-	    FOR x:model.declarations»«compileExports(indent+1,precidence,x)»«ENDFOR»'''
+	    FOR x:model.declarations»«compileExports(indent+1,precidence,x,insideWhere)»«ENDFOR»'''
 
-	def CharSequence compileImplementation(int indent,int precidence,Model model)
+	def CharSequence compileImplementation(int indent,int precidence,Model model,WhereState insideWhere)
 	    '''
 	    «newline(indent)»«
 	    newline(indent)»Implementation ==> add«
 	    newline(indent+1)»«
-	    FOR x:model.declarations»«compile(indent+1,precidence,false,x)»«ENDFOR»'''
+	    FOR x:model.declarations»«compile(indent+1,precidence,false,x,insideWhere)»«ENDFOR»'''
 
-	def CharSequence compileExports(int indent,int precidence,Declaration declaration)
+	def CharSequence compileExports(int indent,int precidence,Declaration declaration,WhereState insideWhere)
 	    '''
 	    «IF declaration instanceof Defparameter»«
-	       compileExports(indent,precidence,declaration as Defparameter)»«ENDIF»«
+	       compileExports(indent,precidence,declaration as Defparameter,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Defconstant»«
-	       compileExports(indent,precidence,declaration as Defconstant)»«ENDIF»«
+	       compileExports(indent,precidence,declaration as Defconstant,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Defconst»«
-	       compileExports(indent,precidence,declaration as Defconst)»«ENDIF»«
+	       compileExports(indent,precidence,declaration as Defconst,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Defvar»«
-	       compileExports(indent,precidence,declaration as Defvar)»«ENDIF»«
+	       compileExports(indent,precidence,declaration as Defvar,insideWhere)»«ENDIF»«
 	    IF declaration instanceof FunctionDef»«
-	       compileExportsTopLevel(indent,precidence,declaration as FunctionDef)»«ENDIF»«
+	       compileExports(indent,precidence,declaration as FunctionDef,insideWhere)»«ENDIF»«
 	    IF declaration instanceof GlobalVariable»«
-	       compileExports(indent,precidence,declaration as GlobalVariable)»«ENDIF»'''
+	       compileExports(indent,precidence,declaration as GlobalVariable,insideWhere)»«ENDIF»'''
 
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,Declaration declaration)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Declaration declaration,WhereState insideWhere)
 	    '''
 	    «newline(indent)»«
 	    IF declaration instanceof Package»«
-	       compile(indent,precidence,lhs,declaration as Package)»«ENDIF»«
+	       compile(indent,precidence,lhs,declaration as Package,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Comment»«
-	       compile(indent,precidence,lhs,declaration as Comment)»«ENDIF»«
+	       compile(indent,precidence,lhs,declaration as Comment,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Documentation»«
-	       compile(indent,precidence,lhs,declaration as Documentation)»«ENDIF»«
+	       compile(indent,precidence,lhs,declaration as Documentation,insideWhere)»«ENDIF»«
 	    IF declaration instanceof FunctionDef»«
-	       compile(indent,precidence,lhs,declaration as FunctionDef)»«ENDIF»«
+	       compile(indent,precidence,lhs,declaration as FunctionDef,insideWhere)»«ENDIF»«
 	    IF declaration instanceof Where»«
-	       compile(indent,precidence,lhs,declaration as Where)»«ENDIF»«
+	       compile(indent,precidence,lhs,declaration as Where,insideWhere)»«ENDIF»«
 	    IF declaration instanceof GlobalVariable»«
-	       compile(indent,precidence,lhs,declaration as GlobalVariable)»«ENDIF»'''
+	       compile(indent,precidence,lhs,declaration as GlobalVariable,insideWhere)»«ENDIF»'''
 	
-	def CharSequence compile(int indent,int precidence,boolean lhs,Package package1)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Package package1,WhereState insideWhere)
 	    '''«null»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,Comment comment)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Comment comment,WhereState insideWhere)
 	    '''
 	    «IF comment.c !== null»«comment.c»«ENDIF»'''
 
@@ -226,44 +227,37 @@ class EditorGenerator extends AbstractGenerator {
  * Documentation:
  *	KW_CPAREN ('if' e=Expression | ei?='endif')
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Documentation documentation)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Documentation documentation,WhereState insideWhere)
 	    '''
 	    «IF documentation.ei»)endif«
-	    ELSEIF documentation.e !== null»)if «compile(indent,precidence,lhs,documentation.e)»«ENDIF»'''
+	    ELSEIF documentation.e !== null»)if «compile(indent,precidence,lhs,documentation.e,insideWhere)»«ENDIF»'''
 
 /*
  * Defparameter: 'DEFPARAMETER' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
  */
-	def CharSequence compileExports(int indent,int precidence,Defparameter defparameter)
+	def CharSequence compileExports(int indent,int precidence,Defparameter defparameter,WhereState insideWhere)
 	    '''«vars.addDefparam(defparameter.name)»'''
 
 /*
  * Defconstant: 'DEFCONSTANT' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
  */
-	def CharSequence compileExports(int indent,int precidence,Defconstant defconstant)
+	def CharSequence compileExports(int indent,int precidence,Defconstant defconstant,WhereState insideWhere)
 	    '''«vars.addDefconstant(defconstant.name)»'''
 
 /*
  * Defconst: 'DEFCONST' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
  */
-	def CharSequence compileExports(int indent,int precidence,Defconst defconst)
+	def CharSequence compileExports(int indent,int precidence,Defconst defconst,WhereState insideWhere)
 	    '''«vars.addDefconst(defconst.name)»'''
 
 /*
  * Defvar: 'DEFVAR' KW_OPAREN name=TK_ID (KW_COMMA e=Expression)? KW_CPAREN;
  */
-	def CharSequence compileExports(int indent,int precidence,Defvar defvar)
+	def CharSequence compileExports(int indent,int precidence,Defvar defvar,WhereState insideWhere)
 	    '''«vars.addDefvar(defvar.name)»'''
 
-	def CharSequence compileExportsTopLevel(int indent,int precidence,FunctionDef function) '''
-		«compileExports(indent,precidence,function)»«
-		FOR Statement st:pendingWheres»«
-	    	//compileExports(indent,precidence,st)»«
-	    	compile(indent,precidence,false,st)»«
-	    ENDFOR»«
-	    {pendingWheres.clear();null}»'''
-
-	def CharSequence compileExports(int indent,int precidence,FunctionDef function)
+    /** top level function definition, inner functions use lambda */
+	def CharSequence compileExports(int indent,int precidence,FunctionDef function,WhereState insideWhere)
         '''
         «var int ind = indent»«
         var boolean loadCode = false»«null»«
@@ -285,12 +279,16 @@ class EditorGenerator extends AbstractGenerator {
 	      ENDIF»)«
 	    ENDIF»«
 	    IF function.st !== null»«
-	      compileExports(ind,precidence,function.st)»«
+	      compileExports(ind,precidence,function.st,insideWhere)»«
 	    ENDIF»«
 	    IF function.w !== null»«
 	      newline(ind)»«
-	      compileExports(ind,precidence,function.w)»«
-	    ENDIF»'''
+	      compileExports(ind,precidence,function.w,insideWhere)»«
+	    ENDIF»«
+	    FOR Statement st:pendingWheres»«
+	      compileExports(indent,precidence,st,WhereState.WritingWhere)»«
+	    ENDFOR»«
+	    {pendingWheres.clear();null}»'''
 
 /* FunctionDef definition
 Function:
@@ -302,13 +300,14 @@ Function:
 	((KW_EQ2|m?=KW_MARROW) b=Block)? // function may be abstract
 	* 
 	*/
-	def CharSequence compile(int indent,int precidence,boolean lhs,FunctionDef function)
+	def CharSequence compile(int indent,int precidence,boolean lhs,FunctionDef function,WhereState insideWhere)
         '''
         «var int ind = indent»«
         vars.clearLocal()»«
         var boolean loadCode = false»«null»«
 	    IF function.name !== null»«
-	     { if (function.name.equals("loadInit")) {
+	     { currentFunction = function.name
+	     	if (function.name.equals("loadInit")) {
 	      	ind = -1;loadCode=true
 	       }
 	       null
@@ -319,55 +318,60 @@ Function:
 	      FOR x:function.fp»'«ENDFOR»(bootEnvir«
 	      IF function.j !== null»«function.j»«ELSE»«
 	        FOR x:function.params»«
-	          »,«compile(indent,precidence,true,x)»«
+	          »,«compile(indent,precidence,true,x,insideWhere)»«
 	        ENDFOR»«
 	      ENDIF»)«
 	    ENDIF»«
 	    IF function.st !== null»«
 	      IF (!loadCode) »«IF function.m» ==>«ELSE» ==«ENDIF»«ENDIF»«
-	      compile(ind,precidence,lhs,function.st)»«
+	      compile(ind,precidence,lhs,function.st,insideWhere)»«
 	    ENDIF»«
 	    IF function.w !== null»«
 	      newline(ind)»«
-	      compile(ind,precidence,lhs,function.w)»«
+	      compile(ind,precidence,lhs,function.w,insideWhere)»«
 	    ENDIF»«
-	    newline(ind)»'''
+	    newline(ind)»«
+	    FOR LambdaExpression le:pendingLambda»«
+	      compile(indent,precidence,lhs,le,WhereState.WritingWhere)»«
+	    ENDFOR»«
+	    {pendingLambda.clear();null}»'''
 
-	def CharSequence compileExports(int indent,int precidence,GlobalVariable globalVariable)
+	def CharSequence compileExports(int indent,int precidence,GlobalVariable globalVariable,WhereState insideWhere)
         '''
         «IF globalVariable.name !== null»«{vars.addGlobal(globalVariable.name);null}»«ENDIF»'''
 
 /*
  * name=TK_ID KW_ASSIGN e=Expression */
-	def CharSequence compile(int indent,int precidence,boolean lhs,GlobalVariable globalVariable)
+	def CharSequence compile(int indent,int precidence,boolean lhs,GlobalVariable globalVariable,WhereState insideWhere)
         '''
 	    «IF globalVariable.name !== null»«globalVariable.name»«ENDIF» :=«
-	    IF globalVariable.e !== null»«compile(indent,precidence,lhs,globalVariable.e)»«ENDIF»'''
+	    IF globalVariable.e !== null»«compile(indent,precidence,lhs,globalVariable.e,insideWhere)»«ENDIF»'''
 
-	def CharSequence compileExports(int indent,int precidence,Statement statement)
+	def CharSequence compileExports(int indent,int precidence,Statement statement,WhereState insideWhere)
         '''
 	    «IF statement instanceof Where»«
-	       compileExports(indent,precidence,statement as Where)»«ENDIF»«
+	       compileExports(indent,precidence,statement as Where,insideWhere)»«
+	    ENDIF»«
 	    IF statement instanceof Expr»«
-	       compileExports(indent,precidence,statement as Expr)»«
+	       compileExports(indent,precidence,statement as Expr,insideWhere)»«
 	    ENDIF»'''
 
 /*
  * Statement:
 	( Comment | Loop | =>MultiAssign | =>MultiDefine | =>MultiExit | WhereExpression | Where | Do)
   */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Statement statement)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Statement statement,WhereState insideWhere)
         '''
 	    «IF statement instanceof Comment»«
-	       compile(indent,precidence,lhs,statement as Comment)»«ENDIF»«
+	       compile(indent,precidence,lhs,statement as Comment,insideWhere)»«ENDIF»«
 	    IF statement instanceof Loop»«
-	       compile(indent,precidence,lhs,statement as Loop)»«ENDIF»«
+	       compile(indent,precidence,lhs,statement as Loop,insideWhere)»«ENDIF»«
 	    IF statement instanceof Do»«
-	       compile(indent,precidence,lhs,statement as Do)»«ENDIF»«
+	       compile(indent,precidence,lhs,statement as Do,insideWhere)»«ENDIF»«
 	    IF statement instanceof Where»«
-	       compile(indent,precidence,lhs,statement as Where)»«ENDIF»«
+	       compile(indent,precidence,lhs,statement as Where,insideWhere)»«ENDIF»«
 	    IF statement instanceof Expr»«
-	       compile(indent,precidence,lhs,statement as Expr)»«ENDIF»'''
+	       compile(indent,precidence,lhs,statement as Expr,insideWhere)»«ENDIF»'''
 
 /*
  * Loop:
@@ -379,54 +383,56 @@ Function:
  * after newline are changed by auto-indent code.
  *
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Loop loop)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Loop loop,WhereState insideWhere)
         '''
         «FOR x:loop.c»«
           IF x.f !== null»«
-            »for «IF x.f.e !== null»«compile(indent,0,lhs,x.f.e)» «ENDIF»«
+            »for «IF x.f.e !== null»«compile(indent,0,lhs,x.f.e,insideWhere)» «ENDIF»«
           ENDIF»«
           IF x.w !== null»«
-            »while «IF x.w.e !== null»«compile(indent,0,lhs,x.w.e)»«
+            »while «IF x.w.e !== null»«compile(indent,0,lhs,x.w.e,insideWhere)»«
               IF x.w.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
           IF x.u !== null»«
-            »until «IF x.u.e !== null»«compile(indent,0,lhs,x.u.e)»«
+            »until «IF x.u.e !== null»«compile(indent,0,lhs,x.u.e,insideWhere)»«
               IF x.u.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
         ENDFOR»«
-        IF loop.e !== null»|«compile(indent,0,lhs,loop.e)» «ENDIF»repeat «
+        IF loop.e !== null»|«compile(indent,0,lhs,loop.e,insideWhere)» «ENDIF»repeat «
         IF loop.b !== null»«
-          compile(indent,precidence,lhs,loop.b)»«
+          compile(indent,precidence,lhs,loop.b,insideWhere)»«
         ENDIF»'''
 
 /*
  * Do:
  * 'do' b=Block
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Do do1)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Do do1,WhereState insideWhere)
         '''
-        do «IF do1.e !== null»«compile(indent,0,lhs,do1.e)»«ENDIF»'''
+        do «IF do1.e !== null»«compile(indent,0,lhs,do1.e,insideWhere)»«ENDIF»'''
 
 
-	def CharSequence compileExports(int indent,int precidence,Where where) {
-	    if (where.b !== null) pendingWheres.add(where.b)
+	def CharSequence compileExports(int indent,int precidence,Where where,WhereState insideWhere) {
+	    if ((where.b !== null)&& insideWhere != WhereState.WritingWhere) pendingWheres.add(where.b)
         return "";
         }
 /*
  * Where:
  * 'where' b=Block
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Where where)
-        ''' where «IF where.b !== null»«compile(indent,precidence,lhs,where.b)»«ENDIF»'''
+	def CharSequence compile(int indent,int precidence,boolean lhs,Where where,WhereState insideWhere)
+        ''' where «IF where.b !== null»«compile(indent,precidence,lhs,where.b,WhereState.ReadingWhere)»«ENDIF»'''
 
-	def CharSequence compileExports(int indent,int precidence,Expr expr)
+	def CharSequence compileExports(int indent,int precidence,Expr expr,WhereState insideWhere)
         '''
-	    «IF expr instanceof WhereExpression»«compileExports(indent,precidence,expr as WhereExpression)»«ENDIF»«
-	    IF expr instanceof VarOrFunction»«compileExports(indent,precidence,expr as VarOrFunction)»«ENDIF»«
-	    IF expr instanceof AssignExpression»«compileExports(indent,precidence,expr as AssignExpression)»«ENDIF»«
-	    IF expr instanceof Block»«compileExports(indent,precidence,expr as Block)»«ENDIF»'''
+	    «IF expr instanceof WhereExpression»«compileExports(indent,precidence,expr as WhereExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compileExports(indent,precidence,expr as VarOrFunction,insideWhere)»«ENDIF»«
+	    IF expr instanceof AssignExpression»«compileExports(indent,precidence,expr as AssignExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof LambdaExpression»«compileExports(indent,precidence,expr as LambdaExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof ExitExpression»«compileExports(indent,precidence,expr as ExitExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof Block»«compileExports(indent,precidence,expr as Block,insideWhere)»«ENDIF»'''
 
 /* Expr holds both Expression and WhereExpression
  * 
@@ -466,54 +472,54 @@ PrimaryExpression returns Expr:
   * from PrimaryExpression - indent:
   * b=true
   */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Expr expr)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Expr expr,WhereState insideWhere)
         '''
-	    «IF expr instanceof WhereExpression»«compile(indent,precidence,lhs,expr as WhereExpression)»«ENDIF»«
-	    IF expr instanceof IfExpression»«compile(indent,precidence,lhs,expr as IfExpression)»«ENDIF»«
-	    IF expr instanceof Expression»«compile(indent,precidence,lhs,expr as Expression)»«ENDIF»«
-	    IF expr instanceof OrExpression»«compile(indent,precidence,lhs,expr as OrExpression)»«ENDIF»«
-	    IF expr instanceof AndExpression»«compile(indent,precidence,lhs,expr as AndExpression)»«ENDIF»«
-	    IF expr instanceof EqualityExpression»«compile(indent,precidence,lhs,expr as EqualityExpression)»«ENDIF»«
-	    IF expr instanceof RelationalExpression»«compile(indent,precidence,lhs,expr as RelationalExpression)»«ENDIF»«
-	    IF expr instanceof IsExpression»«compile(indent,precidence,lhs,expr as IsExpression)»«ENDIF»«
-	    IF expr instanceof InExpression»«compile(indent,precidence,lhs,expr as InExpression)»«ENDIF»«
-	    IF expr instanceof SegmentExpression»«compile(indent,precidence,lhs,expr as SegmentExpression)»«ENDIF»«
-	    IF expr instanceof AdditiveExpression»«compile(indent,precidence,lhs,expr as AdditiveExpression)»«ENDIF»«
-	    IF expr instanceof ExquoExpression»«compile(indent,precidence,lhs,expr as ExquoExpression)»«ENDIF»«
-	    IF expr instanceof DivisionExpression»«compile(indent,precidence,lhs,expr as DivisionExpression)»«ENDIF»«
-	    IF expr instanceof QuoExpression»«compile(indent,precidence,lhs,expr as QuoExpression)»«ENDIF»«
-	    IF expr instanceof ModExpression»«compile(indent,precidence,lhs,expr as ModExpression)»«ENDIF»«
-	    IF expr instanceof RemExpression»«compile(indent,precidence,lhs,expr as RemExpression)»«ENDIF»«
-	    IF expr instanceof MultiplicativeExpression»«compile(indent,precidence,lhs,expr as MultiplicativeExpression)»«ENDIF»«
-	    IF expr instanceof ExponentExpression»«compile(indent,precidence,lhs,expr as ExponentExpression)»«ENDIF»«
-	    IF expr instanceof MapExpression»«compile(indent,precidence,lhs,expr as MapExpression)»«ENDIF»«
-	    IF expr instanceof LambdaExpression»«compile(indent,precidence,lhs,expr as LambdaExpression)»«ENDIF»«
-	    IF expr instanceof AssignExpression»«compile(indent,precidence,lhs,expr as AssignExpression)»«ENDIF»«
-	    IF expr instanceof ExitExpression»«compile(indent,precidence,lhs,expr as ExitExpression)»«ENDIF»«
-	    IF expr instanceof EltExpression»«compile(indent,precidence,lhs,expr as EltExpression)»«ENDIF»«
-	    IF expr instanceof UnaryExpression»«compile(indent,precidence,lhs,expr as UnaryExpression)»«ENDIF»«
-	    IF expr instanceof VarOrFunction»«compile(indent,precidence,lhs,expr as VarOrFunction)»«ENDIF»«
-	    IF expr instanceof Tuple»«compile(indent,precidence,lhs,expr as Tuple)»«ENDIF»«
-	    IF expr instanceof Block»«compile(indent,precidence,lhs,expr as Block)»«ENDIF»«
-	    IF expr instanceof Literal»«compile(indent,precidence,lhs,expr as Literal)»«ENDIF»«
+	    «IF expr instanceof WhereExpression»«compile(indent,precidence,lhs,expr as WhereExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof IfExpression»«compile(indent,precidence,lhs,expr as IfExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof Expression»«compile(indent,precidence,lhs,expr as Expression,insideWhere)»«ENDIF»«
+	    IF expr instanceof OrExpression»«compile(indent,precidence,lhs,expr as OrExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof AndExpression»«compile(indent,precidence,lhs,expr as AndExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof EqualityExpression»«compile(indent,precidence,lhs,expr as EqualityExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof RelationalExpression»«compile(indent,precidence,lhs,expr as RelationalExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof IsExpression»«compile(indent,precidence,lhs,expr as IsExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof InExpression»«compile(indent,precidence,lhs,expr as InExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof SegmentExpression»«compile(indent,precidence,lhs,expr as SegmentExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof AdditiveExpression»«compile(indent,precidence,lhs,expr as AdditiveExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof ExquoExpression»«compile(indent,precidence,lhs,expr as ExquoExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof DivisionExpression»«compile(indent,precidence,lhs,expr as DivisionExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof QuoExpression»«compile(indent,precidence,lhs,expr as QuoExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof ModExpression»«compile(indent,precidence,lhs,expr as ModExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof RemExpression»«compile(indent,precidence,lhs,expr as RemExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof MultiplicativeExpression»«compile(indent,precidence,lhs,expr as MultiplicativeExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof ExponentExpression»«compile(indent,precidence,lhs,expr as ExponentExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof MapExpression»«compile(indent,precidence,lhs,expr as MapExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof LambdaExpression»«compile(indent,precidence,lhs,expr as LambdaExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof AssignExpression»«compile(indent,precidence,lhs,expr as AssignExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof ExitExpression»«compile(indent,precidence,lhs,expr as ExitExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof EltExpression»«compile(indent,precidence,lhs,expr as EltExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof UnaryExpression»«compile(indent,precidence,lhs,expr as UnaryExpression,insideWhere)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compile(indent,precidence,lhs,expr as VarOrFunction,insideWhere)»«ENDIF»«
+	    IF expr instanceof Tuple»«compile(indent,precidence,lhs,expr as Tuple,insideWhere)»«ENDIF»«
+	    IF expr instanceof Block»«compile(indent,precidence,lhs,expr as Block,insideWhere)»«ENDIF»«
+	    IF expr instanceof Literal»«compile(indent,precidence,lhs,expr as Literal,insideWhere)»«ENDIF»«
 	    IF expr.b1 !== null»if «
-	      compile(indent,precidence,lhs,expr.b1)»«
+	      compile(indent,precidence,lhs,expr.b1,insideWhere)»«
 	      IF expr.n1»«newline(indent)»«ELSE» «ENDIF»«
 	    ENDIF»«
 	    IF expr.b2 !== null»then «
-	      compile(indent,precidence,lhs,expr.b2)» «
+	      compile(indent,precidence,lhs,expr.b2,insideWhere)» «
 	    ENDIF»«
 	    IF expr.b2i !== null»then «
-	      compile(indent,precidence,lhs,expr.b2i)»«
+	      compile(indent,precidence,lhs,expr.b2i,insideWhere)»«
 	      IF expr.n2»«newline(indent)»«ELSE» «ENDIF»«
 	    ENDIF»«
 	    IF expr.b3 !== null»else «
-	      compile(indent,precidence,lhs,expr.b3)»«ENDIF»'''
+	      compile(indent,precidence,lhs,expr.b3,insideWhere)»«ENDIF»'''
 
-	def CharSequence compileExports(int indent,int precidence,WhereExpression whereExpression)
+	def CharSequence compileExports(int indent,int precidence,WhereExpression whereExpression,WhereState insideWhere)
         '''
-	    «IF whereExpression.left !== null»«compileExports(indent,1,whereExpression.left)»«ENDIF»«
-	    IF whereExpression.w !== null» «compileExports(indent,1,whereExpression.w)» «ENDIF»'''
+	    «IF whereExpression.left !== null»«compileExports(indent,1,whereExpression.left,insideWhere)»«ENDIF»«
+	    IF whereExpression.w !== null» «compileExports(indent,1,whereExpression.w,insideWhere)» «ENDIF»'''
 
 /* WhereExpression returns Expr:
 	(Expression ({WhereExpression.left=current} w=Where?))
@@ -528,75 +534,129 @@ PrimaryExpression returns Expr:
         )	
 	)
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,WhereExpression whereExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,WhereExpression whereExpression,WhereState insideWhere)
         '''
-	    «IF whereExpression.left !== null»«compile(indent,1,lhs,whereExpression.left)»«ENDIF»«
-	    IF whereExpression.w !== null» «compile(indent,1,lhs,whereExpression.w)» «ENDIF»'''
+	    «IF whereExpression.left !== null»«compile(indent,1,lhs,whereExpression.left,insideWhere)»«ENDIF»«
+	    IF whereExpression.w !== null» «compile(indent,1,lhs,whereExpression.w,insideWhere)» «ENDIF»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,IfExpression ifExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,IfExpression ifExpression,WhereState insideWhere)
         '''
-        «IF ifExpression.i1 !== null»if «compile(indent,0,lhs,ifExpression.i1)» «ENDIF»«
-        IF ifExpression.i2 !== null»then «compile(indent,0,lhs,ifExpression.i2)» «ENDIF»«
+        «IF ifExpression.i1 !== null»if «compile(indent,0,lhs,ifExpression.i1,insideWhere)» «ENDIF»«
+        IF ifExpression.i2 !== null»then «compile(indent,0,lhs,ifExpression.i2,insideWhere)» «ENDIF»«
         IF ifExpression.i3 !== null»«
           newline(indent)»else «
-          compile(indent,0,lhs,ifExpression.i3)» «
+          compile(indent,0,lhs,ifExpression.i3,insideWhere)» «
         ENDIF»'''
 
 
 /* This is top of expression tree except for WhereExpression
  * combines statements using semicolon
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Expression expression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Expression expression,WhereState insideWhere)
         '''
 	    «cop(8,precidence)»«
-	    IF expression.left !== null»«compile(indent,8,lhs,expression.left)»«ENDIF»«
+	    IF expression.left !== null»«compile(indent,8,lhs,expression.left,insideWhere)»«ENDIF»«
 	    IF expression.op !== null» «expression.op» «ENDIF»«
-	    IF expression.right !== null»«compile(indent,8,lhs,expression.right)»«ENDIF»«
-	    IF expression.right2 !== null»«compile(indent,8,lhs,expression.right2)»«ENDIF»«
+	    IF expression.right !== null»«compile(indent,8,lhs,expression.right,insideWhere)»«ENDIF»«
+	    IF expression.right2 !== null»«compile(indent,8,lhs,expression.right2,insideWhere)»«ENDIF»«
 	    ccp(8,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,MapExpression mapExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,MapExpression mapExpression,WhereState insideWhere)
         '''
 	    «cop(10,precidence)»«
-	    IF mapExpression.left !== null»«compile(indent,10,lhs,mapExpression.left)»«ENDIF»«
+	    IF mapExpression.left !== null»«compile(indent,10,lhs,mapExpression.left,insideWhere)»«ENDIF»«
 	    IF mapExpression.op !== null» «mapExpression.op» «ENDIF»«
-	    IF mapExpression.right !== null»«compile(indent,10,lhs,mapExpression.right)»«ENDIF»«
+	    IF mapExpression.right !== null»«compile(indent,10,lhs,mapExpression.right,insideWhere)»«ENDIF»«
 	    ccp(10,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,LambdaExpression lambdaExpression)
+	def CharSequence compileExports(int indent,int precidence,LambdaExpression lambdaExpression,WhereState insideWhere)
+        '''
+        «var VarOrFunction v =null»«
+        var fnName=""»«
+        IF lambdaExpression.left !== null»«
+          IF lambdaExpression.left instanceof VarOrFunction»«
+            {v=lambdaExpression.left as VarOrFunction
+            	fnName=v.name
+            	while (!vars.addFunction(fnName,currentFunction,currentFile,null)) fnName=fnName+"2";
+            	null;
+            }»«
+            newline(indent-1)»«
+            currentFunction»«
+            fnName»«
+            IF v.expr !== null»«
+              IF v.expr instanceof Tuple»«
+                compile(indent,10,false,(v.expr as Tuple),insideWhere)»«
+              ENDIF»«
+            ENDIF»«
+          ENDIF»«
+        ENDIF»'''
+
+	def CharSequence compile(int indent,int precidence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere) {
+	  switch insideWhere {
+	  	case NotWhere : return compileNotInside(indent,precidence,lhs,lambdaExpression,insideWhere)
+	  	case ReadingWhere : return compileRead(indent,precidence,lhs,lambdaExpression,insideWhere)
+	  	case WritingWhere : return compileWrite(indent,precidence,lhs,lambdaExpression,insideWhere)
+	  }
+	  return "";
+    }
+    
+	def CharSequence compileNotInside(int indent,int precidence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere)
         '''
 	    «cop(12,precidence)»«
-	    IF lambdaExpression.left !== null»«compile(indent,12,lhs,lambdaExpression.left)»«ENDIF»«
-	    IF lambdaExpression.op !== null» «lambdaExpression.op» «ENDIF»«
-	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right)»«ENDIF»«
+	    IF lambdaExpression.left !== null»«compile(indent,12,lhs,lambdaExpression.left,insideWhere)»«ENDIF»«
+	    IF lambdaExpression.op !== null» +-> «ENDIF»«
+	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere)»«ENDIF»«
 	    ccp(12,precidence)»'''
+
+	def CharSequence compileRead(int indent,int precidence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere) {
+		pendingLambda.add(lambdaExpression);
+		return "";
+	}
+
+	def CharSequence compileWrite(int indent,int precidence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere)
+		'''
+		«newline(indent)»«
+	    IF lambdaExpression.left !== null»«currentFunction»«compile(indent,12,lhs,lambdaExpression.left,insideWhere)»«ENDIF»«
+	    IF lambdaExpression.op !== null» == «ENDIF»«
+	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere)»«ENDIF»«
+		newline(indent)»'''
+
+	def CharSequence compileExports(int indent,int precidence,ExitExpression exitExpression,WhereState insideWhere)
+        '''
+        «IF exitExpression.left !== null»«compileExports(indent,14,exitExpression.left,insideWhere)»«ENDIF»«
+	    IF exitExpression.right !== null»«compileExports(indent,14,exitExpression.right,insideWhere)»«ENDIF»'''
 
 /* This is top of expression tree except for WhereExpression
  * Handles exit like: '=>' expr1 ';' expr2
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,ExitExpression exitExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ExitExpression exitExpression,WhereState insideWhere)
         '''
         «cop(14,precidence)»«
-	    IF exitExpression.left !== null»«compile(indent,14,lhs,exitExpression.left)»«ENDIF»«
+	    IF exitExpression.left !== null»«compile(indent,14,lhs,exitExpression.left,insideWhere)»«ENDIF»«
 	    IF exitExpression.op !== null» «exitExpression.op» «ENDIF»«
-	    IF exitExpression.right !== null»«compile(indent,14,lhs,exitExpression.right)»«ENDIF»«
+	    IF exitExpression.right !== null»«compile(indent,14,lhs,exitExpression.right,insideWhere)»«ENDIF»«
 	    ccp(14,precidence)»'''
 
-	def CharSequence compileExports(int indent,int precidence,AssignExpression assignExpression)
+	def CharSequence compileExports(int indent,int precidence,AssignExpression assignExpression,WhereState insideWhere)
         '''
 	    «IF assignExpression.left !== null»«
-	      compileExports(indent,16,assignExpression.left)»«
+	      compileExports(indent,16,assignExpression.left,insideWhere)»«
 	    ENDIF»«
 	    IF assignExpression.right !== null»«
-	      compileExports(indent,16,assignExpression.right)»«
+	      compileExports(indent,16,assignExpression.right,insideWhere)»«
 	    ENDIF»'''
 
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,AssignExpression assignExpression)
-        '''
+	def CharSequence compile(int indent,int precidence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere) {
+	    if (insideWhere==WhereState.WritingWhere) {return 
+          '''
+          «IF assignExpression.left !== null»«compile(indent,16,lhs,assignExpression.left,insideWhere)» := «ENDIF»«
+          IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»
+          '''
+        }
+        return '''
 	    «cop(16,precidence)»«
 	    var String nam="unknown"»«
-	    //var boolean newVar=false»«
 	    var boolean global=false»«
 	    var boolean dynamic=false»«
 	    var VarOrFunction v»«
@@ -611,150 +671,150 @@ PrimaryExpression returns Expr:
 	      ENDIF»«
 	    ENDIF»«
 	    IF global»putVar(bootEnvir,«
-	      compile(indent,16,lhs,assignExpression.left)»,«
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right)»«ENDIF»)«
+	      compile(indent,16,lhs,assignExpression.left,insideWhere)»,«
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»)«
         ELSE»«
-	      compile(indent,16,true,assignExpression.left)»«
+	      compile(indent,16,true,assignExpression.left,insideWhere)»«
 	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right)»«ENDIF»«
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
         ENDIF»«
-	    cop(16,precidence)»'''
+	    cop(16,precidence)»'''}
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,OrExpression orExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,OrExpression orExpression,WhereState insideWhere)
         '''
 	    «cop(18,precidence)»«
-	    IF orExpression.left !== null»«compile(indent,18,lhs,orExpression.left)»«ENDIF»«
+	    IF orExpression.left !== null»«compile(indent,18,lhs,orExpression.left,insideWhere)»«ENDIF»«
 	    IF orExpression.op !== null» «orExpression.op» «ENDIF»«
-	    IF orExpression.right !== null»«compile(indent,18,lhs,orExpression.right)»«ENDIF»«
+	    IF orExpression.right !== null»«compile(indent,18,lhs,orExpression.right,insideWhere)»«ENDIF»«
 	    ccp(18,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,AndExpression andExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,AndExpression andExpression,WhereState insideWhere)
         '''
 	    «cop(20,precidence)»«
-	    IF andExpression.left !== null»«compile(indent,20,lhs,andExpression.left)»«ENDIF»«
+	    IF andExpression.left !== null»«compile(indent,20,lhs,andExpression.left,insideWhere)»«ENDIF»«
 	    IF andExpression.op !== null» «andExpression.op» «ENDIF»«
-	    IF andExpression.right !== null»«compile(indent,20,lhs,andExpression.right)»«ENDIF»«
+	    IF andExpression.right !== null»«compile(indent,20,lhs,andExpression.right,insideWhere)»«ENDIF»«
 	    ccp(20,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,EqualityExpression equalityExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,EqualityExpression equalityExpression,WhereState insideWhere)
         '''
 	    «cop(22,precidence)»«
-	    IF equalityExpression.left !== null»«compile(indent,22,lhs,equalityExpression.left)»«ENDIF»«
+	    IF equalityExpression.left !== null»«compile(indent,22,lhs,equalityExpression.left,insideWhere)»«ENDIF»«
 	    IF equalityExpression.op !== null» «equalityExpression.op» «ENDIF»«
-	    IF equalityExpression.right !== null»«compile(indent,22,lhs,equalityExpression.right)»«ENDIF»«
+	    IF equalityExpression.right !== null»«compile(indent,22,lhs,equalityExpression.right,insideWhere)»«ENDIF»«
 	    ccp(22,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,RelationalExpression relationalExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,RelationalExpression relationalExpression,WhereState insideWhere)
         '''
 	    «cop(24,precidence)»«
-	    IF relationalExpression.left !== null»«compile(indent,24,lhs,relationalExpression.left)»«ENDIF»«
+	    IF relationalExpression.left !== null»«compile(indent,24,lhs,relationalExpression.left,insideWhere)»«ENDIF»«
 	    IF relationalExpression.op !== null» «relationalExpression.op» «ENDIF»«
-	    IF relationalExpression.right !== null»«compile(indent,24,lhs,relationalExpression.right)»«ENDIF»«
+	    IF relationalExpression.right !== null»«compile(indent,24,lhs,relationalExpression.right,insideWhere)»«ENDIF»«
 	    ccp(24,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,IsExpression isExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
         '''
 	    «cop(26,precidence)»«
 	    IF isExpression.left !== null»«
-	      compile(indent,26,lhs,isExpression.left)»«ENDIF»«
+	      compile(indent,26,lhs,isExpression.left,insideWhere)»«ENDIF»«
 	    IF isExpression.op !== null» «isExpression.op» «ENDIF»«
 	    IF isExpression.right !== null»«
-	      compile(indent,26,true,isExpression.right)»«
+	      compile(indent,26,true,isExpression.right,insideWhere)»«
 	    ENDIF»«
 	    ccp(26,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,InExpression inExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,InExpression inExpression,WhereState insideWhere)
         '''
 	    «cop(28,precidence)»«
 	    IF inExpression.left !== null»«
-	      compile(indent,28,true,inExpression.left)»«
+	      compile(indent,28,true,inExpression.left,insideWhere)»«
 	    ENDIF»«
 	    IF inExpression.op !== null» «inExpression.op» «ENDIF»«
-	    IF inExpression.right !== null»«compile(indent,28,lhs,inExpression.right)»«ENDIF»«
-	    IF inExpression.r2 !== null» by «compile(indent,29,lhs,inExpression.r2)»«ENDIF»«
+	    IF inExpression.right !== null»«compile(indent,28,lhs,inExpression.right,insideWhere)»«ENDIF»«
+	    IF inExpression.r2 !== null» by «compile(indent,29,lhs,inExpression.r2,insideWhere)»«ENDIF»«
 	    ccp(28,precidence)»'''
 	
 	/*
 	 * ..
 	 * don't put spaces around segment */ 
-	def CharSequence compile(int indent,int precidence,boolean lhs,SegmentExpression segmentExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,SegmentExpression segmentExpression,WhereState insideWhere)
         '''
 	    «cop(30,precidence)»«
-	    IF segmentExpression.left !== null»«compile(indent,30,lhs,segmentExpression.left)»«ENDIF»«
+	    IF segmentExpression.left !== null»«compile(indent,30,lhs,segmentExpression.left,insideWhere)»«ENDIF»«
 	    IF segmentExpression.op !== null»«segmentExpression.op»«ENDIF»«
-	    IF segmentExpression.right !== null»«compile(indent,30,lhs,segmentExpression.right)»«ENDIF»«
+	    IF segmentExpression.right !== null»«compile(indent,30,lhs,segmentExpression.right,insideWhere)»«ENDIF»«
 	    ccp(30,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,AdditiveExpression additiveExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,AdditiveExpression additiveExpression,WhereState insideWhere)
         '''
 	    «cop(32,precidence)»«
-	    IF additiveExpression.left !== null»«compile(indent,32,lhs,additiveExpression.left)»«ENDIF»«
+	    IF additiveExpression.left !== null»«compile(indent,32,lhs,additiveExpression.left,insideWhere)»«ENDIF»«
 	    IF additiveExpression.op !== null» «additiveExpression.op» «ENDIF»«
-	    IF additiveExpression.right !== null»«compile(indent,32,lhs,additiveExpression.right)»«ENDIF»«
+	    IF additiveExpression.right !== null»«compile(indent,32,lhs,additiveExpression.right,insideWhere)»«ENDIF»«
 	    ccp(32,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,ExquoExpression exquoExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ExquoExpression exquoExpression,WhereState insideWhere)
         '''
 	    «cop(34,precidence)»«
-	    IF exquoExpression.left !== null»«compile(indent,34,lhs,exquoExpression.left)»«ENDIF»«
+	    IF exquoExpression.left !== null»«compile(indent,34,lhs,exquoExpression.left,insideWhere)»«ENDIF»«
 	    IF exquoExpression.op !== null» «exquoExpression.op» «ENDIF»«
-	    IF exquoExpression.right !== null»«compile(indent,34,lhs,exquoExpression.right)»«ENDIF»«
+	    IF exquoExpression.right !== null»«compile(indent,34,lhs,exquoExpression.right,insideWhere)»«ENDIF»«
 	    ccp(34,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,DivisionExpression divisionExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,DivisionExpression divisionExpression,WhereState insideWhere)
         '''
 	    «cop(36,precidence)»«
-	    IF divisionExpression.left !== null»«compile(indent,36,lhs,divisionExpression.left)»«ENDIF»«
+	    IF divisionExpression.left !== null»«compile(indent,36,lhs,divisionExpression.left,insideWhere)»«ENDIF»«
 	    IF divisionExpression.op !== null» «divisionExpression.op» «ENDIF»«
-	    IF divisionExpression.right !== null»«compile(indent,36,lhs,divisionExpression.right)»«ENDIF»«
+	    IF divisionExpression.right !== null»«compile(indent,36,lhs,divisionExpression.right,insideWhere)»«ENDIF»«
 	    ccp(363,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,QuoExpression quoExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,QuoExpression quoExpression,WhereState insideWhere)
         '''
 	    «cop(16,precidence)»«
-	    IF quoExpression.left !== null»«compile(indent,16,lhs,quoExpression.left)»«ENDIF»«
+	    IF quoExpression.left !== null»«compile(indent,16,lhs,quoExpression.left,insideWhere)»«ENDIF»«
 	    IF quoExpression.op !== null» «quoExpression.op» «ENDIF»«
-	    IF quoExpression.right !== null»«compile(indent,16,lhs,quoExpression.right)»«ENDIF»«
+	    IF quoExpression.right !== null»«compile(indent,16,lhs,quoExpression.right,insideWhere)»«ENDIF»«
 	    ccp(16,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,ModExpression modExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ModExpression modExpression,WhereState insideWhere)
         '''
 	    «cop(38,precidence)»«
-	    IF modExpression.left !== null»«compile(indent,38,lhs,modExpression.left)»«ENDIF»«
+	    IF modExpression.left !== null»«compile(indent,38,lhs,modExpression.left,insideWhere)»«ENDIF»«
 	    IF modExpression.op !== null» «modExpression.op» «ENDIF»«
-	    IF modExpression.right !== null»«compile(indent,38,lhs,modExpression.right)»«ENDIF»«
+	    IF modExpression.right !== null»«compile(indent,38,lhs,modExpression.right,insideWhere)»«ENDIF»«
 	    ccp(38,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,RemExpression remExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,RemExpression remExpression,WhereState insideWhere)
         '''
 	    «cop(40,precidence)»«
-	    IF remExpression.left !== null»«compile(indent,40,lhs,remExpression.left)»«ENDIF»«
+	    IF remExpression.left !== null»«compile(indent,40,lhs,remExpression.left,insideWhere)»«ENDIF»«
 	    IF remExpression.op !== null» «remExpression.op» «ENDIF»«
-	    IF remExpression.right !== null»«compile(indent,40,lhs,remExpression.right)»«ENDIF»«
+	    IF remExpression.right !== null»«compile(indent,40,lhs,remExpression.right,insideWhere)»«ENDIF»«
 	    ccp(40,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,MultiplicativeExpression multiplicativeExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere)
         '''
 	    «cop(42,precidence)»«
-	    IF multiplicativeExpression.left !== null»«compile(indent,42,lhs,multiplicativeExpression.left)»«ENDIF»«
+	    IF multiplicativeExpression.left !== null»«compile(indent,42,lhs,multiplicativeExpression.left,insideWhere)»«ENDIF»«
 	    IF multiplicativeExpression.op !== null» «multiplicativeExpression.op»«ENDIF»«
-	    IF multiplicativeExpression.right !== null»«compile(indent,42,lhs,multiplicativeExpression.right)»«ENDIF»«
+	    IF multiplicativeExpression.right !== null»«compile(indent,42,lhs,multiplicativeExpression.right,insideWhere)»«ENDIF»«
 	    ccp(42,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,ExponentExpression exponentExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ExponentExpression exponentExpression,WhereState insideWhere)
         '''
 	    «cop(44,precidence)»«
-	    IF exponentExpression.left !== null»«compile(indent,44,lhs,exponentExpression.left)»«ENDIF»«
+	    IF exponentExpression.left !== null»«compile(indent,44,lhs,exponentExpression.left,insideWhere)»«ENDIF»«
 	    IF exponentExpression.op !== null»«exponentExpression.op» «ENDIF»«
-	    IF exponentExpression.right !== null»«compile(indent,44,lhs,exponentExpression.right)»«ENDIF»«
+	    IF exponentExpression.right !== null»«compile(indent,44,lhs,exponentExpression.right,insideWhere)»«ENDIF»«
 	    ccp(44,precidence)»'''
 
-	def CharSequence compile(int indent,int precidence,boolean lhs,EltExpression eltExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,EltExpression eltExpression,WhereState insideWhere)
         '''
 	    «cop(46,precidence)»«
-	    IF eltExpression.left !== null»«compile(indent,46,lhs,eltExpression.left)»«ENDIF»«
+	    IF eltExpression.left !== null»«compile(indent,46,lhs,eltExpression.left,insideWhere)»«ENDIF»«
 	    IF eltExpression.op !== null»«eltExpression.op»«ENDIF»«
-	    IF eltExpression.right !== null»«compile(indent,46,lhs,eltExpression.right)»«ENDIF»«
+	    IF eltExpression.right !== null»«compile(indent,46,lhs,eltExpression.right,insideWhere)»«ENDIF»«
 	    ccp(46,precidence)»'''
 
 
@@ -775,12 +835,12 @@ PrimaryExpression |
 * Put a space between ID and expr but not $ and expr
 * 
 */
-	def CharSequence compile(int indent,int precidence,boolean lhs,UnaryExpression unaryExpression)
+	def CharSequence compile(int indent,int precidence,boolean lhs,UnaryExpression unaryExpression,WhereState insideWhere)
         '''
 	    «cop(48,precidence)»«
-	    IF unaryExpression.b1 !== null»«compile(indent,48,lhs,unaryExpression.b1)»«ENDIF»«
+	    IF unaryExpression.b1 !== null»«compile(indent,48,lhs,unaryExpression.b1,insideWhere)»«ENDIF»«
 	    IF unaryExpression.b2 !== null»«unaryExpression.b2»«ENDIF»«
-	    IF unaryExpression.b3 !== null»«compile(indent,48,lhs,unaryExpression.b3)»«ENDIF»«
+	    IF unaryExpression.b3 !== null»«compile(indent,48,lhs,unaryExpression.b3,insideWhere)»«ENDIF»«
 	    IF unaryExpression.uop !== null»«
 	      if (unaryExpression.uop.compareTo("*./")==0) "*/" else
             if (unaryExpression.uop.compareTo(":")==0) "" else
@@ -788,12 +848,12 @@ PrimaryExpression |
 	      if (unaryExpression.uop.compareTo("not")==0) " "»«
 	      if (unaryExpression.uop.compareTo("return")==0) " "»«
 	    ENDIF»«
-	    IF unaryExpression.expr !== null»«compile(indent,48,lhs,unaryExpression.expr)»«ENDIF»«
+	    IF unaryExpression.expr !== null»«compile(indent,48,lhs,unaryExpression.expr,insideWhere)»«ENDIF»«
 	    ccp(48,precidence)»'''
 
 
 /*{Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)? */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Tuple expr)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Tuple expr,WhereState insideWhere)
         '''
 	    «var Boolean removeBrackets =false»«
  	    IF expr.m2»«
@@ -803,16 +863,16 @@ PrimaryExpression |
 	    ENDIF»«
 	    IF (!removeBrackets) »(«ENDIF»«
 	    IF expr.m2»-«ENDIF»«
-	    IF expr.t3 !== null»«compile(indent,0,lhs,expr.t3)»«ENDIF»«
-	    FOR x:expr.t5»,«compile(indent,0,lhs,x)»«ENDFOR»«
+	    IF expr.t3 !== null»«compile(indent,0,lhs,expr.t3,insideWhere)»«ENDIF»«
+	    FOR x:expr.t5»,«compile(indent,0,lhs,x,insideWhere)»«ENDFOR»«
 	    IF (!removeBrackets) »)«ENDIF»«
 	    IF expr.d»..«ENDIF»'''
 
-	def CharSequence compileExports(int indent,int precidence,Block expr)
+	def CharSequence compileExports(int indent,int precidence,Block expr,WhereState insideWhere)
         '''
 	    «IF expr.b»«
 	      FOR x:expr.s»«
-	        compileExports(indent+1,0,x)»«
+	        compileExports(indent+1,0,x,insideWhere)»«
 	      ENDFOR»«
 	    ENDIF»'''
 
@@ -832,28 +892,29 @@ PrimaryExpression |
 	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
   )
   d=KW_2DOT? // for segment with no end part */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Block expr)
-        '''
+	def CharSequence compile(int indent,int precidence,boolean lhs,Block expr,WhereState insideWhere) {
+	    if (insideWhere==WhereState.WritingWhere) return "block in write state"
+	    return
+	    '''
 	    «IF expr.c2»(«
 	      FOR x:expr.s»«
 	        newline(indent+1)»«
-	        compile(indent+1,0,lhs,x)»«
+	        compile(indent+1,0,lhs,x,insideWhere)»«
 	      ENDFOR»)«
 	    ENDIF»«
 	    IF expr.b»«
 	      FOR x:expr.s»«
 	        newline(indent+1)»«
-	        compile(indent+1,0,lhs,x)»«
+	        compile(indent+1,0,lhs,x,insideWhere)»«
 	      ENDFOR»«
 	    ENDIF»«
 	    IF expr.c3»«
 	      IF expr.m»-«ENDIF»«
-	      IF expr.t4 !== null»«compile(indent,0,lhs,expr.t4)»«ENDIF»«
+	      IF expr.t4 !== null»«compile(indent,0,lhs,expr.t4,insideWhere)»«ENDIF»«
 	    ENDIF»«
-	    IF expr.d»..«ENDIF»'''
+	    IF expr.d»..«ENDIF»'''}
 
-	def CharSequence compileExports(int indent,int precidence,VarOrFunction varOrFunction)
-        '''
+	def CharSequence compileExports(int indent,int precidence,VarOrFunction varOrFunction,WhereState insideWhere)'''
         «var String nam = varOrFunction.name»«
         IF varOrFunction.expr instanceof UnaryExpression»«
         {var UnaryExpression u = (varOrFunction.expr as UnaryExpression);
@@ -864,7 +925,7 @@ PrimaryExpression |
  * If expr exists then this is usually a function
  * except if it is UnaryExpression with loc=true
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,VarOrFunction varOrFunction)
+	def CharSequence compile(int indent,int precidence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) 
         '''
 	    «cop(48,precidence)»«
 	    var boolean isVar=true»«
@@ -895,7 +956,7 @@ PrimaryExpression |
 	    ELSE»«cleanID(varOrFunction.name)»«
 	    ENDIF»«
 	    if (addSpace) " " else ""»«
-	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr)»«ENDIF»«
+	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere)»«ENDIF»«
 	    ccp(48,precidence)»'''
 
 /*
@@ -913,10 +974,10 @@ PrimaryExpression |
  * | lsp=LispLiteral
  * | str=TK_STRING
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,Literal literal)
+	def CharSequence compile(int indent,int precidence,boolean lhs,Literal literal,WhereState insideWhere)
         '''
-	    «IF literal instanceof LispLiteral»«compile(indent,precidence,lhs,literal as LispLiteral)»«ENDIF»«
-	    IF literal instanceof ListLiteral»[«compile(indent,precidence,lhs,literal as ListLiteral)»]«ENDIF»«
+	    «IF literal instanceof LispLiteral»«compile(indent,precidence,lhs,literal as LispLiteral,insideWhere)»«ENDIF»«
+	    IF literal instanceof ListLiteral»[«compile(indent,precidence,lhs,literal as ListLiteral,insideWhere)»]«ENDIF»«
 		IF literal.value !== null»«
 		  literal.value»«
 		  IF literal.d»..«ENDIF»«
@@ -932,10 +993,10 @@ PrimaryExpression |
   * Dont put space before prime(s) if first in a line
   * Do put space before prime(s) if following
   */
-	def CharSequence compile(int indent,int precidence,boolean lhs,LispLiteral lispLiteral)
+	def CharSequence compile(int indent,int precidence,boolean lhs,LispLiteral lispLiteral,WhereState insideWhere)
         '''
         «FOR x:lispLiteral.pr»«x»«ENDFOR»«
-        IF lispLiteral.sll !== null»«compile(indent,precidence,lhs,lispLiteral.sll)»«ENDIF»'''
+        IF lispLiteral.sll !== null»«compile(indent,precidence,lhs,lispLiteral.sll,insideWhere)»«ENDIF»'''
 
 /*
  * SubLispLiteral:
@@ -953,7 +1014,7 @@ PrimaryExpression |
 	|
 	( NL? oparen=KW_OPAREN asl+=AnnotatedSubLispLiteral* KW_CPAREN)
   */
-	def CharSequence compile(int indent,int precidence,boolean lhs,SubLispLiteral subLispLiteral)
+	def CharSequence compile(int indent,int precidence,boolean lhs,SubLispLiteral subLispLiteral,WhereState insideWhere)
         '''
 	    «IF subLispLiteral.name !== null»«cleanID(subLispLiteral.name)»«ENDIF»«
 	    IF subLispLiteral.m»-«ENDIF»«
@@ -970,17 +1031,17 @@ PrimaryExpression |
 	    ENDFOR»«
 	    IF subLispLiteral.oparen && inParen»(«ENDIF»«
 	    FOR x:subLispLiteral.asl»«
-	      compile(indent,0,lhs,x)» «
+	      compile(indent,0,lhs,x,insideWhere)» «
 	    ENDFOR»«
 	    IF subLispLiteral.oparen && inParen»)«ENDIF»'''
 
 /* AnnotatedSubLispLiteral:
  *  p?=KW_PRIME? sl=SubLispLiteral d?=KW_DOT?
  *  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,AnnotatedSubLispLiteral annotatedSubLispLiteral)
+	def CharSequence compile(int indent,int precidence,boolean lhs,AnnotatedSubLispLiteral annotatedSubLispLiteral,WhereState insideWhere)
         '''
 	    «IF annotatedSubLispLiteral.p»'«ENDIF»«
-	    IF annotatedSubLispLiteral.sl !== null»«compile(indent,0,lhs,annotatedSubLispLiteral.sl)»«ENDIF»«
+	    IF annotatedSubLispLiteral.sl !== null»«compile(indent,0,lhs,annotatedSubLispLiteral.sl,insideWhere)»«ENDIF»«
 	    IF annotatedSubLispLiteral.d» .«ENDIF»'''
 
 /*
@@ -992,11 +1053,11 @@ le+=ListElement?
 sl+=ListComprehension*
 KW_CBRACK
  */	    
-	def CharSequence compile(int indent,int precidence,boolean lhs,ListLiteral listLiteral)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ListLiteral listLiteral,WhereState insideWhere)
         '''
         «var testparams=false»«
-        FOR x:listLiteral.le»«if(testparams)','»«compile(indent,0,lhs,x)»«{testparams=true;null}»«ENDFOR»«
-        FOR x:listLiteral.sl»«compile(indent,0,lhs,x)»«ENDFOR»'''
+        FOR x:listLiteral.le»«if(testparams)','»«compile(indent,0,lhs,x,insideWhere)»«{testparams=true;null}»«ENDFOR»«
+        FOR x:listLiteral.sl»«compile(indent,0,lhs,x,insideWhere)»«ENDFOR»'''
 
 /*
  * ListElement:
@@ -1005,13 +1066,13 @@ KW_CBRACK
 		c2?=KW_COLON? d?=KW_DOT
 	)
  */
-	def CharSequence compile(int indent,int precidence,boolean lhs,ListElement listElement)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ListElement listElement,WhereState insideWhere)
         '''
         «IF listElement.c»:«
           IF listElement.e» «ENDIF»«
         ENDIF»«
         IF listElement.e»=«ENDIF»«
-        IF listElement.l2 !== null»«compile(indent,0,lhs,listElement.l2)» «ENDIF»«
+        IF listElement.l2 !== null»«compile(indent,0,lhs,listElement.l2,insideWhere)» «ENDIF»«
         IF listElement.c2»:«ENDIF»«
         IF listElement.d».«ENDIF»'''
 
@@ -1022,10 +1083,10 @@ KW_CBRACK
   	r?='repeat'
   )
  */	    
-	def CharSequence compile(int indent,int precidence,boolean lhs,ListComprehension listComprehension)
+	def CharSequence compile(int indent,int precidence,boolean lhs,ListComprehension listComprehension,WhereState insideWhere)
         '''
         «IF listComprehension.sl1 !== null» «listComprehension.sl1» «ENDIF»«
-	    IF listComprehension.sl2 !== null»«compile(indent,0,lhs,listComprehension.sl2)»«ENDIF»«
+	    IF listComprehension.sl2 !== null»«compile(indent,0,lhs,listComprehension.sl2,insideWhere)»«ENDIF»«
 	    IF listComprehension.r» repeat «ENDIF»'''
 }
 /* Code Generator Template Notes

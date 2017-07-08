@@ -55,19 +55,23 @@ public class FunctionSignature {
 	  }
 	  return res + ")";
   }
-  
-  boolean equals(FunctionSignature other) {
-	  if (!name.equals(other.getName())) return false;
+     
+   @Override
+   public boolean equals(Object other) {
+	  if (!(other instanceof FunctionSignature)) return false;
+      FunctionSignature other1 = (FunctionSignature)other;
+	  
+	  if (!name.equals(other1.getName())) return false;
 	  if (parent != null) {
-	    if (!parent.equals(other.getParent())) return false;
+	    if (!parent.equals(other1.getParent())) return false;
 	  } else {
-		if (other.getParent() != null) return false;
+		if (other1.getParent() != null) return false;
 	  }
-	  if (!file.equals(other.getFile())) return false;
+	  if (!file.equals(other1.getFile())) return false;
 	  if (params != null) {
-	    if (!params.equals(other.getParams())) return false;
+	    if (!params.equals(other1.getParams())) return false;
 	  } else {
-		if (other.getParams() != null) return false;
+		if (other1.getParams() != null) return false;
 	  }
 	  return true;
   }

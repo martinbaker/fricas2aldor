@@ -42,10 +42,19 @@ public class BootNamespace {
    */
   private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
 
-  public void addFunction(String n,String p,String f,ArrayList<String> pars) {
+  /**
+   * add a function to namespace
+   * @param n name
+   * @param p parent in case this is lambda inside other function
+   * @param f name of file where function is defined
+   * @param pars parameters
+   * @return true if successful false if duplicate.
+   */
+  public boolean addFunction(String n,String p,String f,ArrayList<String> pars) {
 	  FunctionSignature fs = new FunctionSignature(n,p,f,pars);
-	  if (functions.contains(fs)) return;
+	  if (functions.contains(fs)) return false;
 	  functions.add(fs);
+	  return true;
   }
 
   public void addUnDefinedGlobal(String varName) {
