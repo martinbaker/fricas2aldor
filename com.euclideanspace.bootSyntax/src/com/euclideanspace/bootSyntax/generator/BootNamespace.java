@@ -9,7 +9,6 @@ public class BootNamespace {
    */
   private ArrayList<String> localVars = new ArrayList<String>();
 
-
   /**
    * Arrays for holding names of various types of global variables.
    * Global variables have scope across all functions. The global
@@ -67,6 +66,55 @@ public class BootNamespace {
 	  globals.add(varName);
   }
 
+  /**
+   * add variable name to list of variables read by this function.
+   * @param varName name of variable
+   * @param fnName name of function
+   */
+  public void addRead(String varName,String fnName) {
+	  boolean addToGlobals = true;
+	  for (FunctionSignature fn:functions) {
+		  if (fnName.equals(fn.getName())) {
+			  addToGlobals = fn.addGlobalsRead(varName);
+		  }
+	  }
+	  if (globals.contains(varName)) return;
+	  if (addToGlobals) globals.add(varName);
+  }
+
+  /**
+   * get read globals for a given function
+   * @param fnName
+   * @return
+   */
+  public ArrayList<String> getReadGlobal(String fnName) {
+	  for (FunctionSignature fn:functions) {
+		  if (fnName.equals(fn.getName())) {
+			  return fn.getGlobalsRead();
+		  }
+	  }
+	  return new ArrayList<String>();
+  }
+
+  public void addWrite(String varName,String fnName) {
+	  for (FunctionSignature fn:functions) {
+		  if (fn.getName()==fnName) {
+			  fn.addGlobalsWritten(varName);
+		  }
+	  }
+	  if (globals.contains(varName)) return;
+	  globals.add(varName);
+  }
+
+  public boolean isGlobalsWritten(String varName,String fnName) {
+	  for (FunctionSignature fn:functions) {
+		  if (fn.getName()==fnName) {
+			  return fn.isGlobalsWritten(varName);
+		  }
+	  }
+      return false;
+  }
+  
   public void addDynamic(String varName) {
 	  if (dynamicGlobals.contains(varName)) return;
 	  dynamicGlobals.add(varName);

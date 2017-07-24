@@ -7,6 +7,14 @@ public class FunctionSignature {
   private String parent = null;
   private String file = null;
   private ArrayList<String> params = new ArrayList<String>();
+  /**
+   * globals used by this function, where not initially assigned in function.
+   */
+  private ArrayList<String> globalsRead = new ArrayList<String>();
+  /**
+   * globals used by this function, if changed in function.
+   */
+  private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
   FunctionSignature(String n,String p,String f,ArrayList<String> pars) {
@@ -40,20 +48,65 @@ public class FunctionSignature {
 	  return params;
   }
   
+  /**
+   * Add variable name to list of global variables read by this function.
+   * If variable is first initialised in this function (it is written
+   * before it is read) then don't add it.
+   * @param gr name of variable
+   * @return true if added, false if parameter or existing name.
+   */
+  boolean addGlobalsRead(String gr) {
+	  if (globalsRead.contains(gr)) return false;
+	  if (globalsWritten.contains(gr)) return false;
+	  if (params.contains(gr)) return false;
+	  globalsRead.add(gr);
+	  return true;
+  }
+  
+  ArrayList<String> getGlobalsRead() {
+	  return globalsRead;
+  }
+
+  void addGlobalsWritten(String gw) {
+	  if (globalsWritten.contains(gw)) return;
+	  globalsWritten.add(gw);
+  }
+
+  boolean isGlobalsWritten(String gw) {
+	return globalsWritten.contains(gw);
+  }
+  
+  ArrayList<String> getGlobalsWritten() {
+	  return globalsWritten;
+  }
+  
   String display() {
 	  String res = "";
-	  if (file != null) res = res + file;
-	  res = res + "-> ";
-	  if (parent != null) res = res + parent;
-	  if (macro) res = res + ":macro";
-	  res = res + name +"(";
+	  if (macro) res = "macro";
+	  else res = "function";
+	  if (file != null) res = res + " file=" + file;
+	  if (parent != null) res = res + " parent="+ parent;
+	  res = res + " name="+name +"(";
 	  boolean follow=false;
 	  for (String param:params) {
 		  if (follow) res = res + ",";
 		  res = res + param;
 		  follow=true;
 	  }
-	  return res + ")";
+	  res = res + ")";
+	  if (!globalsRead.isEmpty()) {
+	    res = res + System.lineSeparator() + "    globalsRead";
+		for (String param:globalsRead) {
+		  res = res + " "+ param;
+	    }
+	  }
+	  if (!globalsWritten.isEmpty()) {
+		    res = res + System.lineSeparator() + "    globalsWritten";
+			for (String param:globalsWritten) {
+			  res = res + " "+ param;
+		    }
+		  }
+	  return res+ System.lineSeparator();
   }
      
    @Override
