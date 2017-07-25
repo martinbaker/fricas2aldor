@@ -83,6 +83,11 @@ class EditorGenerator extends AbstractGenerator {
     var String currentFunction ="";
     var ArrayList<Statement> pendingWheres = new ArrayList<Statement>();
     var ArrayList<LambdaExpression> pendingLambda = new ArrayList<LambdaExpression>();
+    /** 'locals' is used in second (compileImplementation) pass to
+     * determine if we need to add :SExpression type. This is only
+     * needed for first occurrence in function.
+     * see getVariable */
+    var ArrayList<String> locals = new ArrayList<String>();
     
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
@@ -136,14 +141,17 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * called when a variable name is used
      */
-	def String getVariable(String a) {
-		/*if (vars.isGlobal(a)) {
-			return a;
+	def String getVariable(String a,boolean lhs) {
+		var boolean addType = false;
+		if (lhs) {
+		  if (vars.isLocal(a,currentFunction)) {
+		    if (!locals.contains(a)) {
+		    	addType = true;
+		    	locals.add(a);
+		    }
+		  }
 		}
-		if (vars.isLocal(a)) {
-			return a;
-		}
-		vars.addUnDefinedGlobal(a);*/
+		if (addType) return a + ":SExpression";
 		return a;
 	}
 
@@ -309,7 +317,7 @@ class EditorGenerator extends AbstractGenerator {
 	def void setNamespace(int indent,int precidence,FunctionDef function,WhereState insideWhere){
         var int ind = indent;
         var boolean loadCode = false;
-        vars.clearLocal();
+        //vars.clearLocal();
 	    if (function.name !== null) {
 	      currentFunction = function.name;
 	       if (function.name.equals("loadInit")) {
@@ -376,6 +384,7 @@ class EditorGenerator extends AbstractGenerator {
 	def CharSequence compile(int indent,int precidence,boolean lhs,FunctionDef function,WhereState insideWhere)
         '''
         «var int ind = indent»«
+        {locals.clear();null}»«
 	    IF function.name !== null»«
 	     { currentFunction = function.name;null}»«
 	    ENDIF»«
@@ -419,6 +428,10 @@ class EditorGenerator extends AbstractGenerator {
 	    «IF globalVariable.name !== null»«globalVariable.name»«ENDIF» :=«
 	    IF globalVariable.e !== null»«compile(indent,precidence,lhs,globalVariable.e,insideWhere)»«ENDIF»'''
 
+/*
+ * Statement:
+ *  ( Comment | Loop  |  WhereExpression  | Where | Do)
+ */
 	def void setNamespace(int indent,int precidence,Statement statement,WhereState insideWhere) {
 	  if (statement instanceof Loop)
 	       setNamespace(indent,precidence,statement as Loop,insideWhere);
@@ -430,6 +443,10 @@ class EditorGenerator extends AbstractGenerator {
 	       setNamespace(indent,precidence,statement as Expr,insideWhere);
     }
 
+/*
+ * Statement:
+ *  ( Comment | Loop  |  WhereExpression  | Where | Do)
+ */
 	def CharSequence compileExports(int indent,int precidence,Statement statement,WhereState insideWhere)
         '''
 	    «IF statement instanceof Where»«
@@ -441,8 +458,8 @@ class EditorGenerator extends AbstractGenerator {
 
 /*
  * Statement:
-	( Comment | Loop | =>MultiAssign | =>MultiDefine | =>MultiExit | WhereExpression | Where | Do)
-  */
+ *  ( Comment | Loop  |  WhereExpression  | Where | Do)
+ */
 	def CharSequence compile(int indent,int precidence,boolean lhs,Statement statement,WhereState insideWhere)
         '''
 	    «IF statement instanceof Comment»«
@@ -823,17 +840,29 @@ PrimaryExpression returns Expr:
 	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere)»«ENDIF»«
 		newline(indent)»'''
 
+/* ExitExpression
+ * 
+ * This is top of expression tree except for WhereExpression
+ * Handles exit like: '=>' expr1 ';' expr2
+ */
 	def void setNamespace(int indent,int precidence,ExitExpression exitExpression,WhereState insideWhere) {
         if (exitExpression.left !== null) setNamespace(indent,14,exitExpression.left,insideWhere);
 	    if (exitExpression.right !== null) setNamespace(indent,14,exitExpression.right,insideWhere);
     }
 
+/* ExitExpression
+ * 
+ * This is top of expression tree except for WhereExpression
+ * Handles exit like: '=>' expr1 ';' expr2
+ */
 	def CharSequence compileExports(int indent,int precidence,ExitExpression exitExpression,WhereState insideWhere)
         '''
         «IF exitExpression.left !== null»«compileExports(indent,14,exitExpression.left,insideWhere)»«ENDIF»«
 	    IF exitExpression.right !== null»«compileExports(indent,14,exitExpression.right,insideWhere)»«ENDIF»'''
 
-/* This is top of expression tree except for WhereExpression
+/* ExitExpression
+ * 
+ * This is top of expression tree except for WhereExpression
  * Handles exit like: '=>' expr1 ';' expr2
  */
 	def CharSequence compile(int indent,int precidence,boolean lhs,ExitExpression exitExpression,WhereState insideWhere)
@@ -844,6 +873,8 @@ PrimaryExpression returns Expr:
 	    IF exitExpression.right !== null»«compile(indent,14,lhs,exitExpression.right,insideWhere)»«ENDIF»«
 	    ccp(14,precidence)»'''
 
+    /**
+     * AssignExpression */
 	def void setNamespace(int indent,int precidence,AssignExpression assignExpression,WhereState insideWhere) {
       if (assignExpression.left !== null) {
           if (assignExpression.left instanceof VarOrFunction) {
@@ -857,6 +888,8 @@ PrimaryExpression returns Expr:
 	  }
 	}
 
+    /**
+     * AssignExpression */
 	def CharSequence compileExports(int indent,int precidence,AssignExpression assignExpression,WhereState insideWhere)
         '''
 	    «IF assignExpression.left !== null»«
@@ -874,31 +907,56 @@ PrimaryExpression returns Expr:
           «IF assignExpression.left !== null»«compile(indent,16,lhs,assignExpression.left,insideWhere)» := «ENDIF»«
           IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»'''
         }
-        return '''
+	    if (assignExpression.left !== null) {
+	      if (assignExpression.left instanceof VarOrFunction)
+	        return compileAssignSingle(indent,precidence,lhs,assignExpression,insideWhere);
+	      if (assignExpression.left instanceof ListLiteral)
+	        return compileAssignList(indent,precidence,lhs,assignExpression,insideWhere);
+	    }
+	    return " error cannot assign this"
+    }
+
+    /**
+     * AssignExpression 
+     * where left is a single variable */
+	def CharSequence compileAssignSingle(int indent,int precidence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere) '''
 	    «cop(16,precidence)»«
 	    var String nam="unknown"»«
-	    var boolean global=false»«
 	    var boolean dynamic=false»«
 	    var VarOrFunction v»«
-	    IF assignExpression.left !== null»«
-	      IF assignExpression.left instanceof VarOrFunction»«
-	        {v = (assignExpression.left as VarOrFunction);
-	        nam = v.name;
-	        global = vars.isGlobal(nam);
-	        //newVar = vars.addLocalIfNew(nam);
-	        if (v.expr instanceof UnaryExpression) dynamic= (v.expr as UnaryExpression).loc;
-	        null}»«
-	      ENDIF»«
-	    ENDIF»«
+        {v = (assignExpression.left as VarOrFunction);
+	    nam = v.name;
+	    if (v.expr instanceof UnaryExpression) dynamic= (v.expr as UnaryExpression).loc;
+	    null}»«
 	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
-	      compile(indent,16,lhs,assignExpression.left,insideWhere)»,«
+	      compile(indent,16,lhs,assignExpression.left,insideWhere)» := «
 	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»)«
         ELSE»«
 	      compile(indent,16,true,assignExpression.left,insideWhere)»«
 	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
 	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
         ENDIF»«
-	    cop(16,precidence)»'''}
+	    cop(16,precidence)»'''
+
+    /**
+     * AssignExpression
+     * where left is a list containing variables */
+	def CharSequence compileAssignList(int indent,int precidence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere)
+        '''
+	    «cop(16,precidence)»«
+	    var String nam="unknown"»«
+	    var ListLiteral ll»«
+	    »--> assign variables inside list <---«
+	    {ll = (assignExpression.left as ListLiteral);null}»«
+	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
+	      compile(indent,16,lhs,assignExpression.left,insideWhere)» := «
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»)«
+        ELSE»«
+	      compile(indent,16,true,assignExpression.left,insideWhere)»«
+	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
+        ENDIF»«
+	    cop(16,precidence)»'''
 
     /**
      * OrExpression */
@@ -1373,15 +1431,7 @@ PrimaryExpression |
 	      {varName = cleanID(varOrFunction.name);
 	      global = vars.isGlobal(varName);
 	      null}»«
-	      IF lhs»«
-	        // change this ************************************
-			var boolean newVar = vars.addLocalIfNew(varOrFunction.name)»«
-			IF (newVar) »«getVariable(varName)»:SExpression«
-			ELSE »«getVariable(varName)»«
-            ENDIF»«
-	      ELSE»«
-	        getVariable(varName)»«
-	      ENDIF»«
+	      getVariable(varName,lhs)»«
 	    if (addSpace) " " else ""»«
 	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere)»«ENDIF»«
 	    ccp(48,precidence)»'''

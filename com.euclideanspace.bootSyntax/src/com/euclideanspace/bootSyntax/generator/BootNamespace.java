@@ -7,7 +7,7 @@ public class BootNamespace {
   /**
    * Holds local variables that have been initialised so far.
    */
-  private ArrayList<String> localVars = new ArrayList<String>();
+  //private ArrayList<String> localVars = new ArrayList<String>();
 
   /**
    * Arrays for holding names of various types of global variables.
@@ -96,10 +96,36 @@ public class BootNamespace {
 	  return new ArrayList<String>();
   }
 
+  /**
+   * true if given variable name is local in function
+   * @param varName
+   * @param fnName
+   * @return
+   */
+  public boolean isLocal(String varName,String fnName) {
+	  for (FunctionSignature fn:functions) {
+		  if (fnName.equals(fn.getName())) {
+			  return fn.isLocal(varName);
+		  }
+	  }
+	  return false;
+  }
+
+  /**
+   * This function is called when a variable is written, that is, a
+   * variable appears on the left of an assign.
+   * @param varName variable name
+   * @param fnName function name
+   */
   public void addWrite(String varName,String fnName) {
+	  boolean local = true;
+	  if (defvar.contains(varName)) local = false;
+	  if (defparameter.contains(varName)) local = false;
+	  if (defconstant.contains(varName)) local = false;
+	  if (defconst.contains(varName)) local = false;
 	  for (FunctionSignature fn:functions) {
 		  if (fn.getName()==fnName) {
-			  fn.addGlobalsWritten(varName);
+			  fn.addGlobalsWritten(varName,local);
 		  }
 	  }
 	  if (globals.contains(varName)) return;
@@ -156,28 +182,32 @@ public class BootNamespace {
 	  return false;
   }
 
-  public boolean isLocal(String varName) {
+/*  public boolean isLocal(String varName) {
 	  return localVars.contains(varName);
-  }
+  }*/
 
   /**
    * Check if a variable name is new and if so add it
    * @param varName name of variable to check
    * @return true if new
    */
-  public boolean addLocalIfNew(String varName) {
+/*  public boolean addLocalIfNew(String varName) {
 	  if (localVars.contains(varName)) return false;
 	  localVars.add(varName);
 	  return true;
-  }
+  }*/
 
   /**
    * clear list of local variables for when we start on new function definition.
-   */
   public void clearLocal() {
 	  localVars.clear();
   }
-
+*/
+  
+  /**
+   * Output function and variable definitions as a string
+   * @return output
+   */
   public String showDefs() {
 	  StringBuffer res = new StringBuffer("");
 

@@ -8,11 +8,15 @@ public class FunctionSignature {
   private String file = null;
   private ArrayList<String> params = new ArrayList<String>();
   /**
-   * globals used by this function, where not initially assigned in function.
+   * local variables used by this function, where not initially assigned in function.
+   */
+  private ArrayList<String> locals = new ArrayList<String>();
+  /**
+   * global variables read by this function, where not initially assigned in function.
    */
   private ArrayList<String> globalsRead = new ArrayList<String>();
   /**
-   * globals used by this function, if changed in function.
+   * global variables written by this function, if changed in function.
    */
   private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
@@ -47,7 +51,16 @@ public class FunctionSignature {
   ArrayList<String> getParams() {
 	  return params;
   }
-  
+
+  void addLocal(String gw) {
+	  if (locals.contains(gw)) return;
+	  locals.add(gw);
+  }
+
+  boolean isLocal(String gw) {
+	  return (locals.contains(gw));
+  }
+
   /**
    * Add variable name to list of global variables read by this function.
    * If variable is first initialised in this function (it is written
@@ -56,9 +69,10 @@ public class FunctionSignature {
    * @return true if added, false if parameter or existing name.
    */
   boolean addGlobalsRead(String gr) {
+	  if (params.contains(gr)) return false;
+	  if (locals.contains(gr)) return false;
 	  if (globalsRead.contains(gr)) return false;
 	  if (globalsWritten.contains(gr)) return false;
-	  if (params.contains(gr)) return false;
 	  globalsRead.add(gr);
 	  return true;
   }
@@ -67,9 +81,12 @@ public class FunctionSignature {
 	  return globalsRead;
   }
 
-  void addGlobalsWritten(String gw) {
+  void addGlobalsWritten(String gw,boolean local) {
+	  if (params.contains(gw)) return;
+	  if (locals.contains(gw)) return;
 	  if (globalsWritten.contains(gw)) return;
-	  globalsWritten.add(gw);
+	  if (local) locals.add(gw);
+	  else globalsWritten.add(gw);
   }
 
   boolean isGlobalsWritten(String gw) {
@@ -94,6 +111,12 @@ public class FunctionSignature {
 		  follow=true;
 	  }
 	  res = res + ")";
+	  if (!locals.isEmpty()) {
+		    res = res + System.lineSeparator() + "    locals";
+			for (String param:locals) {
+			  res = res + " "+ param;
+		    }
+		  }
 	  if (!globalsRead.isEmpty()) {
 	    res = res + System.lineSeparator() + "    globalsRead";
 		for (String param:globalsRead) {
