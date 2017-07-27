@@ -81,6 +81,9 @@ class EditorGenerator extends AbstractGenerator {
     BootNamespace vars = new BootNamespace();
     var String currentFile ="";
     var String currentFunction ="";
+    /** statements that can't be output immediately, for example waiting
+     * until after 'repeat'. Used in second (compileImplementation) pass*/
+    var ArrayList<String> pendingStatements = new ArrayList<String>();
     var ArrayList<Statement> pendingWheres = new ArrayList<Statement>();
     var ArrayList<LambdaExpression> pendingLambda = new ArrayList<LambdaExpression>();
     /** 'locals' is used in second (compileImplementation) pass to
@@ -462,7 +465,12 @@ class EditorGenerator extends AbstractGenerator {
  */
 	def CharSequence compile(int indent,int precidence,boolean lhs,Statement statement,WhereState insideWhere)
         '''
-	    «IF statement instanceof Comment»«
+	    «FOR s:pendingStatements»«
+          newline(indent+1)»«
+          s»«
+        ENDFOR»«
+        {pendingStatements.clear();null}»«
+	    IF statement instanceof Comment»«
 	       compile(indent,precidence,lhs,statement as Comment,insideWhere)»«ENDIF»«
 	    IF statement instanceof Loop»«
 	       compile(indent,precidence,lhs,statement as Loop,insideWhere)»«ENDIF»«
@@ -881,6 +889,14 @@ PrimaryExpression returns Expr:
           	val VarOrFunction v = assignExpression.left as VarOrFunction;
           	vars.addWrite(v.name,currentFunction);
           }
+          if (assignExpression.left instanceof ListLiteral) {
+            val ListLiteral ll = (assignExpression.left as ListLiteral);
+	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
+	        val ArrayList<String> vs = lt.variables();
+	        for (String v:vs) {
+	     	  vars.addWrite(v,currentFunction);
+	        }
+          }
 	      setNamespace(indent,16,assignExpression.left,insideWhere);
 	  }
 	  if (assignExpression.right !== null) {
@@ -944,18 +960,18 @@ PrimaryExpression returns Expr:
 	def CharSequence compileAssignList(int indent,int precidence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere)
         '''
 	    «cop(16,precidence)»«
-	    var String nam="unknown"»«
 	    var ListLiteral ll»«
-	    »--> assign variables inside list <---«
-	    {ll = (assignExpression.left as ListLiteral);null}»«
-	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
-	      compile(indent,16,lhs,assignExpression.left,insideWhere)» := «
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»)«
-        ELSE»«
-	      compile(indent,16,true,assignExpression.left,insideWhere)»«
-	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
-        ENDIF»«
+	    var ListTree lt»«
+	    var String listName = "listTree"»«
+	    {ll = (assignExpression.left as ListLiteral);
+	     lt = new ListTree(ll,new ArrayList<Integer>());
+	     null;
+	    }»«
+	    »listTree:SExpression := «
+	    IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
+	    FOR x:lt.output(listName,":SExpression")»«
+	      newline(indent)»«x»«
+	    ENDFOR»«
 	    cop(16,precidence)»'''
 
     /**
@@ -1027,13 +1043,34 @@ PrimaryExpression returns Expr:
 	def void setNamespace(int indent,int precidence,IsExpression isExpression,WhereState insideWhere){
 	  if(isExpression.left !== null)
 	      setNamespace(indent,26,isExpression.left,insideWhere);
-	  if(isExpression.right !== null)
-	      setNamespace(indent,26,isExpression.right,insideWhere);
+	  if(isExpression.right !== null) {
+          if (isExpression.right instanceof ListLiteral) {
+            val ListLiteral ll = (isExpression.right as ListLiteral);
+	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
+	        val ArrayList<String> vs = lt.variables();
+	        for (String v:vs) {
+	     	  vars.addWrite(v,currentFunction);
+	        }
+          } else {
+	        setNamespace(indent,26,isExpression.right,insideWhere);
+          }
+      }
 	}
 
     /**
      * IsExpression */
-	def CharSequence compile(int indent,int precidence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precidence,boolean lhs,IsExpression isExpression,WhereState insideWhere) {
+	    if (isExpression.right !== null) {
+	      if (isExpression.right instanceof ListLiteral) {
+	        return compileIsList(indent,precidence,lhs,isExpression,insideWhere);
+	      }
+	      return compileIsSingle(indent,precidence,lhs,isExpression,insideWhere);	      	
+	    }
+    }
+
+    /**
+     * IsExpression */
+	def CharSequence compileIsSingle(int indent,int precidence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
         '''
 	    «cop(26,precidence)»«
 	    IF isExpression.left !== null»«
@@ -1043,6 +1080,32 @@ PrimaryExpression returns Expr:
 	      compile(indent,26,true,isExpression.right,insideWhere)»«
 	    ENDIF»«
 	    ccp(26,precidence)»'''
+
+    /**
+     * IsExpression
+     * where right is a list containing variables */
+	def CharSequence compileIsList(int indent,int precidence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
+        '''
+	    «cop(16,precidence)»«
+	    var ListLiteral ll»«
+	    var ListTree lt»«
+	    var String listName = "listTree"»«
+	    IF isExpression.left !== null»«
+	      compile(indent,16,lhs,isExpression.left,insideWhere)»«
+	      IF isExpression.left instanceof VarOrFunction »«
+          	{val VarOrFunction v = isExpression.left as VarOrFunction;
+          	listName = v.name;null}»«
+          ENDIF»«
+	    ENDIF»«
+	    IF isExpression.right !== null»«
+	    {ll = (isExpression.right as ListLiteral);
+	     lt = new ListTree(ll,new ArrayList<Integer>());
+	     null;
+	    }»«
+	    » = «
+	    compile(indent,16,lhs,isExpression.right,insideWhere)»«ENDIF»«
+	    {pendingStatements = lt.output(listName,":SExpression");null}»«
+	    cop(16,precidence)»'''
 
     /**
      * InExpression
