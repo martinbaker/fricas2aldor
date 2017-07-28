@@ -2,6 +2,7 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import com.euclideanspace.bootSyntax.editor.Expr;
 
 public class BootNamespace {
   /**
@@ -42,18 +43,98 @@ public class BootNamespace {
   private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
 
   /**
+   * Holds information about each package and what functions it contains.
+   */
+  private ArrayList<PackageInfo> packages = new ArrayList<PackageInfo>();
+  
+  /**
    * add a function to namespace
    * @param n name
    * @param p parent in case this is lambda inside other function
-   * @param f name of file where function is defined
+   * @param f name of file where function is defined which is also package name.
    * @param pars parameters
+   * @param packageName
    * @return true if successful false if duplicate.
    */
-  public boolean addFunction(String n,String p,String f,ArrayList<String> pars) {
+  public boolean addFunctionDef(String n,String p,String f,ArrayList<String> pars) {
 	  FunctionSignature fs = new FunctionSignature(n,p,f,pars);
 	  if (functions.contains(fs)) return false;
 	  functions.add(fs);
+	  PackageInfo pkg = null;
+	  for (PackageInfo pkg2:packages) {
+		  if (pkg2.getPackageName() == f) {
+			  pkg=pkg2;
+			  break;
+		  }
+	  }
+	  if (pkg == null) {
+		  pkg = new PackageInfo(f);
+		  packages.add(pkg);
+	  }
+	  pkg.addFunctionDef(fs);
 	  return true;
+  }
+
+  public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
+	  PackageInfo pkg = null;
+	  for (PackageInfo pkg2:packages) {
+		  if (pkg2.getPackageName() == f) {
+			  pkg=pkg2;
+			  break;
+		  }
+	  }
+	  if (pkg == null) {
+		  pkg = new PackageInfo(f);
+		  packages.add(pkg);
+	  }
+	  pkg.addFunctionCall(nam);
+	  
+  }
+
+  public PackageInfo getPackage(String pkgName) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkg.getPackageName() == pkgName) return pkg;
+	  }
+      return null;  
+  }
+
+  /**
+   * for a given function name find which package its defined in.
+   * @param fnName
+   * @param definedIn
+   * @return
+   */
+  public PackageInfo getPackageDefiningFn(String fnName,PackageInfo definedIn) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkg.containsFunctionDef(fnName)) return pkg;
+	  }
+      return null;  
+  }
+
+  public boolean isLispFunction(String fnName) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkg.containsFunctionDef(fnName)) return false;
+	  }
+	  return true;
+  }
+
+  /**
+   * return imports for given package name
+   * @param pkgName package name
+   * @return is String with package and function name
+   */
+  public ArrayList<String> importList(String pkgName) {
+	  ArrayList<String> res = new ArrayList<String>();
+	  PackageInfo p=getPackage(pkgName);
+	  if (p==null) return res;
+	  for (String s:p.getFunctionCalls()) {
+		PackageInfo pkgFrom =getPackageDefiningFn(s,p);
+		if (pkgFrom != null) {
+		  if (pkgFrom != p)
+	        res.add(pkgFrom.getPackageName()+" -- "+s);
+		}
+	  }
+	  return res;
   }
 
   public void addUnDefinedGlobal(String varName) {
@@ -211,13 +292,30 @@ public class BootNamespace {
   public String showDefs() {
 	  StringBuffer res = new StringBuffer("");
 
+	  res.append("\nPackages\n");
+      Collections.sort(packages, (a, b) -> a.getPackageName().compareToIgnoreCase(b.getPackageName()));
+	  for (PackageInfo ps:packages) {
+		  res.append("-------- package:"+ps.getPackageName()+" ---------");
+		  res.append("\n calls:");
+		  ArrayList<String> calls = ps.getFunctionCalls();
+		  for (String fc:calls) {
+			  res.append(" "+fc);
+		  }
+		  res.append("\n");
+		  ArrayList<FunctionSignature> fns =ps.getFunctionDefs();
+		  for (FunctionSignature fs:fns) {
+			  res.append(fs.display());
+			  res.append("\n");
+		  }
+	  }
+	  
 	  res.append("\nFunctions\n");
 	  // order by alphabetical order of file name
-      Collections.sort(functions, (a, b) -> a.getFile().compareToIgnoreCase(b.getFile()));
-	  for (FunctionSignature fs:functions) {
-		  res.append(fs.display());
-		  res.append("\n");
-	  }
+//      Collections.sort(functions, (a, b) -> a.getFile().compareToIgnoreCase(b.getFile()));
+//	  for (FunctionSignature fs:functions) {
+//		  res.append(fs.display());
+//		  res.append("\n");
+//	  }
 	  res.append("\nGlobals\n");
 	  for (String s:globals) {
 		  res.append(s);

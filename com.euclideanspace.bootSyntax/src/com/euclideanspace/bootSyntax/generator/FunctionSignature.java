@@ -5,19 +5,14 @@ import java.util.ArrayList;
 public class FunctionSignature {
   private String name = null;
   private String parent = null;
+  /** file is same name as package */
   private String file = null;
   private ArrayList<String> params = new ArrayList<String>();
-  /**
-   * local variables used by this function, where not initially assigned in function.
-   */
+  /** local variables used by this function, where not initially assigned in function.*/
   private ArrayList<String> locals = new ArrayList<String>();
-  /**
-   * global variables read by this function, where not initially assigned in function.
-   */
+  /** global variables read by this function, where not initially assigned in function.*/
   private ArrayList<String> globalsRead = new ArrayList<String>();
-  /**
-   * global variables written by this function, if changed in function.
-   */
+  /** global variables written by this function, if changed in function. */
   private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
@@ -36,10 +31,18 @@ public class FunctionSignature {
 	  return parent;
   }
   
+  /**
+   * file is same name as package
+   * @return file/package name
+   */
   String getFile() {
 	  return file;
   }
   
+  /**
+   * 
+   * @return
+   */
   boolean getMacro() {
 	  return macro;
   }

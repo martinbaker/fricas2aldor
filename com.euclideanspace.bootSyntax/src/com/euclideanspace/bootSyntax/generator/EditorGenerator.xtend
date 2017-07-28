@@ -209,8 +209,14 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def CharSequence compileImplementation(int indent,int precidence,Model model,WhereState insideWhere)
 	    '''
-	    «newline(indent)»«
+	    «var ArrayList<String> imp = new ArrayList<String>()»«
+	    newline(indent)»«
 	    newline(indent)»Implementation ==> add«
+	    {imp=vars.importList(currentFile);null}»«
+	    FOR x:imp»«
+	      newline(indent+1)»«
+	      »import from «x»«
+	    ENDFOR»«
 	    newline(indent+1)»«
 	    FOR x:model.declarations»«compile(indent+1,precidence,false,x,insideWhere)»«ENDFOR»'''
 
@@ -335,7 +341,7 @@ class EditorGenerator extends AbstractGenerator {
           }
 
         }
-        vars.addFunction(function.name,null,currentFile,params);
+        vars.addFunctionDef(function.name,null,currentFile,params);
 	    if (function.st !== null)
 	      setNamespace(ind,precidence,function.st,insideWhere)
 	    if (function.w !== null)
@@ -791,7 +797,7 @@ PrimaryExpression returns Expr:
           if (lambdaExpression.left instanceof VarOrFunction) {
             v=lambdaExpression.left as VarOrFunction
             	fnName=v.name
-            	while (!vars.addFunction(fnName,currentFunction,currentFile,null)) fnName=fnName+"2";
+            	while (!vars.addFunctionDef(fnName,currentFunction,currentFile,null)) fnName=fnName+"2";
           }
         }
     }
@@ -1439,7 +1445,8 @@ PrimaryExpression |
 	def void setNamespace(int indent,int precidence,VarOrFunction varOrFunction,WhereState insideWhere) {
       var String nam = varOrFunction.name;
       if (varOrFunction.expr !== null) {
-      	setNamespace(indent,precidence,varOrFunction.expr,insideWhere)
+      	vars.addFunctionCall(nam,varOrFunction.expr,currentFunction,currentFile);
+      	//setNamespace(indent,precidence,varOrFunction.expr,insideWhere)
       } else vars.addRead(nam,currentFunction);
     }
 
@@ -1524,6 +1531,8 @@ PrimaryExpression |
 	    cleanID(varOrFunction.name)»«
 	    if (addSpace) " " else ""»«
 	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere)»«ENDIF»«
+	    IF vars.isLispFunction(cleanID(varOrFunction.name))»$Lisp«
+	    ENDIF»«
 	    ccp(48,precidence)»'''
 
 /*
