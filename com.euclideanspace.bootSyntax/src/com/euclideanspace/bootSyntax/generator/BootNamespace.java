@@ -93,7 +93,7 @@ public class BootNamespace {
 
   public PackageInfo getPackage(String pkgName) {
 	  for (PackageInfo pkg:packages) {
-		  if (pkg.getPackageName() == pkgName) return pkg;
+		  if (pkgName.equals(pkg.getPackageName())) return pkg;
 	  }
       return null;  
   }
@@ -126,12 +126,16 @@ public class BootNamespace {
   public ArrayList<String> importList(String pkgName) {
 	  ArrayList<String> res = new ArrayList<String>();
 	  PackageInfo p=getPackage(pkgName);
+      //System.out.println("pkgName="+pkgName+" PackageInfo="+p);
+	  //for (PackageInfo pkg:packages) {
+	  //  System.out.println("package="+pkg.getPackageName());
+	  //}
 	  if (p==null) return res;
 	  for (String s:p.getFunctionCalls()) {
 		PackageInfo pkgFrom =getPackageDefiningFn(s,p);
 		if (pkgFrom != null) {
 		  if (pkgFrom != p)
-	        res.add(pkgFrom.getPackageName()+" -- "+s);
+	        res.add(pkgFrom.getPackageName()+" -- for:"+s);
 		}
 	  }
 	  return res;
@@ -300,6 +304,7 @@ public class BootNamespace {
 		  ArrayList<String> calls = ps.getFunctionCalls();
 		  for (String fc:calls) {
 			  res.append(" "+fc);
+			  if (isLispFunction(fc)) res.append("$Lisp");
 		  }
 		  res.append("\n");
 		  ArrayList<FunctionSignature> fns =ps.getFunctionDefs();

@@ -62,6 +62,9 @@ import com.euclideanspace.bootSyntax.editor.IfExpression
 import com.euclideanspace.bootSyntax.editor.LambdaExpression
 import com.euclideanspace.bootSyntax.editor.Block
 import java.util.ArrayList
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.common.util.EList
 
 /* rules for indentation
  * ---------------------
@@ -78,7 +81,8 @@ import java.util.ArrayList
  */
 class EditorGenerator extends AbstractGenerator {
 
-    BootNamespace vars = new BootNamespace();
+    var static boolean namespaceLoaded = false;
+    var static BootNamespace vars = new BootNamespace();
     var String currentFile ="";
     var String currentFunction ="";
     /** statements that can't be output immediately, for example waiting
@@ -92,12 +96,34 @@ class EditorGenerator extends AbstractGenerator {
      * see getVariable */
     var ArrayList<String> locals = new ArrayList<String>();
     
+ /*   override void beforeGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+      //System.out.println("before "+resource.className);
+    }*/
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+      //System.out.println("do "+resource.className);
+      //val TreeIterator<EObject> all = resource.allContents;
+      //while (all.hasNext()) {
+      //    System.out.println("doall "+all.next());
+      //}
+      if (!namespaceLoaded) {
+        val ResourceSet rs = resource.resourceSet;
+        val EList<Resource> res = rs.getResources();
+        for (Resource r:res) {
+          className(r);
+          var EObject m = r.contents.head;
+          if (m instanceof Model)
+            setNamespace(1,0,m,WhereState.NotWhere);
+        }
+        namespaceLoaded = true;
+      }
+      className(resource);
+      //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
       fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,WhereState.NotWhere))
       fsa.generateFile("namespace.txt",vars.showDefs())
    }
 
+    /** set currentFile which is package name*/
  	def className(Resource res) {
 		var name = res.URI.lastSegment
 		currentFile = name.substring(0, name.indexOf('.'))
@@ -183,7 +209,6 @@ class EditorGenerator extends AbstractGenerator {
 	    IF model.eResource !== null»«{longName = model.eResource.className;null}»«
 	    ENDIF»)abbrev package «shortName(longName)» «longName»
 	    «longName»() : Exports == Implementation where«
-	    {setNamespace(indent+1,precidence,model,WhereState.NotWhere);null}»«
 	    compileExports(indent+1,precidence,model,WhereState.NotWhere)»«
 	    compileImplementation(indent+1,precidence,model,insideWhere)»'''
 
@@ -324,14 +349,9 @@ class EditorGenerator extends AbstractGenerator {
      * FunctionDef
      */
 	def void setNamespace(int indent,int precidence,FunctionDef function,WhereState insideWhere){
-        var int ind = indent;
-        var boolean loadCode = false;
         //vars.clearLocal();
 	    if (function.name !== null) {
 	      currentFunction = function.name;
-	       if (function.name.equals("loadInit")) {
-	      	ind = -1;loadCode=true
-	       }
         }
         var ArrayList<String> params = new ArrayList<String>();
         for (Expr p:function.params) {
@@ -339,13 +359,12 @@ class EditorGenerator extends AbstractGenerator {
           	val VarOrFunction v = p as VarOrFunction;
           	params.add(v.name);
           }
-
         }
         vars.addFunctionDef(function.name,null,currentFile,params);
 	    if (function.st !== null)
-	      setNamespace(ind,precidence,function.st,insideWhere)
+	      setNamespace(indent,precidence,function.st,insideWhere)
 	    if (function.w !== null)
-	      setNamespace(ind,precidence,function.w,insideWhere)
+	      setNamespace(indent,precidence,function.w,insideWhere)
 	    for (Statement st:pendingWheres)
 	      setNamespace(indent,precidence,st,WhereState.WritingWhere);
 	    pendingWheres.clear();
@@ -356,8 +375,7 @@ class EditorGenerator extends AbstractGenerator {
      * top level function definition, inner functions use lambda */
 	def CharSequence compileExports(int indent,int precidence,FunctionDef function,WhereState insideWhere)
         '''
-        «var int ind = indent»«
-        newline(indent)»«
+        «newline(indent)»«
 	    IF function.name !== null»«
 	     {currentFunction = function.name;null}»«
 	    ENDIF»«
@@ -367,11 +385,11 @@ class EditorGenerator extends AbstractGenerator {
 	      FOR x:function.params», SExpression«ENDFOR»«
 	    ENDIF»)«
 	    IF function.st !== null»«
-	      compileExports(ind,precidence,function.st,insideWhere)»«
+	      compileExports(indent,precidence,function.st,insideWhere)»«
 	    ENDIF»«
 	    IF function.w !== null»«
-	      newline(ind)»«
-	      compileExports(ind,precidence,function.w,insideWhere)»«
+	      newline(indent)»«
+	      compileExports(indent,precidence,function.w,insideWhere)»«
 	    ENDIF»«
 	    FOR Statement st:pendingWheres»«
 	      compileExports(indent,precidence,st,WhereState.WritingWhere)»«
@@ -392,8 +410,7 @@ class EditorGenerator extends AbstractGenerator {
 	*/
 	def CharSequence compile(int indent,int precidence,boolean lhs,FunctionDef function,WhereState insideWhere)
         '''
-        «var int ind = indent»«
-        {locals.clear();null}»«
+        «{locals.clear();null}»«
 	    IF function.name !== null»«
 	     { currentFunction = function.name;null}»«
 	    ENDIF»«
@@ -407,15 +424,15 @@ class EditorGenerator extends AbstractGenerator {
 	    IF function.st !== null»«
 	      IF function.m» ==>«ELSE» ==«ENDIF»«
 	      FOR String globVar: vars.getReadGlobal(currentFunction)»«
-	        newline(ind+1)»«globVar»=getVar(bootEnvir,"«globVar»")«
+	        newline(indent+1)»«globVar»=getVar(bootEnvir,"«globVar»")«
 	      ENDFOR»«
-	      compile(ind,precidence,lhs,function.st,insideWhere)»«
+	      compile(indent,precidence,lhs,function.st,insideWhere)»«
 	    ENDIF»«
 	    IF function.w !== null»«
-	      newline(ind)»«
-	      compile(ind,precidence,lhs,function.w,insideWhere)»«
+	      newline(indent)»«
+	      compile(indent,precidence,lhs,function.w,insideWhere)»«
 	    ENDIF»«
-	    newline(ind)»«
+	    newline(indent)»«
 	    FOR LambdaExpression le:pendingLambda»«
 	      compile(indent,precidence,lhs,le,WhereState.WritingWhere)»«
 	    ENDFOR»«
@@ -485,7 +502,12 @@ class EditorGenerator extends AbstractGenerator {
 	    IF statement instanceof Where»«
 	       compile(indent,precidence,lhs,statement as Where,insideWhere)»«ENDIF»«
 	    IF statement instanceof Expr»«
-	       compile(indent,precidence,lhs,statement as Expr,insideWhere)»«ENDIF»'''
+	       compile(indent,precidence,lhs,statement as Expr,insideWhere)»«ENDIF»«
+	    FOR s:pendingStatements»«
+          newline(indent+1)»«
+          s»«
+        ENDFOR»«
+        {pendingStatements.clear();null}»'''
 
 /*
  * Loop:
@@ -1566,7 +1588,7 @@ PrimaryExpression |
  * LispLiteral:
   p+=KW_PRIME+ sll=SubLispLiteral
   * 
-  * Dont put space before prime(s) if first in a line
+  * Don't put space before prime(s) if first in a line
   * Do put space before prime(s) if following
   */
 	def CharSequence compile(int indent,int precidence,boolean lhs,LispLiteral lispLiteral,WhereState insideWhere)
