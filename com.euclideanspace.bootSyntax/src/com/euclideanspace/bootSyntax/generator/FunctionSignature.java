@@ -4,10 +4,14 @@ import java.util.ArrayList;
 
 public class FunctionSignature {
   private String name = null;
+  /** parent - for inner functions only */
   private String parent = null;
   /** file is same name as package */
   private String file = null;
+  private String bootPkg = null;
   private ArrayList<String> params = new ArrayList<String>();
+  /** number inner functions */
+  private int number = 0;
   /** local variables used by this function, where not initially assigned in function.*/
   private ArrayList<String> locals = new ArrayList<String>();
   /** global variables read by this function, where not initially assigned in function.*/
@@ -16,15 +20,47 @@ public class FunctionSignature {
   private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
-  FunctionSignature(String n,String p,String f,ArrayList<String> pars) {
+  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<String> pars,int num) {
 	  name =n;
       parent =p;
       file =f;
+      bootPkg = bootPkgIn;
       if (pars != null) params =pars;
+      number = num;
   }
   
   String getName() {
 	  return name;
+  }
+
+  /**
+   * Make first character of string upper case.
+   * @param inp input string
+   * @return string with upper case
+   */
+  String Capitalise(String inp) {
+	if (bootPkg == null) return null;
+	char[] c = inp.toCharArray();
+	if (c.length < 1) return "";
+	String c0 = (new Character(c[0])).toString();
+	c[0] = c0.toUpperCase().charAt(0);
+	return new String(c);
+  }
+
+  /**
+   * A name for this function which will be unique and also will
+   * only contain characters that are valid for function names in SPAD.
+   * @return name
+   */
+  String getSafeName() {
+	String prefix = "boot";
+	String ret = prefix;
+    if (parent != null) ret = ret + Capitalise(parent);
+    ret = ret + Capitalise(name);
+    if (number > 0) ret = ret+number;
+	ret = ret.replaceAll("'","P");
+	ret = ret.replaceAll("/$","D");
+	return ret;
   }
   
   String getParent() {

@@ -2,13 +2,17 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.eclipse.emf.ecore.EObject;
+
 import com.euclideanspace.bootSyntax.editor.Expr;
 
-public class BootNamespace {
+public class GlobalScope extends NamespaceScope {
+
   /**
-   * Holds local variables that have been initialised so far.
-   */
-  //private ArrayList<String> localVars = new ArrayList<String>();
+	* Holds function definition names.
+	*/
+  private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
 
   /**
    * Arrays for holding names of various types of global variables.
@@ -37,16 +41,23 @@ public class BootNamespace {
   private ArrayList<String> defconstant = new ArrayList<String>();
   private ArrayList<String> defconst = new ArrayList<String>();
 
-  /**
-   * Holds function definition names.
-   */
-  private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
 
   /**
    * Holds information about each package and what functions it contains.
    */
   private ArrayList<PackageInfo> packages = new ArrayList<PackageInfo>();
   
+
+  /**
+   * constructor for GlobalScope
+   * @param parentScope
+   * @param emfElement
+   */
+  public GlobalScope(NamespaceScope p,EObject e) {
+	  super(p,e);
+	  //p.addSubscope(this);
+  }
+
   /**
    * add a function to namespace
    * @param n name
@@ -56,8 +67,8 @@ public class BootNamespace {
    * @param packageName
    * @return true if successful false if duplicate.
    */
-  public boolean addFunctionDef(String n,String p,String f,ArrayList<String> pars) {
-	  FunctionSignature fs = new FunctionSignature(n,p,f,pars);
+  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
+	  FunctionSignature fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
 	  if (functions.contains(fs)) return false;
 	  functions.add(fs);
 	  PackageInfo pkg = null;
@@ -75,80 +86,13 @@ public class BootNamespace {
 	  return true;
   }
 
-  public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
-	  PackageInfo pkg = null;
-	  for (PackageInfo pkg2:packages) {
-		  if (pkg2.getPackageName() == f) {
-			  pkg=pkg2;
-			  break;
+  public String lookupSafeFunctionName(String n) {
+	  for (FunctionSignature fn:functions) {
+		  if (n.equals(fn.getName())) {
+			  return fn.getSafeName();
 		  }
 	  }
-	  if (pkg == null) {
-		  pkg = new PackageInfo(f);
-		  packages.add(pkg);
-	  }
-	  pkg.addFunctionCall(nam);
-	  
-  }
-
-  public PackageInfo getPackage(String pkgName) {
-	  for (PackageInfo pkg:packages) {
-		  if (pkgName.equals(pkg.getPackageName())) return pkg;
-	  }
-      return null;  
-  }
-
-  /**
-   * for a given function name find which package its defined in.
-   * @param fnName
-   * @param definedIn
-   * @return
-   */
-  public PackageInfo getPackageDefiningFn(String fnName,PackageInfo definedIn) {
-	  for (PackageInfo pkg:packages) {
-		  if (pkg.containsFunctionDef(fnName)) return pkg;
-	  }
-      return null;  
-  }
-
-  public boolean isLispFunction(String fnName) {
-	  for (PackageInfo pkg:packages) {
-		  if (pkg.containsFunctionDef(fnName)) return false;
-	  }
-	  return true;
-  }
-
-  /**
-   * return imports for given package name
-   * @param pkgName package name
-   * @return is String with package and function name
-   */
-  public ArrayList<String> importList(String pkgName) {
-	  ArrayList<String> res = new ArrayList<String>();
-	  PackageInfo p=getPackage(pkgName);
-      //System.out.println("pkgName="+pkgName+" PackageInfo="+p);
-	  //for (PackageInfo pkg:packages) {
-	  //  System.out.println("package="+pkg.getPackageName());
-	  //}
-	  if (p==null) return res;
-	  for (String s:p.getFunctionCalls()) {
-		PackageInfo pkgFrom =getPackageDefiningFn(s,p);
-		if (pkgFrom != null) {
-		  if (pkgFrom != p)
-	        res.add(pkgFrom.getPackageName()+" -- for:"+s);
-		}
-	  }
-	  return res;
-  }
-
-  public void addUnDefinedGlobal(String varName) {
-	  if (unDefinedGlobals.contains(varName)) return;
-	  unDefinedGlobals.add(varName);
-  }
-
-  public void addGlobal(String varName) {
-	  if (globals.contains(varName)) return;
-	  globals.add(varName);
+      return "cannotFind";
   }
 
   /**
@@ -225,7 +169,59 @@ public class BootNamespace {
 	  }
       return false;
   }
-  
+
+  public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
+	  PackageInfo pkg = null;
+	  for (PackageInfo pkg2:packages) {
+		  if (pkg2.getPackageName() == f) {
+			  pkg=pkg2;
+			  break;
+		  }
+	  }
+	  if (pkg == null) {
+		  pkg = new PackageInfo(f);
+		  packages.add(pkg);
+	  }
+	  pkg.addFunctionCall(nam);
+  }
+
+  public PackageInfo getPackage(String pkgName) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkgName.equals(pkg.getPackageName())) return pkg;
+	  }
+      return null;  
+  }
+
+  /**
+   * for a given function name find which package its defined in.
+   * @param fnName
+   * @param definedIn
+   * @return
+   */
+  public PackageInfo getPackageDefiningFn(String fnName,PackageInfo definedIn) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkg.containsFunctionDef(fnName)) return pkg;
+	  }
+      return null;  
+  }
+
+  public boolean isLispFunction(String fnName) {
+	  for (PackageInfo pkg:packages) {
+		  if (pkg.containsFunctionDef(fnName)) return false;
+	  }
+	  return true;
+  }
+
+  public void addUnDefinedGlobal(String varName) {
+	  if (unDefinedGlobals.contains(varName)) return;
+	  unDefinedGlobals.add(varName);
+  }
+
+  public void addGlobal(String varName) {
+	  if (globals.contains(varName)) return;
+	  globals.add(varName);
+  }
+
   public void addDynamic(String varName) {
 	  if (dynamicGlobals.contains(varName)) return;
 	  dynamicGlobals.add(varName);
@@ -267,28 +263,6 @@ public class BootNamespace {
 	  return false;
   }
 
-/*  public boolean isLocal(String varName) {
-	  return localVars.contains(varName);
-  }*/
-
-  /**
-   * Check if a variable name is new and if so add it
-   * @param varName name of variable to check
-   * @return true if new
-   */
-/*  public boolean addLocalIfNew(String varName) {
-	  if (localVars.contains(varName)) return false;
-	  localVars.add(varName);
-	  return true;
-  }*/
-
-  /**
-   * clear list of local variables for when we start on new function definition.
-  public void clearLocal() {
-	  localVars.clear();
-  }
-*/
-  
   /**
    * Output function and variable definitions as a string
    * @return output

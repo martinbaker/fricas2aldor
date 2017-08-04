@@ -5,10 +5,19 @@ import com.euclideanspace.bootSyntax.editor.VarOrFunction;
 import com.euclideanspace.bootSyntax.editor.ListLiteral;
 import com.euclideanspace.bootSyntax.editor.UnaryExpression;
 import com.euclideanspace.bootSyntax.editor.Expr;
-import com.euclideanspace.bootSyntax.editor.IfExpression;
+//import com.euclideanspace.bootSyntax.editor.IfExpression;
 import com.euclideanspace.bootSyntax.editor.ListElement;
 //import com.euclideanspace.bootSyntax.editor.ListComprehension;
 
+/**
+ * ListTree is used for 'assign' and 'is' statements where a
+ * list is being assigned.
+ * This can cause multiple variables inside the list to be assigned.
+ * To allow us to do this it is useful to hold this recursively
+ * defined list as a tree.
+ * @author Martin Baker
+ *
+ */
 public class ListTree {
 	private ArrayList<Integer> path = new ArrayList<Integer>();
 	private String n = "";
