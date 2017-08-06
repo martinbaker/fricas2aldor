@@ -45,17 +45,29 @@ public class GlobalScope extends NamespaceScope {
   /**
    * Holds information about each package and what functions it contains.
    */
-  private ArrayList<PackageInfo> packages = new ArrayList<PackageInfo>();
+//  private ArrayList<FileScope> packages = new ArrayList<FileScope>();
   
 
   /**
    * constructor for GlobalScope
-   * @param parentScope
-   * @param emfElement
+   * @param p parentScope
+   * @param e emfElement
+   * @param n name
    */
-  public GlobalScope(NamespaceScope p,EObject e) {
-	  super(p,e);
-	  //p.addSubscope(this);
+  public GlobalScope(NamespaceScope p,EObject e,String n) {
+	  super(p,e,n);
+  }
+
+  public ArrayList<FileScope> getFileScopes() {
+	  ArrayList<FileScope> res = new ArrayList<FileScope>(); 
+	  for (NamespaceScope ns2:subscopes) {
+		  if (!(ns2 instanceof FileScope)) {
+			  System.err.println("subcope of global not file");
+			  break;
+		  }
+		  res.add((FileScope) ns2);
+	  }
+      return res;
   }
 
   /**
@@ -71,16 +83,16 @@ public class GlobalScope extends NamespaceScope {
 	  FunctionSignature fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
 	  if (functions.contains(fs)) return false;
 	  functions.add(fs);
-	  PackageInfo pkg = null;
-	  for (PackageInfo pkg2:packages) {
-		  if (pkg2.getPackageName() == f) {
+	  FileScope pkg = null;
+	  for (FileScope pkg2:getFileScopes()) {
+		  if (pkg2.getName() == f) {
 			  pkg=pkg2;
 			  break;
 		  }
 	  }
 	  if (pkg == null) {
-		  pkg = new PackageInfo(f);
-		  packages.add(pkg);
+		  System.err.println("cannot find file:"+n);
+		  return false;
 	  }
 	  pkg.addFunctionDef(fs);
 	  return true;
@@ -171,23 +183,23 @@ public class GlobalScope extends NamespaceScope {
   }
 
   public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
-	  PackageInfo pkg = null;
-	  for (PackageInfo pkg2:packages) {
-		  if (pkg2.getPackageName() == f) {
+	  FileScope pkg = null;
+	  for (FileScope pkg2:getFileScopes()) {
+		  if (pkg2.getName() == f) {
 			  pkg=pkg2;
 			  break;
 		  }
 	  }
 	  if (pkg == null) {
-		  pkg = new PackageInfo(f);
-		  packages.add(pkg);
+		  pkg = new FileScope(this,null,f);
+		  subscopes.add(pkg);
 	  }
 	  pkg.addFunctionCall(nam);
   }
 
-  public PackageInfo getPackage(String pkgName) {
-	  for (PackageInfo pkg:packages) {
-		  if (pkgName.equals(pkg.getPackageName())) return pkg;
+  public FileScope getPackage(String pkgName) {
+	  for (FileScope pkg:getFileScopes()) {
+		  if (pkgName.equals(pkg.getName())) return pkg;
 	  }
       return null;  
   }
@@ -198,15 +210,15 @@ public class GlobalScope extends NamespaceScope {
    * @param definedIn
    * @return
    */
-  public PackageInfo getPackageDefiningFn(String fnName,PackageInfo definedIn) {
-	  for (PackageInfo pkg:packages) {
+  public FileScope getPackageDefiningFn(String fnName,FileScope definedIn) {
+	  for (FileScope pkg:getFileScopes()) {
 		  if (pkg.containsFunctionDef(fnName)) return pkg;
 	  }
       return null;  
   }
 
   public boolean isLispFunction(String fnName) {
-	  for (PackageInfo pkg:packages) {
+	  for (FileScope pkg:getFileScopes()) {
 		  if (pkg.containsFunctionDef(fnName)) return false;
 	  }
 	  return true;
@@ -271,9 +283,10 @@ public class GlobalScope extends NamespaceScope {
 	  StringBuffer res = new StringBuffer("");
 
 	  res.append("\nPackages\n");
-      Collections.sort(packages, (a, b) -> a.getPackageName().compareToIgnoreCase(b.getPackageName()));
-	  for (PackageInfo ps:packages) {
-		  res.append("-------- package:"+ps.getPackageName()+" ---------");
+	  ArrayList<FileScope> packages = getFileScopes();
+      Collections.sort(packages, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+	  for (FileScope ps:packages) {
+		  res.append("-------- package:"+ps.getName()+" ---------");
 		  res.append("\n calls:");
 		  ArrayList<String> calls = ps.getFunctionCalls();
 		  for (String fc:calls) {

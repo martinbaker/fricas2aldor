@@ -81,14 +81,14 @@ import org.eclipse.emf.common.util.EList
  */
 class EditorGenerator extends AbstractGenerator {
 
-    var static NamespaceScope vars = null;
+    var static GlobalScope vars = null;
     var String currentFile ="";
     var String currentFunction ="";
     var String bootPkg ="";
     /** statements that can't be output immediately, for example waiting
      * until after 'repeat'. Used in second (compileImplementation) pass*/
     var ArrayList<String> pendingStatements = new ArrayList<String>();
-    var ArrayList<PendingWhere> pendingWheres = new ArrayList<PendingWhere>();
+    var ArrayList<NamespaceScope> pendingWheres = new ArrayList<NamespaceScope>();
     var ArrayList<LambdaExpression> pendingLambda = new ArrayList<LambdaExpression>();
     /** 'locals' is used in second (compileImplementation) pass to
      * determine if we need to add :SExpression type. This is only
@@ -107,7 +107,7 @@ class EditorGenerator extends AbstractGenerator {
       //    System.out.println("doall "+all.next());
       //}
       if (vars === null) {
-      	vars = new GlobalScope(null,null)
+      	vars = new GlobalScope(null,null,null)
         val ResourceSet rs = resource.resourceSet;
         val EList<Resource> res = rs.getResources();
         for (Resource r:res) {
@@ -120,7 +120,7 @@ class EditorGenerator extends AbstractGenerator {
       }
       className(resource);
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
-      fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,WhereState.NotWhere))
+      fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,WhereState.NotWhere,vars))
       fsa.generateFile("namespace.txt",vars.showDefs())
    }
 
@@ -204,20 +204,23 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * Model
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Model model,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Model model,WhereState insideWhere,NamespaceScope parentScope)
 	    '''
-	    «var String longName = "** no resource **"»«
+	    «val NamespaceScope scope =parentScope.getScope(model)»«
+	    if (!(parentScope instanceof GlobalScope)) System.err.println("compile model expects parentScope to be GlobalScope")»«
+	    if (!(scope instanceof FileScope)) System.err.println("compile model expects scope to be FileScope")»«
+	    var String longName = "** no resource **"»«
 	    IF model.eResource !== null»«{longName = model.eResource.className;null}»«
 	    ENDIF»)abbrev package «shortName(longName)» «longName»
 	    «longName»() : Exports == Implementation where«
-	    compileExports(indent+1,precedence,model,WhereState.NotWhere)»«
-	    compileImplementation(indent+1,precedence,model,insideWhere)»'''
+	    compileExports(indent+1,precedence,model,WhereState.NotWhere,scope)»«
+	    compileImplementation(indent+1,precedence,model,insideWhere,scope)»'''
 
     /**
      * Model
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Model model,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,model);
+	def NamespaceScope setNamespace(GlobalScope parent,int precedence,Model model,WhereState insideWhere) {
+		val FileScope ns = new FileScope(parent,model,currentFile);
 		parent.addSubscope(ns);
 		for (Declaration x: model.declarations) {
 		  setNamespace(ns,precedence,x,insideWhere);
@@ -228,15 +231,15 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * Model
      */
-	def CharSequence compileExports(int indent,int precedence,Model model,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,Model model,WhereState insideWhere,NamespaceScope scope)
 	    '''
 	    «newline(indent)»Exports ==> with«
-	    FOR x:model.declarations»«compileExports(indent+1,precedence,x,insideWhere)»«ENDFOR»'''
+	    FOR x:model.declarations»«compileExports(indent+1,precedence,x,insideWhere,scope)»«ENDFOR»'''
 
     /**
      * Model
      */
-	def CharSequence compileImplementation(int indent,int precedence,Model model,WhereState insideWhere)
+	def CharSequence compileImplementation(int indent,int precedence,Model model,WhereState insideWhere,NamespaceScope scope)
 	    '''
 	    «var ArrayList<String> imp = new ArrayList<String>()»«
 	    newline(indent)»«
@@ -249,61 +252,59 @@ class EditorGenerator extends AbstractGenerator {
 	      »import from «x»«
 	    ENDFOR»«
 	    newline(indent+1)»«
-	    FOR x:model.declarations»«compile(indent+1,precedence,false,x,insideWhere)»«ENDFOR»'''
+	    FOR x:model.declarations»«compile(indent+1,precedence,false,x,insideWhere,scope)»«ENDFOR»'''
 
     /**
      * Declaration
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Declaration declaration,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,declaration);
-		parent.addSubscope(ns);
 	    if (declaration instanceof Package)
-	       setNamespace(ns,precedence,declaration as Package,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Package,insideWhere)
 		if (declaration instanceof Defparameter)
-	       setNamespace(ns,precedence,declaration as Defparameter,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defparameter,insideWhere)
 	    if (declaration instanceof Defconstant)
-	       setNamespace(ns,precedence,declaration as Defconstant,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defconstant,insideWhere)
 	    if (declaration instanceof Defconst)
-	       setNamespace(ns,precedence,declaration as Defconst,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defconst,insideWhere)
 	    if (declaration instanceof Defvar)
-	       setNamespace(ns,precedence,declaration as Defvar,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defvar,insideWhere)
 	    if (declaration instanceof FunctionDef)
-	       setNamespace(ns,precedence,declaration as FunctionDef,insideWhere)
+	       return setNamespace(parent,precedence,declaration as FunctionDef,insideWhere)
 	    if (declaration instanceof GlobalVariable)
-	       setNamespace(ns,precedence,declaration as GlobalVariable,insideWhere)
-	    return ns;
+	       return setNamespace(parent,precedence,declaration as GlobalVariable,insideWhere)
+	    return parent;
 	}
 
     /**
      * Declaration
      */
-	def CharSequence compileExports(int indent,int precedence,Declaration declaration,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,Declaration declaration,WhereState insideWhere,NamespaceScope parentScope)
 	    '''
 	    «IF declaration instanceof FunctionDef»«
-	       compileExports(indent,precedence,declaration as FunctionDef,insideWhere)»«ENDIF»'''
+	       compileExports(indent,precedence,declaration as FunctionDef,insideWhere,parentScope)»«ENDIF»'''
 
     /**
      * Declaration
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Declaration declaration,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Declaration declaration,WhereState insideWhere,NamespaceScope parentScope)
 	    '''
 	    «newline(indent)»«
 	    IF declaration instanceof Package»«
-	       compile(indent,precedence,lhs,declaration as Package,insideWhere)»«ENDIF»«
+	       compile(indent,precedence,lhs,declaration as Package,insideWhere,parentScope)»«ENDIF»«
 	    IF declaration instanceof Comment»«
-	       compile(indent,precedence,lhs,declaration as Comment,insideWhere)»«ENDIF»«
+	       compile(indent,precedence,lhs,declaration as Comment,insideWhere,parentScope)»«ENDIF»«
 	    IF declaration instanceof Documentation»«
-	       compile(indent,precedence,lhs,declaration as Documentation,insideWhere)»«ENDIF»«
+	       compile(indent,precedence,lhs,declaration as Documentation,insideWhere,parentScope)»«ENDIF»«
 	    IF declaration instanceof FunctionDef»«
-	       compile(indent,precedence,lhs,declaration as FunctionDef,insideWhere)»«ENDIF»«
+	       compile(indent,precedence,lhs,declaration as FunctionDef,insideWhere,parentScope)»«ENDIF»«
 	    IF declaration instanceof Where»«
-	       compile(indent,precedence,lhs,declaration as Where,insideWhere)»«ENDIF»«
+	       compile(indent,precedence,lhs,declaration as Where,insideWhere,parentScope)»«ENDIF»«
 	    IF declaration instanceof GlobalVariable»«
-	       compile(indent,precedence,lhs,declaration as GlobalVariable,insideWhere)»«ENDIF»'''
+	       compile(indent,precedence,lhs,declaration as GlobalVariable,insideWhere,parentScope)»«ENDIF»'''
 	
 	
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Package package1,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,package1);
+		val NamespaceScope ns = new NamespaceScope(parent,package1,null);
 		parent.addSubscope(ns);
 		if (package1.p !== null) bootPkg = package1.p;
 		return ns;
@@ -312,13 +313,13 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * Package
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Package package1,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Package package1,WhereState insideWhere,NamespaceScope parentScope)
 	    '''«null»'''
 
     /**
      * Comment
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Comment comment,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Comment comment,WhereState insideWhere,NamespaceScope parentScope)
 	    '''
 	    «IF comment.c !== null»«comment.c»«ENDIF»'''
 
@@ -327,17 +328,17 @@ class EditorGenerator extends AbstractGenerator {
      *
      *	KW_CPAREN ('if' e=Expression | ei?='endif')
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Documentation documentation,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Documentation documentation,WhereState insideWhere,NamespaceScope parentScope)
 	    '''
 	    «IF documentation.ei»)endif«
-	    ELSEIF documentation.e !== null»)if «compile(indent,precedence,lhs,documentation.e,insideWhere)»«ENDIF»'''
+	    ELSEIF documentation.e !== null»)if «compile(indent,precedence,lhs,documentation.e,insideWhere,new NullScope(null,null,null))»«ENDIF»'''
 
     /**
      * Defparameter
      * 'DEFPARAMETER' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defparameter defparameter,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,defparameter);
+		val NamespaceScope ns = new NamespaceScope(parent,defparameter,null);
 		parent.addSubscope(ns);
 	    vars.addDefparam(defparameter.name);
 	    return ns;
@@ -348,7 +349,7 @@ class EditorGenerator extends AbstractGenerator {
      * 'DEFCONSTANT' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconstant defconstant,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defconstant);
+		val NamespaceScope ns = new NamespaceScope(null,defconstant,null);
 		parent.addSubscope(ns);
 	    vars.addDefconstant(defconstant.name);
 	    return ns;
@@ -359,7 +360,7 @@ class EditorGenerator extends AbstractGenerator {
      * 'DEFCONST' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconst defconst,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defconst);
+		val NamespaceScope ns = new NamespaceScope(null,defconst,null);
 		parent.addSubscope(ns);
 	  vars.addDefconst(defconst.name);
 	  return ns;
@@ -370,7 +371,7 @@ class EditorGenerator extends AbstractGenerator {
      * 'DEFVAR' KW_OPAREN name=TK_ID (KW_COMMA e=Expression)? KW_CPAREN;
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defvar defvar,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defvar);
+		val NamespaceScope ns = new NamespaceScope(null,defvar,null);
 		parent.addSubscope(ns);
 	  vars.addDefvar(defvar.name);
 	  return ns;
@@ -380,12 +381,11 @@ class EditorGenerator extends AbstractGenerator {
      * FunctionDef
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,FunctionDef function,WhereState insideWhere){
-		val FunctionDefScope ns = new FunctionDefScope(parent,function);
-		parent.addSubscope(ns);
-        //vars.clearLocal();
 	    if (function.name !== null) {
 	      currentFunction = function.name;
         }
+		val FunctionDefScope ns = new FunctionDefScope(parent,function,currentFunction);
+		parent.addSubscope(ns);
         var ArrayList<String> params = new ArrayList<String>();
         for (Expr p:function.params) {
           if (p instanceof VarOrFunction) {
@@ -396,22 +396,26 @@ class EditorGenerator extends AbstractGenerator {
         vars.addFunctionDef(function.name,null,currentFile,bootPkg,params,0);
 	    if (function.st !== null)
 	      setNamespace(ns,precedence,function.st,insideWhere)
-	    if (function.w !== null)
+	    /*if (function.w !== null)
 	      setNamespace(ns,precedence,function.w,insideWhere)
-	    for (PendingWhere pw:pendingWheres) {
-	      var Statement st = pw.getStatement();
-	      setNamespace(ns,precedence,st,WhereState.WritingWhere);
+	    for (NamespaceScope pw:pendingWheres) {
+		  val UseMarkerScope u = new UseMarkerScope(parent,function,currentFunction,pw);
+		  parent.addSubscope(u);
 	    }
 	    pendingWheres.clear();
+	    */
 	    return ns;
 	}
 
     /**
      * FunctionDef
      * top level function definition, inner functions use lambda */
-	def CharSequence compileExports(int indent,int precedence,FunctionDef function,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,FunctionDef function,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «newline(indent)»«
+	    «val NamespaceScope scope =parentScope.getScope(function)»«
+	    if (!(parentScope instanceof FileScope)) System.err.println("compile FunctionDef expects parentScope to be FileScope")»«
+	    if (!(scope instanceof FunctionDefScope)) System.err.println("compile FunctionDef expects scope to be FunctionDefScope")»«
+        newline(indent)»«
 	    IF function.name !== null»«
 	     {currentFunction = function.name;null}»«
 	    ENDIF»«
@@ -421,32 +425,35 @@ class EditorGenerator extends AbstractGenerator {
 	      FOR x:function.params», SExpression«ENDFOR»«
 	    ENDIF») -> SExpression«
 	    IF function.st !== null»«
-	      compileExports(indent,precedence,function.st,insideWhere)»«
+	      compileExports(indent,precedence,function.st,insideWhere,scope)»«
 	    ENDIF»«
 	    IF function.w !== null»«
 	      newline(indent)»«
-	      compileExports(indent,precedence,function.w,insideWhere)»«
+	      compileExports(indent,precedence,function.w,insideWhere,scope)»«
 	    ENDIF»«
-	    FOR PendingWhere pw:pendingWheres»«
-	      compileExports(indent,precedence,pw.getStatement(),WhereState.WritingWhere)»«
+	    FOR NamespaceScope pw:pendingWheres»«
+	      //compileExports(indent,precedence,pw.getEobj(),WhereState.WritingWhere,scope)»«
 	    ENDFOR»«
 	    {pendingWheres.clear();null}»'''
 
     /**
-     * FunctionDef
-     * FunctionDef definition
-    Function:
+     * FunctionDef:
     name=TK_ID fp+=KW_PRIME*
     (
       (KW_OPAREN (params+=Expression (KW_COMMA params+=Expression)*)? KW_CPAREN)
       |  j=TK_ID // support juxtapose
     )
-	((KW_EQ2|m?=KW_MARROW) b=Block)? // function may be abstract
+	((KW_EQ2|m?=KW_MARROW) st=Statement)? // FunctionDef may be abstract
+	
+	(NL w=Where)?
 	* 
 	*/
-	def CharSequence compile(int indent,int precedence,boolean lhs,FunctionDef function,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,FunctionDef function,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «{locals.clear();null}»«
+	    «val NamespaceScope scope =parentScope.getScope(function)»«
+	    if (!(parentScope instanceof FileScope)) System.err.println("compile FunctionDef expects parentScope to be FileScope")»«
+	    if (!(scope instanceof FunctionDefScope)) System.err.println("compile FunctionDef expects scope to be FunctionDefScope")»«
+        {locals.clear();null}»«
 	    IF function.name !== null»«
 	     { currentFunction = function.name;null}»«
 	    ENDIF»«
@@ -454,7 +461,7 @@ class EditorGenerator extends AbstractGenerator {
 	    FOR x:function.fp»'«ENDFOR»(bootEnvir«
 	    IF function.j !== null»«function.j»«ELSE»«
 	      FOR x:function.params»«
-	        »,«compile(indent,precedence,true,x,insideWhere)»«
+	        »,«compile(indent,precedence,true,x,insideWhere,scope)»«
 	      ENDFOR»«
 	    ENDIF»)«
 	    IF function.st !== null»«
@@ -462,15 +469,15 @@ class EditorGenerator extends AbstractGenerator {
 	      FOR String globVar: vars.getReadGlobal(currentFunction)»«
 	        newline(indent+1)»«globVar»=getVar(bootEnvir,"«globVar»")«
 	      ENDFOR»«
-	      compile(indent,precedence,lhs,function.st,insideWhere)»«
+	      compile(indent,precedence,lhs,function.st,insideWhere,scope)»«
 	    ENDIF»«
 	    IF function.w !== null»«
 	      newline(indent)»«
-	      compile(indent,precedence,lhs,function.w,insideWhere)»«
+	      compile(indent,precedence,lhs,function.w,insideWhere,scope)»«
 	    ENDIF»«
 	    newline(indent)»«
 	    FOR LambdaExpression le:pendingLambda»«
-	      compile(indent,precedence,lhs,le,WhereState.WritingWhere)»«
+	      compile(indent,precedence,lhs,le,WhereState.WritingWhere,scope)»«
 	    ENDFOR»«
 	    {pendingLambda.clear();null}»'''
 
@@ -478,7 +485,7 @@ class EditorGenerator extends AbstractGenerator {
     * GlobalVariable
     */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,globalVariable);
+		val NamespaceScope ns = new NamespaceScope(null,globalVariable,null);
 		parent.addSubscope(ns);
       if (globalVariable.name !== null) vars.addGlobal(globalVariable.name);
       return ns;
@@ -488,40 +495,39 @@ class EditorGenerator extends AbstractGenerator {
     * GlobalVariable
     *
     * name=TK_ID KW_ASSIGN e=Expression */
-	def CharSequence compile(int indent,int precedence,boolean lhs,GlobalVariable globalVariable,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,GlobalVariable globalVariable,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF globalVariable.name !== null»«globalVariable.name»«ENDIF» :=«
-	    IF globalVariable.e !== null»«compile(indent,precedence,lhs,globalVariable.e,insideWhere)»«ENDIF»'''
+	    «val NamespaceScope scope =parentScope.getScope(globalVariable)»«
+        IF globalVariable.name !== null»«globalVariable.name»«ENDIF» :=«
+	    IF globalVariable.e !== null»«compile(indent,precedence,lhs,globalVariable.e,insideWhere,scope)»«ENDIF»'''
 
 /*
  * Statement:
  *  ( Comment | Loop  |  WhereExpression  | Where | Do)
  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Statement statement,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(null,statement);
-	  parent.addSubscope(ns);
 	  if (statement instanceof Loop)
-	       setNamespace(ns,precedence,statement as Loop,insideWhere);
+	       return setNamespace(parent,precedence,statement as Loop,insideWhere);
 	  if (statement instanceof Do)
-	       setNamespace(ns,precedence,statement as Do,insideWhere);
+	       return setNamespace(parent,precedence,statement as Do,insideWhere);
       if (statement instanceof Where)
-	       setNamespace(ns,precedence,statement as Where,insideWhere);
+	       return setNamespace(parent,precedence,statement as Where,insideWhere);
 	  if (statement instanceof Expr)
-	       setNamespace(ns,precedence,statement as Expr,insideWhere);
-	  return ns;
+	       return setNamespace(parent,precedence,statement as Expr,insideWhere);
+	  return parent;
     }
 
 /*
  * Statement:
  *  ( Comment | Loop  |  WhereExpression  | Where | Do)
  */
-	def CharSequence compileExports(int indent,int precedence,Statement statement,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,Statement statement,WhereState insideWhere,NamespaceScope parentScope)
         '''
 	    «IF statement instanceof Where»«
-	       compileExports(indent,precedence,statement as Where,insideWhere)»«
+	       compileExports(indent,precedence,statement as Where,insideWhere,parentScope)»«
 	    ENDIF»«
 	    IF statement instanceof Expr»«
-	       compileExports(indent,precedence,statement as Expr,insideWhere)»«
+	       compileExports(indent,precedence,statement as Expr,insideWhere,parentScope)»«
 	    ENDIF»'''
 
 /*
@@ -530,18 +536,18 @@ class EditorGenerator extends AbstractGenerator {
  * 
  * Inside Block newlines are before statements
  */
-  def CharSequence compile(int indent,int precedence,boolean lhs,Statement statement,WhereState insideWhere)
+  def CharSequence compile(int indent,int precedence,boolean lhs,Statement statement,WhereState insideWhere,NamespaceScope parentScope)
     '''
     «IF statement instanceof Comment»«
-      compile(indent,precedence,lhs,statement as Comment,insideWhere)»«ENDIF»«
+      compile(indent,precedence,lhs,statement as Comment,insideWhere,parentScope)»«ENDIF»«
     IF statement instanceof Loop»«
-      compile(indent,precedence,lhs,statement as Loop,insideWhere)»«ENDIF»«
+      compile(indent,precedence,lhs,statement as Loop,insideWhere,parentScope)»«ENDIF»«
     IF statement instanceof Do»«
-      compile(indent,precedence,lhs,statement as Do,insideWhere)»«ENDIF»«
+      compile(indent,precedence,lhs,statement as Do,insideWhere,parentScope)»«ENDIF»«
     IF statement instanceof Where»«
-      compile(indent,precedence,lhs,statement as Where,insideWhere)»«ENDIF»«
+      compile(indent,precedence,lhs,statement as Where,insideWhere,parentScope)»«ENDIF»«
     IF statement instanceof Expr»«
-      compile(indent,precedence,lhs,statement as Expr,insideWhere)»«ENDIF»«
+      compile(indent,precedence,lhs,statement as Expr,insideWhere,parentScope)»«ENDIF»«
     FOR s:pendingStatements»«
       newline(indent+1)»«
       s»«
@@ -559,7 +565,7 @@ class EditorGenerator extends AbstractGenerator {
  *
  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Loop loop,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,loop);
+		val NamespaceScope ns = new NamespaceScope(parent,loop,null);
 	    parent.addSubscope(ns);
         for(LoopCondition x:loop.c) {
           if (x.f !== null)
@@ -584,26 +590,27 @@ class EditorGenerator extends AbstractGenerator {
  * after newline are changed by auto-indent code.
  *
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Loop loop,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Loop loop,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «FOR x:loop.c»«
+	    «val NamespaceScope scope =parentScope.getScope(loop)»«
+        FOR x:loop.c»«
           IF x.f !== null»«
-            »for «IF x.f.e !== null»«compile(indent,0,lhs,x.f.e,insideWhere)» «ENDIF»«
+            »for «IF x.f.e !== null»«compile(indent,0,lhs,x.f.e,insideWhere,scope)» «ENDIF»«
           ENDIF»«
           IF x.w !== null»«
-            »while «IF x.w.e !== null»«compile(indent,0,lhs,x.w.e,insideWhere)»«
+            »while «IF x.w.e !== null»«compile(indent,0,lhs,x.w.e,insideWhere,scope)»«
               IF x.w.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
           IF x.u !== null»«
-            »until «IF x.u.e !== null»«compile(indent,0,lhs,x.u.e,insideWhere)»«
+            »until «IF x.u.e !== null»«compile(indent,0,lhs,x.u.e,insideWhere,scope)»«
               IF x.u.n»«newline(indent)» «ELSE» «ENDIF»«
             ENDIF»«
           ENDIF»«
         ENDFOR»«
-        IF loop.e !== null»|«compile(indent,0,lhs,loop.e,insideWhere)» «ENDIF»repeat «
+        IF loop.e !== null»|«compile(indent,0,lhs,loop.e,insideWhere,scope)» «ENDIF»repeat «
         IF loop.b !== null»«
-          compile(indent,precedence,lhs,loop.b,insideWhere)»«
+          compile(indent,precedence,lhs,loop.b,insideWhere,scope)»«
         ENDIF»'''
 
 /*
@@ -611,7 +618,7 @@ class EditorGenerator extends AbstractGenerator {
  * 'do' b=Block
  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Do do1,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,do1);
+		val NamespaceScope ns = new NamespaceScope(parent,do1,null);
 	    parent.addSubscope(ns);
         if (do1.e !== null) setNamespace(ns,0,do1.e,insideWhere);
         return ns;
@@ -621,80 +628,86 @@ class EditorGenerator extends AbstractGenerator {
  * Do:
  * 'do' b=Block
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Do do1,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Do do1,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        do «IF do1.e !== null»«compile(indent,0,lhs,do1.e,insideWhere)»«ENDIF»'''
+        «val NamespaceScope scope =parentScope.getScope(do1)
+        »do «IF do1.e !== null»«compile(indent,0,lhs,do1.e,insideWhere,scope)»«ENDIF»'''
 
     /**
-     * Where */
+     * Where
+     * 
+     * The namespace in the 'Where' is in its original position
+     * but we also want to move the code outside the function.
+     */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Where where,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,where);
+	  val NamespaceScope ns = new NamespaceScope(null,where,null);
 	  parent.addSubscope(ns);
-	    if ((where.b !== null)&& insideWhere != WhereState.WritingWhere) pendingWheres.add(new PendingWhere(currentFile,1,where.b))
-	    return ns;
+	  if (where.b !== null) {
+	  	//var NamespaceScope whereNamespace = setNamespace(ns,0,where.b,insideWhere);
+	  	//if (insideWhere != WhereState.WritingWhere) pendingWheres.add(whereNamespace)
+	  }
+	  return ns;
     }
 
     /**
      * Where */
-	def CharSequence compileExports(int indent,int precedence,Where where,WhereState insideWhere) {
-	    if ((where.b !== null)&& insideWhere != WhereState.WritingWhere) pendingWheres.add(new PendingWhere(currentFile,1,where.b))
+	def CharSequence compileExports(int indent,int precedence,Where where,WhereState insideWhere,NamespaceScope parentScope) {
+	    if ((where.b !== null)&& insideWhere != WhereState.WritingWhere) pendingWheres.add(new UseMarkerScope(parentScope,where,null,parentScope))
         return "";
         }
 /*
  * Where:
  * 'where' b=Block
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Where where,WhereState insideWhere)
-        ''' where «IF (where.b !== null) && insideWhere != WhereState.WritingWhere»«
-        compile(indent,precedence,lhs,where.b,WhereState.ReadingWhere)»«
+	def CharSequence compile(int indent,int precedence,boolean lhs,Where where,WhereState insideWhere,NamespaceScope parentScope)
+        '''
+        «val NamespaceScope scope =parentScope.getScope(where)»where «
+        IF (where.b !== null) && insideWhere != WhereState.WritingWhere»«
+        compile(indent,precedence,lhs,where.b,WhereState.ReadingWhere,scope)»«
         ENDIF»'''
 
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expr expr,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,expr);
-	    parent.addSubscope(ns);
-        if (expr instanceof WhereExpression) setNamespace(ns,precedence,expr as WhereExpression,insideWhere);
-	    if (expr instanceof IfExpression) setNamespace(ns,precedence,expr as IfExpression,insideWhere);
-	    if (expr instanceof Expression) setNamespace(ns,precedence,expr as Expression,insideWhere);
-	    if (expr instanceof OrExpression) setNamespace(ns,precedence,expr as OrExpression,insideWhere);
-	    if (expr instanceof AndExpression) setNamespace(ns,precedence,expr as AndExpression,insideWhere);
-	    if (expr instanceof EqualityExpression) setNamespace(ns,precedence,expr as EqualityExpression,insideWhere);
-	    if (expr instanceof RelationalExpression) setNamespace(ns,precedence,expr as RelationalExpression,insideWhere);
-	    if (expr instanceof IsExpression) setNamespace(ns,precedence,expr as IsExpression,insideWhere);
-	    if (expr instanceof InExpression) setNamespace(ns,precedence,expr as InExpression,insideWhere);
-        if (expr instanceof SegmentExpression) setNamespace(ns,precedence,expr as SegmentExpression,insideWhere);
-        if (expr instanceof AdditiveExpression) setNamespace(ns,precedence,expr as AdditiveExpression,insideWhere);
-        if (expr instanceof ExquoExpression) setNamespace(ns,precedence,expr as ExquoExpression,insideWhere);
-        if (expr instanceof DivisionExpression) setNamespace(ns,precedence,expr as DivisionExpression,insideWhere);
-        if (expr instanceof QuoExpression) setNamespace(ns,precedence,expr as QuoExpression,insideWhere);
-        if (expr instanceof ModExpression) setNamespace(ns,precedence,expr as ModExpression,insideWhere);
-        if (expr instanceof RemExpression) setNamespace(ns,precedence,expr as RemExpression,insideWhere);
-        if (expr instanceof MultiplicativeExpression) setNamespace(ns,precedence,expr as MultiplicativeExpression,insideWhere);
-        if (expr instanceof ExponentExpression) setNamespace(ns,precedence,expr as ExponentExpression,insideWhere);
-        if (expr instanceof MapExpression) setNamespace(ns,precedence,expr as MapExpression,insideWhere);
-	    if (expr instanceof LambdaExpression) setNamespace(ns,precedence,expr as LambdaExpression,insideWhere);
-	    if (expr instanceof AssignExpression) setNamespace(ns,precedence,expr as AssignExpression,insideWhere);
-	    if (expr instanceof ExitExpression) setNamespace(ns,precedence,expr as ExitExpression,insideWhere);
-        if (expr instanceof EltExpression) setNamespace(ns,precedence,expr as EltExpression,insideWhere);
-        if (expr instanceof UnaryExpression) setNamespace(ns,precedence,expr as UnaryExpression,insideWhere);
-	    if (expr instanceof VarOrFunction) setNamespace(ns,precedence,expr as VarOrFunction,insideWhere);
-//        if (expr instanceof Tuple) setNamespace(ns,precedence,expr as Tuple,insideWhere);
-	    if (expr instanceof Block) setNamespace(ns,precedence,expr as Block,insideWhere);
-//        if (expr instanceof Literal) setNamespace(ns,precedence,expr as Literal,insideWhere);
-        if (expr.b1 !== null) setNamespace(ns,precedence,expr.b1,insideWhere);
-        if (expr.b2 !== null) setNamespace(ns,precedence,expr.b2,insideWhere);
-        if (expr.b2i !== null) setNamespace(ns,precedence,expr.b2i,insideWhere);
-        if (expr.b3 !== null) setNamespace(ns,precedence,expr.b3,insideWhere);
-        return ns;
+        if (expr instanceof WhereExpression) return setNamespace(parent,precedence,expr as WhereExpression,insideWhere);
+	    if (expr instanceof IfExpression) return setNamespace(parent,precedence,expr as IfExpression,insideWhere);
+	    if (expr instanceof Expression) return setNamespace(parent,precedence,expr as Expression,insideWhere);
+	    if (expr instanceof OrExpression) return setNamespace(parent,precedence,expr as OrExpression,insideWhere);
+	    if (expr instanceof AndExpression) return setNamespace(parent,precedence,expr as AndExpression,insideWhere);
+	    if (expr instanceof EqualityExpression) return setNamespace(parent,precedence,expr as EqualityExpression,insideWhere);
+	    if (expr instanceof RelationalExpression) return setNamespace(parent,precedence,expr as RelationalExpression,insideWhere);
+	    if (expr instanceof IsExpression) return setNamespace(parent,precedence,expr as IsExpression,insideWhere);
+	    if (expr instanceof InExpression) return setNamespace(parent,precedence,expr as InExpression,insideWhere);
+        if (expr instanceof SegmentExpression) return setNamespace(parent,precedence,expr as SegmentExpression,insideWhere);
+        if (expr instanceof AdditiveExpression) return setNamespace(parent,precedence,expr as AdditiveExpression,insideWhere);
+        if (expr instanceof ExquoExpression) return setNamespace(parent,precedence,expr as ExquoExpression,insideWhere);
+        if (expr instanceof DivisionExpression) return setNamespace(parent,precedence,expr as DivisionExpression,insideWhere);
+        if (expr instanceof QuoExpression) return setNamespace(parent,precedence,expr as QuoExpression,insideWhere);
+        if (expr instanceof ModExpression) return setNamespace(parent,precedence,expr as ModExpression,insideWhere);
+        if (expr instanceof RemExpression) return setNamespace(parent,precedence,expr as RemExpression,insideWhere);
+        if (expr instanceof MultiplicativeExpression) return setNamespace(parent,precedence,expr as MultiplicativeExpression,insideWhere);
+        if (expr instanceof ExponentExpression) return setNamespace(parent,precedence,expr as ExponentExpression,insideWhere);
+        if (expr instanceof MapExpression) return setNamespace(parent,precedence,expr as MapExpression,insideWhere);
+	    if (expr instanceof LambdaExpression) return setNamespace(parent,precedence,expr as LambdaExpression,insideWhere);
+	    if (expr instanceof AssignExpression) return setNamespace(parent,precedence,expr as AssignExpression,insideWhere);
+	    if (expr instanceof ExitExpression) return setNamespace(parent,precedence,expr as ExitExpression,insideWhere);
+        if (expr instanceof EltExpression) return setNamespace(parent,precedence,expr as EltExpression,insideWhere);
+        if (expr instanceof UnaryExpression) return setNamespace(parent,precedence,expr as UnaryExpression,insideWhere);
+	    if (expr instanceof VarOrFunction) return setNamespace(parent,precedence,expr as VarOrFunction,insideWhere);
+	    if (expr instanceof Block) return setNamespace(parent,precedence,expr as Block,insideWhere);
+        if (expr.b1 !== null) return setNamespace(parent,precedence,expr.b1,insideWhere);
+        if (expr.b2 !== null) return setNamespace(parent,precedence,expr.b2,insideWhere);
+        if (expr.b2i !== null) return setNamespace(parent,precedence,expr.b2i,insideWhere);
+        if (expr.b3 !== null) return setNamespace(parent,precedence,expr.b3,insideWhere);
+        return new NullScope(null,null,null);
     }
 
-	def CharSequence compileExports(int indent,int precedence,Expr expr,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,Expr expr,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF expr instanceof WhereExpression»«compileExports(indent,precedence,expr as WhereExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof VarOrFunction»«compileExports(indent,precedence,expr as VarOrFunction,insideWhere)»«ENDIF»«
-	    IF expr instanceof AssignExpression»«compileExports(indent,precedence,expr as AssignExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof LambdaExpression»«compileExports(indent,precedence,expr as LambdaExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof ExitExpression»«compileExports(indent,precedence,expr as ExitExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof Block»«compileExports(indent,precedence,expr as Block,insideWhere)»«ENDIF»'''
+	    «IF expr instanceof WhereExpression»«compileExports(indent,precedence,expr as WhereExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compileExports(indent,precedence,expr as VarOrFunction,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof AssignExpression»«compileExports(indent,precedence,expr as AssignExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof LambdaExpression»«compileExports(indent,precedence,expr as LambdaExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof ExitExpression»«compileExports(indent,precedence,expr as ExitExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof Block»«compileExports(indent,precedence,expr as Block,insideWhere,parentScope)»«ENDIF»'''
 
 /* Expr holds both Expression and WhereExpression
  * 
@@ -734,62 +747,64 @@ PrimaryExpression returns Expr:
   * from PrimaryExpression - indent:
   * b=true
   */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Expr expr,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Expr expr,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF expr instanceof WhereExpression»«compile(indent,precedence,lhs,expr as WhereExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof IfExpression»«compile(indent,precedence,lhs,expr as IfExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof Expression»«compile(indent,precedence,lhs,expr as Expression,insideWhere)»«ENDIF»«
-	    IF expr instanceof OrExpression»«compile(indent,precedence,lhs,expr as OrExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof AndExpression»«compile(indent,precedence,lhs,expr as AndExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof EqualityExpression»«compile(indent,precedence,lhs,expr as EqualityExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof RelationalExpression»«compile(indent,precedence,lhs,expr as RelationalExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof IsExpression»«compile(indent,precedence,lhs,expr as IsExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof InExpression»«compile(indent,precedence,lhs,expr as InExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof SegmentExpression»«compile(indent,precedence,lhs,expr as SegmentExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof AdditiveExpression»«compile(indent,precedence,lhs,expr as AdditiveExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof ExquoExpression»«compile(indent,precedence,lhs,expr as ExquoExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof DivisionExpression»«compile(indent,precedence,lhs,expr as DivisionExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof QuoExpression»«compile(indent,precedence,lhs,expr as QuoExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof ModExpression»«compile(indent,precedence,lhs,expr as ModExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof RemExpression»«compile(indent,precedence,lhs,expr as RemExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof MultiplicativeExpression»«compile(indent,precedence,lhs,expr as MultiplicativeExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof ExponentExpression»«compile(indent,precedence,lhs,expr as ExponentExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof MapExpression»«compile(indent,precedence,lhs,expr as MapExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof LambdaExpression»«compile(indent,precedence,lhs,expr as LambdaExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof AssignExpression»«compile(indent,precedence,lhs,expr as AssignExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof ExitExpression»«compile(indent,precedence,lhs,expr as ExitExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof EltExpression»«compile(indent,precedence,lhs,expr as EltExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof UnaryExpression»«compile(indent,precedence,lhs,expr as UnaryExpression,insideWhere)»«ENDIF»«
-	    IF expr instanceof VarOrFunction»«compile(indent,precedence,lhs,expr as VarOrFunction,insideWhere)»«ENDIF»«
-	    IF expr instanceof Tuple»«compile(indent,precedence,lhs,expr as Tuple,insideWhere)»«ENDIF»«
-	    IF expr instanceof Block»«compile(indent,precedence,lhs,expr as Block,insideWhere)»«ENDIF»«
-	    IF expr instanceof Literal»«compile(indent,precedence,lhs,expr as Literal,insideWhere)»«ENDIF»«
+	    «IF expr instanceof WhereExpression»«compile(indent,precedence,lhs,expr as WhereExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof IfExpression»«compile(indent,precedence,lhs,expr as IfExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof Expression»«compile(indent,precedence,lhs,expr as Expression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof OrExpression»«compile(indent,precedence,lhs,expr as OrExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof AndExpression»«compile(indent,precedence,lhs,expr as AndExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof EqualityExpression»«compile(indent,precedence,lhs,expr as EqualityExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof RelationalExpression»«compile(indent,precedence,lhs,expr as RelationalExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof IsExpression»«compile(indent,precedence,lhs,expr as IsExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof InExpression»«compile(indent,precedence,lhs,expr as InExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof SegmentExpression»«compile(indent,precedence,lhs,expr as SegmentExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof AdditiveExpression»«compile(indent,precedence,lhs,expr as AdditiveExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof ExquoExpression»«compile(indent,precedence,lhs,expr as ExquoExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof DivisionExpression»«compile(indent,precedence,lhs,expr as DivisionExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof QuoExpression»«compile(indent,precedence,lhs,expr as QuoExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof ModExpression»«compile(indent,precedence,lhs,expr as ModExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof RemExpression»«compile(indent,precedence,lhs,expr as RemExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof MultiplicativeExpression»«compile(indent,precedence,lhs,expr as MultiplicativeExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof ExponentExpression»«compile(indent,precedence,lhs,expr as ExponentExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof MapExpression»«compile(indent,precedence,lhs,expr as MapExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof LambdaExpression»«compile(indent,precedence,lhs,expr as LambdaExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof AssignExpression»«compile(indent,precedence,lhs,expr as AssignExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof ExitExpression»«compile(indent,precedence,lhs,expr as ExitExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof EltExpression»«compile(indent,precedence,lhs,expr as EltExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof UnaryExpression»«compile(indent,precedence,lhs,expr as UnaryExpression,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof VarOrFunction»«compile(indent,precedence,lhs,expr as VarOrFunction,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof Tuple»«compile(indent,precedence,lhs,expr as Tuple,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof Block»«compile(indent,precedence,lhs,expr as Block,insideWhere,parentScope)»«ENDIF»«
+	    IF expr instanceof Literal»«compile(indent,precedence,lhs,expr as Literal,insideWhere,parentScope)»«ENDIF»«
 	    IF expr.b1 !== null»if «
-	      compile(indent,precedence,lhs,expr.b1,insideWhere)»«
+	      compile(indent,precedence,lhs,expr.b1,insideWhere,parentScope)»«
 	      IF expr.n1»«newline(indent)»«ELSE» «ENDIF»«
 	    ENDIF»«
 	    IF expr.b2 !== null»then «
-	      compile(indent,precedence,lhs,expr.b2,insideWhere)» «
+	      compile(indent,precedence,lhs,expr.b2,insideWhere,parentScope)» «
 	    ENDIF»«
 	    IF expr.b2i !== null»then «
-	      compile(indent,precedence,lhs,expr.b2i,insideWhere)»«
+	      compile(indent,precedence,lhs,expr.b2i,insideWhere,parentScope)»«
 	      IF expr.n2»«newline(indent)»«ELSE» «ENDIF»«
 	    ENDIF»«
 	    IF expr.b3 !== null»else «
-	      compile(indent,precedence,lhs,expr.b3,insideWhere)»«ENDIF»'''
+	      compile(indent,precedence,lhs,expr.b3,insideWhere,parentScope)»«ENDIF»'''
 
+    /** WhereExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,WhereExpression whereExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,whereExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,whereExpression,null);
 	  parent.addSubscope(ns);
       if (whereExpression.left !== null) setNamespace(ns,1,whereExpression.left,insideWhere);
 	  if (whereExpression.w !== null) setNamespace(ns,1,whereExpression.w,insideWhere);
 	  return ns;
     }
 
-	def CharSequence compileExports(int indent,int precedence,WhereExpression whereExpression,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,WhereExpression whereExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF whereExpression.left !== null»«compileExports(indent,1,whereExpression.left,insideWhere)»«ENDIF»«
-	    IF whereExpression.w !== null» «compileExports(indent,1,whereExpression.w,insideWhere)» «ENDIF»'''
+	    «val NamespaceScope scope =parentScope.getScope(whereExpression)»«
+        IF whereExpression.left !== null»«compileExports(indent,1,whereExpression.left,insideWhere,scope)»«ENDIF»«
+	    IF whereExpression.w !== null» «compileExports(indent,1,whereExpression.w,insideWhere,scope)» «ENDIF»'''
 
 /* WhereExpression returns Expr:
 	(Expression ({WhereExpression.left=current} w=Where?))
@@ -804,10 +819,11 @@ PrimaryExpression returns Expr:
         )	
 	)
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,WhereExpression whereExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,WhereExpression whereExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF whereExpression.left !== null»«compile(indent,1,lhs,whereExpression.left,insideWhere)»«ENDIF»«
-	    IF whereExpression.w !== null» «compile(indent,1,lhs,whereExpression.w,insideWhere)» «ENDIF»'''
+	    «val NamespaceScope scope =parentScope.getScope(whereExpression)»«
+        IF whereExpression.left !== null»«compile(indent,1,lhs,whereExpression.left,insideWhere,scope)»«ENDIF»«
+	    IF whereExpression.w !== null» «compile(indent,1,lhs,whereExpression.w,insideWhere,scope)» «ENDIF»'''
 
     /**
      * IfExpression 
@@ -817,7 +833,7 @@ PrimaryExpression returns Expr:
      * ({IfExpression} KW_AT 'if' i1=Expression 'then' i2=Statement NL? ('else' i3=Statement NL?)? KW_AT)
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IfExpression ifExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,ifExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,ifExpression,null);
 	  parent.addSubscope(ns);
       if(ifExpression.i1 !== null) setNamespace(ns,0,ifExpression.i1,insideWhere);
       if(ifExpression.i2 !== null) setNamespace(ns,0,ifExpression.i2,insideWhere);
@@ -832,13 +848,14 @@ PrimaryExpression returns Expr:
      * |
      * ({IfExpression} KW_AT 'if' i1=Expression 'then' i2=Statement NL? ('else' i3=Statement NL?)? KW_AT)
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,IfExpression ifExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,IfExpression ifExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «IF ifExpression.i1 !== null»if «compile(indent,0,lhs,ifExpression.i1,insideWhere)» «ENDIF»«
-        IF ifExpression.i2 !== null»then «compile(indent,0,lhs,ifExpression.i2,insideWhere)» «ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(ifExpression)»«
+        IF ifExpression.i1 !== null»if «compile(indent,0,lhs,ifExpression.i1,insideWhere,scope)» «ENDIF»«
+        IF ifExpression.i2 !== null»then «compile(indent,0,lhs,ifExpression.i2,insideWhere,scope)» «ENDIF»«
         IF ifExpression.i3 !== null»«
           newline(indent)»else «
-          compile(indent,0,lhs,ifExpression.i3,insideWhere)» «
+          compile(indent,0,lhs,ifExpression.i3,insideWhere,scope)» «
         ENDIF»'''
 
 /* Expression
@@ -846,7 +863,7 @@ PrimaryExpression returns Expr:
  * combines statements using semicolon
  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expression expression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,expression);
+	  val NamespaceScope ns = new NamespaceScope(parent,expression,null);
 	  parent.addSubscope(ns);
 	  if(expression.left !== null) setNamespace(ns,8,expression.left,insideWhere);
 	  if(expression.right !== null) setNamespace(ns,8,expression.right,insideWhere);
@@ -858,25 +875,28 @@ PrimaryExpression returns Expr:
  * This is top of expression tree except for WhereExpression
  * combines statements using semicolon
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Expression expression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Expression expression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(8,precedence)»«
-	    IF expression.left !== null»«compile(indent,8,lhs,expression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(expression)»«
+        cop(8,precedence)»«
+	    IF expression.left !== null»«compile(indent,8,lhs,expression.left,insideWhere,scope)»«ENDIF»«
 	    IF expression.op !== null» «expression.op» «ENDIF»«
-	    IF expression.right !== null»«compile(indent,8,lhs,expression.right,insideWhere)»«ENDIF»«
-	    IF expression.right2 !== null»«compile(indent,8,lhs,expression.right2,insideWhere)»«ENDIF»«
+	    IF expression.right !== null»«compile(indent,8,lhs,expression.right,insideWhere,scope)»«ENDIF»«
+	    IF expression.right2 !== null»«compile(indent,8,lhs,expression.right2,insideWhere,scope)»«ENDIF»«
 	    ccp(8,precedence)»'''
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,MapExpression mapExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,MapExpression mapExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(10,precedence)»«
-	    IF mapExpression.left !== null»«compile(indent,10,lhs,mapExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(mapExpression)»«
+        cop(10,precedence)»«
+	    IF mapExpression.left !== null»«compile(indent,10,lhs,mapExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF mapExpression.op !== null» «mapExpression.op» «ENDIF»«
-	    IF mapExpression.right !== null»«compile(indent,10,lhs,mapExpression.right,insideWhere)»«ENDIF»«
+	    IF mapExpression.right !== null»«compile(indent,10,lhs,mapExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(10,precedence)»'''
 
+    /** LambdaExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LambdaExpression lambdaExpression,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,lambdaExpression);
+		val NamespaceScope ns = new NamespaceScope(parent,lambdaExpression,null);
 	    parent.addSubscope(ns);
         var VarOrFunction v =null;
         var fnName="";
@@ -890,9 +910,10 @@ PrimaryExpression returns Expr:
         return ns;
     }
 
-	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «var VarOrFunction v =null»«
+	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
+        var VarOrFunction v =null»«
         var fnName=""»«
         IF lambdaExpression.left !== null»«
           IF lambdaExpression.left instanceof VarOrFunction»«
@@ -906,40 +927,42 @@ PrimaryExpression returns Expr:
             fnName»«
             IF v.expr !== null»«
               IF v.expr instanceof Tuple»«
-                compile(indent,10,false,(v.expr as Tuple),insideWhere)»«
+                compile(indent,10,false,(v.expr as Tuple),insideWhere,scope)»«
               ENDIF»«
             ENDIF»«
           ENDIF»«
         ENDIF»'''
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere) {
+	def CharSequence compile(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere,NamespaceScope parentScope) {
 	  switch insideWhere {
-	  	case NotWhere : return compileNotInside(indent,precedence,lhs,lambdaExpression,insideWhere)
-	  	case ReadingWhere : return compileRead(indent,precedence,lhs,lambdaExpression,insideWhere)
-	  	case WritingWhere : return compileWrite(indent,precedence,lhs,lambdaExpression,insideWhere)
+	  	case NotWhere : return compileNotInside(indent,precedence,lhs,lambdaExpression,insideWhere,parentScope)
+	  	case ReadingWhere : return compileRead(indent,precedence,lhs,lambdaExpression,insideWhere,parentScope)
+	  	case WritingWhere : return compileWrite(indent,precedence,lhs,lambdaExpression,insideWhere,parentScope)
 	  }
 	  return "";
     }
     
-	def CharSequence compileNotInside(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere)
+	def CharSequence compileNotInside(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(12,precedence)»«
-	    IF lambdaExpression.left !== null»«compile(indent,12,lhs,lambdaExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
+        cop(12,precedence)»«
+	    IF lambdaExpression.left !== null»«compile(indent,12,lhs,lambdaExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF lambdaExpression.op !== null» +-> «ENDIF»«
-	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere)»«ENDIF»«
+	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(12,precedence)»'''
 
-	def CharSequence compileRead(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere) {
+	def CharSequence compileRead(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere,NamespaceScope parentScope) {
 		pendingLambda.add(lambdaExpression);
 		return "";
 	}
 
-	def CharSequence compileWrite(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere)
+	def CharSequence compileWrite(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,WhereState insideWhere,NamespaceScope parentScope)
 		'''
-		«newline(indent)»«
-	    IF lambdaExpression.left !== null»«currentFunction»«compile(indent,12,lhs,lambdaExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
+        newline(indent)»«
+	    IF lambdaExpression.left !== null»«currentFunction»«compile(indent,12,lhs,lambdaExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF lambdaExpression.op !== null» == «ENDIF»«
-	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere)»«ENDIF»«
+	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,insideWhere,scope)»«ENDIF»«
 		newline(indent)»'''
 
 /* ExitExpression
@@ -948,7 +971,7 @@ PrimaryExpression returns Expr:
  * Handles exit like: '=>' expr1 ';' expr2
  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExitExpression exitExpression,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,exitExpression);
+		val NamespaceScope ns = new NamespaceScope(parent,exitExpression,null);
 	    parent.addSubscope(ns);
         if (exitExpression.left !== null) setNamespace(ns,14,exitExpression.left,insideWhere);
 	    if (exitExpression.right !== null) setNamespace(ns,14,exitExpression.right,insideWhere);
@@ -960,28 +983,30 @@ PrimaryExpression returns Expr:
  * This is top of expression tree except for WhereExpression
  * Handles exit like: '=>' expr1 ';' expr2
  */
-	def CharSequence compileExports(int indent,int precedence,ExitExpression exitExpression,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,ExitExpression exitExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «IF exitExpression.left !== null»«compileExports(indent,14,exitExpression.left,insideWhere)»«ENDIF»«
-	    IF exitExpression.right !== null»«compileExports(indent,14,exitExpression.right,insideWhere)»«ENDIF»'''
+	    «val NamespaceScope scope =parentScope.getScope(exitExpression)»«
+        IF exitExpression.left !== null»«compileExports(indent,14,exitExpression.left,insideWhere,scope)»«ENDIF»«
+	    IF exitExpression.right !== null»«compileExports(indent,14,exitExpression.right,insideWhere,scope)»«ENDIF»'''
 
 /* ExitExpression
  * 
  * This is top of expression tree except for WhereExpression
  * Handles exit like: '=>' expr1 ';' expr2
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,ExitExpression exitExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ExitExpression exitExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «cop(14,precedence)»«
-	    IF exitExpression.left !== null»«compile(indent,14,lhs,exitExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(exitExpression)»«
+        cop(14,precedence)»«
+	    IF exitExpression.left !== null»«compile(indent,14,lhs,exitExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF exitExpression.op !== null» «exitExpression.op» «ENDIF»«
-	    IF exitExpression.right !== null»«compile(indent,14,lhs,exitExpression.right,insideWhere)»«ENDIF»«
+	    IF exitExpression.right !== null»«compile(indent,14,lhs,exitExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(14,precedence)»'''
 
     /**
      * AssignExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AssignExpression assignExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,assignExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,assignExpression,null);
 	  parent.addSubscope(ns);
       if (assignExpression.left !== null) {
           if (assignExpression.left instanceof VarOrFunction) {
@@ -1006,49 +1031,53 @@ PrimaryExpression returns Expr:
 
     /**
      * AssignExpression */
-	def CharSequence compileExports(int indent,int precedence,AssignExpression assignExpression,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,AssignExpression assignExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF assignExpression.left !== null»«
-	      compileExports(indent,16,assignExpression.left,insideWhere)»«
+	    «val NamespaceScope scope =parentScope.getScope(assignExpression)»«
+        IF assignExpression.left !== null»«
+	      compileExports(indent,16,assignExpression.left,insideWhere,scope)»«
 	    ENDIF»«
 	    IF assignExpression.right !== null»«
-	      compileExports(indent,16,assignExpression.right,insideWhere)»«
+	      compileExports(indent,16,assignExpression.right,insideWhere,scope)»«
 	    ENDIF»'''
 
     /**
      * AssignExpression */
-	def CharSequence compile(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere) {
+	def CharSequence compile(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere,NamespaceScope parentScope) {
+		val NamespaceScope scope =parentScope.getScope(assignExpression);
 	    if (insideWhere!=WhereState.NotWhere) {return 
           '''
-          «IF assignExpression.left !== null»«compile(indent,16,lhs,assignExpression.left,insideWhere)» := «ENDIF»«
-          IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»'''
+          «IF assignExpression.left !== null»«compile(indent,16,lhs,assignExpression.left,insideWhere,scope)» := «ENDIF»«
+          IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere,scope)»«ENDIF»'''
         }
 	    if (assignExpression.left !== null) {
 	      if (assignExpression.left instanceof VarOrFunction)
-	        return compileAssignSingle(indent,precedence,lhs,assignExpression,insideWhere);
+	        return compileAssignSingle(indent,precedence,lhs,assignExpression,insideWhere,parentScope);
 	      if (assignExpression.left instanceof ListLiteral)
-	        return compileAssignList(indent,precedence,lhs,assignExpression,insideWhere);
+	        return compileAssignList(indent,precedence,lhs,assignExpression,insideWhere,parentScope);
 	      if (assignExpression.left instanceof AssignExpression)
-	        return compileAssignAsign(indent,precedence,lhs,assignExpression,insideWhere);
+	        return compileAssignAsign(indent,precedence,lhs,assignExpression,insideWhere,parentScope);
 	    }
-	    return " error cannot assign this"
+	    return " error cannot assign this:"+assignExpression
     }
 
    /**
     * nested AssignExpression 
     */
-	def CharSequence compileAssignAsign(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere) '''
-	    «cop(16,precedence)»«
-	    compile(indent,16,true,assignExpression.left as AssignExpression,insideWhere)»«
+	def CharSequence compileAssignAsign(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere,NamespaceScope parentScope) '''
+	    «val NamespaceScope scope =parentScope.getScope(assignExpression)»«
+        cop(16,precedence)»«
+	    compile(indent,16,true,assignExpression.left as AssignExpression,insideWhere,scope)»«
 	    IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
-	    IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
+	    IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere,scope)»«ENDIF»«
 	    cop(16,precedence)»'''
 	    
     /**
      * AssignExpression 
      * where left is a single variable */
-	def CharSequence compileAssignSingle(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere) '''
-	    «cop(16,precedence)»«
+	def CharSequence compileAssignSingle(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere,NamespaceScope parentScope) '''
+	    «val NamespaceScope scope =parentScope.getScope(assignExpression)»«
+        cop(16,precedence)»«
 	    var String nam="unknown"»«
 	    var boolean dynamic=false»«
 	    var VarOrFunction v»«
@@ -1057,21 +1086,22 @@ PrimaryExpression returns Expr:
 	    if (v.expr instanceof UnaryExpression) dynamic= (v.expr as UnaryExpression).loc;
 	    null}»«
 	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
-	      compile(indent,16,lhs,assignExpression.left,insideWhere)» := «
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»)«
+	      compile(indent,16,lhs,assignExpression.left,insideWhere,scope)» := «
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere,scope)»«ENDIF»)«
         ELSE»«
-	      compile(indent,16,true,assignExpression.left,insideWhere)»«
+	      compile(indent,16,true,assignExpression.left,insideWhere,scope)»«
 	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
+	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere,scope)»«ENDIF»«
         ENDIF»«
 	    cop(16,precedence)»'''
 
     /**
      * AssignExpression
      * where left is a list containing variables */
-	def CharSequence compileAssignList(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere)
+	def CharSequence compileAssignList(int indent,int precedence,boolean lhs,AssignExpression assignExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(16,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(assignExpression)»«
+        cop(16,precedence)»«
 	    var ListLiteral ll»«
 	    var ListTree lt»«
 	    var String listName = "listTree"»«
@@ -1080,7 +1110,7 @@ PrimaryExpression returns Expr:
 	     null;
 	    }»«
 	    »listTree:SExpression := «
-	    IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere)»«ENDIF»«
+	    IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,insideWhere,scope)»«ENDIF»«
 	    FOR x:lt.output(listName,":SExpression")»«
 	      newline(indent)»«x»«
 	    ENDFOR»«
@@ -1089,7 +1119,7 @@ PrimaryExpression returns Expr:
     /**
      * OrExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,OrExpression orExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,orExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,orExpression,null);
 	  parent.addSubscope(ns);
 	  if(orExpression.left !== null) setNamespace(ns,18,orExpression.left,insideWhere);
 	  if(orExpression.right !== null) setNamespace(ns,18,orExpression.right,insideWhere);
@@ -1098,18 +1128,19 @@ PrimaryExpression returns Expr:
 
     /**
      * OrExpression */
-	def CharSequence compile(int indent,int precedence,boolean lhs,OrExpression orExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,OrExpression orExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(18,precedence)»«
-	    IF orExpression.left !== null»«compile(indent,18,lhs,orExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(orExpression)»«
+        cop(18,precedence)»«
+	    IF orExpression.left !== null»«compile(indent,18,lhs,orExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF orExpression.op !== null» «orExpression.op» «ENDIF»«
-	    IF orExpression.right !== null»«compile(indent,18,lhs,orExpression.right,insideWhere)»«ENDIF»«
+	    IF orExpression.right !== null»«compile(indent,18,lhs,orExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(18,precedence)»'''
 
     /**
      * AndExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AndExpression andExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,andExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,andExpression,null);
 	  parent.addSubscope(ns);
 	  if(andExpression.left !== null) setNamespace(ns,20,andExpression.left,insideWhere);
 	  if(andExpression.right !== null) setNamespace(ns,20,andExpression.right,insideWhere);
@@ -1118,54 +1149,57 @@ PrimaryExpression returns Expr:
 
     /**
      * AndExpression */
-	def CharSequence compile(int indent,int precedence,boolean lhs,AndExpression andExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,AndExpression andExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(20,precedence)»«
-	    IF andExpression.left !== null»«compile(indent,20,lhs,andExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(andExpression)»«
+        cop(20,precedence)»«
+	    IF andExpression.left !== null»«compile(indent,20,lhs,andExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF andExpression.op !== null» «andExpression.op» «ENDIF»«
-	    IF andExpression.right !== null»«compile(indent,20,lhs,andExpression.right,insideWhere)»«ENDIF»«
+	    IF andExpression.right !== null»«compile(indent,20,lhs,andExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(20,precedence)»'''
 
     /**
      * EqualityExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EqualityExpression equalityExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,equalityExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,equalityExpression,null);
 	  parent.addSubscope(ns);
 	  if(equalityExpression.left !== null) setNamespace(ns,20,equalityExpression.left,insideWhere);
 	  if(equalityExpression.right !== null) setNamespace(ns,20,equalityExpression.right,insideWhere);
 	  return ns;
 	}
 
- 	def CharSequence compile(int indent,int precedence,boolean lhs,EqualityExpression equalityExpression,WhereState insideWhere)
+ 	def CharSequence compile(int indent,int precedence,boolean lhs,EqualityExpression equalityExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(22,precedence)»«
-	    IF equalityExpression.left !== null»«compile(indent,22,lhs,equalityExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(equalityExpression)»«
+        cop(22,precedence)»«
+	    IF equalityExpression.left !== null»«compile(indent,22,lhs,equalityExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF equalityExpression.op !== null» «equalityExpression.op» «ENDIF»«
-	    IF equalityExpression.right !== null»«compile(indent,22,lhs,equalityExpression.right,insideWhere)»«ENDIF»«
+	    IF equalityExpression.right !== null»«compile(indent,22,lhs,equalityExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(22,precedence)»'''
 
     /**
      * RelationalExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RelationalExpression relationalExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,relationalExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,relationalExpression,null);
 	  parent.addSubscope(ns);
 	  if(relationalExpression.left !== null) setNamespace(ns,20,relationalExpression.left,insideWhere);
 	  if(relationalExpression.right !== null) setNamespace(ns,20,relationalExpression.right,insideWhere);
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,RelationalExpression relationalExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,RelationalExpression relationalExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(24,precedence)»«
-	    IF relationalExpression.left !== null»«compile(indent,24,lhs,relationalExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(relationalExpression)»«
+        cop(24,precedence)»«
+	    IF relationalExpression.left !== null»«compile(indent,24,lhs,relationalExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF relationalExpression.op !== null» «relationalExpression.op» «ENDIF»«
-	    IF relationalExpression.right !== null»«compile(indent,24,lhs,relationalExpression.right,insideWhere)»«ENDIF»«
+	    IF relationalExpression.right !== null»«compile(indent,24,lhs,relationalExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(24,precedence)»'''
 
     /**
      * IsExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IsExpression isExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(null,isExpression);
+	  val NamespaceScope ns = new NamespaceScope(null,isExpression,null);
 	  parent.addSubscope(ns);
 	  if(isExpression.left !== null)
 	      setNamespace(ns,26,isExpression.left,insideWhere);
@@ -1186,39 +1220,41 @@ PrimaryExpression returns Expr:
 
     /**
      * IsExpression */
-	def CharSequence compile(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere) {
+	def CharSequence compile(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere,NamespaceScope parentScope) {
 	    if (isExpression.right !== null) {
 	      if (isExpression.right instanceof ListLiteral) {
-	        return compileIsList(indent,precedence,lhs,isExpression,insideWhere);
+	        return compileIsList(indent,precedence,lhs,isExpression,insideWhere,parentScope);
 	      }
-	      return compileIsSingle(indent,precedence,lhs,isExpression,insideWhere);	      	
+	      return compileIsSingle(indent,precedence,lhs,isExpression,insideWhere,parentScope);	      	
 	    }
     }
 
     /**
      * IsExpression */
-	def CharSequence compileIsSingle(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
+	def CharSequence compileIsSingle(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(26,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(isExpression)»«
+        cop(26,precedence)»«
 	    IF isExpression.left !== null»«
-	      compile(indent,26,lhs,isExpression.left,insideWhere)»«ENDIF»«
+	      compile(indent,26,lhs,isExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF isExpression.op !== null» «isExpression.op» «ENDIF»«
 	    IF isExpression.right !== null»«
-	      compile(indent,26,true,isExpression.right,insideWhere)»«
+	      compile(indent,26,true,isExpression.right,insideWhere,scope)»«
 	    ENDIF»«
 	    ccp(26,precedence)»'''
 
     /**
      * IsExpression
      * where right is a list containing variables */
-	def CharSequence compileIsList(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere)
+	def CharSequence compileIsList(int indent,int precedence,boolean lhs,IsExpression isExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(16,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(isExpression)»«
+        cop(16,precedence)»«
 	    var ListLiteral ll»«
 	    var ListTree lt»«
 	    var String listName = "listTree"»«
 	    IF isExpression.left !== null»«
-	      compile(indent,16,lhs,isExpression.left,insideWhere)»«
+	      compile(indent,16,lhs,isExpression.left,insideWhere,scope)»«
 	      IF isExpression.left instanceof VarOrFunction »«
           	{val VarOrFunction v = isExpression.left as VarOrFunction;
           	listName = v.name;null}»«
@@ -1230,7 +1266,7 @@ PrimaryExpression returns Expr:
 	     null;
 	    }»«
 	    » = «
-	    compile(indent,16,lhs,isExpression.right,insideWhere)»«ENDIF»«
+	    compile(indent,16,lhs,isExpression.right,insideWhere,scope)»«ENDIF»«
 	    {pendingStatements = lt.output(listName,":SExpression");null}»«
 	    cop(16,precedence)»'''
 
@@ -1238,7 +1274,7 @@ PrimaryExpression returns Expr:
      * InExpression
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,InExpression inExpression,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,inExpression);
+		val NamespaceScope ns = new NamespaceScope(parent,inExpression,null);
 	    parent.addSubscope(ns);
 	    if(inExpression.left !== null)
           if (inExpression.left instanceof VarOrFunction) {
@@ -1254,21 +1290,22 @@ PrimaryExpression returns Expr:
     /**
      * InExpression
      */
-	def CharSequence compile(int indent,int precedence,boolean lhs,InExpression inExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,InExpression inExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(28,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(inExpression)»«
+        cop(28,precedence)»«
 	    IF inExpression.left !== null»«
-	      compile(indent,28,true,inExpression.left,insideWhere)»«
+	      compile(indent,28,true,inExpression.left,insideWhere,scope)»«
 	    ENDIF»«
 	    IF inExpression.op !== null» «inExpression.op» «ENDIF»«
-	    IF inExpression.right !== null»«compile(indent,28,lhs,inExpression.right,insideWhere)»«ENDIF»«
-	    IF inExpression.r2 !== null» by «compile(indent,29,lhs,inExpression.r2,insideWhere)»«ENDIF»«
+	    IF inExpression.right !== null»«compile(indent,28,lhs,inExpression.right,insideWhere,scope)»«ENDIF»«
+	    IF inExpression.r2 !== null» by «compile(indent,29,lhs,inExpression.r2,insideWhere,scope)»«ENDIF»«
 	    ccp(28,precedence)»'''
 	
     /**
      * SegmentExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,SegmentExpression segmentExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,segmentExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,segmentExpression,null);
 	  parent.addSubscope(ns);
 	  if(segmentExpression.left !== null)
 	      setNamespace(ns,30,segmentExpression.left,insideWhere);
@@ -1280,18 +1317,19 @@ PrimaryExpression returns Expr:
 	/*
 	 * ..
 	 * don't put spaces around segment */ 
-	def CharSequence compile(int indent,int precedence,boolean lhs,SegmentExpression segmentExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,SegmentExpression segmentExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(30,precedence)»«
-	    IF segmentExpression.left !== null»«compile(indent,30,lhs,segmentExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(segmentExpression)»«
+        cop(30,precedence)»«
+	    IF segmentExpression.left !== null»«compile(indent,30,lhs,segmentExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF segmentExpression.op !== null»«segmentExpression.op»«ENDIF»«
-	    IF segmentExpression.right !== null»«compile(indent,30,lhs,segmentExpression.right,insideWhere)»«ENDIF»«
+	    IF segmentExpression.right !== null»«compile(indent,30,lhs,segmentExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(30,precedence)»'''
 
     /**
      * AdditiveExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AdditiveExpression additiveExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,additiveExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,additiveExpression,null);
 	  parent.addSubscope(ns);
 	  if(additiveExpression.left !== null)
 	      setNamespace(ns,32,additiveExpression.left,insideWhere);
@@ -1300,18 +1338,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,AdditiveExpression additiveExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,AdditiveExpression additiveExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(32,precedence)»«
-	    IF additiveExpression.left !== null»«compile(indent,32,lhs,additiveExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(additiveExpression)»«
+        cop(32,precedence)»«
+	    IF additiveExpression.left !== null»«compile(indent,32,lhs,additiveExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF additiveExpression.op !== null» «additiveExpression.op» «ENDIF»«
-	    IF additiveExpression.right !== null»«compile(indent,32,lhs,additiveExpression.right,insideWhere)»«ENDIF»«
+	    IF additiveExpression.right !== null»«compile(indent,32,lhs,additiveExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(32,precedence)»'''
 
     /**
      * ExquoExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExquoExpression exquoExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,exquoExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,exquoExpression,null);
 	  parent.addSubscope(ns);
 	  if(exquoExpression.left !== null)
 	      setNamespace(ns,34,exquoExpression.left,insideWhere);
@@ -1320,18 +1359,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,ExquoExpression exquoExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ExquoExpression exquoExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(34,precedence)»«
-	    IF exquoExpression.left !== null»«compile(indent,34,lhs,exquoExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(exquoExpression)»«
+        cop(34,precedence)»«
+	    IF exquoExpression.left !== null»«compile(indent,34,lhs,exquoExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF exquoExpression.op !== null» «exquoExpression.op» «ENDIF»«
-	    IF exquoExpression.right !== null»«compile(indent,34,lhs,exquoExpression.right,insideWhere)»«ENDIF»«
+	    IF exquoExpression.right !== null»«compile(indent,34,lhs,exquoExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(34,precedence)»'''
 
     /**
      * DivisionExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,DivisionExpression divisionExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,divisionExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,divisionExpression,null);
 	  parent.addSubscope(ns);
 	  if(divisionExpression.left !== null)
 	      setNamespace(ns,36,divisionExpression.left,insideWhere);
@@ -1340,18 +1380,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,DivisionExpression divisionExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,DivisionExpression divisionExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(36,precedence)»«
-	    IF divisionExpression.left !== null»«compile(indent,36,lhs,divisionExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(divisionExpression)»«
+        cop(36,precedence)»«
+	    IF divisionExpression.left !== null»«compile(indent,36,lhs,divisionExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF divisionExpression.op !== null» «divisionExpression.op» «ENDIF»«
-	    IF divisionExpression.right !== null»«compile(indent,36,lhs,divisionExpression.right,insideWhere)»«ENDIF»«
+	    IF divisionExpression.right !== null»«compile(indent,36,lhs,divisionExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(363,precedence)»'''
 
     /**
      * QuoExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,QuoExpression quoExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,quoExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,quoExpression,null);
 	  parent.addSubscope(ns);
 	  if(quoExpression.left !== null)
 	      setNamespace(ns,16,quoExpression.left,insideWhere);
@@ -1360,18 +1401,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,QuoExpression quoExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,QuoExpression quoExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(16,precedence)»«
-	    IF quoExpression.left !== null»«compile(indent,16,lhs,quoExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(quoExpression)»«
+        cop(16,precedence)»«
+	    IF quoExpression.left !== null»«compile(indent,16,lhs,quoExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF quoExpression.op !== null» «quoExpression.op» «ENDIF»«
-	    IF quoExpression.right !== null»«compile(indent,16,lhs,quoExpression.right,insideWhere)»«ENDIF»«
+	    IF quoExpression.right !== null»«compile(indent,16,lhs,quoExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(16,precedence)»'''
 
     /**
      * ModExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ModExpression modExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,modExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,modExpression,null);
 	  parent.addSubscope(ns);
 	  if(modExpression.left !== null)
 	      setNamespace(ns,38,modExpression.left,insideWhere);
@@ -1380,18 +1422,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,ModExpression modExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ModExpression modExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(38,precedence)»«
-	    IF modExpression.left !== null»«compile(indent,38,lhs,modExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(modExpression)»«
+        cop(38,precedence)»«
+	    IF modExpression.left !== null»«compile(indent,38,lhs,modExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF modExpression.op !== null» «modExpression.op» «ENDIF»«
-	    IF modExpression.right !== null»«compile(indent,38,lhs,modExpression.right,insideWhere)»«ENDIF»«
+	    IF modExpression.right !== null»«compile(indent,38,lhs,modExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(38,precedence)»'''
 
     /**
      * RemExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RemExpression remExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,remExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,remExpression,null);
 	  parent.addSubscope(ns);
 	  if(remExpression.left !== null)
 	      setNamespace(ns,40,remExpression.left,insideWhere);
@@ -1400,18 +1443,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,RemExpression remExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,RemExpression remExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(40,precedence)»«
-	    IF remExpression.left !== null»«compile(indent,40,lhs,remExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(remExpression)»«
+        cop(40,precedence)»«
+	    IF remExpression.left !== null»«compile(indent,40,lhs,remExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF remExpression.op !== null» «remExpression.op» «ENDIF»«
-	    IF remExpression.right !== null»«compile(indent,40,lhs,remExpression.right,insideWhere)»«ENDIF»«
+	    IF remExpression.right !== null»«compile(indent,40,lhs,remExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(40,precedence)»'''
 
     /**
      * MultiplicativeExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,multiplicativeExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,multiplicativeExpression,null);
 	  parent.addSubscope(ns);
 	  if(multiplicativeExpression.left !== null)
 	      setNamespace(ns,42,multiplicativeExpression.left,insideWhere);
@@ -1420,18 +1464,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(42,precedence)»«
-	    IF multiplicativeExpression.left !== null»«compile(indent,42,lhs,multiplicativeExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(multiplicativeExpression)»«
+        cop(42,precedence)»«
+	    IF multiplicativeExpression.left !== null»«compile(indent,42,lhs,multiplicativeExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF multiplicativeExpression.op !== null» «multiplicativeExpression.op»«ENDIF»«
-	    IF multiplicativeExpression.right !== null»«compile(indent,42,lhs,multiplicativeExpression.right,insideWhere)»«ENDIF»«
+	    IF multiplicativeExpression.right !== null»«compile(indent,42,lhs,multiplicativeExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(42,precedence)»'''
 
     /**
      * ExponentExpression  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExponentExpression exponentExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,exponentExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,exponentExpression,null);
 	  parent.addSubscope(ns);
 	  if(exponentExpression.left !== null)
 	      setNamespace(ns,44,exponentExpression.left,insideWhere);
@@ -1440,18 +1485,19 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,ExponentExpression exponentExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ExponentExpression exponentExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(44,precedence)»«
-	    IF exponentExpression.left !== null»«compile(indent,44,lhs,exponentExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(exponentExpression)»«
+        cop(44,precedence)»«
+	    IF exponentExpression.left !== null»«compile(indent,44,lhs,exponentExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF exponentExpression.op !== null»«exponentExpression.op» «ENDIF»«
-	    IF exponentExpression.right !== null»«compile(indent,44,lhs,exponentExpression.right,insideWhere)»«ENDIF»«
+	    IF exponentExpression.right !== null»«compile(indent,44,lhs,exponentExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(44,precedence)»'''
 
     /**
      * EltExpression  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EltExpression eltExpression,WhereState insideWhere){
-	  val NamespaceScope ns = new NamespaceScope(parent,eltExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,eltExpression,null);
 	  parent.addSubscope(ns);
 	  if(eltExpression.left !== null)
 	      setNamespace(ns,46,eltExpression.left,insideWhere);
@@ -1460,16 +1506,17 @@ PrimaryExpression returns Expr:
 	  return ns;
 	}
 
-	def CharSequence compile(int indent,int precedence,boolean lhs,EltExpression eltExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,EltExpression eltExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(46,precedence)»«
-	    IF eltExpression.left !== null»«compile(indent,46,lhs,eltExpression.left,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(eltExpression)»«
+        cop(46,precedence)»«
+	    IF eltExpression.left !== null»«compile(indent,46,lhs,eltExpression.left,insideWhere,scope)»«ENDIF»«
 	    IF eltExpression.op !== null»«eltExpression.op»«ENDIF»«
-	    IF eltExpression.right !== null»«compile(indent,46,lhs,eltExpression.right,insideWhere)»«ENDIF»«
+	    IF eltExpression.right !== null»«compile(indent,46,lhs,eltExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(46,precedence)»'''
 
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,UnaryExpression unaryExpression,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,unaryExpression);
+	  val NamespaceScope ns = new NamespaceScope(parent,unaryExpression,null);
 	  parent.addSubscope(ns);
 	  if (unaryExpression.b1 !== null) setNamespace(ns,48,unaryExpression.b1,insideWhere);
 	  if (unaryExpression.b3 !== null) setNamespace(ns,48,unaryExpression.b3,insideWhere);
@@ -1494,12 +1541,13 @@ PrimaryExpression |
 * Put a space between ID and expr but not $ and expr
 * 
 */
-	def CharSequence compile(int indent,int precedence,boolean lhs,UnaryExpression unaryExpression,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,UnaryExpression unaryExpression,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(48,precedence)»«
-	    IF unaryExpression.b1 !== null»«compile(indent,48,lhs,unaryExpression.b1,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(unaryExpression)»«
+        cop(48,precedence)»«
+	    IF unaryExpression.b1 !== null»«compile(indent,48,lhs,unaryExpression.b1,insideWhere,scope)»«ENDIF»«
 	    IF unaryExpression.b2 !== null»«unaryExpression.b2»«ENDIF»«
-	    IF unaryExpression.b3 !== null»«compile(indent,48,lhs,unaryExpression.b3,insideWhere)»«ENDIF»«
+	    IF unaryExpression.b3 !== null»«compile(indent,48,lhs,unaryExpression.b3,insideWhere,scope)»«ENDIF»«
 	    IF unaryExpression.uop !== null»«
 	      if (unaryExpression.uop.compareTo("*./")==0) "*/" else
             if (unaryExpression.uop.compareTo(":")==0) "" else
@@ -1507,14 +1555,15 @@ PrimaryExpression |
 	      if (unaryExpression.uop.compareTo("not")==0) " "»«
 	      if (unaryExpression.uop.compareTo("return")==0) " "»«
 	    ENDIF»«
-	    IF unaryExpression.expr !== null»«compile(indent,48,lhs,unaryExpression.expr,insideWhere)»«ENDIF»«
+	    IF unaryExpression.expr !== null»«compile(indent,48,lhs,unaryExpression.expr,insideWhere,scope)»«ENDIF»«
 	    ccp(48,precedence)»'''
 
 
 /*{Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)? */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Tuple expr,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Tuple expr,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «var Boolean removeBrackets =false»«
+	    «val NamespaceScope scope =parentScope.getScope(expr)»«
+        var Boolean removeBrackets =false»«
  	    IF expr.m2»«
 	      IF expr.t3 !== null»«
 	        IF expr.t3 instanceof Literal»«{removeBrackets =true;null}»«ENDIF»«
@@ -1522,15 +1571,15 @@ PrimaryExpression |
 	    ENDIF»«
 	    IF (!removeBrackets) »(«ENDIF»«
 	    IF expr.m2»-«ENDIF»«
-	    IF expr.t3 !== null»«compile(indent,0,lhs,expr.t3,insideWhere)»«ENDIF»«
-	    FOR x:expr.t5»,«compile(indent,0,lhs,x,insideWhere)»«ENDFOR»«
+	    IF expr.t3 !== null»«compile(indent,0,lhs,expr.t3,insideWhere,scope)»«ENDIF»«
+	    FOR x:expr.t5»,«compile(indent,0,lhs,x,insideWhere,scope)»«ENDFOR»«
 	    IF (!removeBrackets) »)«ENDIF»«
 	    IF expr.d»..«ENDIF»'''
 
     /**
      * Block */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Block expr,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,expr);
+		val NamespaceScope ns = new NamespaceScope(parent,expr,null);
 	    parent.addSubscope(ns);
 	    for (Statement x:expr.s)
 	        setNamespace(ns,0,x,insideWhere);
@@ -1541,11 +1590,12 @@ PrimaryExpression |
 
     /**
      * Block */
-	def CharSequence compileExports(int indent,int precedence,Block expr,WhereState insideWhere)
+	def CharSequence compileExports(int indent,int precedence,Block expr,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF expr.b»«
+	    «val NamespaceScope scope =parentScope.getScope(expr)»«
+        IF expr.b»«
 	      FOR x:expr.s»«
-	        compileExports(indent+1,0,x,insideWhere)»«
+	        compileExports(indent+1,0,x,insideWhere,scope)»«
 	      ENDFOR»«
 	    ENDIF»'''
 
@@ -1566,7 +1616,7 @@ PrimaryExpression |
 	
   )
   d=KW_2DOT? // for segment with no end part */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Block expr,WhereState insideWhere) {
+	def CharSequence compile(int indent,int precedence,boolean lhs,Block expr,WhereState insideWhere,NamespaceScope parentScope) {
 /*  	  if (insideWhere==WhereState.WritingWhere) {
 	    if (expr.s === null) return "";
 	    var String res = "";
@@ -1577,6 +1627,7 @@ PrimaryExpression |
 	    return res
 	  }*/
 	  //try {
+	    val NamespaceScope scope =parentScope.getScope(expr);
 	    return
 	    '''
 	    «FOR s:pendingStatements»«
@@ -1587,18 +1638,18 @@ PrimaryExpression |
 	    IF expr.c2»(«
 	      FOR x:expr.s»«
 	        newline(indent+1)»«
-	        compile(indent+1,0,lhs,x,insideWhere)»«
+	        compile(indent+1,0,lhs,x,insideWhere,scope)»«
 	      ENDFOR»)«
 	    ENDIF»«
 	    IF expr.b»«
 	      FOR x:expr.s»«
 	        newline(indent+1)»«
-	        compile(indent+1,0,lhs,x,insideWhere)»«
+	        compile(indent+1,0,lhs,x,insideWhere,scope)»«
 	      ENDFOR»«
 	    ENDIF»«
 	    IF expr.c3»«
 	      IF expr.m»-«ENDIF»«
-	      IF expr.t4 !== null»«compile(indent,0,lhs,expr.t4,insideWhere)»«ENDIF»«
+	      IF expr.t4 !== null»«compile(indent,0,lhs,expr.t4,insideWhere,scope)»«ENDIF»«
 	    ENDIF»«
 	    IF expr.d»..«ENDIF»'''
 	    
@@ -1611,7 +1662,7 @@ PrimaryExpression |
     /**
      * VarOrFunction  */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,VarOrFunction varOrFunction,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,varOrFunction);
+	  val NamespaceScope ns = new NamespaceScope(parent,varOrFunction,null);
 	  parent.addSubscope(ns);
       var String nam = varOrFunction.name;
       if (varOrFunction.expr !== null) {
@@ -1623,7 +1674,7 @@ PrimaryExpression |
 
     /**
      * VarOrFunction  */
-	def CharSequence compileExports(int indent,int precedence,VarOrFunction varOrFunction,WhereState insideWhere)''''''
+	def CharSequence compileExports(int indent,int precedence,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope)''''''
 
 /**
  * VarOrFunction
@@ -1631,7 +1682,7 @@ PrimaryExpression |
  * If expr exists then this is usually a function
  * except if it is UnaryExpression with loc=true
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) {
+	def CharSequence compile(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope) {
 	    var boolean isVar=true;
 	    if (varOrFunction.expr !== null) {
 	      isVar=false;
@@ -1642,23 +1693,24 @@ PrimaryExpression |
 	    }
 	    if(isVar) {
 	      switch insideWhere {
-	      	case NotWhere : return compileVar(indent,precedence,lhs,varOrFunction,insideWhere)
-	      	case ReadingWhere : return compileVarR(indent,precedence,lhs,varOrFunction,insideWhere)
-	      	case WritingWhere : return compileVarW(indent,precedence,lhs,varOrFunction,insideWhere)
+	      	case NotWhere : return compileVar(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
+	      	case ReadingWhere : return compileVarR(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
+	      	case WritingWhere : return compileVarW(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
 	      }
 	    }
 	    else {
 	      switch insideWhere {
-	      	case NotWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere)
-	      	case ReadingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere)
-	      	case WritingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere)
+	      	case NotWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
+	      	case ReadingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
+	      	case WritingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,insideWhere,parentScope)
 	      }
 	    }
       }
 
-	def CharSequence compileVar(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) 
+	def CharSequence compileVar(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope) 
         '''
-	    «cop(48,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(varOrFunction)»«
+        cop(48,precedence)»«
 	    var boolean dynamic=false»«
 	    var boolean addSpace=false»«
 	    var boolean global = false»«
@@ -1674,25 +1726,26 @@ PrimaryExpression |
 	      null}»«
 	      getVariable(varName,lhs)»«
 	    if (addSpace) " " else ""»«
-	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere)»«ENDIF»«
+	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere,scope)»«ENDIF»«
 	    ccp(48,precedence)»'''
 
-	def CharSequence compileVarR(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) 
+	def CharSequence compileVarR(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope) 
         '''
 	    «cop(48,precedence)»«
 	    cleanID(varOrFunction.name)»«
 	    ccp(48,precedence)»'''
 
-	def CharSequence compileVarW(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) 
+	def CharSequence compileVarW(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope) 
         '''
 	    «cop(48,precedence)»«
 	    cleanID(varOrFunction.name)»«
 	    ccp(48,precedence)»'''
 
 
-	def CharSequence compileFunction(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere) 
+	def CharSequence compileFunction(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «cop(48,precedence)»«
+	    «val NamespaceScope scope =parentScope.getScope(varOrFunction)»«
+        cop(48,precedence)»«
 	    var boolean addSpace=false»«
 	    IF varOrFunction.expr !== null»«
 	      IF (!(varOrFunction.expr instanceof Tuple))»«
@@ -1701,7 +1754,7 @@ PrimaryExpression |
 	    ENDIF»«
 	    cleanID(varOrFunction.name)»«
 	    if (addSpace) " " else ""»«
-	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere)»«ENDIF»«
+	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,insideWhere,scope)»«ENDIF»«
 	    IF vars.isLispFunction(cleanID(varOrFunction.name))»$Lisp«
 	    ENDIF»«
 	    ccp(48,precedence)»'''
@@ -1721,10 +1774,10 @@ PrimaryExpression |
  * | lsp=LispLiteral
  * | str=TK_STRING
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,Literal literal,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,Literal literal,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF literal instanceof LispLiteral»«compile(indent,precedence,lhs,literal as LispLiteral,insideWhere)»«ENDIF»«
-	    IF literal instanceof ListLiteral»[«compile(indent,precedence,lhs,literal as ListLiteral,insideWhere)»]«ENDIF»«
+	    «IF literal instanceof LispLiteral»«compile(indent,precedence,lhs,literal as LispLiteral,insideWhere,parentScope)»«ENDIF»«
+	    IF literal instanceof ListLiteral»[«compile(indent,precedence,lhs,literal as ListLiteral,insideWhere,parentScope)»]«ENDIF»«
 		IF literal.value !== null»«
 		  literal.value»«
 		  IF literal.d»..«ENDIF»«
@@ -1740,10 +1793,10 @@ PrimaryExpression |
   * Don't put space before prime(s) if first in a line
   * Do put space before prime(s) if following
   */
-	def CharSequence compile(int indent,int precedence,boolean lhs,LispLiteral lispLiteral,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,LispLiteral lispLiteral,WhereState insideWhere,NamespaceScope parentScope)
         '''
         «FOR x:lispLiteral.pr»«x»«ENDFOR»«
-        IF lispLiteral.sll !== null»«compile(indent,precedence,lhs,lispLiteral.sll,insideWhere)»«ENDIF»'''
+        IF lispLiteral.sll !== null»«compile(indent,precedence,lhs,lispLiteral.sll,insideWhere,parentScope)»«ENDIF»'''
 
 /*
  * SubLispLiteral:
@@ -1761,9 +1814,10 @@ PrimaryExpression |
 	|
 	( NL? oparen=KW_OPAREN asl+=AnnotatedSubLispLiteral* KW_CPAREN)
   */
-	def CharSequence compile(int indent,int precedence,boolean lhs,SubLispLiteral subLispLiteral,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,SubLispLiteral subLispLiteral,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF subLispLiteral.name !== null»«cleanID(subLispLiteral.name)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(subLispLiteral)»«
+        IF subLispLiteral.name !== null»«cleanID(subLispLiteral.name)»«ENDIF»«
 	    IF subLispLiteral.m»-«ENDIF»«
 	    IF subLispLiteral.num !== null»«subLispLiteral.num»«ENDIF»«
 	    IF subLispLiteral.st !== null»«subLispLiteral.st»«ENDIF»«
@@ -1778,17 +1832,18 @@ PrimaryExpression |
 	    ENDFOR»«
 	    IF subLispLiteral.oparen && inParen»(«ENDIF»«
 	    FOR x:subLispLiteral.asl»«
-	      compile(indent,0,lhs,x,insideWhere)» «
+	      compile(indent,0,lhs,x,insideWhere,scope)» «
 	    ENDFOR»«
 	    IF subLispLiteral.oparen && inParen»)«ENDIF»'''
 
 /* AnnotatedSubLispLiteral:
  *  p?=KW_PRIME? sl=SubLispLiteral d?=KW_DOT?
  *  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,AnnotatedSubLispLiteral annotatedSubLispLiteral,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,AnnotatedSubLispLiteral annotatedSubLispLiteral,WhereState insideWhere,NamespaceScope parentScope)
         '''
-	    «IF annotatedSubLispLiteral.p»'«ENDIF»«
-	    IF annotatedSubLispLiteral.sl !== null»«compile(indent,0,lhs,annotatedSubLispLiteral.sl,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(annotatedSubLispLiteral)»«
+        IF annotatedSubLispLiteral.p»'«ENDIF»«
+	    IF annotatedSubLispLiteral.sl !== null»«compile(indent,0,lhs,annotatedSubLispLiteral.sl,insideWhere,scope)»«ENDIF»«
 	    IF annotatedSubLispLiteral.d» .«ENDIF»'''
 
 /*
@@ -1800,11 +1855,12 @@ le+=ListElement?
 sl+=ListComprehension*
 KW_CBRACK
  */	    
-	def CharSequence compile(int indent,int precedence,boolean lhs,ListLiteral listLiteral,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ListLiteral listLiteral,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «var testparams=false»«
-        FOR x:listLiteral.le»«if(testparams)','»«compile(indent,0,lhs,x,insideWhere)»«{testparams=true;null}»«ENDFOR»«
-        FOR x:listLiteral.sl»«compile(indent,0,lhs,x,insideWhere)»«ENDFOR»'''
+	    «val NamespaceScope scope =parentScope.getScope(listLiteral)»«
+        var testparams=false»«
+        FOR x:listLiteral.le»«if(testparams)','»«compile(indent,0,lhs,x,insideWhere,scope)»«{testparams=true;null}»«ENDFOR»«
+        FOR x:listLiteral.sl»«compile(indent,0,lhs,x,insideWhere,parentScope)»«ENDFOR»'''
 
 /*
  * ListElement:
@@ -1813,13 +1869,14 @@ KW_CBRACK
 		c2?=KW_COLON? d?=KW_DOT
 	)
  */
-	def CharSequence compile(int indent,int precedence,boolean lhs,ListElement listElement,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ListElement listElement,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «IF listElement.c»:«
+	    «val NamespaceScope scope =parentScope.getScope(listElement)»«
+        IF listElement.c»:«
           IF listElement.e» «ENDIF»«
         ENDIF»«
         IF listElement.e»=«ENDIF»«
-        IF listElement.l2 !== null»«compile(indent,0,lhs,listElement.l2,insideWhere)» «ENDIF»«
+        IF listElement.l2 !== null»«compile(indent,0,lhs,listElement.l2,insideWhere,scope)» «ENDIF»«
         IF listElement.c2»:«ENDIF»«
         IF listElement.d».«ENDIF»'''
 
@@ -1830,10 +1887,11 @@ KW_CBRACK
   	r?='repeat'
   )
  */	    
-	def CharSequence compile(int indent,int precedence,boolean lhs,ListComprehension listComprehension,WhereState insideWhere)
+	def CharSequence compile(int indent,int precedence,boolean lhs,ListComprehension listComprehension,WhereState insideWhere,NamespaceScope parentScope)
         '''
-        «IF listComprehension.sl1 !== null» «listComprehension.sl1» «ENDIF»«
-	    IF listComprehension.sl2 !== null»«compile(indent,0,lhs,listComprehension.sl2,insideWhere)»«ENDIF»«
+	    «val NamespaceScope scope =parentScope.getScope(listComprehension)»«
+        IF listComprehension.sl1 !== null» «listComprehension.sl1» «ENDIF»«
+	    IF listComprehension.sl2 !== null»«compile(indent,0,lhs,listComprehension.sl2,insideWhere,scope)»«ENDIF»«
 	    IF listComprehension.r» repeat «ENDIF»'''
 }
 /* Code Generator Template Notes

@@ -11,7 +11,7 @@ public class NamespaceScope {
   /**
    * More local scopes (children of this scope)
    */
-  private ArrayList<NamespaceScope> subscopes = new ArrayList<NamespaceScope>();
+  protected ArrayList<NamespaceScope> subscopes = new ArrayList<NamespaceScope>();
   /**
    * parent scope
    */
@@ -21,15 +21,18 @@ public class NamespaceScope {
    */
   private EObject emfElement = null;
 
+  protected String name = null;
   /**
    * constructor for NamespaceScope
-   * @param parentScope
-   * @param emfElement
+   * 
+   * @param p parentScope
+   * @param e emfElement
+   * @param n name
    */
-  public NamespaceScope(NamespaceScope p,EObject e) {
+  public NamespaceScope(NamespaceScope p,EObject e,String n) {
 	  parentScope = p;
 	  emfElement = e;
-	  //p.addSubscope(this);
+	  name = n;
   }
   
   /** add a child
@@ -39,6 +42,19 @@ public class NamespaceScope {
   public void addSubscope(NamespaceScope s) {
 	  subscopes.add(s);
   }
+
+  public NamespaceScope getScope(EObject e) {
+	  for (NamespaceScope s:subscopes) {
+		  if (s.getEobj() == e) return s;
+	  }
+	  System.err.println("Can't find subscope for:"+e.getClass()+" in:"+this.getClass());
+	  return new NullScope(null,null,null);
+  }
+
+  public EObject getEobj() {
+	  return emfElement;
+  }
+
   
   /**
    * add a function to namespace
@@ -69,10 +85,14 @@ public class NamespaceScope {
       System.err.println("cant addFunctionCall:"+nam);
   }
 
-  public PackageInfo getPackage(String pkgName) {
+  public FileScope getPackage(String pkgName) {
 	  if (parentScope != null) return parentScope.getPackage(pkgName);
       System.err.println("cant getPackage:"+pkgName);
       return null;  
+  }
+
+  public String getName() {
+	  return name;  
   }
 
   /**
@@ -81,7 +101,7 @@ public class NamespaceScope {
    * @param definedIn
    * @return
    */
-  public PackageInfo getPackageDefiningFn(String fnName,PackageInfo definedIn) {
+  public FileScope getPackageDefiningFn(String fnName,FileScope definedIn) {
 	  if (parentScope != null) return parentScope.getPackageDefiningFn(fnName,definedIn);
       System.err.println("cant getPackageDefiningFn:"+fnName);
       return null;   
@@ -100,17 +120,17 @@ public class NamespaceScope {
    */
   public ArrayList<String> importList(String pkgName) {
 	  ArrayList<String> res = new ArrayList<String>();
-	  PackageInfo p=getPackage(pkgName);
-      //System.out.println("pkgName="+pkgName+" PackageInfo="+p);
-	  //for (PackageInfo pkg:packages) {
+	  FileScope p=getPackage(pkgName);
+      //System.out.println("pkgName="+pkgName+" FileScope="+p);
+	  //for (FileScope pkg:packages) {
 	  //  System.out.println("package="+pkg.getPackageName());
 	  //}
 	  if (p==null) return res;
 	  for (String s:p.getFunctionCalls()) {
-		PackageInfo pkgFrom =getPackageDefiningFn(s,p);
+		FileScope pkgFrom =getPackageDefiningFn(s,p);
 		if (pkgFrom != null) {
 		  if (pkgFrom != p)
-	        res.add(pkgFrom.getPackageName()+" -- for:"+s);
+	        res.add(pkgFrom.getName()+" -- for:"+s);
 		}
 	  }
 	  return res;
