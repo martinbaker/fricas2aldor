@@ -58,6 +58,11 @@ public class GlobalScope extends NamespaceScope {
 	  super(p,e,n);
   }
 
+  @Override
+  public String nameAndType() {
+	  return "global";
+  }
+
   public ArrayList<FileScope> getFileScopes() {
 	  ArrayList<FileScope> res = new ArrayList<FileScope>(); 
 	  for (NamespaceScope ns2:subscopes) {
@@ -345,4 +350,6 @@ public class GlobalScope extends NamespaceScope {
 	  }
 	  return res.toString();
   }
+  
+
 }

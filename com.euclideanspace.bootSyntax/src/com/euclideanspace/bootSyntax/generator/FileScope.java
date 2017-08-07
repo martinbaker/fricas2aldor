@@ -31,6 +31,20 @@ public class FileScope extends NamespaceScope {
   }
 
   @Override
+  public String nameAndType() {
+	  String typ = "null";
+	  if (emfElement != null) {
+		  typ = emfElement.getClass().toString();
+		  typ = typ.substring(typ.lastIndexOf('.'));
+	  }
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "file "+n+":"+typ;
+  }
+
+  @Override
   public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
 		  if (s.getEobj() == e) return s;

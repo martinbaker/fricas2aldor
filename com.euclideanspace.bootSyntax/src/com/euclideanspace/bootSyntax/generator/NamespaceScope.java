@@ -19,7 +19,7 @@ public class NamespaceScope {
   /**
    * link to element of emf model
    */
-  private EObject emfElement = null;
+  protected EObject emfElement = null;
 
   protected String name = null;
   /**
@@ -43,11 +43,42 @@ public class NamespaceScope {
 	  subscopes.add(s);
   }
 
+  public ArrayList<NamespaceScope> path() {
+	  ArrayList<NamespaceScope> res = new ArrayList<NamespaceScope>();
+	  if (parentScope != null) res = parentScope.path();
+	  res.add(this);
+	  return res;
+  }
+
+  public String nameAndType() {
+	  String typ = "null";
+	  if (emfElement != null) {
+		  typ = emfElement.getClass().toString();
+		  typ = typ.substring(typ.lastIndexOf('.'));
+	  }
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return n+":"+typ;
+  }
+
+  public String displayDetail() {
+	  String res = "(";
+	  ArrayList<NamespaceScope> pth = path();
+	  for (NamespaceScope ns:pth) {
+		  res = res + ns.nameAndType() + ",";
+	  }
+	  return res + ")";
+  }
+
   public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
 		  if (s.getEobj() == e) return s;
 	  }
-	  System.err.println("Can't find subscope for:"+e.getClass()+" in:"+this.getClass());
+	  String typ = e.getClass().toString();
+	  typ = typ.substring(typ.lastIndexOf('.'));
+	  System.err.println("Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
   }
 
@@ -291,4 +322,24 @@ public class NamespaceScope {
       System.err.println("cant showDefs:");
 	  return "cant showDefs";
   }
+  
+  /**
+   * show all scopes as a tree structure
+   * @return output
+   */
+  public String showScopes(int level) {
+	  StringBuffer res = new StringBuffer("");
+	  res.append("\n");
+	  // do indent
+	  for(int i=1; i<level; i++) {
+		  res.append("  ");
+	  }
+	  res.append(nameAndType());
+      // show subscopes
+	  for (NamespaceScope c: subscopes) {
+		  res.append(c.showScopes(level+1));
+	  }
+	  return res.toString();
+  }
+
 }

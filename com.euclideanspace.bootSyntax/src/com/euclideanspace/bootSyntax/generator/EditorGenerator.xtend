@@ -115,13 +115,14 @@ class EditorGenerator extends AbstractGenerator {
           className(r);
           var EObject m = r.contents.head;
           if (m instanceof Model)
-            x = setNamespace(vars,0,m,WhereState.NotWhere);
+            x = setNamespace(vars,0,m,WhereState.NotWhere,RefType.FileGlobal);
         }
       }
       className(resource);
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
       fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,WhereState.NotWhere,vars))
       fsa.generateFile("namespace.txt",vars.showDefs())
+      fsa.generateFile("scopes.txt",vars.showScopes(0))
    }
 
     /** set currentFile which is package name*/
@@ -219,11 +220,11 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * Model
      */
-	def NamespaceScope setNamespace(GlobalScope parent,int precedence,Model model,WhereState insideWhere) {
+	def NamespaceScope setNamespace(GlobalScope parent,int precedence,Model model,WhereState insideWhere,RefType refType) {
 		val FileScope ns = new FileScope(parent,model,currentFile);
 		parent.addSubscope(ns);
 		for (Declaration x: model.declarations) {
-		  setNamespace(ns,precedence,x,insideWhere);
+		  setNamespace(ns,precedence,x,insideWhere,RefType.FileGlobal);
 		}
 		return ns;
 	}
@@ -257,21 +258,21 @@ class EditorGenerator extends AbstractGenerator {
     /**
      * Declaration
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Declaration declaration,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Declaration declaration,WhereState insideWhere,RefType refType) {
 	    if (declaration instanceof Package)
-	       return setNamespace(parent,precedence,declaration as Package,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Package,insideWhere,RefType.FileGlobal)
 		if (declaration instanceof Defparameter)
-	       return setNamespace(parent,precedence,declaration as Defparameter,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defparameter,insideWhere,RefType.FileGlobal)
 	    if (declaration instanceof Defconstant)
-	       return setNamespace(parent,precedence,declaration as Defconstant,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defconstant,insideWhere,RefType.FileGlobal)
 	    if (declaration instanceof Defconst)
-	       return setNamespace(parent,precedence,declaration as Defconst,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defconst,insideWhere,RefType.FileGlobal)
 	    if (declaration instanceof Defvar)
-	       return setNamespace(parent,precedence,declaration as Defvar,insideWhere)
+	       return setNamespace(parent,precedence,declaration as Defvar,insideWhere,RefType.FileGlobal)
 	    if (declaration instanceof FunctionDef)
-	       return setNamespace(parent,precedence,declaration as FunctionDef,insideWhere)
+	       return setNamespace(parent,precedence,declaration as FunctionDef,insideWhere,RefType.InsideFunction)
 	    if (declaration instanceof GlobalVariable)
-	       return setNamespace(parent,precedence,declaration as GlobalVariable,insideWhere)
+	       return setNamespace(parent,precedence,declaration as GlobalVariable,insideWhere,RefType.FileGlobal)
 	    return parent;
 	}
 
@@ -303,10 +304,10 @@ class EditorGenerator extends AbstractGenerator {
 	       compile(indent,precedence,lhs,declaration as GlobalVariable,insideWhere,parentScope)»«ENDIF»'''
 	
 	
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Package package1,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,package1,null);
-		parent.addSubscope(ns);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Package package1,WhereState insideWhere,RefType refType) {
 		if (package1.p !== null) bootPkg = package1.p;
+		val NamespaceScope ns = new NamespaceScope(parent,package1,bootPkg);
+		parent.addSubscope(ns);
 		return ns;
     }
 
@@ -337,10 +338,11 @@ class EditorGenerator extends AbstractGenerator {
      * Defparameter
      * 'DEFPARAMETER' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defparameter defparameter,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(parent,defparameter,null);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defparameter defparameter,WhereState insideWhere,RefType refType) {
+		val String nam = defparameter.name
+		val NamespaceScope ns = new NamespaceScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
-	    vars.addDefparam(defparameter.name);
+	    vars.addDefparam(nam);
 	    return ns;
     }
 
@@ -348,10 +350,11 @@ class EditorGenerator extends AbstractGenerator {
      * Defconstant
      * 'DEFCONSTANT' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconstant defconstant,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defconstant,null);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconstant defconstant,WhereState insideWhere,RefType refType) {
+		val String nam = defconstant.name
+		val NamespaceScope ns = new NamespaceScope(null,defconstant,nam);
 		parent.addSubscope(ns);
-	    vars.addDefconstant(defconstant.name);
+	    vars.addDefconstant(nam);
 	    return ns;
 	}
 
@@ -359,28 +362,30 @@ class EditorGenerator extends AbstractGenerator {
      * Defconst
      * 'DEFCONST' KW_OPAREN name=TK_ID KW_COMMA e=Expression KW_CPAREN;
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconst defconst,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defconst,null);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconst defconst,WhereState insideWhere,RefType refType) {
+		val String nam = defconst.name
+		val NamespaceScope ns = new NamespaceScope(null,defconst,nam);
 		parent.addSubscope(ns);
-	  vars.addDefconst(defconst.name);
-	  return ns;
+	    vars.addDefconst(nam);
+	    return ns;
 	}
 
     /**
      * Defvar
      * 'DEFVAR' KW_OPAREN name=TK_ID (KW_COMMA e=Expression)? KW_CPAREN;
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defvar defvar,WhereState insideWhere) {
-		val NamespaceScope ns = new NamespaceScope(null,defvar,null);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defvar defvar,WhereState insideWhere,RefType refType) {
+		val String nam = defvar.name
+		val NamespaceScope ns = new NamespaceScope(null,defvar,nam);
 		parent.addSubscope(ns);
-	  vars.addDefvar(defvar.name);
-	  return ns;
+	    vars.addDefvar(nam);
+	    return ns;
 	}
 
     /**
      * FunctionDef
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,FunctionDef function,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,FunctionDef function,WhereState insideWhere,RefType refType){
 	    if (function.name !== null) {
 	      currentFunction = function.name;
         }
@@ -388,6 +393,7 @@ class EditorGenerator extends AbstractGenerator {
 		parent.addSubscope(ns);
         var ArrayList<String> params = new ArrayList<String>();
         for (Expr p:function.params) {
+          setNamespace(ns,precedence,p,insideWhere,RefType.Parameter)
           if (p instanceof VarOrFunction) {
           	val VarOrFunction v = p as VarOrFunction;
           	params.add(v.name);
@@ -395,9 +401,9 @@ class EditorGenerator extends AbstractGenerator {
         }
         vars.addFunctionDef(function.name,null,currentFile,bootPkg,params,0);
 	    if (function.st !== null)
-	      setNamespace(ns,precedence,function.st,insideWhere)
+	      setNamespace(ns,precedence,function.st,insideWhere,RefType.InsideFunction)
 	    /*if (function.w !== null)
-	      setNamespace(ns,precedence,function.w,insideWhere)
+	      setNamespace(ns,precedence,function.w,insideWhere,RefType.InsideFunction)
 	    for (NamespaceScope pw:pendingWheres) {
 		  val UseMarkerScope u = new UseMarkerScope(parent,function,currentFunction,pw);
 		  parent.addSubscope(u);
@@ -484,7 +490,7 @@ class EditorGenerator extends AbstractGenerator {
    /**
     * GlobalVariable
     */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(null,globalVariable,null);
 		parent.addSubscope(ns);
       if (globalVariable.name !== null) vars.addGlobal(globalVariable.name);
@@ -505,16 +511,16 @@ class EditorGenerator extends AbstractGenerator {
  * Statement:
  *  ( Comment | Loop  |  WhereExpression  | Where | Do)
  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Statement statement,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Statement statement,WhereState insideWhere,RefType refType) {
 	  if (statement instanceof Loop)
-	       return setNamespace(parent,precedence,statement as Loop,insideWhere);
+	       return setNamespace(parent,precedence,statement as Loop,insideWhere,RefType.InsideFunction);
 	  if (statement instanceof Do)
-	       return setNamespace(parent,precedence,statement as Do,insideWhere);
+	       return setNamespace(parent,precedence,statement as Do,insideWhere,RefType.InsideFunction);
       if (statement instanceof Where)
-	       return setNamespace(parent,precedence,statement as Where,insideWhere);
+	       return setNamespace(parent,precedence,statement as Where,insideWhere,RefType.InsideFunction);
 	  if (statement instanceof Expr)
-	       return setNamespace(parent,precedence,statement as Expr,insideWhere);
-	  return parent;
+	       return setNamespace(parent,precedence,statement as Expr,insideWhere,RefType.InsideFunction);
+	  return new NullScope(null,null,null);
     }
 
 /*
@@ -564,20 +570,20 @@ class EditorGenerator extends AbstractGenerator {
  * after newline are changed by auto-indent code.
  *
  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Loop loop,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Loop loop,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,loop,null);
 	    parent.addSubscope(ns);
         for(LoopCondition x:loop.c) {
           if (x.f !== null)
-            if (x.f.e !== null) setNamespace(ns,0,x.f.e,insideWhere);
+            if (x.f.e !== null) setNamespace(ns,0,x.f.e,insideWhere,RefType.InsideFunction);
           if (x.w !== null)
-            if (x.w.e !== null) setNamespace(ns,0,x.w.e,insideWhere);
+            if (x.w.e !== null) setNamespace(ns,0,x.w.e,insideWhere,RefType.InsideFunction);
           if (x.u !== null)
-            if (x.u.e !== null) setNamespace(ns,0,x.u.e,insideWhere);
+            if (x.u.e !== null) setNamespace(ns,0,x.u.e,insideWhere,RefType.InsideFunction);
         }
-        if (loop.e !== null) setNamespace(ns,0,loop.e,insideWhere);
+        if (loop.e !== null) setNamespace(ns,0,loop.e,insideWhere,RefType.InsideFunction);
         if (loop.b !== null)
-          setNamespace(ns,precedence,loop.b,insideWhere);
+          setNamespace(ns,precedence,loop.b,insideWhere,RefType.InsideFunction);
         return ns;
       }
 /*
@@ -617,10 +623,10 @@ class EditorGenerator extends AbstractGenerator {
  * Do:
  * 'do' b=Block
  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Do do1,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Do do1,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,do1,null);
 	    parent.addSubscope(ns);
-        if (do1.e !== null) setNamespace(ns,0,do1.e,insideWhere);
+        if (do1.e !== null) setNamespace(ns,0,do1.e,insideWhere,RefType.InsideFunction);
         return ns;
     }
 
@@ -639,11 +645,11 @@ class EditorGenerator extends AbstractGenerator {
      * The namespace in the 'Where' is in its original position
      * but we also want to move the code outside the function.
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Where where,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Where where,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(null,where,null);
 	  parent.addSubscope(ns);
 	  if (where.b !== null) {
-	  	//var NamespaceScope whereNamespace = setNamespace(ns,0,where.b,insideWhere);
+	  	//var NamespaceScope whereNamespace = setNamespace(ns,0,where.b,insideWhere,RefType.InsideFunction);
 	  	//if (insideWhere != WhereState.WritingWhere) pendingWheres.add(whereNamespace)
 	  }
 	  return ns;
@@ -666,37 +672,39 @@ class EditorGenerator extends AbstractGenerator {
         compile(indent,precedence,lhs,where.b,WhereState.ReadingWhere,scope)»«
         ENDIF»'''
 
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expr expr,WhereState insideWhere) {
-        if (expr instanceof WhereExpression) return setNamespace(parent,precedence,expr as WhereExpression,insideWhere);
-	    if (expr instanceof IfExpression) return setNamespace(parent,precedence,expr as IfExpression,insideWhere);
-	    if (expr instanceof Expression) return setNamespace(parent,precedence,expr as Expression,insideWhere);
-	    if (expr instanceof OrExpression) return setNamespace(parent,precedence,expr as OrExpression,insideWhere);
-	    if (expr instanceof AndExpression) return setNamespace(parent,precedence,expr as AndExpression,insideWhere);
-	    if (expr instanceof EqualityExpression) return setNamespace(parent,precedence,expr as EqualityExpression,insideWhere);
-	    if (expr instanceof RelationalExpression) return setNamespace(parent,precedence,expr as RelationalExpression,insideWhere);
-	    if (expr instanceof IsExpression) return setNamespace(parent,precedence,expr as IsExpression,insideWhere);
-	    if (expr instanceof InExpression) return setNamespace(parent,precedence,expr as InExpression,insideWhere);
-        if (expr instanceof SegmentExpression) return setNamespace(parent,precedence,expr as SegmentExpression,insideWhere);
-        if (expr instanceof AdditiveExpression) return setNamespace(parent,precedence,expr as AdditiveExpression,insideWhere);
-        if (expr instanceof ExquoExpression) return setNamespace(parent,precedence,expr as ExquoExpression,insideWhere);
-        if (expr instanceof DivisionExpression) return setNamespace(parent,precedence,expr as DivisionExpression,insideWhere);
-        if (expr instanceof QuoExpression) return setNamespace(parent,precedence,expr as QuoExpression,insideWhere);
-        if (expr instanceof ModExpression) return setNamespace(parent,precedence,expr as ModExpression,insideWhere);
-        if (expr instanceof RemExpression) return setNamespace(parent,precedence,expr as RemExpression,insideWhere);
-        if (expr instanceof MultiplicativeExpression) return setNamespace(parent,precedence,expr as MultiplicativeExpression,insideWhere);
-        if (expr instanceof ExponentExpression) return setNamespace(parent,precedence,expr as ExponentExpression,insideWhere);
-        if (expr instanceof MapExpression) return setNamespace(parent,precedence,expr as MapExpression,insideWhere);
-	    if (expr instanceof LambdaExpression) return setNamespace(parent,precedence,expr as LambdaExpression,insideWhere);
-	    if (expr instanceof AssignExpression) return setNamespace(parent,precedence,expr as AssignExpression,insideWhere);
-	    if (expr instanceof ExitExpression) return setNamespace(parent,precedence,expr as ExitExpression,insideWhere);
-        if (expr instanceof EltExpression) return setNamespace(parent,precedence,expr as EltExpression,insideWhere);
-        if (expr instanceof UnaryExpression) return setNamespace(parent,precedence,expr as UnaryExpression,insideWhere);
-	    if (expr instanceof VarOrFunction) return setNamespace(parent,precedence,expr as VarOrFunction,insideWhere);
-	    if (expr instanceof Block) return setNamespace(parent,precedence,expr as Block,insideWhere);
-        if (expr.b1 !== null) return setNamespace(parent,precedence,expr.b1,insideWhere);
-        if (expr.b2 !== null) return setNamespace(parent,precedence,expr.b2,insideWhere);
-        if (expr.b2i !== null) return setNamespace(parent,precedence,expr.b2i,insideWhere);
-        if (expr.b3 !== null) return setNamespace(parent,precedence,expr.b3,insideWhere);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expr expr,WhereState insideWhere,RefType refType) {
+        if (expr instanceof WhereExpression) return setNamespace(parent,precedence,expr as WhereExpression,insideWhere,refType);
+	    if (expr instanceof IfExpression) return setNamespace(parent,precedence,expr as IfExpression,insideWhere,refType);
+	    if (expr instanceof Expression) return setNamespace(parent,precedence,expr as Expression,insideWhere,refType);
+	    if (expr instanceof OrExpression) return setNamespace(parent,precedence,expr as OrExpression,insideWhere,refType);
+	    if (expr instanceof AndExpression) return setNamespace(parent,precedence,expr as AndExpression,insideWhere,refType);
+	    if (expr instanceof EqualityExpression) return setNamespace(parent,precedence,expr as EqualityExpression,insideWhere,refType);
+	    if (expr instanceof RelationalExpression) return setNamespace(parent,precedence,expr as RelationalExpression,insideWhere,refType);
+	    if (expr instanceof IsExpression) return setNamespace(parent,precedence,expr as IsExpression,insideWhere,refType);
+	    if (expr instanceof InExpression) return setNamespace(parent,precedence,expr as InExpression,insideWhere,refType);
+        if (expr instanceof SegmentExpression) return setNamespace(parent,precedence,expr as SegmentExpression,insideWhere,refType);
+        if (expr instanceof AdditiveExpression) return setNamespace(parent,precedence,expr as AdditiveExpression,insideWhere,refType);
+        if (expr instanceof ExquoExpression) return setNamespace(parent,precedence,expr as ExquoExpression,insideWhere,refType);
+        if (expr instanceof DivisionExpression) return setNamespace(parent,precedence,expr as DivisionExpression,insideWhere,refType);
+        if (expr instanceof QuoExpression) return setNamespace(parent,precedence,expr as QuoExpression,insideWhere,refType);
+        if (expr instanceof ModExpression) return setNamespace(parent,precedence,expr as ModExpression,insideWhere,refType);
+        if (expr instanceof RemExpression) return setNamespace(parent,precedence,expr as RemExpression,insideWhere,refType);
+        if (expr instanceof MultiplicativeExpression) return setNamespace(parent,precedence,expr as MultiplicativeExpression,insideWhere,refType);
+        if (expr instanceof ExponentExpression) return setNamespace(parent,precedence,expr as ExponentExpression,insideWhere,refType);
+        if (expr instanceof MapExpression) return setNamespace(parent,precedence,expr as MapExpression,insideWhere,refType);
+	    if (expr instanceof LambdaExpression) return setNamespace(parent,precedence,expr as LambdaExpression,insideWhere,refType);
+	    if (expr instanceof AssignExpression) return setNamespace(parent,precedence,expr as AssignExpression,insideWhere,refType);
+	    if (expr instanceof ExitExpression) return setNamespace(parent,precedence,expr as ExitExpression,insideWhere,refType);
+        if (expr instanceof EltExpression) return setNamespace(parent,precedence,expr as EltExpression,insideWhere,refType);
+        if (expr instanceof UnaryExpression) return setNamespace(parent,precedence,expr as UnaryExpression,insideWhere,refType);
+	    if (expr instanceof VarOrFunction) return setNamespace(parent,precedence,expr as VarOrFunction,insideWhere,refType);
+	    if (expr instanceof Tuple) return setNamespace(parent,precedence,expr as Tuple,insideWhere,refType);
+	    if (expr instanceof Block) return setNamespace(parent,precedence,expr as Block,insideWhere,refType);
+	    if (expr instanceof Literal) return setNamespace(parent,precedence,expr as Literal,insideWhere,refType);
+        if (expr.b1 !== null) return setNamespace(parent,precedence,expr.b1,insideWhere,refType);
+        if (expr.b2 !== null) return setNamespace(parent,precedence,expr.b2,insideWhere,refType);
+        if (expr.b2i !== null) return setNamespace(parent,precedence,expr.b2i,insideWhere,refType);
+        if (expr.b3 !== null) return setNamespace(parent,precedence,expr.b3,insideWhere,refType);
         return new NullScope(null,null,null);
     }
 
@@ -792,11 +800,11 @@ PrimaryExpression returns Expr:
 	      compile(indent,precedence,lhs,expr.b3,insideWhere,parentScope)»«ENDIF»'''
 
     /** WhereExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,WhereExpression whereExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,WhereExpression whereExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,whereExpression,null);
 	  parent.addSubscope(ns);
-      if (whereExpression.left !== null) setNamespace(ns,1,whereExpression.left,insideWhere);
-	  if (whereExpression.w !== null) setNamespace(ns,1,whereExpression.w,insideWhere);
+      if (whereExpression.left !== null) setNamespace(ns,1,whereExpression.left,insideWhere,RefType.InsideFunction);
+	  if (whereExpression.w !== null) setNamespace(ns,1,whereExpression.w,insideWhere,RefType.InsideFunction);
 	  return ns;
     }
 
@@ -832,12 +840,12 @@ PrimaryExpression returns Expr:
      * |
      * ({IfExpression} KW_AT 'if' i1=Expression 'then' i2=Statement NL? ('else' i3=Statement NL?)? KW_AT)
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IfExpression ifExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IfExpression ifExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,ifExpression,null);
 	  parent.addSubscope(ns);
-      if(ifExpression.i1 !== null) setNamespace(ns,0,ifExpression.i1,insideWhere);
-      if(ifExpression.i2 !== null) setNamespace(ns,0,ifExpression.i2,insideWhere);
-      if(ifExpression.i3 !== null) setNamespace(ns,0,ifExpression.i3,insideWhere);
+      if(ifExpression.i1 !== null) setNamespace(ns,0,ifExpression.i1,insideWhere,RefType.InsideFunction);
+      if(ifExpression.i2 !== null) setNamespace(ns,0,ifExpression.i2,insideWhere,RefType.InsideFunction);
+      if(ifExpression.i3 !== null) setNamespace(ns,0,ifExpression.i3,insideWhere,RefType.InsideFunction);
       return ns;
     }
 
@@ -862,12 +870,12 @@ PrimaryExpression returns Expr:
  * This is top of expression tree except for WhereExpression
  * combines statements using semicolon
  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expression expression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expression expression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,expression,null);
 	  parent.addSubscope(ns);
-	  if(expression.left !== null) setNamespace(ns,8,expression.left,insideWhere);
-	  if(expression.right !== null) setNamespace(ns,8,expression.right,insideWhere);
-	  if(expression.right2 !== null) setNamespace(ns,8,expression.right2,insideWhere);
+	  if(expression.left !== null) setNamespace(ns,8,expression.left,insideWhere,RefType.InsideFunction);
+	  if(expression.right !== null) setNamespace(ns,8,expression.right,insideWhere,RefType.InsideFunction);
+	  if(expression.right2 !== null) setNamespace(ns,8,expression.right2,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -895,7 +903,7 @@ PrimaryExpression returns Expr:
 	    ccp(10,precedence)»'''
 
     /** LambdaExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LambdaExpression lambdaExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LambdaExpression lambdaExpression,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,lambdaExpression,null);
 	    parent.addSubscope(ns);
         var VarOrFunction v =null;
@@ -970,11 +978,11 @@ PrimaryExpression returns Expr:
  * This is top of expression tree except for WhereExpression
  * Handles exit like: '=>' expr1 ';' expr2
  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExitExpression exitExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExitExpression exitExpression,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,exitExpression,null);
 	    parent.addSubscope(ns);
-        if (exitExpression.left !== null) setNamespace(ns,14,exitExpression.left,insideWhere);
-	    if (exitExpression.right !== null) setNamespace(ns,14,exitExpression.right,insideWhere);
+        if (exitExpression.left !== null) setNamespace(ns,14,exitExpression.left,insideWhere,RefType.InsideFunction);
+	    if (exitExpression.right !== null) setNamespace(ns,14,exitExpression.right,insideWhere,RefType.InsideFunction);
 	    return ns;
     }
 
@@ -1005,7 +1013,7 @@ PrimaryExpression returns Expr:
 
     /**
      * AssignExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AssignExpression assignExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AssignExpression assignExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,assignExpression,null);
 	  parent.addSubscope(ns);
       if (assignExpression.left !== null) {
@@ -1021,10 +1029,10 @@ PrimaryExpression returns Expr:
 	     	  vars.addWrite(v,currentFunction);
 	        }
           }
-	      setNamespace(ns,16,assignExpression.left,insideWhere);
+	      //setNamespace(ns,16,assignExpression.left,insideWhere,RefType.VarWrite);
 	  }
 	  if (assignExpression.right !== null) {
-	      setNamespace(ns,16,assignExpression.right,insideWhere);
+	      setNamespace(ns,16,assignExpression.right,insideWhere,RefType.VarRead);
 	  }
 	  return ns;
 	}
@@ -1118,11 +1126,11 @@ PrimaryExpression returns Expr:
 
     /**
      * OrExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,OrExpression orExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,OrExpression orExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,orExpression,null);
 	  parent.addSubscope(ns);
-	  if(orExpression.left !== null) setNamespace(ns,18,orExpression.left,insideWhere);
-	  if(orExpression.right !== null) setNamespace(ns,18,orExpression.right,insideWhere);
+	  if(orExpression.left !== null) setNamespace(ns,18,orExpression.left,insideWhere,RefType.InsideFunction);
+	  if(orExpression.right !== null) setNamespace(ns,18,orExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1139,11 +1147,11 @@ PrimaryExpression returns Expr:
 
     /**
      * AndExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AndExpression andExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AndExpression andExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,andExpression,null);
 	  parent.addSubscope(ns);
-	  if(andExpression.left !== null) setNamespace(ns,20,andExpression.left,insideWhere);
-	  if(andExpression.right !== null) setNamespace(ns,20,andExpression.right,insideWhere);
+	  if(andExpression.left !== null) setNamespace(ns,20,andExpression.left,insideWhere,RefType.InsideFunction);
+	  if(andExpression.right !== null) setNamespace(ns,20,andExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1160,11 +1168,11 @@ PrimaryExpression returns Expr:
 
     /**
      * EqualityExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EqualityExpression equalityExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EqualityExpression equalityExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,equalityExpression,null);
 	  parent.addSubscope(ns);
-	  if(equalityExpression.left !== null) setNamespace(ns,20,equalityExpression.left,insideWhere);
-	  if(equalityExpression.right !== null) setNamespace(ns,20,equalityExpression.right,insideWhere);
+	  if(equalityExpression.left !== null) setNamespace(ns,20,equalityExpression.left,insideWhere,RefType.InsideFunction);
+	  if(equalityExpression.right !== null) setNamespace(ns,20,equalityExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1179,11 +1187,11 @@ PrimaryExpression returns Expr:
 
     /**
      * RelationalExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RelationalExpression relationalExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RelationalExpression relationalExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,relationalExpression,null);
 	  parent.addSubscope(ns);
-	  if(relationalExpression.left !== null) setNamespace(ns,20,relationalExpression.left,insideWhere);
-	  if(relationalExpression.right !== null) setNamespace(ns,20,relationalExpression.right,insideWhere);
+	  if(relationalExpression.left !== null) setNamespace(ns,20,relationalExpression.left,insideWhere,RefType.InsideFunction);
+	  if(relationalExpression.right !== null) setNamespace(ns,20,relationalExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1198,11 +1206,11 @@ PrimaryExpression returns Expr:
 
     /**
      * IsExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IsExpression isExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,IsExpression isExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(null,isExpression,null);
 	  parent.addSubscope(ns);
 	  if(isExpression.left !== null)
-	      setNamespace(ns,26,isExpression.left,insideWhere);
+	      setNamespace(ns,26,isExpression.left,insideWhere,RefType.InsideFunction);
 	  if(isExpression.right !== null) {
           if (isExpression.right instanceof ListLiteral) {
             val ListLiteral ll = (isExpression.right as ListLiteral);
@@ -1211,9 +1219,8 @@ PrimaryExpression returns Expr:
 	        for (String v:vs) {
 	     	  vars.addWrite(v,currentFunction);
 	        }
-          } else {
-	        setNamespace(ns,26,isExpression.right,insideWhere);
           }
+          setNamespace(ns,26,isExpression.right,insideWhere,RefType.InsideFunction);
       }
       return ns;
 	}
@@ -1273,7 +1280,7 @@ PrimaryExpression returns Expr:
     /**
      * InExpression
      */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,InExpression inExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,InExpression inExpression,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,inExpression,null);
 	    parent.addSubscope(ns);
 	    if(inExpression.left !== null)
@@ -1281,9 +1288,9 @@ PrimaryExpression returns Expr:
           	val VarOrFunction v = inExpression.left as VarOrFunction;
           	vars.addWrite(v.name,currentFunction);
           }
-	      setNamespace(ns,28,inExpression.left,insideWhere);
-	    if(inExpression.right !== null) setNamespace(ns,28,inExpression.right,insideWhere);
-	    if(inExpression.r2 !== null) setNamespace(ns,29,inExpression.r2,insideWhere);
+	      setNamespace(ns,28,inExpression.left,insideWhere,RefType.InsideFunction);
+	    if(inExpression.right !== null) setNamespace(ns,28,inExpression.right,insideWhere,RefType.InsideFunction);
+	    if(inExpression.r2 !== null) setNamespace(ns,29,inExpression.r2,insideWhere,RefType.InsideFunction);
 	    return ns;
 	}
 
@@ -1304,13 +1311,13 @@ PrimaryExpression returns Expr:
 	
     /**
      * SegmentExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,SegmentExpression segmentExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,SegmentExpression segmentExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,segmentExpression,null);
 	  parent.addSubscope(ns);
 	  if(segmentExpression.left !== null)
-	      setNamespace(ns,30,segmentExpression.left,insideWhere);
+	      setNamespace(ns,30,segmentExpression.left,insideWhere,RefType.InsideFunction);
 	  if(segmentExpression.right !== null)
-	      setNamespace(ns,30,segmentExpression.right,insideWhere);
+	      setNamespace(ns,30,segmentExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1328,13 +1335,13 @@ PrimaryExpression returns Expr:
 
     /**
      * AdditiveExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AdditiveExpression additiveExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AdditiveExpression additiveExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,additiveExpression,null);
 	  parent.addSubscope(ns);
 	  if(additiveExpression.left !== null)
-	      setNamespace(ns,32,additiveExpression.left,insideWhere);
+	      setNamespace(ns,32,additiveExpression.left,insideWhere,RefType.InsideFunction);
 	  if(additiveExpression.right !== null)
-	      setNamespace(ns,32,additiveExpression.right,insideWhere);
+	      setNamespace(ns,32,additiveExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1349,13 +1356,13 @@ PrimaryExpression returns Expr:
 
     /**
      * ExquoExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExquoExpression exquoExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExquoExpression exquoExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,exquoExpression,null);
 	  parent.addSubscope(ns);
 	  if(exquoExpression.left !== null)
-	      setNamespace(ns,34,exquoExpression.left,insideWhere);
+	      setNamespace(ns,34,exquoExpression.left,insideWhere,RefType.InsideFunction);
 	  if(exquoExpression.right !== null)
-	      setNamespace(ns,34,exquoExpression.right,insideWhere);
+	      setNamespace(ns,34,exquoExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1370,13 +1377,13 @@ PrimaryExpression returns Expr:
 
     /**
      * DivisionExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,DivisionExpression divisionExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,DivisionExpression divisionExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,divisionExpression,null);
 	  parent.addSubscope(ns);
 	  if(divisionExpression.left !== null)
-	      setNamespace(ns,36,divisionExpression.left,insideWhere);
+	      setNamespace(ns,36,divisionExpression.left,insideWhere,RefType.InsideFunction);
 	  if(divisionExpression.right !== null)
-	      setNamespace(ns,36,divisionExpression.right,insideWhere);
+	      setNamespace(ns,36,divisionExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1391,13 +1398,13 @@ PrimaryExpression returns Expr:
 
     /**
      * QuoExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,QuoExpression quoExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,QuoExpression quoExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,quoExpression,null);
 	  parent.addSubscope(ns);
 	  if(quoExpression.left !== null)
-	      setNamespace(ns,16,quoExpression.left,insideWhere);
+	      setNamespace(ns,16,quoExpression.left,insideWhere,RefType.InsideFunction);
 	  if(quoExpression.right !== null)
-	      setNamespace(ns,16,quoExpression.right,insideWhere);
+	      setNamespace(ns,16,quoExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1412,13 +1419,13 @@ PrimaryExpression returns Expr:
 
     /**
      * ModExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ModExpression modExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ModExpression modExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,modExpression,null);
 	  parent.addSubscope(ns);
 	  if(modExpression.left !== null)
-	      setNamespace(ns,38,modExpression.left,insideWhere);
+	      setNamespace(ns,38,modExpression.left,insideWhere,RefType.InsideFunction);
 	  if(modExpression.right !== null)
-	      setNamespace(ns,38,modExpression.right,insideWhere);
+	      setNamespace(ns,38,modExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1433,13 +1440,13 @@ PrimaryExpression returns Expr:
 
     /**
      * RemExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RemExpression remExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,RemExpression remExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,remExpression,null);
 	  parent.addSubscope(ns);
 	  if(remExpression.left !== null)
-	      setNamespace(ns,40,remExpression.left,insideWhere);
+	      setNamespace(ns,40,remExpression.left,insideWhere,RefType.InsideFunction);
 	  if(remExpression.right !== null)
-	      setNamespace(ns,40,remExpression.right,insideWhere);
+	      setNamespace(ns,40,remExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1454,13 +1461,13 @@ PrimaryExpression returns Expr:
 
     /**
      * MultiplicativeExpression */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,MultiplicativeExpression multiplicativeExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,multiplicativeExpression,null);
 	  parent.addSubscope(ns);
 	  if(multiplicativeExpression.left !== null)
-	      setNamespace(ns,42,multiplicativeExpression.left,insideWhere);
+	      setNamespace(ns,42,multiplicativeExpression.left,insideWhere,RefType.InsideFunction);
 	  if(multiplicativeExpression.right !== null)
-	      setNamespace(ns,42,multiplicativeExpression.right,insideWhere);
+	      setNamespace(ns,42,multiplicativeExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1475,13 +1482,13 @@ PrimaryExpression returns Expr:
 
     /**
      * ExponentExpression  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExponentExpression exponentExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ExponentExpression exponentExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,exponentExpression,null);
 	  parent.addSubscope(ns);
 	  if(exponentExpression.left !== null)
-	      setNamespace(ns,44,exponentExpression.left,insideWhere);
+	      setNamespace(ns,44,exponentExpression.left,insideWhere,RefType.InsideFunction);
 	  if(exponentExpression.right !== null)
-	      setNamespace(ns,44,exponentExpression.right,insideWhere);
+	      setNamespace(ns,44,exponentExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1496,13 +1503,13 @@ PrimaryExpression returns Expr:
 
     /**
      * EltExpression  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EltExpression eltExpression,WhereState insideWhere){
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,EltExpression eltExpression,WhereState insideWhere,RefType refType){
 	  val NamespaceScope ns = new NamespaceScope(parent,eltExpression,null);
 	  parent.addSubscope(ns);
 	  if(eltExpression.left !== null)
-	      setNamespace(ns,46,eltExpression.left,insideWhere);
+	      setNamespace(ns,46,eltExpression.left,insideWhere,RefType.InsideFunction);
 	  if(eltExpression.right !== null)
-	      setNamespace(ns,46,eltExpression.right,insideWhere);
+	      setNamespace(ns,46,eltExpression.right,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1515,12 +1522,12 @@ PrimaryExpression returns Expr:
 	    IF eltExpression.right !== null»«compile(indent,46,lhs,eltExpression.right,insideWhere,scope)»«ENDIF»«
 	    ccp(46,precedence)»'''
 
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,UnaryExpression unaryExpression,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,UnaryExpression unaryExpression,WhereState insideWhere,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,unaryExpression,null);
 	  parent.addSubscope(ns);
-	  if (unaryExpression.b1 !== null) setNamespace(ns,48,unaryExpression.b1,insideWhere);
-	  if (unaryExpression.b3 !== null) setNamespace(ns,48,unaryExpression.b3,insideWhere);
-	  if (unaryExpression.expr !== null) setNamespace(ns,48,unaryExpression.expr,insideWhere);
+	  if (unaryExpression.b1 !== null) setNamespace(ns,48,unaryExpression.b1,insideWhere,RefType.InsideFunction);
+	  if (unaryExpression.b3 !== null) setNamespace(ns,48,unaryExpression.b3,insideWhere,RefType.InsideFunction);
+	  if (unaryExpression.expr !== null) setNamespace(ns,48,unaryExpression.expr,insideWhere,RefType.InsideFunction);
 	  return ns;
 	}
 
@@ -1558,6 +1565,17 @@ PrimaryExpression |
 	    IF unaryExpression.expr !== null»«compile(indent,48,lhs,unaryExpression.expr,insideWhere,scope)»«ENDIF»«
 	    ccp(48,precedence)»'''
 
+    /**
+     * Tuple */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Tuple expr,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,expr,null);
+	    parent.addSubscope(ns);
+	    for (Statement x:expr.t5)
+	        setNamespace(ns,0,x,insideWhere,RefType.InsideFunction);
+	    if (expr.t3 !== null)
+	        setNamespace(ns,0,expr.t3,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
 
 /*{Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)? */
 	def CharSequence compile(int indent,int precedence,boolean lhs,Tuple expr,WhereState insideWhere,NamespaceScope parentScope)
@@ -1578,13 +1596,13 @@ PrimaryExpression |
 
     /**
      * Block */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Block expr,WhereState insideWhere) {
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Block expr,WhereState insideWhere,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,expr,null);
 	    parent.addSubscope(ns);
 	    for (Statement x:expr.s)
-	        setNamespace(ns,0,x,insideWhere);
+	        setNamespace(ns,0,x,insideWhere,RefType.InsideFunction);
 	    if (expr.t4 !== null)
-	        setNamespace(ns,0,expr.t4,insideWhere);
+	        setNamespace(ns,0,expr.t4,insideWhere,RefType.InsideFunction);
 	    return ns;
 	}
 
@@ -1661,14 +1679,30 @@ PrimaryExpression |
 
     /**
      * VarOrFunction  */
-	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,VarOrFunction varOrFunction,WhereState insideWhere) {
-	  val NamespaceScope ns = new NamespaceScope(parent,varOrFunction,null);
-	  parent.addSubscope(ns);
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,VarOrFunction varOrFunction,WhereState insideWhere,RefType refType) {
       var String nam = varOrFunction.name;
-      if (varOrFunction.expr !== null) {
+	  var NamespaceScope ns = null;
+	  var boolean isVar=true;
+	  if (varOrFunction.expr !== null) {
+	    isVar=false;
+        if (varOrFunction.expr instanceof UnaryExpression) {
+	      var UnaryExpression u = varOrFunction.expr as UnaryExpression
+	      if (u.uop == ":") isVar=true;
+	    }
+	  }
+	  if (isVar) {
+	    ns = switch (refType) {
+	  	  case Parameter : new ParameterScope(parent,varOrFunction,nam)
+	  	  case VarWrite : new LocalVarScope(parent,varOrFunction,nam)
+          default : new NamespaceScope(parent,varOrFunction,nam)
+        }
+        vars.addRead(nam,currentFunction);
+	  } else {
+	  	ns = new FunctionCallScope(parent,varOrFunction,nam)
+      	setNamespace(ns,0,varOrFunction.expr,insideWhere,RefType.InsideFunction);
       	vars.addFunctionCall(nam,varOrFunction.expr,currentFunction,currentFile);
-      	//setNamespace(ns,precedence,varOrFunction.expr,insideWhere)
-      } else vars.addRead(nam,currentFunction);
+	  }
+	  parent.addSubscope(ns);
       return ns;
     }
 
@@ -1759,6 +1793,14 @@ PrimaryExpression |
 	    ENDIF»«
 	    ccp(48,precedence)»'''
 
+    /**
+     * Literal  */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Literal literal,WhereState insideWhere,RefType refType) {
+        if (literal instanceof ListLiteral) return setNamespace(parent,precedence,literal as ListLiteral,insideWhere,refType);
+        if (literal instanceof LispLiteral) return setNamespace(parent,precedence,literal as LispLiteral,insideWhere,refType);
+        return new NullScope(null,null,null);
+	}
+
 /*
  * Literal:
  * // numeric literal
@@ -1786,6 +1828,15 @@ PrimaryExpression |
 		IF literal.nil !== null»«literal.nil»«ENDIF»«
 		IF literal.str !== null»«literal.str»«ENDIF»'''
 
+    /**
+     * LispLiteral  */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LispLiteral lispLiteral,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,lispLiteral,null);
+	    parent.addSubscope(ns);
+	    if (lispLiteral.sll !== null) setNamespace(ns,0,lispLiteral.sll,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
+
 /*
  * LispLiteral:
   p+=KW_PRIME+ sll=SubLispLiteral
@@ -1797,6 +1848,16 @@ PrimaryExpression |
         '''
         «FOR x:lispLiteral.pr»«x»«ENDFOR»«
         IF lispLiteral.sll !== null»«compile(indent,precedence,lhs,lispLiteral.sll,insideWhere,parentScope)»«ENDIF»'''
+
+    /**
+     * SubLispLiteral */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,SubLispLiteral subLispLiteral,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,subLispLiteral,cleanID(subLispLiteral.name));
+	    parent.addSubscope(ns);
+	    for (AnnotatedSubLispLiteral x:subLispLiteral.asl)
+	        setNamespace(ns,0,x,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
 
 /*
  * SubLispLiteral:
@@ -1836,6 +1897,15 @@ PrimaryExpression |
 	    ENDFOR»«
 	    IF subLispLiteral.oparen && inParen»)«ENDIF»'''
 
+    /**
+     * AnnotatedSubLispLiteral */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,AnnotatedSubLispLiteral annotatedSubLispLiteral,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,annotatedSubLispLiteral,null);
+	    parent.addSubscope(ns);
+	    if (annotatedSubLispLiteral.sl !== null) setNamespace(ns,0,annotatedSubLispLiteral.sl,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
+
 /* AnnotatedSubLispLiteral:
  *  p?=KW_PRIME? sl=SubLispLiteral d?=KW_DOT?
  *  */
@@ -1845,6 +1915,18 @@ PrimaryExpression |
         IF annotatedSubLispLiteral.p»'«ENDIF»«
 	    IF annotatedSubLispLiteral.sl !== null»«compile(indent,0,lhs,annotatedSubLispLiteral.sl,insideWhere,scope)»«ENDIF»«
 	    IF annotatedSubLispLiteral.d» .«ENDIF»'''
+
+    /**
+     * ListLiteral  */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ListLiteral listLiteral,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,listLiteral,null);
+	    parent.addSubscope(ns);
+	    for (ListElement x:listLiteral.le)
+	        setNamespace(ns,0,x,insideWhere,RefType.InsideFunction);
+	    for (ListComprehension x:listLiteral.sl)
+	        setNamespace(ns,0,x,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
 
 /*
  * ListLiteral:
@@ -1861,6 +1943,16 @@ KW_CBRACK
         var testparams=false»«
         FOR x:listLiteral.le»«if(testparams)','»«compile(indent,0,lhs,x,insideWhere,scope)»«{testparams=true;null}»«ENDFOR»«
         FOR x:listLiteral.sl»«compile(indent,0,lhs,x,insideWhere,parentScope)»«ENDFOR»'''
+
+
+    /**
+     * ListElement */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ListElement listElement,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,listElement,null);
+	    parent.addSubscope(ns);
+	    if (listElement.l2 !== null) setNamespace(ns,0,listElement.l2,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
 
 /*
  * ListElement:
@@ -1879,6 +1971,15 @@ KW_CBRACK
         IF listElement.l2 !== null»«compile(indent,0,lhs,listElement.l2,insideWhere,scope)» «ENDIF»«
         IF listElement.c2»:«ENDIF»«
         IF listElement.d».«ENDIF»'''
+
+    /**
+     * ListComprehension */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ListComprehension listComprehension,WhereState insideWhere,RefType refType) {
+		val NamespaceScope ns = new NamespaceScope(parent,listComprehension,null);
+	    parent.addSubscope(ns);
+	    //if (listComprehension.sl2 !== null) setNamespace(ns,0,listComprehension.sl2,insideWhere,RefType.InsideFunction);
+	    return ns;
+	}
 
 /*
  * ListComprehension:

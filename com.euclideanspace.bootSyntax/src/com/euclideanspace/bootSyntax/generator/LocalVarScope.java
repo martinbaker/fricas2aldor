@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
 
-public class FunctionDefScope extends NamespaceScope {
+public class LocalVarScope extends NamespaceScope {
 
   /**
    * constructor for FunctionDefScope
@@ -15,7 +15,7 @@ public class FunctionDefScope extends NamespaceScope {
    * @param e emfElement
    * @param n name
    */
-  public FunctionDefScope(NamespaceScope p,EObject e,String n) {
+  public LocalVarScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
@@ -42,7 +42,7 @@ public class FunctionDefScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "fn def "+n+":"+typ;
+	  return "local var "+n+":"+typ;
   }
 
 }

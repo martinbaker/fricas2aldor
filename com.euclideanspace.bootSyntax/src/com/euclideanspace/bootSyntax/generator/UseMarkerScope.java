@@ -25,4 +25,9 @@ public class UseMarkerScope extends NamespaceScope {
   public NamespaceScope getDef() {
 	  return def;
   }
+  
+  @Override
+  public String nameAndType() {
+	  return "use";
+  }
 }

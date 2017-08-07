@@ -24,4 +24,9 @@ public class NullScope extends NamespaceScope {
 	  return new NullScope(null,null,null);
   }
 
+  @Override
+  public String nameAndType() {
+	  return "null";
+  }
+
 }
