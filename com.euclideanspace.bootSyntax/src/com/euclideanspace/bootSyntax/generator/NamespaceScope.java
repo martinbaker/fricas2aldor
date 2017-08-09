@@ -94,12 +94,12 @@ public class NamespaceScope {
    * @param f name of file where function is defined which is also package name.
    * @param pars parameters
    * @param packageName
-   * @return true if successful false if duplicate.
+   * @return false if duplicate.
    */
   public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
 	  if (parentScope != null) return parentScope.addFunctionDef(n,p,f,bootPkg,pars,num);
 	  System.err.println("cant add function:"+n);
-	  return false;
+	  return true;
   }
 
   public String lookupSafeFunctionName(String n) {
