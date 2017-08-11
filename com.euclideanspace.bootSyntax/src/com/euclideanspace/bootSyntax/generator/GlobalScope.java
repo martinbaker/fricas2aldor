@@ -12,8 +12,8 @@ public class GlobalScope extends NamespaceScope {
   /**
 	* Holds function definition names.
 	*/
-  private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
-
+  //private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
+  private ArrayList<FunctionDefScope> functionDefs = new ArrayList<FunctionDefScope>();
   /**
    * Arrays for holding names of various types of global variables.
    * Global variables have scope across all functions. The global
@@ -67,7 +67,7 @@ public class GlobalScope extends NamespaceScope {
 	  ArrayList<FileScope> res = new ArrayList<FileScope>(); 
 	  for (NamespaceScope ns2:subscopes) {
 		  if (!(ns2 instanceof FileScope)) {
-			  System.err.println("subcope of global not file");
+			  System.err.println("FunctionDefScope: subscope of global not file");
 			  break;
 		  }
 		  res.add((FileScope) ns2);
@@ -84,6 +84,7 @@ public class GlobalScope extends NamespaceScope {
    * @param packageName
    * @return true if successful false if duplicate.
    */
+/*  @Override
   public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
 	  FunctionSignature fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
 	  if (functions.contains(fs)) return false;
@@ -101,57 +102,62 @@ public class GlobalScope extends NamespaceScope {
 	  }
 	  pkg.addFunctionDef(fs);
 	  return true;
-  }
+  }*/
 
-  public String lookupSafeFunctionName(String n) {
-	  for (FunctionSignature fn:functions) {
-		  if (n.equals(fn.getName())) {
-			  return fn.getSafeName();
-		  }
-	  }
-      return "cannotFind";
+  @Override
+  public boolean addFunctionDef(FunctionDefScope fds) {
+	  if (functionDefs.contains(fds)) return false;
+	  functionDefs.add(fds);
+	  return true;
   }
 
   /**
    * add variable name to list of variables read by this function.
+   * 
+   * called from EditorGenerator.setNamespace when called on VarOrFunction
+   * 
    * @param varName name of variable
-   * @param fnName name of function
+   * FIXME
+   * @param fnName name of function - remove since it wont be needed when function ripples down
    */
-  public void addRead(String varName,String fnName) {
-	  boolean addToGlobals = true;
-	  for (FunctionSignature fn:functions) {
-		  if (fnName.equals(fn.getName())) {
-			  addToGlobals = fn.addGlobalsRead(varName);
-		  }
-	  }
+  @Override
+  public void addRead(String varName,boolean addToGlobals) {
 	  if (globals.contains(varName)) return;
 	  if (addToGlobals) globals.add(varName);
   }
-
+  
   /**
    * get read globals for a given function
    * @param fnName
    * @return
    */
   public ArrayList<String> getReadGlobal(String fnName) {
-	  for (FunctionSignature fn:functions) {
-		  if (fnName.equals(fn.getName())) {
-			  return fn.getGlobalsRead();
+	  for (FunctionDefScope fn:functionDefs) {
+		  FunctionSignature fs = fn.getFunctionSignature();
+		  if (fs == null) break;
+		  String nam = fs.getName();
+		  if (nam == null) break;
+		  if (fnName.equals(nam)) {
+			  return fs.getGlobalsRead();
 		  }
 	  }
-	  return new ArrayList<String>();
+ 	  return new ArrayList<String>();
   }
-
+ 
   /**
    * true if given variable name is local in function
    * @param varName
    * @param fnName
    * @return
    */
-  public boolean isLocal(String varName,String fnName) {
-	  for (FunctionSignature fn:functions) {
-		  if (fnName.equals(fn.getName())) {
-			  return fn.isLocal(varName);
+ public boolean isLocal(String varName,String fnName) {
+	  for (FunctionDefScope fn:functionDefs) {
+		  FunctionSignature fs = fn.getFunctionSignature();
+		  if (fs == null) break;
+		  String nam = fs.getName();
+		  if (nam == null) break;
+		  if (fnName.equals(nam)) {
+			  return fs.isLocal(varName);
 		  }
 	  }
 	  return false;
@@ -163,25 +169,33 @@ public class GlobalScope extends NamespaceScope {
    * @param varName variable name
    * @param fnName function name
    */
-  public void addWrite(String varName,String fnName) {
+   public void addWrite(String varName,String fnName) {
 	  boolean local = true;
 	  if (defvar.contains(varName)) local = false;
 	  if (defparameter.contains(varName)) local = false;
 	  if (defconstant.contains(varName)) local = false;
 	  if (defconst.contains(varName)) local = false;
-	  for (FunctionSignature fn:functions) {
-		  if (fn.getName()==fnName) {
-			  fn.addGlobalsWritten(varName,local);
+	  for (FunctionDefScope fn:functionDefs) {
+		  FunctionSignature fs = fn.getFunctionSignature();
+		  if (fs == null) break;
+		  String nam = fs.getName();
+		  if (nam == null) break;
+		  if (fnName.equals(nam)) {
+			  fs.addGlobalsWritten(varName,local);
 		  }
 	  }
 	  if (globals.contains(varName)) return;
 	  globals.add(varName);
   }
-
+  
   public boolean isGlobalsWritten(String varName,String fnName) {
-	  for (FunctionSignature fn:functions) {
-		  if (fn.getName()==fnName) {
-			  return fn.isGlobalsWritten(varName);
+	  for (FunctionDefScope fn:functionDefs) {
+		  FunctionSignature fs = fn.getFunctionSignature();
+		  if (fs == null) break;
+		  String nam = fs.getName();
+		  if (nam == null) break;
+		  if (fnName.equals(nam)) {
+			  return fs.isGlobalsWritten(varName);
 		  }
 	  }
       return false;
@@ -284,28 +298,16 @@ public class GlobalScope extends NamespaceScope {
    * Output function and variable definitions as a string
    * @return output
    */
-  public String showDefs() {
+  @Override
+  public StringBuffer showDefs() {
 	  StringBuffer res = new StringBuffer("");
 
 	  res.append("\nPackages\n");
 	  ArrayList<FileScope> packages = getFileScopes();
       Collections.sort(packages, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
 	  for (FileScope ps:packages) {
-		  res.append("-------- package:"+ps.getName()+" ---------");
-		  res.append("\n calls:");
-		  ArrayList<String> calls = ps.getFunctionCalls();
-		  for (String fc:calls) {
-			  res.append(" "+fc);
-			  if (isLispFunction(fc)) res.append("$Lisp");
-		  }
-		  res.append("\n");
-		  ArrayList<FunctionSignature> fns =ps.getFunctionDefs();
-		  for (FunctionSignature fs:fns) {
-			  res.append(fs.display());
-			  res.append("\n");
-		  }
+		  res.append(ps.showDefs());
 	  }
-	  
 	  res.append("\nFunctions\n");
 	  // order by alphabetical order of file name
 //      Collections.sort(functions, (a, b) -> a.getFile().compareToIgnoreCase(b.getFile()));
@@ -348,7 +350,7 @@ public class GlobalScope extends NamespaceScope {
 		  res.append(s);
 		  res.append("\n");
 	  }
-	  return res.toString();
+	  return res;
   }
   
 

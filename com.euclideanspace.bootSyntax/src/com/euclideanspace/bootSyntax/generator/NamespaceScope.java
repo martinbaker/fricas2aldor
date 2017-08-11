@@ -1,11 +1,11 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
+import com.euclideanspace.bootSyntax.editor.LambdaExpression;
 
 public class NamespaceScope {
   /**
@@ -15,7 +15,7 @@ public class NamespaceScope {
   /**
    * parent scope
    */
-  private NamespaceScope parentScope = null;
+  protected NamespaceScope parentScope = null;
   /**
    * link to element of emf model
    */
@@ -40,7 +40,8 @@ public class NamespaceScope {
    * @param s subscope to be added
    */
   public void addSubscope(NamespaceScope s) {
-	  subscopes.add(s);
+	  if (debth(0) < 10) subscopes.add(s);
+	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 20 in:"+displayDetail());
   }
 
   public ArrayList<NamespaceScope> path() {
@@ -78,7 +79,7 @@ public class NamespaceScope {
 	  }
 	  String typ = e.getClass().toString();
 	  typ = typ.substring(typ.lastIndexOf('.'));
-	  System.err.println("Can't find subscope for:"+typ+" in:"+displayDetail());
+	  System.err.println("NamespaceScope: Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
   }
 
@@ -86,39 +87,48 @@ public class NamespaceScope {
 	  return emfElement;
   }
 
-  
+  public LambdaExpression searchDownForLambdaExpression() {
+	  if (emfElement instanceof LambdaExpression) return ((LambdaExpression)this);
+	  // width first search
+	  for (NamespaceScope s:subscopes) {
+		  if (s.getEobj() instanceof LambdaExpression) return ((LambdaExpression)s.getEobj());
+	  }
+	  // not found so next level down
+	  for (NamespaceScope s:subscopes) {
+//		LambdaExpression candidate = s.searchDownForLambdaExpression();
+//		if (candidate != null) return candidate;
+	  }
+	  return null;
+  }
+
   /**
    * add a function to namespace
-   * @param n name
-   * @param p parent in case this is lambda inside other function
-   * @param f name of file where function is defined which is also package name.
-   * @param pars parameters
-   * @param packageName
-   * @return false if duplicate.
+   * @param fds FunctionDefScope is scope for file definition
+   * @return
    */
-  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
-	  if (parentScope != null) return parentScope.addFunctionDef(n,p,f,bootPkg,pars,num);
-	  System.err.println("cant add function:"+n);
+  public boolean addFunctionDef(FunctionDefScope fds) {
+	  if (parentScope != null) return parentScope.addFunctionDef(fds);
+	  System.err.println("cant add function:"+fds);
 	  return true;
   }
 
-  public String lookupSafeFunctionName(String n) {
+/*  public String lookupSafeFunctionName(String n) {
 	  if (parentScope != null) return parentScope.lookupSafeFunctionName(n);
       System.err.println("cant lookupSafeFunctionName:"+n);
       return "cannotFind";
-  }
+  }*/
 
   public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
 	  if (parentScope != null) {
 		  parentScope.addFunctionCall(nam,params,fnDef,f);
 		  return;
 	  }
-      System.err.println("cant addFunctionCall:"+nam);
+      System.err.println("NamespaceScope: cant addFunctionCall:"+nam);
   }
 
   public FileScope getPackage(String pkgName) {
 	  if (parentScope != null) return parentScope.getPackage(pkgName);
-      System.err.println("cant getPackage:"+pkgName);
+      System.err.println("NamespaceScope: cant getPackage:"+pkgName);
       return null;  
   }
 
@@ -134,13 +144,13 @@ public class NamespaceScope {
    */
   public FileScope getPackageDefiningFn(String fnName,FileScope definedIn) {
 	  if (parentScope != null) return parentScope.getPackageDefiningFn(fnName,definedIn);
-      System.err.println("cant getPackageDefiningFn:"+fnName);
+      System.err.println("NamespaceScope: cant getPackageDefiningFn:"+fnName);
       return null;   
   }
 
   public boolean isLispFunction(String fnName) {
 	  if (parentScope != null) return parentScope.isLispFunction(fnName);
-      System.err.println("cant isLispFunction:"+fnName);
+      System.err.println("NamespaceScope: cant isLispFunction:"+fnName);
 	  return false;
   }
 
@@ -172,7 +182,7 @@ public class NamespaceScope {
 		  parentScope.addUnDefinedGlobal(varName);
 		  return;
 	  }
-      System.err.println("cant addUnDefinedGlobal:"+varName);
+      System.err.println("NamespaceScope: cant addUnDefinedGlobal:"+varName);
   }
 
   public void addGlobal(String varName) {
@@ -180,7 +190,7 @@ public class NamespaceScope {
 		  parentScope.addGlobal(varName);
 		  return;
 	  }
-      System.err.println("cant addGlobal:"+varName);
+      System.err.println("NamespaceScope: cant addGlobal:"+varName);
   }
 
   /**
@@ -188,12 +198,12 @@ public class NamespaceScope {
    * @param varName name of variable
    * @param fnName name of function
    */
-  public void addRead(String varName,String fnName) {
+  public void addRead(String varName,boolean addToGlobals) {
 	  if (parentScope != null) {
-		  parentScope.addRead(varName,fnName);
+		  parentScope.addRead(varName,addToGlobals);
 		  return;
 	  }
-	  System.err.println("cant add read:"+varName);
+	  System.err.println("NamespaceScope: cant add read:"+varName);
   }
 
   /**
@@ -203,7 +213,7 @@ public class NamespaceScope {
    */
   public ArrayList<String> getReadGlobal(String fnName) {
 	  if (parentScope != null) return parentScope.getReadGlobal(fnName);
-      System.err.println("cant getReadGlobal:"+fnName);
+      System.err.println("NamespaceScope: cant getReadGlobal:"+fnName);
       return null;
   }
 
@@ -215,7 +225,7 @@ public class NamespaceScope {
    */
   public boolean isLocal(String varName,String fnName) {
 	  if (parentScope != null) return parentScope.isLocal(varName,fnName);
-      System.err.println("cant isLocal:"+fnName);
+      System.err.println("NamespaceScope: cant isLocal:"+fnName);
 	  return false;
   }
 
@@ -230,12 +240,12 @@ public class NamespaceScope {
 		  parentScope.addWrite(varName,fnName);
 		  return;
 	  }
-      System.err.println("cant addWrite:"+varName);
+      System.err.println("NamespaceScope: cant addWrite:"+varName);
   }
 
   public boolean isGlobalsWritten(String varName,String fnName) {
 	  if (parentScope != null) return parentScope.isGlobalsWritten(varName,fnName);
-      System.err.println("cant isGlobalsWritten:"+fnName);
+      System.err.println("NamespaceScope: cant isGlobalsWritten:"+fnName);
 	  return false;
   }
   
@@ -244,7 +254,7 @@ public class NamespaceScope {
 		  parentScope.addDynamic(varName);
 		  return;
 	  }
-      System.err.println("cant addDynamic:"+varName);
+      System.err.println("NamespaceScope: cant addDynamic:"+varName);
   }
 
   public void addDefparam(String varName) {
@@ -252,7 +262,7 @@ public class NamespaceScope {
 		  parentScope.addDefparam(varName);
 		  return;
 	  }
-      System.err.println("cant addDefparam:"+varName);
+      System.err.println("NamespaceScope: cant addDefparam:"+varName);
   }
 
   public void addDefconstant(String varName) {
@@ -260,7 +270,7 @@ public class NamespaceScope {
 		  parentScope.addDefconstant(varName);
 		  return;
 	  }
-      System.err.println("cant addDefconstant:"+varName);
+      System.err.println("NamespaceScope: cant addDefconstant:"+varName);
   }
 
   public void addDefconst(String varName) {
@@ -268,7 +278,7 @@ public class NamespaceScope {
 		  parentScope.addDefconst(varName);
 		  return;
 	  }
-      System.err.println("cant addDefconst:"+varName);
+      System.err.println("NamespaceScope: cant addDefconst:"+varName);
   }
 
   public void addDefvar(String varName) {
@@ -276,7 +286,7 @@ public class NamespaceScope {
 		  parentScope.addDefvar(varName);
 		  return;
 	  }
-      System.err.println("cant addDefvar:"+varName);
+      System.err.println("NamespaceScope: cant addDefvar:"+varName);
   }
 
   /**
@@ -286,7 +296,7 @@ public class NamespaceScope {
    */
   public boolean isGlobal(String varName) {
 	  if (parentScope != null) return parentScope.isGlobal(varName);
-      System.err.println("cant isGlobal:"+varName);
+      System.err.println("NamespaceScope: cant isGlobal:"+varName);
 	  return false;
 
   }
@@ -317,17 +327,30 @@ public class NamespaceScope {
    * Output function and variable definitions as a string
    * @return output
    */
-  public String showDefs() {
+  public StringBuffer showDefs() {
 	  if (parentScope != null) return parentScope.showDefs();
-      System.err.println("cant showDefs:");
-	  return "cant showDefs";
+      System.err.println("NamespaceScope: cant showDefs:");
+	  return new StringBuffer("cant showDefs");
+  }
+  
+  /**
+   * returns the number of layer in the hierarchy between this scope and
+   * the global scope.
+   * This is useful to avoid crashes by not nesting too deep.
+   * @param d initial value should be zero.
+   * @return number of layers
+   */
+  public int debth(int d) {
+	  if (parentScope == null) return d;
+	  if (d > 30) return 100;
+	  return parentScope.debth(d+1);
   }
   
   /**
    * show all scopes as a tree structure
    * @return output
    */
-  public String showScopes(int level) {
+  public StringBuffer showScopes(int level) {
 	  StringBuffer res = new StringBuffer("");
 	  res.append("\n");
 	  // do indent
@@ -337,9 +360,10 @@ public class NamespaceScope {
 	  res.append(nameAndType());
       // show subscopes
 	  for (NamespaceScope c: subscopes) {
-		  res.append(c.showScopes(level+1));
+		  if (level < 30) res.append(c.showScopes(level+1));
+		  else System.err.println("NamespaceScope: level > 30 in:"+nameAndType());
 	  }
-	  return res.toString();
+	  return res;
   }
 
 }

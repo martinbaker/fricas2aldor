@@ -14,9 +14,8 @@ import com.euclideanspace.bootSyntax.editor.Expr;
  *
  */
 public class FileScope extends NamespaceScope {
-	  //private String name = null;
 	  /** functions defined in this package */
-	  private ArrayList<FunctionSignature> fnDefs = new ArrayList<FunctionSignature>();
+	  private ArrayList<FunctionDefScope> functionDefs = new ArrayList<FunctionDefScope>();
 	  /** functions called in this package */
 	  private ArrayList<String> fnCalls = new ArrayList<String>();
 
@@ -56,14 +55,22 @@ public class FileScope extends NamespaceScope {
 	  return new NullScope(null,null,null);
   }
 
+  @Override
+  public boolean addFunctionDef(FunctionDefScope fds) {
+	  if (parentScope != null) parentScope.addFunctionDef(fds);
+	  if (functionDefs.contains(fds)) return false;
+	  functionDefs.add(fds);
+	  return true;
+  }
+
   /**
    * add a function definition to this package
    * @param fn
    */
-  void addFunctionDef(FunctionSignature fn) {
+/*  void addFunctionDef(FunctionSignature fn) {
 	  if (fnDefs.contains(fn)) return;
 	  fnDefs.add(fn);
-  }
+  }*/
 
   /**
    * add a function call to this package
@@ -90,24 +97,57 @@ public class FileScope extends NamespaceScope {
 	  return name;
   }*/
   
-  ArrayList<FunctionSignature> getFunctionDefs() {
-	  return fnDefs;
+  ArrayList<FunctionDefScope> getFunctionDefs() {
+	  return functionDefs;
   }
   
   ArrayList<String> getFunctionCalls() {
 	  return fnCalls;
   }
   
-  boolean containsFunction(FunctionSignature fn) {
+/*  boolean containsFunction(FunctionSignature fn) {
 	  return fnDefs.contains(fn);
-  }
+  }*/
 
   boolean containsFunctionDef(String fn) {
-	  for (FunctionSignature f:fnDefs) {
+	  for (FunctionDefScope fds:functionDefs) {
+	    FunctionSignature f = fds.getFunctionSignature();
+	    if (f == null) break;
 		if (fn.equals(f.getName())) 
          return true;
 	  }
 	  return false;
+  }
+
+  /**
+   * Output function and variable definitions as a string
+   * @return output
+   */
+  @Override
+  public StringBuffer showDefs() {
+	StringBuffer res = new StringBuffer("");
+	res.append("-------- package:"+getName()+" ---------");
+	res.append("\n fn calls:");
+	ArrayList<String> calls = getFunctionCalls();
+	int cols = 0;
+	for (String fc:calls) {
+	  if (cols > 10) {
+	    res.append("\n fn calls:"+fc);
+	    cols =0;
+	  } else cols = cols+1;
+	  res.append(" "+fc);
+	  if (isLispFunction(fc)) res.append("$Lisp");
+	}
+	res.append("\n");
+	ArrayList<FunctionDefScope> fns =getFunctionDefs();
+	for (FunctionDefScope fd:fns) {
+	  FunctionSignature fs = fd.getFunctionSignature();
+	  if (fs != null) {
+	    res.append(fs.display());
+	    res.append("\n");
+	  }
+	}
+	return res;
   }
 
 }

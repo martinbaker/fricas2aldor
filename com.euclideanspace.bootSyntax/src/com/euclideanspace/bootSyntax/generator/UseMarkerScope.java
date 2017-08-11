@@ -1,15 +1,12 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Expr;
 
 public class UseMarkerScope extends NamespaceScope {
 
 	private NamespaceScope def =null;
+	private int index = 1;
 
   /**
    * constructor for UseMarkerScope
@@ -26,8 +23,23 @@ public class UseMarkerScope extends NamespaceScope {
 	  return def;
   }
   
+  public void setIndex(int i) {
+	  index = i;
+  }
+ 
+  /*@Override
+  public NamespaceScope getScope(EObject e) {
+	  return new NullScope(null,null,null);
+  }*/
+
+  @Override
+  public void addSubscope(NamespaceScope s) {
+	  System.err.println("UseMarkerScope: error should not add subnodes here");
+  }
+
   @Override
   public String nameAndType() {
-	  return "use";
+	  return "use "+index;
   }
+
 }

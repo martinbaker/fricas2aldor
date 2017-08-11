@@ -20,18 +20,6 @@ public class LocalVarScope extends NamespaceScope {
   }
 
   @Override
-  public NamespaceScope getScope(EObject e) {
-	  for (NamespaceScope s:subscopes) {
-		  if (s.getEobj() == e) return s;
-	  }
-	  //System.err.println("In "+name+" Can't find subscope for:"+e + " options are:");
-	  /*for (NamespaceScope s:subscopes) {
-		  System.err.println(":"+s.getEobj());
-	  }*/
-	  return new NullScope(null,null,null);
-  }
-
-  @Override
   public String nameAndType() {
 	  String typ = "null";
 	  if (emfElement != null) {

@@ -29,4 +29,8 @@ public class NullScope extends NamespaceScope {
 	  return "null";
   }
 
+  @Override
+  public StringBuffer showScopes(int level) {
+	  return new StringBuffer("NullScope");
+  }
 }

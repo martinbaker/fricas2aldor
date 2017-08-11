@@ -151,20 +151,35 @@ public class FunctionSignature {
 	  }
 	  res = res + ")";
 	  if (!locals.isEmpty()) {
-		    res = res + System.lineSeparator() + "    locals";
+		    res = res + System.lineSeparator() + "    locals:";
+		    int column = 0;
 			for (String param:locals) {
+			  if (column > 10) {
+				  res = res + "\n    locals:";
+				  column = 0;
+			  } else column = column +1;
 			  res = res + " "+ param;
 		    }
 		  }
 	  if (!globalsRead.isEmpty()) {
-	    res = res + System.lineSeparator() + "    globalsRead";
+	    res = res + System.lineSeparator() + "    globalsRead:";
+	    int column = 0;
 		for (String param:globalsRead) {
+		  if (column > 10) {
+			  res = res + "\n    globalsRead:";
+			  column = 0;
+		  } else column = column +1;
 		  res = res + " "+ param;
 	    }
 	  }
 	  if (!globalsWritten.isEmpty()) {
-		    res = res + System.lineSeparator() + "    globalsWritten";
+		    res = res + System.lineSeparator() + "    globalsWritten:";
+		    int column = 0;
 			for (String param:globalsWritten) {
+			  if (column > 10) {
+				  res = res + "\n    globalsWritten:";
+				  column = 0;
+			  } else column = column +1;
 			  res = res + " "+ param;
 		    }
 		  }

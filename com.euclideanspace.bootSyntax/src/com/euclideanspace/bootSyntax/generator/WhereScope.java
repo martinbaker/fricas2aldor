@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
 
-public class FunctionCallScope extends NamespaceScope {
+public class WhereScope extends NamespaceScope {
 
   /**
    * constructor for FunctionDefScope
@@ -15,7 +15,7 @@ public class FunctionCallScope extends NamespaceScope {
    * @param e emfElement
    * @param n name
    */
-  public FunctionCallScope(NamespaceScope p,EObject e,String n) {
+  public WhereScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
@@ -30,7 +30,7 @@ public class FunctionCallScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "fn call "+n+":"+typ;
+	  return "where "+n+":"+typ;
   }
 
 }
