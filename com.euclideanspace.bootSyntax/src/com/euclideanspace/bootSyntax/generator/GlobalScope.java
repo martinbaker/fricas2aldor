@@ -117,8 +117,7 @@ public class GlobalScope extends NamespaceScope {
    * called from EditorGenerator.setNamespace when called on VarOrFunction
    * 
    * @param varName name of variable
-   * FIXME
-   * @param fnName name of function - remove since it wont be needed when function ripples down
+   * @param addToGlobals call with false, only used when called below FunctionDefScope.
    */
   @Override
   public void addRead(String varName,boolean addToGlobals) {
@@ -169,21 +168,12 @@ public class GlobalScope extends NamespaceScope {
    * @param varName variable name
    * @param fnName function name
    */
-   public void addWrite(String varName,String fnName) {
+   public void addWrite(String varName,boolean addToGlobals) {
 	  boolean local = true;
 	  if (defvar.contains(varName)) local = false;
 	  if (defparameter.contains(varName)) local = false;
 	  if (defconstant.contains(varName)) local = false;
 	  if (defconst.contains(varName)) local = false;
-	  for (FunctionDefScope fn:functionDefs) {
-		  FunctionSignature fs = fn.getFunctionSignature();
-		  if (fs == null) break;
-		  String nam = fs.getName();
-		  if (nam == null) break;
-		  if (fnName.equals(nam)) {
-			  fs.addGlobalsWritten(varName,local);
-		  }
-	  }
 	  if (globals.contains(varName)) return;
 	  globals.add(varName);
   }
@@ -299,8 +289,8 @@ public class GlobalScope extends NamespaceScope {
    * @return output
    */
   @Override
-  public StringBuffer showDefs() {
-	  StringBuffer res = new StringBuffer("");
+  public StringBuilder showDefs() {
+	  StringBuilder res = new StringBuilder("");
 
 	  res.append("\nPackages\n");
 	  ArrayList<FileScope> packages = getFileScopes();

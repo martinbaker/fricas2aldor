@@ -40,8 +40,8 @@ public class NamespaceScope {
    * @param s subscope to be added
    */
   public void addSubscope(NamespaceScope s) {
-	  if (debth(0) < 10) subscopes.add(s);
-	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 20 in:"+displayDetail());
+	  if (debth(0) < 50) subscopes.add(s);
+	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 50 in:"+displayDetail());
   }
 
   public ArrayList<NamespaceScope> path() {
@@ -87,20 +87,12 @@ public class NamespaceScope {
 	  return emfElement;
   }
 
-  public LambdaExpression searchDownForLambdaExpression() {
-	  if (emfElement instanceof LambdaExpression) return ((LambdaExpression)this);
-	  // width first search
-	  for (NamespaceScope s:subscopes) {
-		  if (s.getEobj() instanceof LambdaExpression) return ((LambdaExpression)s.getEobj());
-	  }
-	  // not found so next level down
-	  for (NamespaceScope s:subscopes) {
-//		LambdaExpression candidate = s.searchDownForLambdaExpression();
-//		if (candidate != null) return candidate;
-	  }
+  public WhereScope getWhereAncestor() {
+	  if (this instanceof WhereScope) return (WhereScope)this;
+	  if (parentScope != null) return parentScope.getWhereAncestor();
 	  return null;
   }
-
+  
   /**
    * add a function to namespace
    * @param fds FunctionDefScope is scope for file definition
@@ -196,7 +188,7 @@ public class NamespaceScope {
   /**
    * add variable name to list of variables read by this function.
    * @param varName name of variable
-   * @param fnName name of function
+   * @param addToGlobals call with false, only used when called below FunctionDefScope.
    */
   public void addRead(String varName,boolean addToGlobals) {
 	  if (parentScope != null) {
@@ -235,9 +227,9 @@ public class NamespaceScope {
    * @param varName variable name
    * @param fnName function name
    */
-  public void addWrite(String varName,String fnName) {
+  public void addWrite(String varName,boolean addToGlobals) {
 	  if (parentScope != null) {
-		  parentScope.addWrite(varName,fnName);
+		  parentScope.addWrite(varName,addToGlobals);
 		  return;
 	  }
       System.err.println("NamespaceScope: cant addWrite:"+varName);
@@ -327,10 +319,10 @@ public class NamespaceScope {
    * Output function and variable definitions as a string
    * @return output
    */
-  public StringBuffer showDefs() {
+  public StringBuilder showDefs() {
 	  if (parentScope != null) return parentScope.showDefs();
       System.err.println("NamespaceScope: cant showDefs:");
-	  return new StringBuffer("cant showDefs");
+	  return new StringBuilder("cant showDefs");
   }
   
   /**
@@ -350,8 +342,8 @@ public class NamespaceScope {
    * show all scopes as a tree structure
    * @return output
    */
-  public StringBuffer showScopes(int level) {
-	  StringBuffer res = new StringBuffer("");
+  public StringBuilder showScopes(int level) {
+	  StringBuilder res = new StringBuilder("");
 	  res.append("\n");
 	  // do indent
 	  for(int i=1; i<level; i++) {

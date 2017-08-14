@@ -3,24 +3,28 @@ package com.euclideanspace.bootSyntax.generator;
 import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 
+import com.euclideanspace.bootSyntax.editor.Where;
+
 public class UseMarkerScope extends NamespaceScope {
 
-	private NamespaceScope def =null;
-	private int index = 1;
-
+	private int index;
+	/** The 'where' associated with this 'use'*/
+	private WhereScope where = null;
   /**
    * constructor for UseMarkerScope
    * @param p parentScope
    * @param e emfElement
    * @param n name
+   * @param parent 
+   * @param where
    */
-  public UseMarkerScope(NamespaceScope p,EObject e,String n,NamespaceScope d) {
+  public UseMarkerScope(NamespaceScope p,EObject e,String n,WhereScope w) {
 	  super(p,e,n);
-	  def = d;
+	  where = w;
   }
 
-  public NamespaceScope getDef() {
-	  return def;
+  public WhereScope getWhere() {
+	  return where;
   }
   
   public void setIndex(int i) {

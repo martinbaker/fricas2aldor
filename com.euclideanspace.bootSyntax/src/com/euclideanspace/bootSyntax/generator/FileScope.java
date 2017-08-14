@@ -120,12 +120,25 @@ public class FileScope extends NamespaceScope {
   }
 
   /**
+   * override this function to only show a single file
+   */
+  @Override
+  public StringBuilder showScopes(int level) {
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+      if ("apply".equals(n)) return super.showScopes(level);
+      return new StringBuilder("");
+  }
+
+  /**
    * Output function and variable definitions as a string
    * @return output
    */
   @Override
-  public StringBuffer showDefs() {
-	StringBuffer res = new StringBuffer("");
+  public StringBuilder showDefs() {
+	StringBuilder res = new StringBuilder("");
 	res.append("-------- package:"+getName()+" ---------");
 	res.append("\n fn calls:");
 	ArrayList<String> calls = getFunctionCalls();

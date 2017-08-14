@@ -98,11 +98,8 @@ class EditorGenerator extends AbstractGenerator {
      * see getVariable */
     var ArrayList<String> locals = new ArrayList<String>();
     
- /*   override void beforeGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+    override void beforeGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
       //System.out.println("before "+resource.className);
-    }*/
-
-    override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
       if (vars === null) {
       	vars = new GlobalScope(null,null,null)
         val ResourceSet rs = resource.resourceSet;
@@ -114,8 +111,16 @@ class EditorGenerator extends AbstractGenerator {
           if (m instanceof Model)
             x = setNamespace(vars,0,m as Model,RefType.FileGlobal);
         }
+        // generateFile takes CharSequence
         fsa.generateFile("namespace.txt",vars.showDefs())
         fsa.generateFile("scopes.txt",vars.showScopes(0))
+      }
+    }
+
+    override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+      if (vars === null) {
+      	System.err.println("EditorGenerator: doGenerate called before vars setup:"+resource.className);
+      	return;
       }
       className(resource);
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
@@ -464,9 +469,13 @@ class EditorGenerator extends AbstractGenerator {
 	      newline(indent)»«
 	      compileExports(indent,precedence,function.w,scope)»«
 	    ENDIF»«
-	    var ArrayList<LambdaExpression> useWheres = (scope as FunctionDefScope).getLambdaExpressions()»«
-	    FOR LambdaExpression sc:useWheres»«
-	      compileExports(indent+1,precedence,sc,scope as NamespaceScope)»«
+	    var ArrayList<FunctionDefScope> innerFn =fds.getInnerFuncDefs()»«
+	    FOR FunctionDefScope ifds:innerFn»«
+	      val FunctionSignature fs = ifds.getFunctionSignature()»«
+	      IF (fs !== null)»«
+	        newline(indent)»«
+	      	fs.getSafeName()»«
+	      ENDIF»«
 	    ENDFOR»«
 	    »'''
 
@@ -521,13 +530,15 @@ class EditorGenerator extends AbstractGenerator {
 	      compile(indent,precedence,lhs,function.w,scope)»«
 	    ENDIF»«
 	    newline(indent)»«
-	    var ArrayList<LambdaExpression> useWheres = (scope as FunctionDefScope).getLambdaExpressions()»«
-	    FOR LambdaExpression sc:useWheres»«
-	      newline(indent)»«
-	      compile(indent+1,precedence,lhs,sc,scope as NamespaceScope)»«
-	      newline(indent)»«
+	    var ArrayList<FunctionDefScope> innerFn =fds.getInnerFuncDefs()»«
+	    FOR FunctionDefScope ifds:innerFn»«
+	      val EObject eo = ifds.getEobj()»«
+	      IF (eo instanceof LambdaExpression)»«
+	        newline(indent)»«
+            compile(indent+1,precedence,lhs,eo as LambdaExpression,ifds.parentScope)»«
+            newline(indent)»«
+	      ENDIF»«
 	    ENDFOR»«
-	    newline(indent)»«
 	    »'''
 
    /**
@@ -691,11 +702,12 @@ class EditorGenerator extends AbstractGenerator {
      * but we also want to move the code outside the function.
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Where where,RefType refType) {
-	  val NamespaceScope ns = new WhereScope(parent,where,null);
-	  parent.addSubscope(ns);
+	  val WhereScope ns = new WhereScope(parent,where,null);
+	  parent.addSubscope(ns as NamespaceScope);
 	  if (where.b !== null) {
+	  	// cant setup a link to WhereScope yet because it has not yet been set.
 	  	var NamespaceScope whereNamespace = setNamespace(ns,0,where.b,RefType.InsideFunction);
-	  	val UseMarkerScope ums = new UseMarkerScope(null,null,null,whereNamespace);
+	  	val UseMarkerScope ums = new UseMarkerScope(null,null,null,ns);
         pendingWheres.add(ums);
 	  }
 	  return ns;
@@ -967,42 +979,76 @@ PrimaryExpression returns Expr:
 	    IF mapExpression.right !== null»«compile(indent,10,lhs,mapExpression.right,scope)»«ENDIF»«
 	    ccp(10,precedence)»'''
 
+    /** This is a utility function which expects to have a tuple with all parameter
+     * names as IDs which it returns as Strings */
+    def ArrayList<String> typeFromTuple(Tuple t) {
+    	var ArrayList<String> res = new ArrayList<String>();
+    	if (t === null) return res;
+    	if (t.t3 instanceof VarOrFunction) {
+          	val VarOrFunction v = t.t3 as VarOrFunction;
+          	res.add(v.name);
+    	}
+    	for (Expr p: t.t5) {
+    	  if (p instanceof VarOrFunction) {
+          	val VarOrFunction v = p as VarOrFunction;
+          	res.add(v.name);
+    	  }
+    	}
+    	return res;
+    }
+
     /** LambdaExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LambdaExpression lambdaExpression,RefType refType) {
-		val FunctionDefScope ns = new FunctionDefScope(parent,lambdaExpression,null);
+		var String fnNam = "lambda"
+		val FunctionDefScope ns = new FunctionDefScope(parent,lambdaExpression,fnNam);
 	    parent.addSubscope(ns as NamespaceScope);
         var VarOrFunction v =null;
         var fnName="";
         if (lambdaExpression.left !== null) {
-          setNamespace(ns,8,lambdaExpression.left,RefType.InsideFunction);
+          setNamespace(ns as NamespaceScope,8,lambdaExpression.left,RefType.InsideFunction);
           if (lambdaExpression.left instanceof VarOrFunction) {
             v=lambdaExpression.left as VarOrFunction
-            	fnName=v.name
-            	//ns.addFunctionDef(fnName,currentFunction,currentFile,bootPkg,null,0);
+            if (v !== null) {
+            	fnName=v.name;
+            	var ArrayList<String> params = null;
+            	if (v.expr instanceof Tuple) {
+            		val Tuple t = v.expr as Tuple;
+            		params = typeFromTuple(t);
+            	}
+            	ns.addFunctionDef(fnName,currentFunction,currentFile,bootPkg,params,0);
+            }
           }
         }
         if (lambdaExpression.right !== null) {
           setNamespace(ns as NamespaceScope,8,lambdaExpression.right,RefType.InsideFunction);        	
         }
+        var WhereScope w = null;
+        if (parent !== null) w = parent.getWhereAncestor();
+        //System.out.println("Lambda WhereAncestor="+w)
+        if (w !== null) w.setInnerFnDef(ns);
         return ns;
     }
 
+    /** LambdaExpression */
  	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope)
         '''
 	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
         var VarOrFunction v =null»«
-        var fnName=""»«
+        var fnName="cantGetName"»«
+        var FunctionDefScope fds = null»«
+        if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
+        else {
+        	System.err.println("in LambdaExpression scope not FunctionDefScope:"+scope.displayDetail())
+        	if (parentScope !== null) System.err.println("parentScope:"+parentScope.displayDetail())
+        }»«
+        if (fds !== null) {
+          val FunctionSignature fs = fds.getFunctionSignature();
+          if (fs !== null) fnName = fs.getSafeName();
+        }»«
         IF lambdaExpression.left !== null»«
           IF lambdaExpression.left instanceof VarOrFunction»«
-            {v=lambdaExpression.left as VarOrFunction;
-             if (v !== null) {
-            	  fnName=v.name;
-            	  //vars.addFunctionDef(fnName,currentFunction,currentFile,null,null,0);
-            	}
-            	null;
-            }»«
+            v=lambdaExpression.left as VarOrFunction»«
             newline(indent-1)»«
-            currentFunction»«
             fnName»«
             IF v.expr !== null»«
               IF v.expr instanceof Tuple»«
@@ -1090,14 +1136,14 @@ PrimaryExpression returns Expr:
       if (assignExpression.left !== null) {
           if (assignExpression.left instanceof VarOrFunction) {
           	val VarOrFunction v = assignExpression.left as VarOrFunction;
-          	vars.addWrite(v.name,currentFunction);
+          	ns.addWrite(v.name,false);
           }
           if (assignExpression.left instanceof ListLiteral) {
             val ListLiteral ll = (assignExpression.left as ListLiteral);
 	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
-	     	  vars.addWrite(v,currentFunction);
+	     	  ns.addWrite(v,false);
 	        }
           }
 	      setNamespace(ns,16,assignExpression.left,RefType.VarWrite);
@@ -1288,7 +1334,7 @@ PrimaryExpression returns Expr:
 	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
-	     	  vars.addWrite(v,currentFunction);
+	     	  ns.addWrite(v,false);
 	        }
           }
           setNamespace(ns,26,isExpression.right,RefType.InsideFunction);
@@ -1357,7 +1403,7 @@ PrimaryExpression returns Expr:
 	    if(inExpression.left !== null)
           if (inExpression.left instanceof VarOrFunction) {
           	val VarOrFunction v = inExpression.left as VarOrFunction;
-          	vars.addWrite(v.name,currentFunction);
+          	ns.addWrite(v.name,false);
           }
 	      setNamespace(ns,28,inExpression.left,RefType.InsideFunction);
 	    if(inExpression.right !== null) setNamespace(ns,28,inExpression.right,RefType.InsideFunction);

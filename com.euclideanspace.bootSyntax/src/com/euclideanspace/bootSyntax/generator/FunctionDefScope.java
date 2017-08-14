@@ -21,7 +21,8 @@ public class FunctionDefScope extends NamespaceScope {
   }
 
   /**
-   * add a function to namespace
+   * Set function signature on this function, then recurse up the layers to
+   * set details in file and global.
    * @param n name
    * @param p parent in case this is lambda inside other function
    * @param f name of file where function is defined which is also package name.
@@ -31,11 +32,7 @@ public class FunctionDefScope extends NamespaceScope {
    */
   public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
 	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
-	  if (parentScope != null) {
-		  return parentScope.addFunctionDef(this);
-	  }
-	  System.err.println("FunctionDefScope: cant add function:"+n);
-	  return true;
+	  return parentScope.addFunctionDef(this);
   }
 
   public FunctionSignature getFunctionSignature() {
@@ -67,8 +64,7 @@ public class FunctionDefScope extends NamespaceScope {
    * called from EditorGenerator.setNamespace when called on VarOrFunction
    * 
    * @param varName name of variable
-   * FIXME
-   * @param fnName name of function - remove since it wont be needed when function ripples down
+   * @param addToGlobals call with false, only used when called below this.
    */
   @Override
   public void addRead(String varName,boolean addToGlobals) {
@@ -79,6 +75,22 @@ public class FunctionDefScope extends NamespaceScope {
 	  }
   }
 
+  /**
+   * This function is called when a variable is written, that is, a
+   * variable appears on the left of an assign.
+   * @param varName variable name
+   * @param fnName function name
+   */
+  @Override
+   public void addWrite(String varName,boolean addToGlobals) {
+	  boolean addToGlobals2 = true;
+	  if (fs != null) addToGlobals2 = fs.addGlobalsWritten(varName,false);
+	  if (parentScope != null) {
+		  parentScope.addWrite(varName,addToGlobals2);
+	  }
+  }
+
+  
   public ArrayList<UseMarkerScope> getUseScopes() {
 	  ArrayList<UseMarkerScope> res = new ArrayList<UseMarkerScope>();
 	  for (NamespaceScope s:subscopes) {
@@ -87,11 +99,23 @@ public class FunctionDefScope extends NamespaceScope {
 	  return res;
   }
 
-  public ArrayList<LambdaExpression> getLambdaExpressions() {
-	  ArrayList<LambdaExpression> res = new ArrayList<LambdaExpression>();
+  /** if useScope's are under this FuncDef then use them to find
+   * any inner function defs.
+   * @return array of inner functions.
+   */
+  public ArrayList<FunctionDefScope> getInnerFuncDefs() {
+	  //System.out.println("getInnerFuncDefs");
+	  ArrayList<FunctionDefScope> res = new ArrayList<FunctionDefScope>();
 	  ArrayList<UseMarkerScope> us =getUseScopes();
 	  for (UseMarkerScope s:us) {
-		  LambdaExpression c = s.getDef().searchDownForLambdaExpression();
+		  //System.out.println("getInnerFuncDefs use="+s);
+		  WhereScope wh = s.getWhere();
+		  //System.out.println("getInnerFuncDefs WhereScope="+wh);
+		  FunctionDefScope c = null;
+		  if (wh != null) {
+		    c = wh.getInnerFnDef();
+			//System.out.println("getInnerFuncDefs InnerFnDef="+c);
+		  }
 		  if (c != null) res.add(c);
 	  }
 	  return res;
@@ -107,6 +131,20 @@ public class FunctionDefScope extends NamespaceScope {
 	  if (!(".LambdaExpressionImpl".equals(typ)))
 	    System.err.println("FunctionDefScope: Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
+  }
+
+  /**
+   * override this function to only show a single file
+   */
+  @Override
+  public StringBuilder showScopes(int level) {
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+      if ("applyMapping".equals(n)) return super.showScopes(level);
+      if ("lambda".equals(n)) return super.showScopes(level);
+      return new StringBuilder("");
   }
 
 }

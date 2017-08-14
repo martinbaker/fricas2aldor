@@ -1,11 +1,6 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Expr;
 
 public class NullScope extends NamespaceScope {
 
@@ -30,7 +25,7 @@ public class NullScope extends NamespaceScope {
   }
 
   @Override
-  public StringBuffer showScopes(int level) {
-	  return new StringBuffer("NullScope");
+  public StringBuilder showScopes(int level) {
+	  return new StringBuilder("NullScope");
   }
 }

@@ -120,12 +120,13 @@ public class FunctionSignature {
 	  return globalsRead;
   }
 
-  void addGlobalsWritten(String gw,boolean local) {
-	  if (params.contains(gw)) return;
-	  if (locals.contains(gw)) return;
-	  if (globalsWritten.contains(gw)) return;
+  boolean addGlobalsWritten(String gw,boolean local) {
+	  if (params.contains(gw)) return false;
+	  if (locals.contains(gw)) return false;
+	  if (globalsWritten.contains(gw)) return false;
 	  if (local) locals.add(gw);
 	  else globalsWritten.add(gw);
+	  return false;
   }
 
   boolean isGlobalsWritten(String gw) {
