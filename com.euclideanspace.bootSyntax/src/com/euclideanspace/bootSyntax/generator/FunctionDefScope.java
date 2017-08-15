@@ -39,6 +39,11 @@ public class FunctionDefScope extends NamespaceScope {
 	  return fs;
   }
 
+  public void setIndex(int i) {
+	  if (fs == null) return;
+	  fs.setIndex(i);
+  }
+
   public String qualifiedFunctionName() {
 	  if (fs == null) return "FunctionDefScope:  no function sig";
 	  return fs.getSafeName();
@@ -90,7 +95,10 @@ public class FunctionDefScope extends NamespaceScope {
 	  }
   }
 
-  
+  /** called by getInnerFuncDefs below to get all UseScopes under this
+   * function def.
+   * @return all UseMarkerScope under this function def.
+   */
   public ArrayList<UseMarkerScope> getUseScopes() {
 	  ArrayList<UseMarkerScope> res = new ArrayList<UseMarkerScope>();
 	  for (NamespaceScope s:subscopes) {
@@ -101,6 +109,9 @@ public class FunctionDefScope extends NamespaceScope {
 
   /** if useScope's are under this FuncDef then use them to find
    * any inner function defs.
+   * 
+   * Called after namespace has been setup so should not modify namespace
+   * 
    * @return array of inner functions.
    */
   public ArrayList<FunctionDefScope> getInnerFuncDefs() {
@@ -110,11 +121,9 @@ public class FunctionDefScope extends NamespaceScope {
 	  for (UseMarkerScope s:us) {
 		  //System.out.println("getInnerFuncDefs use="+s);
 		  WhereScope wh = s.getWhere();
-		  //System.out.println("getInnerFuncDefs WhereScope="+wh);
 		  FunctionDefScope c = null;
 		  if (wh != null) {
 		    c = wh.getInnerFnDef();
-			//System.out.println("getInnerFuncDefs InnerFnDef="+c);
 		  }
 		  if (c != null) res.add(c);
 	  }

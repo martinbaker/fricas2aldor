@@ -25,6 +25,10 @@ public class WhereScope extends NamespaceScope {
     this.innerFnDef = innerFnDef;
   }
 
+  public void setIndex(int i) {
+	  if (innerFnDef != null ) innerFnDef.setIndex(i);
+  }
+
   @Override
   public String nameAndType() {
 	  String typ = "null";

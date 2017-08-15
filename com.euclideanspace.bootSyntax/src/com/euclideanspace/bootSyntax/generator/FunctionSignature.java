@@ -32,6 +32,10 @@ public class FunctionSignature {
   String getName() {
 	  return name;
   }
+  
+  public void setIndex(int i) {
+	  number =i;
+  }
 
   /**
    * Make first character of string upper case.

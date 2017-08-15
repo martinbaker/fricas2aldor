@@ -29,6 +29,11 @@ public class UseMarkerScope extends NamespaceScope {
   
   public void setIndex(int i) {
 	  index = i;
+	  if (where != null )where.setIndex(i);
+  }
+ 
+  public int getIndex() {
+	  return index;
   }
  
   /*@Override

@@ -429,6 +429,8 @@ class EditorGenerator extends AbstractGenerator {
 	    if (function.w !== null)
 	      setNamespace(ns as NamespaceScope,precedence,function.w,RefType.InsideFunction)
 	    var int useIndex = 1;
+	    // If there are any pending UseMarkerScopes then add them under
+	    // this FunctionDef.
         var UseMarkerScope ums = pendingWheres.poll();
         while (ums !== null) {
         	ums.setIndex(useIndex);
@@ -471,20 +473,13 @@ class EditorGenerator extends AbstractGenerator {
 	    ENDIF»«
 	    var ArrayList<FunctionDefScope> innerFn =fds.getInnerFuncDefs()»«
 	    FOR FunctionDefScope ifds:innerFn»«
-	      val FunctionSignature fs = ifds.getFunctionSignature()»«
-	      IF (fs !== null)»«
+	      val EObject eo = ifds.getEobj()»«
+	      IF (eo instanceof LambdaExpression)»«
 	        newline(indent)»«
-	      	fs.getSafeName()»«
+            compileExports(indent+1,precedence,eo as LambdaExpression,ifds.parentScope)»«
 	      ENDIF»«
 	    ENDFOR»«
 	    »'''
-
-    /** called for pending wheres */
-/* 	def CharSequence compileExports(int indent,int precedence,EObject eObject,NamespaceScope parentScope) {
-	  if (eObject instanceof LambdaExpression) return compileExports(indent,precedence,eObject as LambdaExpression,parentScope);
-	  if (eObject instanceof Block) return compileExports(indent,precedence,eObject as Block,parentScope);
-	  return "";
-	}*/
 
     /**
      * FunctionDef:
@@ -706,7 +701,7 @@ class EditorGenerator extends AbstractGenerator {
 	  parent.addSubscope(ns as NamespaceScope);
 	  if (where.b !== null) {
 	  	// cant setup a link to WhereScope yet because it has not yet been set.
-	  	var NamespaceScope whereNamespace = setNamespace(ns,0,where.b,RefType.InsideFunction);
+	  	setNamespace(ns,0,where.b,RefType.InsideFunction);
 	  	val UseMarkerScope ums = new UseMarkerScope(null,null,null,ns);
         pendingWheres.add(ums);
 	  }
@@ -1029,66 +1024,78 @@ PrimaryExpression returns Expr:
         return ns;
     }
 
+    def CharSequence showParams(ArrayList<String> params) {
+    	var String res = "(";
+    	var boolean first = true;
+    	for (String s:params){
+    		if (!first) res=res+","+s else res=res+s;
+    		first = false;
+    	}
+    	return res+")";
+    }
+
+    /** : (BootEnvir, SExpression, SExpression, SExpression, SExpression) -> SExpression */
+    def CharSequence showParamTypes(ArrayList<String> params) {
+    	var String res = "(BootEnvir";
+    	for (String s:params){
+    		res=res+",SExpression"
+    	}
+    	return res+")";
+    }
+
     /** LambdaExpression */
- 	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope)
-        '''
-	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
-        var VarOrFunction v =null»«
-        var fnName="cantGetName"»«
-        var FunctionDefScope fds = null»«
+ 	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
+        val NamespaceScope scope =parentScope.getScope(lambdaExpression);
+        var fnName="cantGetName";
+        var ArrayList<String> params = new ArrayList<String>();
+        var FunctionDefScope fds = null;
         if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
         else {
         	System.err.println("in LambdaExpression scope not FunctionDefScope:"+scope.displayDetail())
         	if (parentScope !== null) System.err.println("parentScope:"+parentScope.displayDetail())
-        }»«
+        };
         if (fds !== null) {
           val FunctionSignature fs = fds.getFunctionSignature();
-          if (fs !== null) fnName = fs.getSafeName();
-        }»«
-        IF lambdaExpression.left !== null»«
-          IF lambdaExpression.left instanceof VarOrFunction»«
-            v=lambdaExpression.left as VarOrFunction»«
-            newline(indent-1)»«
-            fnName»«
-            IF v.expr !== null»«
-              IF v.expr instanceof Tuple»«
-                compile(indent,10,false,(v.expr as Tuple),scope)»«
-              ENDIF»«
-            ENDIF»«
-          ENDIF»«
-        ENDIF»'''
+          if (fs !== null) {
+          	fnName = fs.getSafeName();
+          	params = fs.params;
+          }
+        }
+      return
+        '''«fnName»: «
+        showParamTypes(params)» -> SExpression'''
+        }
 
+  /**
+   * LambdaExpression returns Expr:
+   * ExitExpression
+   * ({LambdaExpression.left=current} op=KW_EQ2 (
+   *   right = ExitExpression
+   *   )
+   * )* */
 	def CharSequence compile(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
-//	  switch insideWhere {
-//	  	case NotWhere : return compileNotInside(indent,precedence,lhs,lambdaExpression,parentScope)
-//	  	case ReadingWhere : return compileRead(indent,precedence,lhs,lambdaExpression,parentScope)
-//	  	case WritingWhere : return compileWrite(indent,precedence,lhs,lambdaExpression,parentScope)
-//	  }
-	  return compileNotInside(indent,precedence,lhs,lambdaExpression,parentScope);
-    }
-    
-	def CharSequence compileNotInside(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope)
-        '''
-	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
-        cop(12,precedence)»«
-	    IF lambdaExpression.left !== null»«compile(indent,12,lhs,lambdaExpression.left,scope)»«ENDIF»«
-	    IF lambdaExpression.op !== null» +-> «ENDIF»«
-	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,scope)»«ENDIF»«
-	    ccp(12,precedence)»'''
-
-/*	def CharSequence compileRead(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
-		pendingLambda.add(lambdaExpression);
-		return "";
-	}*/
-
-	def CharSequence compileWrite(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope)
-		'''
-	    «val NamespaceScope scope =parentScope.getScope(lambdaExpression)»«
-        newline(indent)»«
-	    IF lambdaExpression.left !== null»«currentFunction»«compile(indent,12,lhs,lambdaExpression.left,scope)»«ENDIF»«
-	    IF lambdaExpression.op !== null» == «ENDIF»«
-	    IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,scope)»«ENDIF»«
-		newline(indent)»'''
+        val NamespaceScope scope =parentScope.getScope(lambdaExpression);
+        var fnName="cantGetName";
+        var ArrayList<String> params = new ArrayList<String>();
+        var FunctionDefScope fds = null;
+        if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
+        else {
+        	System.err.println("in LambdaExpression scope not FunctionDefScope:"+scope.displayDetail())
+        	if (parentScope !== null) System.err.println("parentScope:"+parentScope.displayDetail())
+        };
+        if (fds !== null) {
+          val FunctionSignature fs = fds.getFunctionSignature();
+          if (fs !== null) {
+          	fnName = fs.getSafeName();
+          	params = fs.params;
+          }
+        }
+      return
+        '''«fnName»«
+        showParams(params)» == «
+        IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,scope)»«ENDIF»«
+        newline(indent)»'''
+        }
 
 /* ExitExpression
  * 
