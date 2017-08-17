@@ -413,13 +413,11 @@ class EditorGenerator extends AbstractGenerator {
         }
 		val FunctionDefScope ns = new FunctionDefScope(parent,function,currentFunction);
 		parent.addSubscope(ns);
-        var ArrayList<String> params = new ArrayList<String>();
+        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         for (Expr p:function.params) {
           setNamespace(ns as NamespaceScope,precedence,p,RefType.Parameter)
-          if (p instanceof VarOrFunction) {
-          	val VarOrFunction v = p as VarOrFunction;
-          	params.add(v.name);
-          }
+          val VariableTree par = new VariableTree(p);
+          if (par !== null) params.add(par);
         }
         ns.addFunctionDef(function.name,null,currentFile,bootPkg,params,0);
 	    if (function.st !== null)
@@ -976,18 +974,14 @@ PrimaryExpression returns Expr:
 
     /** This is a utility function which expects to have a tuple with all parameter
      * names as IDs which it returns as Strings */
-    def ArrayList<String> typeFromTuple(Tuple t) {
-    	var ArrayList<String> res = new ArrayList<String>();
+    def ArrayList<VariableTree> typeFromTuple(Tuple t) {
+    	var ArrayList<VariableTree> res = new ArrayList<VariableTree>();
     	if (t === null) return res;
-    	if (t.t3 instanceof VarOrFunction) {
-          	val VarOrFunction v = t.t3 as VarOrFunction;
-          	res.add(v.name);
+    	if (t.t3 !== null) {
+    	  res.add(new VariableTree(t.t3));
     	}
     	for (Expr p: t.t5) {
-    	  if (p instanceof VarOrFunction) {
-          	val VarOrFunction v = p as VarOrFunction;
-          	res.add(v.name);
-    	  }
+    		res.add(new VariableTree(p));
     	}
     	return res;
     }
@@ -1005,7 +999,7 @@ PrimaryExpression returns Expr:
             v=lambdaExpression.left as VarOrFunction
             if (v !== null) {
             	fnName=v.name;
-            	var ArrayList<String> params = null;
+            	var ArrayList<VariableTree> params = null;
             	if (v.expr instanceof Tuple) {
             		val Tuple t = v.expr as Tuple;
             		params = typeFromTuple(t);
@@ -1024,10 +1018,10 @@ PrimaryExpression returns Expr:
         return ns;
     }
 
-    def CharSequence showParams(ArrayList<String> params) {
+    def CharSequence showParams(ArrayList<VariableTree> params) {
     	var String res = "(";
     	var boolean first = true;
-    	for (String s:params){
+    	for (VariableTree s:params){
     		if (!first) res=res+","+s else res=res+s;
     		first = false;
     	}
@@ -1035,9 +1029,9 @@ PrimaryExpression returns Expr:
     }
 
     /** : (BootEnvir, SExpression, SExpression, SExpression, SExpression) -> SExpression */
-    def CharSequence showParamTypes(ArrayList<String> params) {
+    def CharSequence showParamTypes(ArrayList<VariableTree> params) {
     	var String res = "(BootEnvir";
-    	for (String s:params){
+    	for (VariableTree s:params){
     		res=res+",SExpression"
     	}
     	return res+")";
@@ -1047,7 +1041,7 @@ PrimaryExpression returns Expr:
  	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
         val NamespaceScope scope =parentScope.getScope(lambdaExpression);
         var fnName="cantGetName";
-        var ArrayList<String> params = new ArrayList<String>();
+        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         var FunctionDefScope fds = null;
         if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
         else {
@@ -1076,7 +1070,7 @@ PrimaryExpression returns Expr:
 	def CharSequence compile(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
         val NamespaceScope scope =parentScope.getScope(lambdaExpression);
         var fnName="cantGetName";
-        var ArrayList<String> params = new ArrayList<String>();
+        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         var FunctionDefScope fds = null;
         if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
         else {
@@ -1147,7 +1141,7 @@ PrimaryExpression returns Expr:
           }
           if (assignExpression.left instanceof ListLiteral) {
             val ListLiteral ll = (assignExpression.left as ListLiteral);
-	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
+	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
 	     	  ns.addWrite(v,false);
@@ -1235,10 +1229,10 @@ PrimaryExpression returns Expr:
 	    «val NamespaceScope scope =parentScope.getScope(assignExpression)»«
         cop(16,precedence)»«
 	    var ListLiteral ll»«
-	    var ListTree lt»«
+	    var VariableTree lt»«
 	    var String listName = "listTree"»«
 	    {ll = (assignExpression.left as ListLiteral);
-	     lt = new ListTree(ll,new ArrayList<Integer>());
+	     lt = new VariableTree(ll,new ArrayList<Integer>());
 	     null;
 	    }»«
 	    »listTree:SExpression := «
@@ -1338,7 +1332,7 @@ PrimaryExpression returns Expr:
 	  if(isExpression.right !== null) {
           if (isExpression.right instanceof ListLiteral) {
             val ListLiteral ll = (isExpression.right as ListLiteral);
-	        val ListTree lt = new ListTree(ll,new ArrayList<Integer>());
+	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
 	     	  ns.addWrite(v,false);
@@ -1382,7 +1376,7 @@ PrimaryExpression returns Expr:
 	    «val NamespaceScope scope =parentScope.getScope(isExpression)»«
         cop(16,precedence)»«
 	    var ListLiteral ll»«
-	    var ListTree lt»«
+	    var VariableTree lt»«
 	    var String listName = "listTree"»«
 	    IF isExpression.left !== null»«
 	      compile(indent,16,lhs,isExpression.left,scope)»«
@@ -1393,7 +1387,7 @@ PrimaryExpression returns Expr:
 	    ENDIF»«
 	    IF isExpression.right !== null»«
 	    {ll = (isExpression.right as ListLiteral);
-	     lt = new ListTree(ll,new ArrayList<Integer>());
+	     lt = new VariableTree(ll,new ArrayList<Integer>());
 	     null;
 	    }»«
 	    » = «

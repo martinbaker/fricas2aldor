@@ -10,18 +10,18 @@ import com.euclideanspace.bootSyntax.editor.ListElement;
 //import com.euclideanspace.bootSyntax.editor.ListComprehension;
 
 /**
- * ListTree is used for 'assign' and 'is' statements where a
- * list is being assigned.
+ * VariableTree is used for parameters and 'assign' and 'is' statements where
+ * an identifier is expected. This identifier may be either a string or
+ * a list structure containing strings.
  * This can cause multiple variables inside the list to be assigned.
  * To allow us to do this it is useful to hold this recursively
  * defined list as a tree.
  * @author Martin Baker
- *
  */
-public class ListTree {
+public class VariableTree {
 	private ArrayList<Integer> path = new ArrayList<Integer>();
 	private String n = "";
-	private ArrayList<ListTree> lst = new ArrayList<ListTree>();
+	private ArrayList<VariableTree> lst = new ArrayList<VariableTree>();
 
 /*
  * ListLiteral:
@@ -52,10 +52,45 @@ ListComprehension:
  */
 
 	/**
+	 * Construct from expression
+	 * Typically this is used to store a parameter name which may be
+	 * a string or a list structure of strings.
+	 * @param p
+	 */
+	VariableTree(Expr p) {
+      if (p instanceof VarOrFunction) {
+        VarOrFunction v = (VarOrFunction)p;
+        n = v.getName();
+      }
+      else if (p instanceof ListLiteral) {
+	    ListLiteral ll = (ListLiteral)p;
+		for (ListElement lele:ll.getLe()) {
+			//System.out.println("construct ListTree" + lele);
+			Expr l2 = lele.getL2();
+			if (l2 instanceof ListLiteral) {
+				lst.add(new VariableTree((ListLiteral)l2));
+			}
+			else if (l2 instanceof VarOrFunction) {
+				lst.add(new VariableTree((VarOrFunction)l2));
+			}
+			else if (l2 instanceof UnaryExpression) {
+				Expr e = ((UnaryExpression) l2).getExpr();
+				if (e instanceof VarOrFunction) {
+				  lst.add(new VariableTree((VarOrFunction)e));
+				}
+			} else {
+				System.err.println("try to construct VariableTree with:" + l2);
+				lst.add(new VariableTree("error "+l2,null));
+			}
+		}
+	  }
+	}
+
+	/**
 	 * Recursively construct tree.
 	 * @param ll
 	 */
-	ListTree(ListLiteral ll, ArrayList<Integer> path1) {
+	VariableTree(ListLiteral ll, ArrayList<Integer> path1) {
 		path = path1;
 		int eleNum = 1;
 		for (ListElement lele:ll.getLe()) {
@@ -65,19 +100,19 @@ ListComprehension:
 			ArrayList<Integer> pathClone = (ArrayList<Integer>) path.clone();
 			pathClone.add(eleNum);
 			if (l2 instanceof ListLiteral) {
-				lst.add(new ListTree((ListLiteral)l2,pathClone));
+				lst.add(new VariableTree((ListLiteral)l2,pathClone));
 			}
 			else if (l2 instanceof VarOrFunction) {
-				lst.add(new ListTree((VarOrFunction)l2,pathClone));
+				lst.add(new VariableTree((VarOrFunction)l2,pathClone));
 			}
 			else if (l2 instanceof UnaryExpression) {
 				Expr e = ((UnaryExpression) l2).getExpr();
 				if (e instanceof VarOrFunction) {
-				  lst.add(new ListTree((VarOrFunction)e,pathClone));
+				  lst.add(new VariableTree((VarOrFunction)e,pathClone));
 				}
 			} else {
-				//Ignore literals and so on.
-				//lst.add(new ListTree("error "+l2,pathClone));
+				System.err.println("try to construct VariableTree with:" + l2);
+				lst.add(new VariableTree("error "+l2,null));
 			}
 			eleNum = eleNum + 1;
 		}
@@ -87,7 +122,7 @@ ListComprehension:
 	 * Recursively construct tree.
 	 * @param ll
 	 */
-	ListTree(VarOrFunction var, ArrayList<Integer> path1) {
+	VariableTree(VarOrFunction var, ArrayList<Integer> path1) {
 		path = path1;
 		n=var.getName();
 		//System.out.println("construct ListTree" + n);
@@ -97,7 +132,7 @@ ListComprehension:
 	 * Recursively construct tree.
 	 * @param ll
 	 */
-	ListTree(String st, ArrayList<Integer> path1) {
+	VariableTree(String st, ArrayList<Integer> path1) {
 		path = path1;
 		n=st;
 		//System.out.println("construct ListTree" + n);
@@ -117,7 +152,7 @@ ListComprehension:
 			res.add(n);
 			//System.out.println("construct ListTree" + n);
 		} else {
-			for(ListTree lt:lst) {
+			for(VariableTree lt:lst) {
 			   res.addAll(lt.variables());
 			}
 		}
@@ -137,7 +172,7 @@ ListComprehension:
 		    res.add(n + typing + " := "+lstName+pathString());
 			//System.out.println("construct ListTree" + n);
 		} else {
-			for(ListTree lt:lst) {
+			for(VariableTree lt:lst) {
 			   res.addAll(lt.output(lstName,typing));
 			}
 		}

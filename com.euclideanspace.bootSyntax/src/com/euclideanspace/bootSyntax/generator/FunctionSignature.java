@@ -9,7 +9,7 @@ public class FunctionSignature {
   /** file is same name as package */
   private String file = null;
   private String bootPkg = null;
-  private ArrayList<String> params = new ArrayList<String>();
+  private ArrayList<VariableTree> params = new ArrayList<VariableTree>();
   /** number inner functions */
   private int number = 0;
   /** local variables used by this function, where not initially assigned in function.*/
@@ -20,7 +20,7 @@ public class FunctionSignature {
   private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
-  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<String> pars,int num) {
+  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<VariableTree> pars,int num) {
 	  name =n;
       parent =p;
       file =f;
@@ -28,11 +28,11 @@ public class FunctionSignature {
       if (pars != null) params =pars;
       number = num;
   }
-  
+
   String getName() {
 	  return name;
   }
-  
+
   public void setIndex(int i) {
 	  number =i;
   }
@@ -66,11 +66,11 @@ public class FunctionSignature {
 	ret = ret.replaceAll("/$","D");
 	return ret;
   }
-  
+
   String getParent() {
 	  return parent;
   }
-  
+
   /**
    * file is same name as package
    * @return file/package name
@@ -78,7 +78,7 @@ public class FunctionSignature {
   String getFile() {
 	  return file;
   }
-  
+
   /**
    * 
    * @return
@@ -86,12 +86,12 @@ public class FunctionSignature {
   boolean getMacro() {
 	  return macro;
   }
-  
+
   void putMacro(boolean m) {
 	  macro =m;
   }
-  
-  ArrayList<String> getParams() {
+
+  ArrayList<VariableTree> getParams() {
 	  return params;
   }
 
@@ -136,11 +136,11 @@ public class FunctionSignature {
   boolean isGlobalsWritten(String gw) {
 	return globalsWritten.contains(gw);
   }
-  
+
   ArrayList<String> getGlobalsWritten() {
 	  return globalsWritten;
   }
-  
+
   String display() {
 	  String res = "";
 	  if (macro) res = "macro";
@@ -149,7 +149,7 @@ public class FunctionSignature {
 	  if (parent != null) res = res + " parent="+ parent;
 	  res = res + " name="+name +"(";
 	  boolean follow=false;
-	  for (String param:params) {
+	  for (VariableTree param:params) {
 		  if (follow) res = res + ",";
 		  res = res + param;
 		  follow=true;
@@ -190,7 +190,7 @@ public class FunctionSignature {
 		  }
 	  return res+ System.lineSeparator();
   }
-     
+
    @Override
    public boolean equals(Object other) {
 	  if (!(other instanceof FunctionSignature)) return false;

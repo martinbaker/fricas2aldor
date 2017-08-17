@@ -30,7 +30,7 @@ public class FunctionDefScope extends NamespaceScope {
    * @param packageName
    * @return false if duplicate.
    */
-  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
+  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<VariableTree> pars,int num) {
 	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
 	  return parentScope.addFunctionDef(this);
   }
