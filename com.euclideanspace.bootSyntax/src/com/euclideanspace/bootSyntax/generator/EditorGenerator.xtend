@@ -90,8 +90,6 @@ class EditorGenerator extends AbstractGenerator {
      * until after 'repeat'. Used in second (compileImplementation) pass*/
     var ArrayList<String> pendingStatements = new ArrayList<String>();
     val LinkedBlockingQueue<UseMarkerScope> pendingWheres = new LinkedBlockingQueue<UseMarkerScope>();
-//    var ArrayList<UseMarkerScope> pendingWheres = new ArrayList<UseMarkerScope>();
-//    var ArrayList<LambdaExpression> pendingLambda = new ArrayList<LambdaExpression>();
     /** 'locals' is used in second (compileImplementation) pass to
      * determine if we need to add :SExpression type. This is only
      * needed for first occurrence in function.
@@ -309,6 +307,14 @@ class EditorGenerator extends AbstractGenerator {
 	       compile(indent,precedence,lhs,declaration as Comment,parentScope)»«ENDIF»«
 	    IF declaration instanceof Documentation»«
 	       compile(indent,precedence,lhs,declaration as Documentation,parentScope)»«ENDIF»«
+		IF declaration instanceof Defparameter»«
+	       compile(indent,precedence,lhs,declaration as Defparameter,parentScope)»«ENDIF»«
+	    IF declaration instanceof Defconstant»«
+	       compile(indent,precedence,lhs,declaration as Defconstant,parentScope)»«ENDIF»«
+	    IF declaration instanceof Defconst»«
+	       compile(indent,precedence,lhs,declaration as Defconst,parentScope)»«ENDIF»«
+	    IF declaration instanceof Defvar»«
+	       compile(indent,precedence,lhs,declaration as Defvar,parentScope)»«ENDIF»«
 	    IF declaration instanceof FunctionDef»«
 	       compile(indent,precedence,lhs,declaration as FunctionDef,parentScope)»«ENDIF»«
 	    IF declaration instanceof Where»«
@@ -364,9 +370,17 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defparameter.name
 		val NamespaceScope ns = new NamespaceScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
-	    vars.addDefparam(nam);
+		ns.addVariableDef(new VariableSpec(nam,true,false,false,false,false));
+	    //vars.addDefparam(nam);
 	    return ns;
     }
+    
+	def CharSequence compile(int indent,int precedence,boolean lhs,Defparameter defparameter,NamespaceScope parentScope)
+	    '''
+	    «val NamespaceScope scope =parentScope.getScope(defparameter)»«
+	    newline(indent)»«
+	    IF defparameter.name !== null»«defparameter.name»: SExpression«ENDIF»«
+	    IF defparameter.e !== null» := «compile(indent,precedence,lhs,defparameter.e,scope)»«ENDIF»'''
 
     /**
      * Defconstant
@@ -376,9 +390,17 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defconstant.name
 		val NamespaceScope ns = new NamespaceScope(parent,defconstant,nam);
 		parent.addSubscope(ns);
-	    vars.addDefconstant(nam);
+		ns.addVariableDef(new VariableSpec(nam,false,true,false,false,false));
+	    //vars.addDefconstant(nam);
 	    return ns;
 	}
+
+	def CharSequence compile(int indent,int precedence,boolean lhs,Defconstant defconstant,NamespaceScope parentScope)
+	    '''
+	    «val NamespaceScope scope =parentScope.getScope(defconstant)»«
+	    newline(indent)»«
+	    IF defconstant.name !== null»«defconstant.name»: SExpression«ENDIF»«
+	    IF defconstant.e !== null» := «compile(indent,precedence,lhs,defconstant.e,scope)»«ENDIF»'''
 
     /**
      * Defconst
@@ -388,9 +410,17 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defconst.name
 		val NamespaceScope ns = new NamespaceScope(parent,defconst,nam);
 		parent.addSubscope(ns);
-	    vars.addDefconst(nam);
+		ns.addVariableDef(new VariableSpec(nam,false,false,true,false,false));
+	    //vars.addDefconst(nam);
 	    return ns;
 	}
+
+	def CharSequence compile(int indent,int precedence,boolean lhs,Defconst defconst,NamespaceScope parentScope)
+	    '''
+	    «val NamespaceScope scope =parentScope.getScope(defconst)»«
+	    newline(indent)»«
+	    IF defconst.name !== null»«defconst.name»: SExpression«ENDIF»«
+	    IF defconst.e !== null» := «compile(indent,precedence,lhs,defconst.e,scope)»«ENDIF»'''
 
     /**
      * Defvar
@@ -400,9 +430,17 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defvar.name
 		val NamespaceScope ns = new NamespaceScope(parent,defvar,nam);
 		parent.addSubscope(ns);
-	    vars.addDefvar(nam);
+		ns.addVariableDef(new VariableSpec(nam,false,false,false,true,false));
+	    //vars.addDefvar(nam);
 	    return ns;
 	}
+
+	def CharSequence compile(int indent,int precedence,boolean lhs,Defvar defvar,NamespaceScope parentScope)
+	    '''
+	    «val NamespaceScope scope =parentScope.getScope(defvar)»«
+	    newline(indent)»«
+	    IF defvar.name !== null»«defvar.name»: SExpression«ENDIF»«
+	    IF defvar.e !== null» := «compile(indent,precedence,lhs,defvar.e,scope)»«ENDIF»'''
 
     /**
      * FunctionDef
@@ -535,12 +573,13 @@ class EditorGenerator extends AbstractGenerator {
 	    »'''
 
    /**
-    * GlobalVariable
+    * Global Lexical Variable
+    * A variable assignment outside scope of a function definition
     */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,RefType refType) {
-		val NamespaceScope ns = new NamespaceScope(parent,globalVariable,null);
-		parent.addSubscope(ns);
-      if (globalVariable.name !== null) vars.addGlobal(globalVariable.name);
+	  val NamespaceScope ns = new NamespaceScope(parent,globalVariable,null);
+	  parent.addSubscope(ns);
+      if (globalVariable.name !== null) ns.addGlobal(new VariableSpec(globalVariable.name,false,false,false,false,true));
 	  if (globalVariable.e !== null)
 	      setNamespace(ns,precedence,globalVariable.e,RefType.InsideFunction)
       return ns;
@@ -717,12 +756,7 @@ class EditorGenerator extends AbstractGenerator {
  * 'where' b=Block
  */
 	def CharSequence compile(int indent,int precedence,boolean lhs,Where where,NamespaceScope parentScope)
-        '''
-        «val NamespaceScope scope =parentScope.getScope(where)»where «
-//        IF (where.b !== null) && insideWhere != WhereState.WritingWhere»«
-//        compile(indent,precedence,lhs,where.b,WhereState.ReadingWhere,scope)»«
-//        ENDIF
-        »'''
+        ''''''
 
     /** Expr */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Expr expr,RefType refType) {
@@ -1087,7 +1121,10 @@ PrimaryExpression returns Expr:
       return
         '''«fnName»«
         showParams(params)» == «
-        IF lambdaExpression.right !== null»«compile(indent,12,lhs,lambdaExpression.right,scope)»«ENDIF»«
+        IF lambdaExpression.right !== null»«
+          IF !(lambdaExpression.right instanceof Block)»«newline(indent)»«ENDIF»«
+          compile(indent,12,lhs,lambdaExpression.right,scope)»«
+        ENDIF»«
         newline(indent)»'''
         }
 
@@ -1170,7 +1207,7 @@ PrimaryExpression returns Expr:
     /**
      * AssignExpression */
 	def CharSequence compile(int indent,int precedence,boolean lhs,AssignExpression assignExpression,NamespaceScope parentScope) {
-		val NamespaceScope scope =parentScope.getScope(assignExpression);
+//		val NamespaceScope scope =parentScope.getScope(assignExpression);
 //	    if (insideWhere!=WhereState.NotWhere) {return 
 //          '''
 //          «IF assignExpression.left !== null»«compile(indent,16,lhs,assignExpression.left,scope)» := «ENDIF»«

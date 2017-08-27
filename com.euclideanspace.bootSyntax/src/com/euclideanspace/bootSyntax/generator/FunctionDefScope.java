@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import com.euclideanspace.bootSyntax.editor.LambdaExpression;
-
 public class FunctionDefScope extends NamespaceScope {
 
   private FunctionSignature fs = null;
@@ -63,9 +61,9 @@ public class FunctionDefScope extends NamespaceScope {
 	  return "fn def "+n+":"+typ;
   }
 
-  /**
-   * add variable name to list of variables read by this function.
-   * 
+  /** used when variable is used (not when defined)
+   * add variable call to list of variables read by this function.
+  * 
    * called from EditorGenerator.setNamespace when called on VarOrFunction
    * 
    * @param varName name of variable

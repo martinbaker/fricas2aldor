@@ -33,13 +33,26 @@ public class GlobalScope extends NamespaceScope {
    * 
    * dynamicGlobals contains names of variables defined with ':local' 
    */
-  private ArrayList<String> globals = new ArrayList<String>();
-  private ArrayList<String> dynamicGlobals = new ArrayList<String>();
-  private ArrayList<String> unDefinedGlobals = new ArrayList<String>();
-  private ArrayList<String> defvar = new ArrayList<String>();
+  /*private ArrayList<String> globals = new ArrayList<String>();
+  private ArrayList<String> dynamicGlobals = new ArrayList<String>();*/
+  private ArrayList<String> variableCalls = new ArrayList<String>();
+  /**
+   * Hold Dynamic (special) variables. That is variables specified by
+   * defvar - Assigns only if variable is undefined
+   * defparameter - Assigns initial value to named variable
+   * defconstant -
+   * defconst -
+   */
+  private ArrayList<VariableSpec> globals = new ArrayList<VariableSpec>();
+  /**
+   * Global Lexical Variable
+   * A variable assignment outside scope of a function definition
+   */
+  private ArrayList<VariableSpec> globalLexVar = new ArrayList<VariableSpec>();
+/*  private ArrayList<String> defvar = new ArrayList<String>();
   private ArrayList<String> defparameter = new ArrayList<String>();
   private ArrayList<String> defconstant = new ArrayList<String>();
-  private ArrayList<String> defconst = new ArrayList<String>();
+  private ArrayList<String> defconst = new ArrayList<String>();*/
 
 
   /**
@@ -111,8 +124,8 @@ public class GlobalScope extends NamespaceScope {
 	  return true;
   }
 
-  /**
-   * add variable name to list of variables read by this function.
+  /** used when variable is used (not when defined)
+   * add variable call to list of variables read by this function.
    * 
    * called from EditorGenerator.setNamespace when called on VarOrFunction
    * 
@@ -121,8 +134,8 @@ public class GlobalScope extends NamespaceScope {
    */
   @Override
   public void addRead(String varName,boolean addToGlobals) {
-	  if (globals.contains(varName)) return;
-	  if (addToGlobals) globals.add(varName);
+	  if (variableCalls.contains(varName)) return;
+	  if (addToGlobals) variableCalls.add(varName);
   }
   
   /**
@@ -169,13 +182,11 @@ public class GlobalScope extends NamespaceScope {
    * @param fnName function name
    */
    public void addWrite(String varName,boolean addToGlobals) {
-	  boolean local = true;
-	  if (defvar.contains(varName)) local = false;
-	  if (defparameter.contains(varName)) local = false;
-	  if (defconstant.contains(varName)) local = false;
-	  if (defconst.contains(varName)) local = false;
-	  if (globals.contains(varName)) return;
-	  globals.add(varName);
+     for (VariableSpec var:globals) {
+       if (varName.equals(var.getName())) return;
+     }
+     if (variableCalls.contains(varName)) return;
+     variableCalls.add(varName);
   }
   
   public boolean isGlobalsWritten(String varName,String fnName) {
@@ -233,22 +244,41 @@ public class GlobalScope extends NamespaceScope {
 	  return true;
   }
 
-  public void addUnDefinedGlobal(String varName) {
+/*  public void addUnDefinedGlobal(String varName) {
 	  if (unDefinedGlobals.contains(varName)) return;
 	  unDefinedGlobals.add(varName);
+  }*/
+
+  /**
+   * add global lexical variable
+   * A variable assignment outside scope of a function definition
+   */
+  @Override
+  public void addGlobal(VariableSpec var) {
+	  if (globalLexVar.contains(var)) return;
+	  globalLexVar.add(var);
   }
 
-  public void addGlobal(String varName) {
-	  if (globals.contains(varName)) return;
-	  globals.add(varName);
-  }
-
-  public void addDynamic(String varName) {
+/*  public void addDynamic(String varName) {
 	  if (dynamicGlobals.contains(varName)) return;
 	  dynamicGlobals.add(varName);
+  }*/
+
+  /**
+   * Called from first pass (setNamespace) when Defparameter,Defconstant,
+   * Defconst or Defvar found. Adds variable to namespace.
+   * @param vs type of variable (Defparameter,Defconstant,
+   * Defconst or Defvar)
+   * @return
+   */
+  @Override
+  public boolean addVariableDef(VariableSpec vs) {
+	  if (globals.contains(vs)) return false;
+	  globals.add(vs);
+	  return true;
   }
 
-  public void addDefparam(String varName) {
+/*  public void addDefparam(String varName) {
 	  if (defparameter.contains(varName)) return;
 	  defparameter.add(varName);
   }
@@ -266,7 +296,7 @@ public class GlobalScope extends NamespaceScope {
   public void addDefvar(String varName) {
 	  if (defvar.contains(varName)) return;
 	  defvar.add(varName);
-  }
+  }*/
 
   /**
    * if name represents a global variable then return true
@@ -274,14 +304,10 @@ public class GlobalScope extends NamespaceScope {
    * @return true if global
    */
   public boolean isGlobal(String varName) {
-	  if (globals.contains(varName)) return true;
-	  if (dynamicGlobals.contains(varName)) return true;
-	  if (unDefinedGlobals.contains(varName)) return true;
-	  if (defparameter.contains(varName)) return true;
-	  if (defconstant.contains(varName)) return true;
-	  if (defconst.contains(varName)) return true;
-	  if (defvar.contains(varName)) return true;
-	  return false;
+	 for (VariableSpec var:globals) {
+	   if (varName.equals(var.getName())) return true;
+	 }
+	 return false;
   }
 
   /**
@@ -305,43 +331,16 @@ public class GlobalScope extends NamespaceScope {
 //		  res.append(fs.display());
 //		  res.append("\n");
 //	  }
-	  res.append("\nGlobals\n");
-	  for (String s:globals) {
+	  res.append("\nVariable Calls\n");
+	  for (String s:variableCalls) {
 		  res.append(s);
 		  res.append("\n");
 	  }
-	  res.append("\nDynamic Globals\n");
-	  for (String s:dynamicGlobals) {
-		  res.append(s);
-		  res.append("\n");
-	  }
-	  res.append("\nUnDefined Globals\n");
-	  for (String s:unDefinedGlobals) {
-		  res.append(s);
-		  res.append("\n");
-	  }
-	  res.append("\nDEFPARAMETER\n");
-	  for (String s:defparameter) {
-		  res.append(s);
-		  res.append("\n");
-	  }
-	  res.append("\nDEFCONSTANT\n");
-	  for (String s:defconstant) {
-		  res.append(s);
-		  res.append("\n");
-	  }
-	  res.append("\nDEFCONST\n");
-	  for (String s:defconst) {
-		  res.append(s);
-		  res.append("\n");
-	  }
-	  res.append("\nDEFVAR\n");
-	  for (String s:defvar) {
-		  res.append(s);
+	  res.append("\nGlobal Variable Definitions\n");
+	  for (VariableSpec var:globals) {
+		  res.append(var.toString());
 		  res.append("\n");
 	  }
 	  return res;
   }
-  
-
 }

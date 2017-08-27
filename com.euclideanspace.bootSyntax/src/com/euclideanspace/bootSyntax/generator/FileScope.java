@@ -1,11 +1,8 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Expr;
 
 /**
  * Scope files allow names to be matched to their definitions.
@@ -16,8 +13,12 @@ import com.euclideanspace.bootSyntax.editor.Expr;
 public class FileScope extends NamespaceScope {
 	  /** functions defined in this package */
 	  private ArrayList<FunctionDefScope> functionDefs = new ArrayList<FunctionDefScope>();
+	  /** variables defined in this package */
+	  private ArrayList<VariableSpec> variableDefs = new ArrayList<VariableSpec>();
 	  /** functions called in this package */
 	  private ArrayList<String> fnCalls = new ArrayList<String>();
+	  /** variables called in this package */
+	  private ArrayList<String> varCalls = new ArrayList<String>();
 
   /**
    * constructor for GlobalScope
@@ -53,6 +54,21 @@ public class FileScope extends NamespaceScope {
 		  System.err.println(":"+s.getEobj());
 	  }*/
 	  return new NullScope(null,null,null);
+  }
+
+  /**
+   * Called from first pass (setNamespace) when Defparameter,Defconstant,
+   * Defconst or Defvar found. Adds variable to namespace.
+   * @param vs type of variable (Defparameter,Defconstant,
+   * Defconst or Defvar)
+   * @return
+   */
+  @Override
+  public boolean addVariableDef(VariableSpec vs) {
+	  if (parentScope != null) parentScope.addVariableDef(vs);
+	  if (variableDefs.contains(vs)) return false;
+	  variableDefs.add(vs);
+	  return true;
   }
 
   @Override
@@ -151,7 +167,7 @@ public class FileScope extends NamespaceScope {
 	  res.append(" "+fc);
 	  if (isLispFunction(fc)) res.append("$Lisp");
 	}
-	res.append("\n");
+	res.append("\n fn defs:");
 	ArrayList<FunctionDefScope> fns =getFunctionDefs();
 	for (FunctionDefScope fd:fns) {
 	  FunctionSignature fs = fd.getFunctionSignature();
@@ -160,6 +176,20 @@ public class FileScope extends NamespaceScope {
 	    res.append("\n");
 	  }
 	}
+	res.append("\n var calls:");
+	for (String varC:varCalls) {
+		  if (cols > 10) {
+		    res.append("\n var calls:"+varC);
+		    cols =0;
+		  } else cols = cols+1;
+		  res.append(" "+varC);
+		}
+	res.append("\n var defs:");
+	for (VariableSpec var:variableDefs) {
+		    res.append(var.toString());
+		    res.append("\n");
+	}	
+	res.append("\n");
 	return res;
   }
 

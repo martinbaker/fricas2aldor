@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
-import com.euclideanspace.bootSyntax.editor.LambdaExpression;
 
 public class NamespaceScope {
   /**
@@ -92,7 +91,54 @@ public class NamespaceScope {
 	  if (parentScope != null) return parentScope.getWhereAncestor();
 	  return null;
   }
-  
+
+  /**
+   * Called from first pass (setNamespace) when Defparameter,Defconstant,
+   * Defconst or Defvar found. Adds variable to namespace.
+   * @param vs type of variable (Defparameter,Defconstant,
+   * Defconst or Defvar)
+   * @return
+   */
+  public boolean addVariableDef(VariableSpec vs) {
+	  if (parentScope != null) return parentScope.addVariableDef(vs);
+	  System.err.println("NamespaceScope.addVariableDef: cant add variable:"+vs);
+	  return true;
+  }
+
+/*
+ *   public void addDefparam(String varName) {
+	  if (parentScope != null) {
+		  parentScope.addDefparam(varName);
+		  return;
+	  }
+      System.err.println("NamespaceScope: cant addDefparam:"+varName);
+  }
+
+  public void addDefconstant(String varName) {
+	  if (parentScope != null) {
+		  parentScope.addDefconstant(varName);
+		  return;
+	  }
+      System.err.println("NamespaceScope: cant addDefconstant:"+varName);
+  }
+
+  public void addDefconst(String varName) {
+	  if (parentScope != null) {
+		  parentScope.addDefconst(varName);
+		  return;
+	  }
+      System.err.println("NamespaceScope: cant addDefconst:"+varName);
+  }
+
+  public void addDefvar(String varName) {
+	  if (parentScope != null) {
+		  parentScope.addDefvar(varName);
+		  return;
+	  }
+      System.err.println("NamespaceScope: cant addDefvar:"+varName);
+  }
+
+ */
   /**
    * add a function to namespace
    * @param fds FunctionDefScope is scope for file definition
@@ -100,7 +146,7 @@ public class NamespaceScope {
    */
   public boolean addFunctionDef(FunctionDefScope fds) {
 	  if (parentScope != null) return parentScope.addFunctionDef(fds);
-	  System.err.println("cant add function:"+fds);
+	  System.err.println("NamespaceScope.addFunctionDef: cant add function:"+fds);
 	  return true;
   }
 
@@ -169,24 +215,28 @@ public class NamespaceScope {
 	  return res;
   }
 
-  public void addUnDefinedGlobal(String varName) {
+/*  public void addUnDefinedGlobal(String varName) {
 	  if (parentScope != null) {
 		  parentScope.addUnDefinedGlobal(varName);
 		  return;
 	  }
       System.err.println("NamespaceScope: cant addUnDefinedGlobal:"+varName);
-  }
-
-  public void addGlobal(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addGlobal(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addGlobal:"+varName);
-  }
+  }*/
 
   /**
-   * add variable name to list of variables read by this function.
+   * add global lexical variable
+   * A variable assignment outside scope of a function definition
+   */
+  public void addGlobal(VariableSpec var) {
+	  if (parentScope != null) {
+		  parentScope.addGlobal(var);
+		  return;
+	  }
+      System.err.println("NamespaceScope: cant addGlobal:"+var);
+  }
+
+  /** used when variable is used (not when defined)
+   * add variable call to list of variables read by this function.
    * @param varName name of variable
    * @param addToGlobals call with false, only used when called below FunctionDefScope.
    */
@@ -249,37 +299,6 @@ public class NamespaceScope {
       System.err.println("NamespaceScope: cant addDynamic:"+varName);
   }
 
-  public void addDefparam(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefparam(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefparam:"+varName);
-  }
-
-  public void addDefconstant(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefconstant(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefconstant:"+varName);
-  }
-
-  public void addDefconst(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefconst(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefconst:"+varName);
-  }
-
-  public void addDefvar(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefvar(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefvar:"+varName);
-  }
 
   /**
    * if name represents a global variable then return true

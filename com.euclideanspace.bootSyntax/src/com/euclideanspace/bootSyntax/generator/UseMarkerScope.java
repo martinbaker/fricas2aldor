@@ -1,9 +1,6 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Where;
 
 public class UseMarkerScope extends NamespaceScope {
 

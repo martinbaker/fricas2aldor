@@ -1,11 +1,6 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Expr;
 
 public class LocalVarScope extends NamespaceScope {
 

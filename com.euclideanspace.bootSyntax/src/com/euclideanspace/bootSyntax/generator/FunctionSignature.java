@@ -112,10 +112,12 @@ public class FunctionSignature {
    * @return true if added, false if parameter or existing name.
    */
   boolean addGlobalsRead(String gr) {
-	  if (params.contains(gr)) return false;
 	  if (locals.contains(gr)) return false;
 	  if (globalsRead.contains(gr)) return false;
 	  if (globalsWritten.contains(gr)) return false;
+	  for (VariableTree param:params) {
+		  if(param.hasParameterName(gr)) return false;
+	  }
 	  globalsRead.add(gr);
 	  return true;
   }
@@ -125,9 +127,11 @@ public class FunctionSignature {
   }
 
   boolean addGlobalsWritten(String gw,boolean local) {
-	  if (params.contains(gw)) return false;
 	  if (locals.contains(gw)) return false;
 	  if (globalsWritten.contains(gw)) return false;
+	  for (VariableTree param:params) {
+		  if(param.hasParameterName(gw)) return false;
+	  }
 	  if (local) locals.add(gw);
 	  else globalsWritten.add(gw);
 	  return false;
