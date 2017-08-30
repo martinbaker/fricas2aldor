@@ -14,6 +14,22 @@ public class ParameterScope extends NamespaceScope {
 	  super(p,e,n);
   }
 
+  /**
+   * Called from first pass (setNamespace) when a given variable name is used.
+   * 
+   * No need to add variable for parameter
+   * 
+   * @param nam name of variable
+   * @param write true when variable is being written. Example: on left of
+   * assignment.
+   * @return
+   */
+  public boolean addVariableCall(String nam,boolean write) {
+//	  System.err.println("ParameterScope.addVariablecall: cant add variable:"+nam+" in:"+displayDetail());
+	  return false;
+  }
+
+
   @Override
   public String nameAndType() {
 	  String typ = "null";

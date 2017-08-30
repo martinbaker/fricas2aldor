@@ -43,6 +43,7 @@ public class NamespaceScope {
 	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 50 in:"+displayDetail());
   }
 
+  /** list ancestors upto root */
   public ArrayList<NamespaceScope> path() {
 	  ArrayList<NamespaceScope> res = new ArrayList<NamespaceScope>();
 	  if (parentScope != null) res = parentScope.path();
@@ -65,6 +66,7 @@ public class NamespaceScope {
 
   public String displayDetail() {
 	  String res = "(";
+	  // list ancestors upto root
 	  ArrayList<NamespaceScope> pth = path();
 	  for (NamespaceScope ns:pth) {
 		  res = res + ns.nameAndType() + ",";
@@ -105,40 +107,19 @@ public class NamespaceScope {
 	  return true;
   }
 
-/*
- *   public void addDefparam(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefparam(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefparam:"+varName);
+  /**
+   * Called from first pass (setNamespace) when a given variable name is used.
+   * @param nam name of variable
+   * @param write true when variable is being written. Example: on left of
+   * assignment.
+   * @return
+   */
+  public boolean addVariableCall(String nam,boolean write) {
+	  if (parentScope != null) return parentScope.addVariableCall(nam,write);
+	  System.err.println("NamespaceScope.addVariablecall: cant add variable:"+nam+" in:"+displayDetail());
+	  return false;
   }
 
-  public void addDefconstant(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefconstant(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefconstant:"+varName);
-  }
-
-  public void addDefconst(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefconst(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefconst:"+varName);
-  }
-
-  public void addDefvar(String varName) {
-	  if (parentScope != null) {
-		  parentScope.addDefvar(varName);
-		  return;
-	  }
-      System.err.println("NamespaceScope: cant addDefvar:"+varName);
-  }
-
- */
   /**
    * add a function to namespace
    * @param fds FunctionDefScope is scope for file definition
@@ -156,6 +137,18 @@ public class NamespaceScope {
       return "cannotFind";
   }*/
 
+  /** stores function call in FileScope defined by f
+   * 
+   * We need to know where functions are called so that we can add in the
+   * appropriate includes.
+   * 
+   * called by setNamespace when it is called with VarOrFunction
+   * @param nam name of function being called
+   * @param params parameter values when called
+   * @param fnDef called within function definition (not the function definition of called function)
+   * @param f file where it is read
+   * @return void
+   */
   public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
 	  if (parentScope != null) {
 		  parentScope.addFunctionCall(nam,params,fnDef,f);
@@ -164,11 +157,11 @@ public class NamespaceScope {
       System.err.println("NamespaceScope: cant addFunctionCall:"+nam);
   }
 
-  public FileScope getPackage(String pkgName) {
+/*  public FileScope getPackage(String pkgName) {
 	  if (parentScope != null) return parentScope.getPackage(pkgName);
       System.err.println("NamespaceScope: cant getPackage:"+pkgName);
       return null;  
-  }
+  }*/
 
   public String getName() {
 	  return name;  
@@ -194,10 +187,13 @@ public class NamespaceScope {
 
   /**
    * return imports for given package name
+   * 
+   * called by EditorGenerator.compileImplementation
+   * 
    * @param pkgName package name
    * @return is String with package and function name
    */
-  public ArrayList<String> importList(String pkgName) {
+/*  public ArrayList<String> importList(String pkgName) {
 	  ArrayList<String> res = new ArrayList<String>();
 	  FileScope p=getPackage(pkgName);
       //System.out.println("pkgName="+pkgName+" FileScope="+p);
@@ -213,7 +209,7 @@ public class NamespaceScope {
 		}
 	  }
 	  return res;
-  }
+  }*/
 
 /*  public void addUnDefinedGlobal(String varName) {
 	  if (parentScope != null) {
@@ -227,37 +223,37 @@ public class NamespaceScope {
    * add global lexical variable
    * A variable assignment outside scope of a function definition
    */
-  public void addGlobal(VariableSpec var) {
+/*  public void addGlobal(VariableSpec var) {
 	  if (parentScope != null) {
 		  parentScope.addGlobal(var);
 		  return;
 	  }
       System.err.println("NamespaceScope: cant addGlobal:"+var);
-  }
+  }*/
 
   /** used when variable is used (not when defined)
    * add variable call to list of variables read by this function.
    * @param varName name of variable
    * @param addToGlobals call with false, only used when called below FunctionDefScope.
    */
-  public void addRead(String varName,boolean addToGlobals) {
+/*  public void addRead(String varName,boolean addToGlobals) {
 	  if (parentScope != null) {
 		  parentScope.addRead(varName,addToGlobals);
 		  return;
 	  }
 	  System.err.println("NamespaceScope: cant add read:"+varName);
-  }
+  }*/
 
   /**
    * get read globals for a given function
    * @param fnName
    * @return
    */
-  public ArrayList<String> getReadGlobal(String fnName) {
+/*  public ArrayList<String> getReadGlobal(String fnName) {
 	  if (parentScope != null) return parentScope.getReadGlobal(fnName);
       System.err.println("NamespaceScope: cant getReadGlobal:"+fnName);
       return null;
-  }
+  }*/
 
   /**
    * true if given variable name is local in function
@@ -265,11 +261,11 @@ public class NamespaceScope {
    * @param fnName
    * @return
    */
-  public boolean isLocal(String varName,String fnName) {
+/*  public boolean isLocal(String varName,String fnName) {
 	  if (parentScope != null) return parentScope.isLocal(varName,fnName);
       System.err.println("NamespaceScope: cant isLocal:"+fnName);
 	  return false;
-  }
+  }*/
 
   /**
    * This function is called when a variable is written, that is, a
@@ -277,19 +273,19 @@ public class NamespaceScope {
    * @param varName variable name
    * @param fnName function name
    */
-  public void addWrite(String varName,boolean addToGlobals) {
+/*  public void addWrite(String varName,boolean addToGlobals) {
 	  if (parentScope != null) {
 		  parentScope.addWrite(varName,addToGlobals);
 		  return;
 	  }
       System.err.println("NamespaceScope: cant addWrite:"+varName);
-  }
+  }*/
 
-  public boolean isGlobalsWritten(String varName,String fnName) {
+/*  public boolean isGlobalsWritten(String varName,String fnName) {
 	  if (parentScope != null) return parentScope.isGlobalsWritten(varName,fnName);
       System.err.println("NamespaceScope: cant isGlobalsWritten:"+fnName);
 	  return false;
-  }
+  }*/
   
   public void addDynamic(String varName) {
 	  if (parentScope != null) {

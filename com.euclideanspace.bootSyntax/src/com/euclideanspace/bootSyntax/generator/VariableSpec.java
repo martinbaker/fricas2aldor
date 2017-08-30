@@ -14,15 +14,15 @@ public class VariableSpec {
    * defconstant -
    * defconst -
    */
-  private boolean Defparameter =false;
-  private boolean Defconstant =false;
-  private boolean Defconst =false;
-  private boolean Defvar =false;
+  public boolean Defparameter =false;
+  public boolean Defconstant =false;
+  public boolean Defconst =false;
+  public boolean Defvar =false;
   /**
    * Global lexical variable
    * A variable assignment outside scope of a function definition
    */
-  private boolean LexGlobal = false;
+  public boolean LexGlobal = false;
   /** from within inner function parameters of outer function
    * require special handling
    */
@@ -48,6 +48,31 @@ public class VariableSpec {
 
   public String getName() {
 	  return name;
+  }
+
+  /**
+   * If there are two variables with the same name then combine the
+   * types together.
+   * @param other
+   * @return
+   */
+  public boolean merge(VariableSpec other) {
+	  if (!name.equals(other.getName())) return false;
+	  Defparameter = Defparameter || other.Defparameter;
+	  Defconstant = Defconstant || other.Defconstant;
+	  Defconst = Defconst || other.Defconst;
+	  Defvar = Defvar || other.Defvar;
+	  LexGlobal = LexGlobal || other.LexGlobal;
+	  return true;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof VariableSpec)) return false;
+    VariableSpec other1 = (VariableSpec)other;
+	
+    if (!name.equals(other1.getName())) return false;
+    return true;
   }
 
   public String toString() {

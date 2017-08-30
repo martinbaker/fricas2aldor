@@ -12,7 +12,6 @@ public class GlobalScope extends NamespaceScope {
   /**
 	* Holds function definition names.
 	*/
-  //private ArrayList<FunctionSignature> functions = new ArrayList<FunctionSignature>();
   private ArrayList<FunctionDefScope> functionDefs = new ArrayList<FunctionDefScope>();
   /**
    * Arrays for holding names of various types of global variables.
@@ -33,8 +32,6 @@ public class GlobalScope extends NamespaceScope {
    * 
    * dynamicGlobals contains names of variables defined with ':local' 
    */
-  /*private ArrayList<String> globals = new ArrayList<String>();
-  private ArrayList<String> dynamicGlobals = new ArrayList<String>();*/
   private ArrayList<String> variableCalls = new ArrayList<String>();
   /**
    * Hold Dynamic (special) variables. That is variables specified by
@@ -42,24 +39,9 @@ public class GlobalScope extends NamespaceScope {
    * defparameter - Assigns initial value to named variable
    * defconstant -
    * defconst -
+   * Global Lexical Variable - A variable assignment outside scope of a function definition
    */
   private ArrayList<VariableSpec> globals = new ArrayList<VariableSpec>();
-  /**
-   * Global Lexical Variable
-   * A variable assignment outside scope of a function definition
-   */
-  private ArrayList<VariableSpec> globalLexVar = new ArrayList<VariableSpec>();
-/*  private ArrayList<String> defvar = new ArrayList<String>();
-  private ArrayList<String> defparameter = new ArrayList<String>();
-  private ArrayList<String> defconstant = new ArrayList<String>();
-  private ArrayList<String> defconst = new ArrayList<String>();*/
-
-
-  /**
-   * Holds information about each package and what functions it contains.
-   */
-//  private ArrayList<FileScope> packages = new ArrayList<FileScope>();
-  
 
   /**
    * constructor for GlobalScope
@@ -88,35 +70,6 @@ public class GlobalScope extends NamespaceScope {
       return res;
   }
 
-  /**
-   * add a function to namespace
-   * @param n name
-   * @param p parent in case this is lambda inside other function
-   * @param f name of file where function is defined which is also package name.
-   * @param pars parameters
-   * @param packageName
-   * @return true if successful false if duplicate.
-   */
-/*  @Override
-  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<String> pars,int num) {
-	  FunctionSignature fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
-	  if (functions.contains(fs)) return false;
-	  functions.add(fs);
-	  FileScope pkg = null;
-	  for (FileScope pkg2:getFileScopes()) {
-		  if (pkg2.getName() == f) {
-			  pkg=pkg2;
-			  break;
-		  }
-	  }
-	  if (pkg == null) {
-		  System.err.println("cannot find file:"+n);
-		  return false;
-	  }
-	  pkg.addFunctionDef(fs);
-	  return true;
-  }*/
-
   @Override
   public boolean addFunctionDef(FunctionDefScope fds) {
 	  if (functionDefs.contains(fds)) return false;
@@ -124,26 +77,12 @@ public class GlobalScope extends NamespaceScope {
 	  return true;
   }
 
-  /** used when variable is used (not when defined)
-   * add variable call to list of variables read by this function.
-   * 
-   * called from EditorGenerator.setNamespace when called on VarOrFunction
-   * 
-   * @param varName name of variable
-   * @param addToGlobals call with false, only used when called below FunctionDefScope.
-   */
-  @Override
-  public void addRead(String varName,boolean addToGlobals) {
-	  if (variableCalls.contains(varName)) return;
-	  if (addToGlobals) variableCalls.add(varName);
-  }
-  
   /**
    * get read globals for a given function
    * @param fnName
    * @return
    */
-  public ArrayList<String> getReadGlobal(String fnName) {
+/*  public ArrayList<String> getReadGlobal(String fnName) {
 	  for (FunctionDefScope fn:functionDefs) {
 		  FunctionSignature fs = fn.getFunctionSignature();
 		  if (fs == null) break;
@@ -154,7 +93,7 @@ public class GlobalScope extends NamespaceScope {
 		  }
 	  }
  	  return new ArrayList<String>();
-  }
+  }*/
  
   /**
    * true if given variable name is local in function
@@ -162,7 +101,7 @@ public class GlobalScope extends NamespaceScope {
    * @param fnName
    * @return
    */
- public boolean isLocal(String varName,String fnName) {
+/* public boolean isLocal(String varName,String fnName) {
 	  for (FunctionDefScope fn:functionDefs) {
 		  FunctionSignature fs = fn.getFunctionSignature();
 		  if (fs == null) break;
@@ -173,23 +112,9 @@ public class GlobalScope extends NamespaceScope {
 		  }
 	  }
 	  return false;
-  }
+  }*/
 
-  /**
-   * This function is called when a variable is written, that is, a
-   * variable appears on the left of an assign.
-   * @param varName variable name
-   * @param fnName function name
-   */
-   public void addWrite(String varName,boolean addToGlobals) {
-     for (VariableSpec var:globals) {
-       if (varName.equals(var.getName())) return;
-     }
-     if (variableCalls.contains(varName)) return;
-     variableCalls.add(varName);
-  }
-  
-  public boolean isGlobalsWritten(String varName,String fnName) {
+/*  public boolean isGlobalsWritten(String varName,String fnName) {
 	  for (FunctionDefScope fn:functionDefs) {
 		  FunctionSignature fs = fn.getFunctionSignature();
 		  if (fs == null) break;
@@ -200,12 +125,25 @@ public class GlobalScope extends NamespaceScope {
 		  }
 	  }
       return false;
-  }
+  }*/
 
+  /** stores function call in FileScope defined by f
+   * 
+   * We need to know where functions are called so that we can add in the
+   * appropriate includes.
+   *
+   * called by setNamespace when it is called with VarOrFunction
+   * @param nam name of function being called
+   * @param params parameter values when called
+   * @param fnDef called within function definition (not the function definition of called function)
+   * @param f file where it is read
+   * @return void
+   */
+  @Override
   public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
-	  FileScope pkg = null;
+/*	  FileScope pkg = null;
 	  for (FileScope pkg2:getFileScopes()) {
-		  if (pkg2.getName() == f) {
+		  if (pkg2.getName().equals(f)) {
 			  pkg=pkg2;
 			  break;
 		  }
@@ -214,9 +152,17 @@ public class GlobalScope extends NamespaceScope {
 		  pkg = new FileScope(this,null,f);
 		  subscopes.add(pkg);
 	  }
-	  pkg.addFunctionCall(nam);
+	  pkg.addFunctionCall(nam);*/
   }
 
+  /** Used to derive imports
+   * TODO rewrite now used by imports
+   * called by NamespaceScope.importList
+   * which is called by EditorGenerator.compileImplementation
+   * Since it is called after Scopes are already setup it should
+   * be safe to mode down tree structure.
+   */
+  //@Override
   public FileScope getPackage(String pkgName) {
 	  for (FileScope pkg:getFileScopes()) {
 		  if (pkgName.equals(pkg.getName())) return pkg;
@@ -237,32 +183,26 @@ public class GlobalScope extends NamespaceScope {
       return null;  
   }
 
-  public boolean isLispFunction(String fnName) {
+  /**
+   * for a given variable name find which package its defined in.
+   * @param fnName
+   * @param definedIn
+   * @return
+   */
+  public FileScope getPackageDefiningVar(String fnName,FileScope definedIn) {
 	  for (FileScope pkg:getFileScopes()) {
+		  if (pkg.containsVariableDef(fnName)) return pkg;
+	  }
+      return null;  
+  }
+
+  public boolean isLispFunction(String fnName) {
+	  /*for (FileScope pkg:getFileScopes()) {
 		  if (pkg.containsFunctionDef(fnName)) return false;
 	  }
-	  return true;
+	  return true;*/
+	  return false;
   }
-
-/*  public void addUnDefinedGlobal(String varName) {
-	  if (unDefinedGlobals.contains(varName)) return;
-	  unDefinedGlobals.add(varName);
-  }*/
-
-  /**
-   * add global lexical variable
-   * A variable assignment outside scope of a function definition
-   */
-  @Override
-  public void addGlobal(VariableSpec var) {
-	  if (globalLexVar.contains(var)) return;
-	  globalLexVar.add(var);
-  }
-
-/*  public void addDynamic(String varName) {
-	  if (dynamicGlobals.contains(varName)) return;
-	  dynamicGlobals.add(varName);
-  }*/
 
   /**
    * Called from first pass (setNamespace) when Defparameter,Defconstant,
@@ -273,29 +213,55 @@ public class GlobalScope extends NamespaceScope {
    */
   @Override
   public boolean addVariableDef(VariableSpec vs) {
-	  if (globals.contains(vs)) return false;
+	  for (VariableSpec v:globals) {
+		  if (v.equals(vs)) {
+			  v.merge(vs);
+			  return false;
+		  }
+	  }
 	  globals.add(vs);
 	  return true;
   }
 
-/*  public void addDefparam(String varName) {
-	  if (defparameter.contains(varName)) return;
-	  defparameter.add(varName);
+  /**
+   * Called from first pass (setNamespace) when a given variable name is used.
+   * @param nam name of variable
+   * @return
+   */
+  @Override
+  public boolean addVariableCall(String nam,boolean write) {
+	  if (variableCalls.contains(nam)) return false;
+	  variableCalls.add(nam);
+	  //System.err.println("GlobalScope.addVariablecall: cant add variable:"+nam);
+	  return false;
   }
 
-  public void addDefconstant(String varName) {
-	  if (defconstant.contains(varName)) return;
-	  defconstant.add(varName);
-  }
-
-  public void addDefconst(String varName) {
-	  if (defconst.contains(varName)) return;
-	  defconst.add(varName);
-  }
-
-  public void addDefvar(String varName) {
-	  if (defvar.contains(varName)) return;
-	  defvar.add(varName);
+  /** used when variable is used (not when defined)
+   * add variable call to list of variables read by this function.
+   * 
+   * called from EditorGenerator.setNamespace when called on VarOrFunction
+   * 
+   * @param varName name of variable
+   * @param addToGlobals call with false, only used when called below FunctionDefScope.
+   */
+/*  @Override
+  public void addRead(String varName,boolean addToGlobals) {
+	  if (variableCalls.contains(varName)) return;
+	  if (addToGlobals) variableCalls.add(varName);
+  }*/
+  
+  /**
+   * This function is called when a variable is written, that is, a
+   * variable appears on the left of an assign.
+   * @param varName variable name
+   * @param fnName function name
+   */
+/*   public void addWrite(String varName,boolean addToGlobals) {
+     for (VariableSpec var:globals) {
+       if (varName.equals(var.getName())) return;
+     }
+     if (variableCalls.contains(varName)) return;
+     variableCalls.add(varName);
   }*/
 
   /**

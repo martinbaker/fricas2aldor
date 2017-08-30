@@ -13,11 +13,11 @@ public class FunctionSignature {
   /** number inner functions */
   private int number = 0;
   /** local variables used by this function, where not initially assigned in function.*/
-  private ArrayList<String> locals = new ArrayList<String>();
+//  private ArrayList<String> locals = new ArrayList<String>();
   /** global variables read by this function, where not initially assigned in function.*/
-  private ArrayList<String> globalsRead = new ArrayList<String>();
+//  private ArrayList<String> globalsRead = new ArrayList<String>();
   /** global variables written by this function, if changed in function. */
-  private ArrayList<String> globalsWritten = new ArrayList<String>();
+//  private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
   FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<VariableTree> pars,int num) {
@@ -95,23 +95,37 @@ public class FunctionSignature {
 	  return params;
   }
 
-  void addLocal(String gw) {
+/*  void addLocal(String gw) {
 	  if (locals.contains(gw)) return;
 	  locals.add(gw);
   }
 
   boolean isLocal(String gw) {
 	  return (locals.contains(gw));
+  }*/
+
+  /**
+   * true if gw is the name of a parameter of the function.
+   * @param gw name to be checked.
+   * @return true if found
+   */
+  boolean isParameter(String gw) {
+	  for (VariableTree param:params) {
+		  if(param.hasParameterName(gw)) return true;
+	  }
+	  return false;
   }
 
   /**
+   * Not sure if we need these functions
+   * 
    * Add variable name to list of global variables read by this function.
    * If variable is first initialised in this function (it is written
    * before it is read) then don't add it.
    * @param gr name of variable
    * @return true if added, false if parameter or existing name.
    */
-  boolean addGlobalsRead(String gr) {
+/*  boolean addGlobalsRead(String gr) {
 	  if (locals.contains(gr)) return false;
 	  if (globalsRead.contains(gr)) return false;
 	  if (globalsWritten.contains(gr)) return false;
@@ -143,7 +157,7 @@ public class FunctionSignature {
 
   ArrayList<String> getGlobalsWritten() {
 	  return globalsWritten;
-  }
+  }*/
 
   String display() {
 	  String res = "";
@@ -159,7 +173,7 @@ public class FunctionSignature {
 		  follow=true;
 	  }
 	  res = res + ")";
-	  if (!locals.isEmpty()) {
+/*	  if (!locals.isEmpty()) {
 		    res = res + System.lineSeparator() + "    locals:";
 		    int column = 0;
 			for (String param:locals) {
@@ -191,7 +205,7 @@ public class FunctionSignature {
 			  } else column = column +1;
 			  res = res + " "+ param;
 		    }
-		  }
+		  }*/
 	  return res+ System.lineSeparator();
   }
 

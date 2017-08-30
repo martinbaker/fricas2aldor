@@ -172,9 +172,10 @@ class EditorGenerator extends AbstractGenerator {
 
     /**
      * called when a variable name is used
+     * used by compileVar which is used by compile on VarOrFunction
      */
 	def String getVariable(String a,boolean lhs) {
-		var boolean addType = false;
+/*		var boolean addType = false;
 		if (lhs) {
 		  if (vars.isLocal(a,currentFunction)) {
 		    if (!locals.contains(a)) {
@@ -183,7 +184,7 @@ class EditorGenerator extends AbstractGenerator {
 		    }
 		  }
 		}
-		if (addType) return a + ":SExpression";
+		if (addType) return a + ":SExpression";*/
 		return a;
 	}
 
@@ -249,15 +250,16 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def CharSequence compileImplementation(int indent,int precedence,Model model,NamespaceScope scope)
 	    '''
-	    «var ArrayList<String> imp = new ArrayList<String>()»«
+	    «//var ArrayList<String> imp = new ArrayList<String>()»«
 	    newline(indent)»«
 	    newline(indent)»Implementation ==> add«
 	    newline(indent+1)»«
 	    »import from BootEnvir«
-	    {imp=vars.importList(currentFile);null}»«
-	    FOR x:imp»«
+	    //{imp=vars.importList(currentFile);null}»«
+	    val Imports imp= new Imports(vars.getPackage(currentFile),vars)»«
+	    FOR x:imp.display()»«
 	      newline(indent+1)»«
-	      »import from «x»«
+	      x»«
 	    ENDFOR»«
 	    newline(indent+1)»«
 	    FOR x:model.declarations»«compile(indent+1,precedence,false,x,scope)»«ENDFOR»'''
@@ -371,7 +373,6 @@ class EditorGenerator extends AbstractGenerator {
 		val NamespaceScope ns = new NamespaceScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
 		ns.addVariableDef(new VariableSpec(nam,true,false,false,false,false));
-	    //vars.addDefparam(nam);
 	    return ns;
     }
     
@@ -451,19 +452,26 @@ class EditorGenerator extends AbstractGenerator {
         }
 		val FunctionDefScope ns = new FunctionDefScope(parent,function,currentFunction);
 		parent.addSubscope(ns);
+		// setup parameters
         var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         for (Expr p:function.params) {
-          setNamespace(ns as NamespaceScope,precedence,p,RefType.Parameter)
+          setNamespace(ns,precedence,p,RefType.Parameter)
           val VariableTree par = new VariableTree(p);
           if (par !== null) params.add(par);
         }
+        // alternative is single parameter given by juxtaposition.
+        if (function.j !== null) {
+          val VariableTree par = new VariableTree(function.j,null);
+          if (par !== null) params.add(par);
+        }
         ns.addFunctionDef(function.name,null,currentFile,bootPkg,params,0);
+        // statements which may be a block
 	    if (function.st !== null)
-	      setNamespace(ns as NamespaceScope,precedence,function.st,RefType.InsideFunction)
-	    for (Expr x:function.params)
-	      setNamespace(ns as NamespaceScope,0,x,RefType.Parameter);
+	      setNamespace(ns,precedence,function.st,RefType.InsideFunction)
+	    //for (Expr x:function.params)
+	    //  setNamespace(ns,0,x,RefType.Parameter);
 	    if (function.w !== null)
-	      setNamespace(ns as NamespaceScope,precedence,function.w,RefType.InsideFunction)
+	      setNamespace(ns,precedence,function.w,RefType.InsideFunction)
 	    var int useIndex = 1;
 	    // If there are any pending UseMarkerScopes then add them under
 	    // this FunctionDef.
@@ -551,9 +559,9 @@ class EditorGenerator extends AbstractGenerator {
 	    ENDIF»)«
 	    IF function.st !== null»«
 	      IF function.m» ==>«ELSE» ==«ENDIF»«
-	      FOR String globVar: vars.getReadGlobal(currentFunction)»«
-	        newline(indent+1)»«globVar»=getVar(bootEnvir,"«globVar»")«
-	      ENDFOR»«
+//	      FOR String globVar: vars.getReadGlobal(currentFunction)»«
+//	        newline(indent+1)»«globVar»=getVar(bootEnvir,"«globVar»")«
+//	      ENDFOR»«
 	      compile(indent,precedence,lhs,function.st,scope)»«
 	    ENDIF»«
 	    IF function.w !== null»«
@@ -579,7 +587,7 @@ class EditorGenerator extends AbstractGenerator {
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,RefType refType) {
 	  val NamespaceScope ns = new NamespaceScope(parent,globalVariable,null);
 	  parent.addSubscope(ns);
-      if (globalVariable.name !== null) ns.addGlobal(new VariableSpec(globalVariable.name,false,false,false,false,true));
+      if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,false,false,false,false,true));
 	  if (globalVariable.e !== null)
 	      setNamespace(ns,precedence,globalVariable.e,RefType.InsideFunction)
       return ns;
@@ -1024,11 +1032,11 @@ PrimaryExpression returns Expr:
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,LambdaExpression lambdaExpression,RefType refType) {
 		var String fnNam = "lambda"
 		val FunctionDefScope ns = new FunctionDefScope(parent,lambdaExpression,fnNam);
-	    parent.addSubscope(ns as NamespaceScope);
+	    parent.addSubscope(ns);
         var VarOrFunction v =null;
         var fnName="";
         if (lambdaExpression.left !== null) {
-          setNamespace(ns as NamespaceScope,8,lambdaExpression.left,RefType.InsideFunction);
+          setNamespace(ns,8,lambdaExpression.left,RefType.Parameter);
           if (lambdaExpression.left instanceof VarOrFunction) {
             v=lambdaExpression.left as VarOrFunction
             if (v !== null) {
@@ -1043,7 +1051,7 @@ PrimaryExpression returns Expr:
           }
         }
         if (lambdaExpression.right !== null) {
-          setNamespace(ns as NamespaceScope,8,lambdaExpression.right,RefType.InsideFunction);        	
+          setNamespace(ns,8,lambdaExpression.right,RefType.InsideFunction);        	
         }
         var WhereScope w = null;
         if (parent !== null) w = parent.getWhereAncestor();
@@ -1174,14 +1182,14 @@ PrimaryExpression returns Expr:
       if (assignExpression.left !== null) {
           if (assignExpression.left instanceof VarOrFunction) {
           	val VarOrFunction v = assignExpression.left as VarOrFunction;
-          	ns.addWrite(v.name,false);
+          	ns.addVariableCall(v.name,true);
           }
           if (assignExpression.left instanceof ListLiteral) {
             val ListLiteral ll = (assignExpression.left as ListLiteral);
 	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
-	     	  ns.addWrite(v,false);
+          	  ns.addVariableCall(v,true);
 	        }
           }
 	      setNamespace(ns,16,assignExpression.left,RefType.VarWrite);
@@ -1248,14 +1256,14 @@ PrimaryExpression returns Expr:
 	    nam = v.name;
 	    if (v.expr instanceof UnaryExpression) dynamic= (v.expr as UnaryExpression).loc;
 	    null}»«
-	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
-	      compile(indent,16,lhs,assignExpression.left,scope)» := «
-	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,scope)»«ENDIF»)«
-        ELSE»«
+//	    IF vars.isGlobalsWritten(nam,currentFunction)»putVar(bootEnvir,"«nam»",«
+//	      compile(indent,16,lhs,assignExpression.left,scope)» := «
+//	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,scope)»«ENDIF»)«
+//        ELSE»«
 	      compile(indent,16,true,assignExpression.left,scope)»«
 	      IF assignExpression.op !== null» «assignExpression.op» «ENDIF»«
 	      IF assignExpression.right !== null»«compile(indent,16,lhs,assignExpression.right,scope)»«ENDIF»«
-        ENDIF»«
+//        ENDIF»«
 	    cop(16,precedence)»'''
 
     /**
@@ -1365,17 +1373,18 @@ PrimaryExpression returns Expr:
 	  val NamespaceScope ns = new NamespaceScope(parent,isExpression,null);
 	  parent.addSubscope(ns);
 	  if(isExpression.left !== null)
-	      setNamespace(ns,26,isExpression.left,RefType.InsideFunction);
+	      setNamespace(ns,26,isExpression.left,refType);
 	  if(isExpression.right !== null) {
           if (isExpression.right instanceof ListLiteral) {
             val ListLiteral ll = (isExpression.right as ListLiteral);
 	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
-	     	  ns.addWrite(v,false);
+	          if (refType != RefType.Parameter)
+          	    ns.addVariableCall(v,true);
 	        }
           }
-          setNamespace(ns,26,isExpression.right,RefType.InsideFunction);
+          setNamespace(ns,26,isExpression.right,refType);
       }
       return ns;
 	}
@@ -1441,7 +1450,7 @@ PrimaryExpression returns Expr:
 	    if(inExpression.left !== null)
           if (inExpression.left instanceof VarOrFunction) {
           	val VarOrFunction v = inExpression.left as VarOrFunction;
-          	ns.addWrite(v.name,false);
+          	ns.addVariableCall(v.name,true);
           }
 	      setNamespace(ns,28,inExpression.left,RefType.InsideFunction);
 	    if(inExpression.right !== null) setNamespace(ns,28,inExpression.right,RefType.InsideFunction);
@@ -1683,7 +1692,7 @@ PrimaryExpression returns Expr:
 	  parent.addSubscope(ns);
 	  if (unaryExpression.b1 !== null) setNamespace(ns,48,unaryExpression.b1,RefType.InsideFunction);
 	  if (unaryExpression.b3 !== null) setNamespace(ns,48,unaryExpression.b3,RefType.InsideFunction);
-	  if (unaryExpression.expr !== null) setNamespace(ns,48,unaryExpression.expr,RefType.InsideFunction);
+	  if (unaryExpression.expr !== null) setNamespace(ns,48,unaryExpression.expr,refType);
 	  return ns;
 	}
 
@@ -1848,12 +1857,17 @@ PrimaryExpression |
 	  	  case VarWrite : new LocalVarScope(parent,varOrFunction,nam)
           default : new NamespaceScope(parent,varOrFunction,nam)
         }
-        ns.addRead(nam,false);
+//        ns.addRead(nam,false);
 	  } else {
 	  	ns = new FunctionCallScope(parent,varOrFunction,nam)
-      	vars.addFunctionCall(nam,varOrFunction.expr,currentFunction,currentFile);
 	  }
 	  parent.addSubscope(ns);
+	  if (isVar) {
+	  	ns.addVariableCall(nam,false)
+	  } else {
+	  	if (refType != RefType.Parameter)
+	  	  ns.addFunctionCall(nam,varOrFunction.expr,currentFunction,currentFile);
+	  }
 	  if (varOrFunction.expr !== null) {
       	setNamespace(ns,0,varOrFunction.expr,RefType.InsideFunction);
 	  }
@@ -1880,23 +1894,14 @@ PrimaryExpression |
 	      }
 	    }
 	    if(isVar) {
-	      //switch insideWhere {
-	      //	case NotWhere : return compileVar(indent,precedence,lhs,varOrFunction,parentScope)
-	      //	case ReadingWhere : return compileVarR(indent,precedence,lhs,varOrFunction,parentScope)
-	      //	case WritingWhere : return compileVarW(indent,precedence,lhs,varOrFunction,parentScope)
-	      //}
 	      return compileVar(indent,precedence,lhs,varOrFunction,parentScope)
-	    }
-	    else {
-	      //switch insideWhere {
-	      //	case NotWhere : return compileFunction(indent,precedence,lhs,varOrFunction,parentScope)
-	      //	case ReadingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,parentScope)
-	      //	case WritingWhere : return compileFunction(indent,precedence,lhs,varOrFunction,parentScope)
-	      //}
+	    } else {
 	      return compileFunction(indent,precedence,lhs,varOrFunction,parentScope)
 	    }
       }
 
+    /**
+     * called by compile on VarOrFunction */
 	def CharSequence compileVar(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,NamespaceScope parentScope) 
         '''
 	    «val NamespaceScope scope =parentScope.getScope(varOrFunction)»«
@@ -2087,9 +2092,9 @@ PrimaryExpression |
 		val NamespaceScope ns = new NamespaceScope(parent,listLiteral,null);
 	    parent.addSubscope(ns);
 	    for (ListElement x:listLiteral.le)
-	        setNamespace(ns,0,x,RefType.InsideFunction);
+	        setNamespace(ns,0,x,refType);
 	    for (ListComprehension x:listLiteral.sl)
-	        setNamespace(ns,0,x,RefType.InsideFunction);
+	        setNamespace(ns,0,x,refType);
 	    return ns;
 	}
 
@@ -2115,7 +2120,7 @@ KW_CBRACK
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ListElement listElement,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,listElement,null);
 	    parent.addSubscope(ns);
-	    if (listElement.l2 !== null) setNamespace(ns,0,listElement.l2,RefType.InsideFunction);
+	    if (listElement.l2 !== null) setNamespace(ns,0,listElement.l2,refType);
 	    return ns;
 	}
 
@@ -2142,7 +2147,7 @@ KW_CBRACK
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,ListComprehension listComprehension,RefType refType) {
 		val NamespaceScope ns = new NamespaceScope(parent,listComprehension,null);
 	    parent.addSubscope(ns);
-	    if (listComprehension.sl2 !== null) setNamespace(ns,0,listComprehension.sl2,RefType.InsideFunction);
+	    if (listComprehension.sl2 !== null) setNamespace(ns,0,listComprehension.sl2,refType);
 	    return ns;
 	}
 

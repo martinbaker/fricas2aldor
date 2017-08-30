@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import com.euclideanspace.bootSyntax.editor.Expr;
+
 /**
  * Scope files allow names to be matched to their definitions.
  * This is for files which will correspond to a spad 'package'.
@@ -56,6 +58,37 @@ public class FileScope extends NamespaceScope {
 	  return new NullScope(null,null,null);
   }
 
+  /** stores function call in FileScope defined by f
+   * 
+   * We need to know where functions are called so that we can add in the
+   * appropriate includes.
+   *
+   * called by setNamespace when it is called with VarOrFunction
+   * @param nam name of function being called
+   * @param params parameter values when called
+   * @param fnDef called within function definition (not the function definition of called function)
+   * @param f file where it is read
+   * @return void
+   */
+  @Override
+  public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
+	  if (fnCalls.contains(nam)) return;
+	  fnCalls.add(nam);
+/*	  FileScope pkg = null;
+	  for (FileScope pkg2:getFileScopes()) {
+		  if (pkg2.getName().equals(f)) {
+			  pkg=pkg2;
+			  break;
+		  }
+	  }
+	  if (pkg == null) {
+		  pkg = new FileScope(this,null,f);
+		  subscopes.add(pkg);
+	  }
+	  pkg.addFunctionCall(nam);*/
+  }
+
+
   /**
    * Called from first pass (setNamespace) when Defparameter,Defconstant,
    * Defconst or Defvar found. Adds variable to namespace.
@@ -66,9 +99,28 @@ public class FileScope extends NamespaceScope {
   @Override
   public boolean addVariableDef(VariableSpec vs) {
 	  if (parentScope != null) parentScope.addVariableDef(vs);
-	  if (variableDefs.contains(vs)) return false;
+	  for (VariableSpec v:variableDefs) {
+		  if (v.equals(vs)) {
+			  v.merge(vs);
+			  return false;
+		  }
+	  }
 	  variableDefs.add(vs);
 	  return true;
+  }
+
+  /**
+   * Called from first pass (setNamespace) when a given variable name is used.
+   * @param nam name of variable
+   * @return
+   */
+  @Override
+  public boolean addVariableCall(String nam,boolean write) {
+	  if (parentScope != null) parentScope.addVariableCall(nam,write);
+	  if (varCalls.contains(nam)) return false;
+	  varCalls.add(nam);
+	  //System.err.println("FileScope.addVariablecall: cant add variable:"+nam);
+	  return false;
   }
 
   @Override
@@ -77,24 +129,6 @@ public class FileScope extends NamespaceScope {
 	  if (functionDefs.contains(fds)) return false;
 	  functionDefs.add(fds);
 	  return true;
-  }
-
-  /**
-   * add a function definition to this package
-   * @param fn
-   */
-/*  void addFunctionDef(FunctionSignature fn) {
-	  if (fnDefs.contains(fn)) return;
-	  fnDefs.add(fn);
-  }*/
-
-  /**
-   * add a function call to this package
-   * @param fn
-   */
-  void addFunctionCall(String fn) {
-	  if (fnCalls.contains(fn)) return;
-	  fnCalls.add(fn);
   }
 
   public ArrayList<FunctionDefScope> getFunctionDefScopes() {
@@ -120,7 +154,11 @@ public class FileScope extends NamespaceScope {
   ArrayList<String> getFunctionCalls() {
 	  return fnCalls;
   }
-  
+
+  ArrayList<String> getVariableCalls() {
+	  return varCalls;
+  }
+
 /*  boolean containsFunction(FunctionSignature fn) {
 	  return fnDefs.contains(fn);
   }*/
@@ -135,6 +173,15 @@ public class FileScope extends NamespaceScope {
 	  return false;
   }
 
+  boolean containsVariableDef(String fn) {
+	  for (VariableSpec fds:variableDefs) {
+	    if (fds == null) break;
+		if (fn.equals(fds.getName())) 
+         return true;
+	  }
+	  return false;
+  }
+  
   /**
    * override this function to only show a single file
    */
