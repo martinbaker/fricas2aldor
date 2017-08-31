@@ -14,6 +14,24 @@ public class FunctionCallScope extends NamespaceScope {
 	  super(p,e,n);
   }
 
+  /**
+   * when the scope tree is complete use this to walk the tree to
+   * make sure all links are resolved
+   * @return true if successful.
+   */
+  @Override
+  public boolean resolveLinks() {
+	  for (NamespaceScope s:subscopes) {
+		  if (!s.resolveLinks()) return false;
+	  }
+	  return true;
+  }
+
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   @Override
   public String nameAndType() {
 	  String typ = "null";

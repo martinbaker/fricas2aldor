@@ -51,6 +51,11 @@ public class NamespaceScope {
 	  return res;
   }
 
+  /**
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   public String nameAndType() {
 	  String typ = "null";
 	  if (emfElement != null) {
@@ -82,6 +87,28 @@ public class NamespaceScope {
 	  typ = typ.substring(typ.lastIndexOf('.'));
 	  System.err.println("NamespaceScope: Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
+  }
+
+  /**
+   * when the scope tree is complete use this to walk the tree to
+   * make sure all links are resolved
+   * @return true if successful.
+   */
+  public boolean resolveLinks() {
+	  for (NamespaceScope s:subscopes) {
+		  if (!s.resolveLinks()) return false;
+	  }
+	  return true;
+  }
+  
+  /**
+   * Lookup variable name to find info about it.
+   * @param nam variable name
+   * @return
+   */
+  public VariableSpec resolveVariableName(String nam) {
+	if (parentScope != null) return parentScope.resolveVariableName(nam);
+    return null;
   }
 
   public EObject getEobj() {

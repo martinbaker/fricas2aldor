@@ -64,6 +64,23 @@ public class FunctionDefScope extends NamespaceScope {
 	  return false;
   }
 
+  /**
+   * Lookup variable name to find info about it.
+   * In this case check if it is a parameter
+   * @param nam variable name
+   * @return VariableSpec if exists else null
+   */
+  @Override
+  public VariableSpec resolveVariableName(String nam) {
+	if (fs != null) {
+	  if (fs.isParameter(nam)) {
+	    return new VariableSpec(nam,this, false, false, false, false, false, true, false);
+	  }
+	}
+	if (parentScope != null) return parentScope.resolveVariableName(nam);
+    return null;
+  }
+
   /** used when variable is used (not when defined)
    * add variable call to list of variables read by this function.
   * 
@@ -110,6 +127,11 @@ public class FunctionDefScope extends NamespaceScope {
 	  return fs.getSafeName();
   }
 
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   @Override
   public String nameAndType() {
 	  String typ = "null";

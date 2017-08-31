@@ -53,6 +53,11 @@ public class GlobalScope extends NamespaceScope {
 	  super(p,e,n);
   }
 
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   @Override
   public String nameAndType() {
 	  return "global";
@@ -168,6 +173,23 @@ public class GlobalScope extends NamespaceScope {
 		  if (pkgName.equals(pkg.getName())) return pkg;
 	  }
       return null;  
+  }
+
+  /**
+   * Lookup variable name to find info about it.
+   * @param nam variable name
+   * @return
+   */
+  @Override
+  public VariableSpec resolveVariableName(String nam) {
+	for (FileScope pkg:getFileScopes()) {
+	  if (pkg.containsVariableDef(nam)) {
+	    for (VariableSpec v:pkg.getVariableDefs()) {
+          if (nam.equals(v.getName())) return v;
+	    }
+      }
+    }
+    return null;
   }
 
   /**
@@ -290,7 +312,7 @@ public class GlobalScope extends NamespaceScope {
 	  for (FileScope ps:packages) {
 		  res.append(ps.showDefs());
 	  }
-	  res.append("\nFunctions\n");
+//	  res.append("\nFunctions\n");
 	  // order by alphabetical order of file name
 //      Collections.sort(functions, (a, b) -> a.getFile().compareToIgnoreCase(b.getFile()));
 //	  for (FunctionSignature fs:functions) {

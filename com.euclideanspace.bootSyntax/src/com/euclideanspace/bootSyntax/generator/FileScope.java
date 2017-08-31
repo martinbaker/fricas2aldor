@@ -32,6 +32,11 @@ public class FileScope extends NamespaceScope {
 	  super(p,e,n);
   }
 
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   @Override
   public String nameAndType() {
 	  String typ = "null";
@@ -123,6 +128,20 @@ public class FileScope extends NamespaceScope {
 	  return false;
   }
 
+  /**
+   * Lookup variable name to find info about it.
+   * @param nam variable name
+   * @return
+   */
+  @Override
+  public VariableSpec resolveVariableName(String nam) {
+	for (VariableSpec v:variableDefs) {
+	  if (nam.equals(v.getName())) return v;
+	}
+	if (parentScope != null) return parentScope.resolveVariableName(nam);
+    return null;
+  }
+
   @Override
   public boolean addFunctionDef(FunctionDefScope fds) {
 	  if (parentScope != null) parentScope.addFunctionDef(fds);
@@ -157,6 +176,10 @@ public class FileScope extends NamespaceScope {
 
   ArrayList<String> getVariableCalls() {
 	  return varCalls;
+  }
+
+  ArrayList<VariableSpec> getVariableDefs() {
+	  return variableDefs;
   }
 
 /*  boolean containsFunction(FunctionSignature fn) {
@@ -214,7 +237,7 @@ public class FileScope extends NamespaceScope {
 	  res.append(" "+fc);
 	  if (isLispFunction(fc)) res.append("$Lisp");
 	}
-	res.append("\n fn defs:");
+	res.append("\n fn defs:\n");
 	ArrayList<FunctionDefScope> fns =getFunctionDefs();
 	for (FunctionDefScope fd:fns) {
 	  FunctionSignature fs = fd.getFunctionSignature();

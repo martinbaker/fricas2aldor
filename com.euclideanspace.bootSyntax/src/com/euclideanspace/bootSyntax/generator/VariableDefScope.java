@@ -2,7 +2,14 @@ package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class LocalVarScope extends NamespaceScope {
+/**
+ * This may be either a Global Lexical Variable (a variable assignment
+ * outside scope of a function definition) or a dynamic (special)
+ * variable (Defparameter, Defconstant, Defconst, Defvar).
+ * @author mjb
+ *
+ */
+public class VariableDefScope extends NamespaceScope {
 
   /**
    * constructor for FunctionDefScope
@@ -10,7 +17,7 @@ public class LocalVarScope extends NamespaceScope {
    * @param e emfElement
    * @param n name
    */
-  public LocalVarScope(NamespaceScope p,EObject e,String n) {
+  public VariableDefScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
@@ -43,7 +50,7 @@ public class LocalVarScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "local var "+n+":"+typ;
+	  return "var def "+n+":"+typ;
   }
 
 }

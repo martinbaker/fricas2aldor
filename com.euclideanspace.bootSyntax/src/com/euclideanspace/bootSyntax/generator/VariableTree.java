@@ -229,6 +229,9 @@ ListComprehension:
 
 	/**
 	 * Output string for each variable name in list tree.
+	 * 
+	 * used by compileAssignList and compileIsList in EditorGenerator
+	 * 
 	 * @param lstName a name for whole list
 	 * @param typing type assignment if required.
 	 * @return string for each variable name in list tree.
@@ -243,6 +246,23 @@ ListComprehension:
 			for(VariableTree lt:lst) {
 			   res.addAll(lt.output(lstName,typing));
 			}
+		}
+		return res;
+	}
+	
+	/**
+	 * display is used by display() in FunctionSignature which is used
+	 * by fsa.generateFile("namespace.txt",vars.showDefs())
+	 * @return result
+	 */
+	public String display() {
+		String res = n;
+		if (lst.size() > 0) {
+		  res = res + "[";
+		  for (VariableTree sub:lst) {
+			  res = res + "," + sub.display();
+		  }
+		  res = res + "]";
 		}
 		return res;
 	}

@@ -103,13 +103,17 @@ class EditorGenerator extends AbstractGenerator {
         val ResourceSet rs = resource.resourceSet;
         val EList<Resource> res = rs.getResources();
         for (Resource r:res) {
-          var NamespaceScope x = null;
+          //var NamespaceScope x = null;
           className(r);
           var EObject m = r.contents.head;
           if (m instanceof Model)
-            x = setNamespace(vars,0,m as Model,RefType.FileGlobal);
+            setNamespace(vars,0,m as Model,RefType.FileGlobal);
         }
-        // generateFile takes CharSequence
+        // Now that scope tree is complete we can walk the tree to make sure
+        // all links are resolved
+        if (!vars.resolveLinks()) System.err.println("EditorGenerator: error in resolve");
+        // generateFile takes CharSequence so showDefs and showScopes
+        // return StringBuilder
         fsa.generateFile("namespace.txt",vars.showDefs())
         fsa.generateFile("scopes.txt",vars.showScopes(0))
       }
@@ -124,7 +128,7 @@ class EditorGenerator extends AbstractGenerator {
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
       if ("apply".equals(currentFile))
         fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,vars))
-   }
+    }
 
     /** set currentFile which is package name*/
  	def className(Resource res) {
@@ -174,7 +178,11 @@ class EditorGenerator extends AbstractGenerator {
      * called when a variable name is used
      * used by compileVar which is used by compile on VarOrFunction
      */
-	def String getVariable(String a,boolean lhs) {
+	def String getVariable(String a,boolean lhs,NamespaceScope scope) {
+		if (scope !== null) {
+			val VariableSpec vs = scope.resolveVariableName(a);
+			if (vs !== null) return vs.toString();
+		}
 /*		var boolean addType = false;
 		if (lhs) {
 		  if (vars.isLocal(a,currentFunction)) {
@@ -185,7 +193,7 @@ class EditorGenerator extends AbstractGenerator {
 		  }
 		}
 		if (addType) return a + ":SExpression";*/
-		return a;
+		return a+":cantResolve";
 	}
 
 /*
@@ -250,12 +258,10 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def CharSequence compileImplementation(int indent,int precedence,Model model,NamespaceScope scope)
 	    '''
-	    «//var ArrayList<String> imp = new ArrayList<String>()»«
-	    newline(indent)»«
+	    «newline(indent)»«
 	    newline(indent)»Implementation ==> add«
 	    newline(indent+1)»«
-	    »import from BootEnvir«
-	    //{imp=vars.importList(currentFile);null}»«
+	    //»import from BootEnvir«
 	    val Imports imp= new Imports(vars.getPackage(currentFile),vars)»«
 	    FOR x:imp.display()»«
 	      newline(indent+1)»«
@@ -370,9 +376,9 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defparameter defparameter,RefType refType) {
 		val String nam = defparameter.name
-		val NamespaceScope ns = new NamespaceScope(parent,defparameter,nam);
+		val VariableDefScope ns = new VariableDefScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,true,false,false,false,false));
+		ns.addVariableDef(new VariableSpec(nam,ns,true,false,false,false,false, false, false));
 	    return ns;
     }
     
@@ -389,9 +395,9 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconstant defconstant,RefType refType) {
 		val String nam = defconstant.name
-		val NamespaceScope ns = new NamespaceScope(parent,defconstant,nam);
+		val VariableDefScope ns = new VariableDefScope(parent,defconstant,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,false,true,false,false,false));
+		ns.addVariableDef(new VariableSpec(nam,ns,false,true,false,false,false, false, false));
 	    //vars.addDefconstant(nam);
 	    return ns;
 	}
@@ -409,9 +415,9 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defconst defconst,RefType refType) {
 		val String nam = defconst.name
-		val NamespaceScope ns = new NamespaceScope(parent,defconst,nam);
+		val VariableDefScope ns = new VariableDefScope(parent,defconst,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,false,false,true,false,false));
+		ns.addVariableDef(new VariableSpec(nam,ns,false,false,true,false,false, false, false));
 	    //vars.addDefconst(nam);
 	    return ns;
 	}
@@ -429,9 +435,9 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Defvar defvar,RefType refType) {
 		val String nam = defvar.name
-		val NamespaceScope ns = new NamespaceScope(parent,defvar,nam);
+		val VariableDefScope ns = new VariableDefScope(parent,defvar,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,false,false,false,true,false));
+		ns.addVariableDef(new VariableSpec(nam,ns,false,false,false,true,false, false, false));
 	    //vars.addDefvar(nam);
 	    return ns;
 	}
@@ -585,9 +591,9 @@ class EditorGenerator extends AbstractGenerator {
     * A variable assignment outside scope of a function definition
     */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,RefType refType) {
-	  val NamespaceScope ns = new NamespaceScope(parent,globalVariable,null);
+	  val VariableDefScope ns = new VariableDefScope(parent,globalVariable,null);
 	  parent.addSubscope(ns);
-      if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,false,false,false,false,true));
+      if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,ns,false,false,false,false,true, false, false));
 	  if (globalVariable.e !== null)
 	      setNamespace(ns,precedence,globalVariable.e,RefType.InsideFunction)
       return ns;
@@ -1906,20 +1912,20 @@ PrimaryExpression |
         '''
 	    «val NamespaceScope scope =parentScope.getScope(varOrFunction)»«
         cop(48,precedence)»«
-	    var boolean dynamic=false»«
+	    //var boolean dynamic=false»«
 	    var boolean addSpace=false»«
-	    var boolean global = false»«
+	    //var boolean global = false»«
 	    var String varName = "unknown"»«
 	    IF varOrFunction.expr !== null»«
 	      IF (varOrFunction.expr instanceof UnaryExpression)»«
 	        {addSpace=true;null}»«
 	      ENDIF»«
-	      {if (varOrFunction.expr instanceof UnaryExpression) dynamic= (varOrFunction.expr as UnaryExpression).loc;null}»«
+//	      {if (varOrFunction.expr instanceof UnaryExpression) dynamic= (varOrFunction.expr as UnaryExpression).loc;null}»«
 	    ENDIF»«
 	      {varName = cleanID(varOrFunction.name);
-	      global = vars.isGlobal(varName);
+//	      global = vars.isGlobal(varName);
 	      null}»«
-	      getVariable(varName,lhs)»«
+	      getVariable(varName,lhs,scope)»«
 	    if (addSpace) " " else ""»«
 	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,scope)»«ENDIF»«
 	    ccp(48,precedence)»'''

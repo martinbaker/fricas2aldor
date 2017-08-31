@@ -29,7 +29,11 @@ public class ParameterScope extends NamespaceScope {
 	  return false;
   }
 
-
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
   @Override
   public String nameAndType() {
 	  String typ = "null";

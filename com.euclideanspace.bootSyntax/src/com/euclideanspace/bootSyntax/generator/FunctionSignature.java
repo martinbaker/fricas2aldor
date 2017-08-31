@@ -169,7 +169,7 @@ public class FunctionSignature {
 	  boolean follow=false;
 	  for (VariableTree param:params) {
 		  if (follow) res = res + ",";
-		  res = res + param;
+		  res = res + param.display();
 		  follow=true;
 	  }
 	  res = res + ")";
