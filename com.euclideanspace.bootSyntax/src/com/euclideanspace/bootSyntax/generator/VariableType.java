@@ -6,11 +6,14 @@ package com.euclideanspace.bootSyntax.generator;
  * being called from.
  * @author Martin Baker
  */
-public enum RefType {
-  FileGlobal,
-  InsideFunction,
-  Parameter,
-  VarRead,
-  VarWrite,
-  FnCall
+public enum VariableType {
+	Defparameter,
+	Defconstant,
+	Defconst,
+	Defvar,
+	LexGlobal,
+	Parameter,
+	OuterParameter,
+	Lex,
+	Local;
 }

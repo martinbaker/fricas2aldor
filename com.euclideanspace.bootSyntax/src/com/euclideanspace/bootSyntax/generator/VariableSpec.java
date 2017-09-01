@@ -22,20 +22,22 @@ public class VariableSpec {
    * defconstant -
    * defconst -
    */
-  public boolean Defparameter =false;
-  public boolean Defconstant =false;
-  public boolean Defconst =false;
-  public boolean Defvar =false;
+  public boolean defparameter =false;
+  public boolean defconstant =false;
+  public boolean defconst =false;
+  public boolean defvar =false;
   /**
    * Global lexical variable
    * A variable assignment outside scope of a function definition
    */
-  public boolean LexGlobal = false;
+  public boolean lexGlobal = false;
   private boolean parameter = false;
   /** from within inner function parameters of outer function
    * require special handling
    */
   private boolean outerParameter = false;
+  private boolean lex = false;
+  private boolean local = false;
   
   /**
    * constructor
@@ -47,16 +49,21 @@ public class VariableSpec {
    * @param v Defvar
    * @param lg LexGlobal
    */
-  VariableSpec(String n,NamespaceScope whereDefined,boolean p,boolean c,boolean c2,boolean v,boolean lg,boolean par,boolean opar) {
+  VariableSpec(String n,NamespaceScope whereDefined,VariableType typ/*boolean p,boolean c,boolean c2,boolean v,
+		  boolean lg,boolean par,boolean opar,boolean le,boolean lo*/) {
 	  name =n;
 	  scopeWhereDefined=whereDefined;
-	  Defparameter =p;
-	  Defconstant =c;
-	  Defconst =c2;
-	  Defvar =v;
-	  LexGlobal =lg;
-	  parameter = par;
-	  outerParameter = opar;
+	  switch (typ) {
+        case Defparameter: defparameter =true;break;
+        case Defconstant: defconstant =true;break;
+        case Defconst: defconst =true;break;
+        case Defvar: defvar =true;break;
+        case LexGlobal: lexGlobal =true;break;
+        case Parameter: parameter =true;break;
+        case OuterParameter: outerParameter =true;break;
+        case Lex: lex =true;break;
+        case Local: local =true;break;
+	  }
   }
 
   public String getName() {
@@ -71,13 +78,15 @@ public class VariableSpec {
    */
   public boolean merge(VariableSpec other) {
 	  if (!name.equals(other.getName())) return false;
-	  Defparameter = Defparameter || other.Defparameter;
-	  Defconstant = Defconstant || other.Defconstant;
-	  Defconst = Defconst || other.Defconst;
-	  Defvar = Defvar || other.Defvar;
-	  LexGlobal = LexGlobal || other.LexGlobal;
+	  defparameter = defparameter || other.defparameter;
+	  defconstant = defconstant || other.defconstant;
+	  defconst = defconst || other.defconst;
+	  defvar = defvar || other.defvar;
+	  lexGlobal = lexGlobal || other.lexGlobal;
 	  parameter = parameter || other.parameter;
 	  outerParameter = outerParameter || other.outerParameter;
+	  lex = lex || other.lex;
+	  local = local || other.local;
 	  return true;
   }
 
@@ -92,14 +101,16 @@ public class VariableSpec {
 
   public String toString() {
 	  String res = "";
-	  if (Defparameter) res = ":Defparameter";
-	  if (Defconstant) res = res+":Defconstant";
-	  if (Defconst) res = res+":Defconst";
-	  if (Defvar) res = res+":Defvar";
-	  if (LexGlobal) res = res+":LexGlobal";
+	  if (defparameter) res = ":defparameter";
+	  if (defconstant) res = res+":defconstant";
+	  if (defconst) res = res+":defconst";
+	  if (defvar) res = res+":defvar";
+	  if (lexGlobal) res = res+":lexGlobal";
 	  if (parameter) res = res+":parameter";
 	  if (outerParameter) res = res+":outerParameter";
-	  if (res.equals(""))res = ":unknown";
+	  if (lex) res = res+":lex";
+	  if (local) res = res+":local";
+	  if (res.equals("")) res = ":unknown";
 	  return name + res;
   }
 }

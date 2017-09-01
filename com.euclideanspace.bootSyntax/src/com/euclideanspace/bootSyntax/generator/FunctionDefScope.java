@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 public class FunctionDefScope extends NamespaceScope {
 
   private FunctionSignature fs = null;
+  private ArrayList<VariableSpec> variableDefs = new ArrayList<VariableSpec>();
   
   /**
    * constructor for FunctionDefScope
@@ -74,11 +75,37 @@ public class FunctionDefScope extends NamespaceScope {
   public VariableSpec resolveVariableName(String nam) {
 	if (fs != null) {
 	  if (fs.isParameter(nam)) {
-	    return new VariableSpec(nam,this, false, false, false, false, false, true, false);
+	    return new VariableSpec(nam,this,VariableType.Parameter);
 	  }
 	}
-	if (parentScope != null) return parentScope.resolveVariableName(nam);
-    return null;
+	for (VariableSpec v:variableDefs) {
+		  if (nam.equals(v.getName())) return v;
+	}
+	if (parentScope != null) {
+		VariableSpec glob = parentScope.resolveVariableName(nam);
+		if (glob != null) return glob;
+	}
+	VariableSpec lex =  new VariableSpec(nam,this,VariableType.Lex);
+	variableDefs.add(lex);
+	return lex;
+  }
+
+  
+  @Override
+  public VariableSpec lookupVariableType(String nam) {
+	if (fs != null) {
+	  if (fs.isParameter(nam)) {
+	    return new VariableSpec(nam,this,VariableType.Parameter);
+	  }
+	}
+	for (VariableSpec v:variableDefs) {
+		  if (nam.equals(v.getName())) return v;
+	}
+	if (parentScope != null) {
+		VariableSpec glob = parentScope.lookupVariableType(nam);
+		if (glob != null) return glob;
+	}
+	return null;
   }
 
   /** used when variable is used (not when defined)

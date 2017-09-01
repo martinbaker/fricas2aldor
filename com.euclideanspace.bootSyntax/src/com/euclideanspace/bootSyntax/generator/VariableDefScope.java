@@ -28,6 +28,7 @@ public class VariableDefScope extends NamespaceScope {
    */
   @Override
   public boolean resolveLinks() {
+	  //VariableSpec vs=resolveVariableName(nam);
 	  for (NamespaceScope s:subscopes) {
 		  if (!s.resolveLinks()) return false;
 	  }

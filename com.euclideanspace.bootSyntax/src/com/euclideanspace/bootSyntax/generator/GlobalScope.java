@@ -192,6 +192,17 @@ public class GlobalScope extends NamespaceScope {
     return null;
   }
 
+  @Override
+  public VariableSpec lookupVariableType(String nam) {
+	for (FileScope pkg:getFileScopes()) {
+	  if (pkg.containsVariableDef(nam)) {
+	    for (VariableSpec v:pkg.getVariableDefs()) {
+          if (nam.equals(v.getName())) return v;
+	    }
+      }
+    }
+    return null;
+  }
   /**
    * for a given function name find which package its defined in.
    * @param fnName

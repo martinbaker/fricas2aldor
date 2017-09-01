@@ -143,6 +143,15 @@ public class FileScope extends NamespaceScope {
   }
 
   @Override
+  public VariableSpec lookupVariableType(String nam) {
+	for (VariableSpec v:variableDefs) {
+	  if (nam.equals(v.getName())) return v;
+	}
+	if (parentScope != null) return parentScope.lookupVariableType(nam);
+    return null;
+  }
+
+  @Override
   public boolean addFunctionDef(FunctionDefScope fds) {
 	  if (parentScope != null) parentScope.addFunctionDef(fds);
 	  if (functionDefs.contains(fds)) return false;
@@ -182,10 +191,11 @@ public class FileScope extends NamespaceScope {
 	  return variableDefs;
   }
 
-/*  boolean containsFunction(FunctionSignature fn) {
-	  return fnDefs.contains(fn);
-  }*/
-
+  /**
+   * called by GlobalScope.getPackageDefiningFn
+   * @param fn name of function
+   * @return true if function of that name in functionDefs
+   */
   boolean containsFunctionDef(String fn) {
 	  for (FunctionDefScope fds:functionDefs) {
 	    FunctionSignature f = fds.getFunctionSignature();
@@ -196,10 +206,15 @@ public class FileScope extends NamespaceScope {
 	  return false;
   }
 
-  boolean containsVariableDef(String fn) {
+  /**
+   * called by GlobalScope.resolveVariableName and getPackageDefiningVar
+   * @param v name of variable
+   * @return true if variable of that name in variableDefs
+   */
+  boolean containsVariableDef(String v) {
 	  for (VariableSpec fds:variableDefs) {
 	    if (fds == null) break;
-		if (fn.equals(fds.getName())) 
+		if (v.equals(fds.getName())) 
          return true;
 	  }
 	  return false;

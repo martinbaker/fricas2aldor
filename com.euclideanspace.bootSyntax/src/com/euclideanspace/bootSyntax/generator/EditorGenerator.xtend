@@ -180,7 +180,7 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def String getVariable(String a,boolean lhs,NamespaceScope scope) {
 		if (scope !== null) {
-			val VariableSpec vs = scope.resolveVariableName(a);
+			val VariableSpec vs = scope.lookupVariableType(a);
 			if (vs !== null) return vs.toString();
 		}
 /*		var boolean addType = false;
@@ -378,7 +378,7 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defparameter.name
 		val VariableDefScope ns = new VariableDefScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,ns,true,false,false,false,false, false, false));
+		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defparameter));
 	    return ns;
     }
     
@@ -397,7 +397,7 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defconstant.name
 		val VariableDefScope ns = new VariableDefScope(parent,defconstant,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,ns,false,true,false,false,false, false, false));
+		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defconstant));
 	    //vars.addDefconstant(nam);
 	    return ns;
 	}
@@ -417,7 +417,7 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defconst.name
 		val VariableDefScope ns = new VariableDefScope(parent,defconst,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,ns,false,false,true,false,false, false, false));
+		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defconst));
 	    //vars.addDefconst(nam);
 	    return ns;
 	}
@@ -437,7 +437,7 @@ class EditorGenerator extends AbstractGenerator {
 		val String nam = defvar.name
 		val VariableDefScope ns = new VariableDefScope(parent,defvar,nam);
 		parent.addSubscope(ns);
-		ns.addVariableDef(new VariableSpec(nam,ns,false,false,false,true,false, false, false));
+		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defvar));
 	    //vars.addDefvar(nam);
 	    return ns;
 	}
@@ -593,7 +593,7 @@ class EditorGenerator extends AbstractGenerator {
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,GlobalVariable globalVariable,RefType refType) {
 	  val VariableDefScope ns = new VariableDefScope(parent,globalVariable,null);
 	  parent.addSubscope(ns);
-      if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,ns,false,false,false,false,true, false, false));
+      if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,ns,VariableType.LexGlobal));
 	  if (globalVariable.e !== null)
 	      setNamespace(ns,precedence,globalVariable.e,RefType.InsideFunction)
       return ns;

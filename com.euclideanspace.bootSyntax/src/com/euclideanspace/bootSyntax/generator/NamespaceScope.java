@@ -90,9 +90,11 @@ public class NamespaceScope {
   }
 
   /**
-   * when the scope tree is complete use this to walk the tree to
-   * make sure all links are resolved
+   * When the scope tree is complete use this to walk the tree to
+   * make sure all links are resolved.
    * @return true if successful.
+   * 
+   * Overridden in VariableDefScope,LocalVarScope,FunctionCallScope
    */
   public boolean resolveLinks() {
 	  for (NamespaceScope s:subscopes) {
@@ -103,11 +105,28 @@ public class NamespaceScope {
   
   /**
    * Lookup variable name to find info about it.
+   * 
+   * Works with 'resolveLinks' to make sure all names are resolved.
+   * 'resolveLinks' goes up tree to find where names are used.
+   * 'resolveVariableName' goes down tree to find where they are defined.
+   * 
+   * Similar to lookupVariableType but caches result in Scope tree
+   * 
    * @param nam variable name
    * @return
    */
   public VariableSpec resolveVariableName(String nam) {
 	if (parentScope != null) return parentScope.resolveVariableName(nam);
+    return null;
+  }
+
+  /**
+   * Lookup variable name to find info about it.
+   * @param nam variable name
+   * @return
+   */
+  public VariableSpec lookupVariableType(String nam) {
+	if (parentScope != null) return parentScope.lookupVariableType(nam);
     return null;
   }
 

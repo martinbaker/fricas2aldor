@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EObject;
 
 public class LocalVarScope extends NamespaceScope {
 
+  private String nam = null;
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
@@ -12,6 +13,7 @@ public class LocalVarScope extends NamespaceScope {
    */
   public LocalVarScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+	  nam=n;
   }
 
   /**
@@ -21,6 +23,9 @@ public class LocalVarScope extends NamespaceScope {
    */
   @Override
   public boolean resolveLinks() {
+	  if (nam != null) {
+		  resolveVariableName(nam);
+	  }
 	  for (NamespaceScope s:subscopes) {
 		  if (!s.resolveLinks()) return false;
 	  }
