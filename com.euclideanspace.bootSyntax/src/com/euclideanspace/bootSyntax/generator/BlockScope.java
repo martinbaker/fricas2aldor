@@ -2,9 +2,9 @@ package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
 
-import com.euclideanspace.bootSyntax.editor.VarOrFunction;
+import com.euclideanspace.bootSyntax.editor.Block;
 
-public class ParameterScope extends NamespaceScope {
+public class BlockScope extends NamespaceScope implements StatementScope {
 
   /**
    * constructor for FunctionDefScope
@@ -12,23 +12,8 @@ public class ParameterScope extends NamespaceScope {
    * @param e emfElement
    * @param n name
    */
-  public ParameterScope(NamespaceScope p,EObject e,String n) {
+  public BlockScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
-  }
-
-  /**
-   * Called from first pass (setNamespace) when a given variable name is used.
-   * 
-   * No need to add variable for parameter
-   * 
-   * @param nam name of variable
-   * @param write true when variable is being written. Example: on left of
-   * assignment.
-   * @return
-   */
-  public boolean addVariableCall(String nam,boolean write) {
-//	  System.err.println("ParameterScope.addVariablecall: cant add variable:"+nam+" in:"+displayDetail());
-	  return false;
   }
 
   /**
@@ -44,11 +29,8 @@ public class ParameterScope extends NamespaceScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (emfElement instanceof VarOrFunction) {
-		VarOrFunction function = (VarOrFunction)emfElement;
-	    res.append(callback.compile(indent,precedence,lhs,function,parentScope));
-	    //System.err.println("ParameterScope.outputSPAD: emfElement(VarOrFunction):"+emfElement);
-	  } else System.err.println("ParameterScope.outputSPAD: emfElement:"+emfElement);
+	  Block function = (Block)emfElement;
+	  res.append(callback.compile(indent,precedence,lhs,function,parentScope));
 	  return res;
   }
 
@@ -68,7 +50,7 @@ public class ParameterScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "parameter "+n+":"+typ;
+	  return "block "+n+":"+typ;
   }
 
 }

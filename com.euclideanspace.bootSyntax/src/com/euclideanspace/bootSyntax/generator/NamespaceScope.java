@@ -22,6 +22,11 @@ public class NamespaceScope {
 
   protected String name = null;
   /**
+   * lines which need to be inserted to implement boot code in SPAD
+   */
+  protected ArrayList<InsertLine> insertLines = new ArrayList<InsertLine>();
+  
+  /**
    * constructor for NamespaceScope
    * 
    * @param p parentScope
@@ -225,11 +230,24 @@ public class NamespaceScope {
       return null;   
   }
 
-  public boolean isLispFunction(String fnName) {
+  /**
+   * If this scope is inside a function def then return it.
+   * @return enclosing Fn Def
+   */
+  public FunctionDefScope getEnclosingFnDef() {
+	  if (parentScope != null) return parentScope.getEnclosingFnDef();
+      System.err.println("NamespaceScope: cant get enclosing Fn Def");
+      return null;   
+  }
+
+/**
+ * used by showDefs in FileScope
+ */
+/*  public boolean isLispFunction(String fnName) {
 	  if (parentScope != null) return parentScope.isLispFunction(fnName);
       System.err.println("NamespaceScope: cant isLispFunction:"+fnName);
 	  return false;
-  }
+  }*/
 
   /**
    * return imports for given package name
@@ -333,13 +351,39 @@ public class NamespaceScope {
 	  return false;
   }*/
   
-  public void addDynamic(String varName) {
+  public void addInsertLines(String varName) {
+	  insertLines.add(new InsertLine(varName,false));
+  }
+
+  /**
+   * use by compileIsList in EditorGenerator to InsertLine
+   * @param i
+   */
+  public void addInsertLines(VariableTree i) {
+	  insertLines.add(new InsertLine(i));
+  }
+
+  /**
+   * 
+   * @param indent
+   * @return
+   */
+  public String outputInserted(int indent) {
+	  String res="";
+	  for (InsertLine i:insertLines) {
+		  res = res + i.outputInserted(indent);
+	  }
+	  return res;
+  }
+
+
+/*  public void addDynamic(String varName) {
 	  if (parentScope != null) {
 		  parentScope.addDynamic(varName);
 		  return;
 	  }
       System.err.println("NamespaceScope: cant addDynamic:"+varName);
-  }
+  }*/
 
 
   /**
@@ -347,12 +391,12 @@ public class NamespaceScope {
    * @param varName name of variable
    * @return true if global
    */
-  public boolean isGlobal(String varName) {
+/*  public boolean isGlobal(String varName) {
 	  if (parentScope != null) return parentScope.isGlobal(varName);
       System.err.println("NamespaceScope: cant isGlobal:"+varName);
 	  return false;
 
-  }
+  }*/
 
 /*  public boolean isLocal(String varName) {
 	  return localVars.contains(varName);
@@ -375,7 +419,19 @@ public class NamespaceScope {
 	  localVars.clear();
   }
 */
-  
+
+  /**
+   * Output SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
+   * @param callback temporary TODO remove
+   * @return
+   */
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  return new StringBuilder("");
+  }
+
   /**
    * Output function and variable definitions as a string
    * @return output

@@ -203,12 +203,14 @@ public class GlobalScope extends NamespaceScope {
     }
     return null;
   }
+  
   /**
    * for a given function name find which package its defined in.
    * @param fnName
    * @param definedIn
    * @return
    */
+  @Override
   public FileScope getPackageDefiningFn(String fnName,FileScope definedIn) {
 	  for (FileScope pkg:getFileScopes()) {
 		  if (pkg.containsFunctionDef(fnName)) return pkg;
@@ -229,13 +231,27 @@ public class GlobalScope extends NamespaceScope {
       return null;  
   }
 
+  /**
+   * If this scope is inside a function def then return it.
+   * @return enclosing Fn Def
+   */
+  @Override
+  public FunctionDefScope getEnclosingFnDef() {
+	  System.err.println("GlobalScope: cant get enclosing Fn Def");
+      return null;   
+  }
+
+  /**
+   * used by showDefs in FileScope
+   */
+/*  @Override
   public boolean isLispFunction(String fnName) {
 	  /*for (FileScope pkg:getFileScopes()) {
 		  if (pkg.containsFunctionDef(fnName)) return false;
 	  }
-	  return true;*/
+	  return true;
 	  return false;
-  }
+  }*/
 
   /**
    * Called from first pass (setNamespace) when Defparameter,Defconstant,

@@ -86,45 +86,62 @@ class EditorGenerator extends AbstractGenerator {
     var String currentFile ="";
     var String currentFunction ="";
     var String bootPkg ="";
+    /** When walking the tree we cant insert because that could be
+    * unstable, so store list of injects for later.*/
+    Injects inj = new Injects();
     /** statements that can't be output immediately, for example waiting
-     * until after 'repeat'. Used in second (compileImplementation) pass*/
-    var ArrayList<String> pendingStatements = new ArrayList<String>();
-    val LinkedBlockingQueue<UseMarkerScope> pendingWheres = new LinkedBlockingQueue<UseMarkerScope>();
+     * until after 'repeat'. Used in second (compileImplementation) pass
+     * TODO move*/
+//    var ArrayList<String> pendingStatements = new ArrayList<String>();
+//    val LinkedBlockingQueue<UseMarkerScope> pendingWheres = new LinkedBlockingQueue<UseMarkerScope>();
     /** 'locals' is used in second (compileImplementation) pass to
      * determine if we need to add :SExpression type. This is only
      * needed for first occurrence in function.
      * see getVariable */
-    var ArrayList<String> locals = new ArrayList<String>();
-    
+    //var ArrayList<String> locals = new ArrayList<String>();
+
+ 	def printMem() {
+ 		System.gc();
+ 		System.gc();
+ 		System.out.println("mem free "+Runtime.getRuntime().freeMemory());
+ 	}
+
     override void beforeGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-      //System.out.println("before "+resource.className);
+ 	  //System.out.print("*");
       if (vars === null) {
+ 	    //System.out.println("beforeGenerate ");
       	vars = new GlobalScope(null,null,null)
         val ResourceSet rs = resource.resourceSet;
         val EList<Resource> res = rs.getResources();
         for (Resource r:res) {
-          //var NamespaceScope x = null;
-          className(r);
+          className(r);// sets currentFile TODO do we still need this?
           var EObject m = r.contents.head;
           if (m instanceof Model)
+            //printMem();
             setNamespace(vars,0,m as Model,RefType.FileGlobal);
         }
+        // inject extra nodes into tree that cant be done when walking tree
+        inj.doIt();
         // Now that scope tree is complete we can walk the tree to make sure
         // all links are resolved
         if (!vars.resolveLinks()) System.err.println("EditorGenerator: error in resolve");
-        // generateFile takes CharSequence so showDefs and showScopes
-        // return StringBuilder
+        // generateFile takes CharSequence so showDefs and showScopes return StringBuilder
         fsa.generateFile("namespace.txt",vars.showDefs())
         fsa.generateFile("scopes.txt",vars.showScopes(0))
       }
     }
 
+    def GlobalScope getVars() {
+    	return vars;
+    }
+
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+ 	  //System.out.print(".");
       if (vars === null) {
       	System.err.println("EditorGenerator: doGenerate called before vars setup:"+resource.className);
       	return;
       }
-      className(resource);
+      className(resource); // sets currentFile TODO do we still need this?
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
       if ("apply".equals(currentFile))
         fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,vars))
@@ -137,7 +154,7 @@ class EditorGenerator extends AbstractGenerator {
 		return currentFile;
 	}
 
-	def CharSequence newline(int indent) {
+	def static CharSequence newline(int indent) {
 		var String s= System.lineSeparator()
 		for(var int i=0; i<indent; i++) {
 			s=s+"  "
@@ -258,17 +275,19 @@ class EditorGenerator extends AbstractGenerator {
      */
 	def CharSequence compileImplementation(int indent,int precedence,Model model,NamespaceScope scope)
 	    '''
-	    «newline(indent)»«
-	    newline(indent)»Implementation ==> add«
-	    newline(indent+1)»«
+	    «vars.getPackage(currentFile).outputSPAD(indent,precedence,false,this)»'''
+	    
+//	    «newline(indent)»«
+//	    newline(indent)»Implementation ==> add«
+//	    newline(indent+1)»«
 	    //»import from BootEnvir«
-	    val Imports imp= new Imports(vars.getPackage(currentFile),vars)»«
-	    FOR x:imp.display()»«
-	      newline(indent+1)»«
-	      x»«
-	    ENDFOR»«
-	    newline(indent+1)»«
-	    FOR x:model.declarations»«compile(indent+1,precedence,false,x,scope)»«ENDFOR»'''
+//	    val Imports imp= new Imports(vars.getPackage(currentFile),vars)»«
+//	    FOR x:imp.display()»«
+//	      newline(indent+1)»«
+//	      x»«
+//	    ENDFOR»«
+//	    newline(indent+1)»«
+//	    FOR x:model.declarations»«compile(indent+1,precedence,false,x,scope)»«ENDFOR»'''
 
     /**
      * Declaration
@@ -276,6 +295,8 @@ class EditorGenerator extends AbstractGenerator {
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Declaration declaration,RefType refType) {
 	    if (declaration instanceof Package)
 	       return setNamespace(parent,precedence,declaration as Package,RefType.FileGlobal)
+		if (declaration instanceof Comment)
+	       return setNamespace(parent,precedence,declaration as Comment,RefType.FileGlobal)
 		if (declaration instanceof Documentation)
 	       return setNamespace(parent,precedence,declaration as Documentation,RefType.FileGlobal)
 		if (declaration instanceof Defparameter)
@@ -332,7 +353,10 @@ class EditorGenerator extends AbstractGenerator {
 	
 	/** Package */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Package package1,RefType refType) {
-		if (package1.p !== null) bootPkg = package1.p;
+		if (package1.p !== null) {
+			bootPkg = package1.p;
+			if (parent instanceof FileScope) (parent as FileScope).setPackageName(package1.p); 
+		}
 		val NamespaceScope ns = new NamespaceScope(parent,package1,bootPkg);
 		parent.addSubscope(ns);
 		return ns;
@@ -344,6 +368,24 @@ class EditorGenerator extends AbstractGenerator {
 	def CharSequence compile(int indent,int precedence,boolean lhs,Package package1,NamespaceScope parentScope)
 	    '''«null»'''
 
+    /** Comment */
+	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Comment comment,RefType refType) {
+		var CommentScope ns = null;
+		if (parent instanceof FileScope) {
+			val FileScope p = parent as FileScope;
+			val DeclarationScope lst = p.lastDeclaration();
+			if (lst instanceof CommentScope) {
+			  ns = lst as CommentScope;
+		      ns.setComment(comment.c);
+			} else {
+		      ns = new CommentScope(parent,comment,null);
+		      ns.setComment(comment.c);
+			  p.addDeclaration(ns);
+			}
+		}
+	    return ns;
+    }
+
     /**
      * Comment
      */
@@ -353,8 +395,20 @@ class EditorGenerator extends AbstractGenerator {
 
      /** Documentation */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Documentation documentation,RefType refType) {
-		val NamespaceScope ns = new NamespaceScope(parent,documentation,null);
-		parent.addSubscope(ns);
+		var CommentScope ns = null;
+		if (parent instanceof FileScope) {
+			val FileScope p = parent as FileScope;
+			val DeclarationScope lst = p.lastDeclaration();
+			if (lst instanceof CommentScope) {
+				ns = lst as CommentScope;
+			}
+		    else {
+		    	ns = new CommentScope(parent,documentation,null);
+		    	parent.addSubscope(ns);
+		    }
+		    //ns.setComment(comment.c);
+			p.addDeclaration(ns);
+		}
 	    if (documentation.e !== null)
 	      setNamespace(ns,precedence,documentation.e,RefType.InsideFunction)
 	    return ns;
@@ -379,6 +433,7 @@ class EditorGenerator extends AbstractGenerator {
 		val VariableDefScope ns = new VariableDefScope(parent,defparameter,nam);
 		parent.addSubscope(ns);
 		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defparameter));
+		if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	    return ns;
     }
     
@@ -398,7 +453,7 @@ class EditorGenerator extends AbstractGenerator {
 		val VariableDefScope ns = new VariableDefScope(parent,defconstant,nam);
 		parent.addSubscope(ns);
 		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defconstant));
-	    //vars.addDefconstant(nam);
+		if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	    return ns;
 	}
 
@@ -418,7 +473,7 @@ class EditorGenerator extends AbstractGenerator {
 		val VariableDefScope ns = new VariableDefScope(parent,defconst,nam);
 		parent.addSubscope(ns);
 		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defconst));
-	    //vars.addDefconst(nam);
+		if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	    return ns;
 	}
 
@@ -438,7 +493,7 @@ class EditorGenerator extends AbstractGenerator {
 		val VariableDefScope ns = new VariableDefScope(parent,defvar,nam);
 		parent.addSubscope(ns);
 		ns.addVariableDef(new VariableSpec(nam,ns,VariableType.Defvar));
-	    //vars.addDefvar(nam);
+		if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	    return ns;
 	}
 
@@ -461,7 +516,14 @@ class EditorGenerator extends AbstractGenerator {
 		// setup parameters
         var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         for (Expr p:function.params) {
-          setNamespace(ns,precedence,p,RefType.Parameter)
+          val NamespaceScope parSc = setNamespace(ns,precedence,p,RefType.Parameter)
+          if (parSc instanceof ParameterScope) {
+          	var ParameterScope ps = parSc as ParameterScope;
+          	ns.addParameter(ps);
+          	//System.err.println("EditorGenerator.setNamespace: added parameter as ParameterScope:"+p);
+          } else {
+          	//System.err.println("EditorGenerator.setNamespace: parameter not stored as ParameterScope:"+p);
+          }
           val VariableTree par = new VariableTree(p);
           if (par !== null) params.add(par);
         }
@@ -470,24 +532,30 @@ class EditorGenerator extends AbstractGenerator {
           val VariableTree par = new VariableTree(function.j,null);
           if (par !== null) params.add(par);
         }
-        ns.addFunctionDef(function.name,null,currentFile,bootPkg,params,0);
+        ns.addFunctionDef(function.name,null,currentFile,bootPkg,params,0,(function.fp).size());
         // statements which may be a block
-	    if (function.st !== null)
-	      setNamespace(ns,precedence,function.st,RefType.InsideFunction)
+	    if (function.st !== null) {
+	      val NamespaceScope c = setNamespace(ns,precedence,function.st,RefType.InsideFunction);
+          if (c instanceof StatementScope) {
+          	ns.setStatement(c);
+          }
+	    }
 	    //for (Expr x:function.params)
 	    //  setNamespace(ns,0,x,RefType.Parameter);
 	    if (function.w !== null)
 	      setNamespace(ns,precedence,function.w,RefType.InsideFunction)
-	    var int useIndex = 1;
+	    //var int useIndex = 1;
 	    // If there are any pending UseMarkerScopes then add them under
 	    // this FunctionDef.
-        var UseMarkerScope ums = pendingWheres.poll();
+	    //inj.addInject(NamespaceScope h,NamespaceScope t);
+        /*var UseMarkerScope ums = pendingWheres.poll();
         while (ums !== null) {
         	ums.setIndex(useIndex);
         	useIndex = useIndex + 1;
         	ns.addSubscope(ums);
         	ums = pendingWheres.poll();
-        }
+        }*/
+		if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	    return ns;
 	}
 
@@ -549,13 +617,15 @@ class EditorGenerator extends AbstractGenerator {
 	    if (!(parentScope instanceof FileScope)){
 	    	System.err.println("compile FunctionDef expects parentScope to be FileScope")
 	    	System.err.println("parentScope="+parentScope)
+	    	return "err !(parentScope instanceof FileScope)";
 	    }»«
 	    if (!(scope instanceof FunctionDefScope)){
 	    	System.err.println("compile FunctionDef expects scope to be FunctionDefScope")
 	    	System.err.println("scope="+scope)
+	    	return "err !(scope instanceof FunctionDefScope)";
 	    }»«
 	    val FunctionDefScope fds =scope as FunctionDefScope»«
-        {locals.clear();null}»«
+//        {locals.clear();null}»«
 	    fds.qualifiedFunctionName()»«
 	    FOR x:function.fp»'«ENDFOR»(bootEnvir«
 	    IF function.j !== null»«function.j»«ELSE»«
@@ -596,6 +666,7 @@ class EditorGenerator extends AbstractGenerator {
       if (globalVariable.name !== null) ns.addVariableDef(new VariableSpec(globalVariable.name,ns,VariableType.LexGlobal));
 	  if (globalVariable.e !== null)
 	      setNamespace(ns,precedence,globalVariable.e,RefType.InsideFunction)
+	  if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
       return ns;
     }
 
@@ -655,12 +726,12 @@ class EditorGenerator extends AbstractGenerator {
     IF statement instanceof Where»«
       compile(indent,precedence,lhs,statement as Where,parentScope)»«ENDIF»«
     IF statement instanceof Expr»«
-      compile(indent,precedence,lhs,statement as Expr,parentScope)»«ENDIF»«
-    FOR s:pendingStatements»«
-      newline(indent+1)»«
-      s»«
-    ENDFOR»«
-      {pendingStatements.clear();null}»'''
+      compile(indent,precedence,lhs,statement as Expr,parentScope)»«ENDIF»'''
+//    FOR s:pendingStatements»«  //TODO move
+//      newline(indent+1)»«
+//      s»«
+//    ENDFOR»«
+//      {pendingStatements.clear();null}»
 
 /*
  * Loop:
@@ -754,8 +825,10 @@ class EditorGenerator extends AbstractGenerator {
 	  	// cant setup a link to WhereScope yet because it has not yet been set.
 	  	setNamespace(ns,0,where.b,RefType.InsideFunction);
 	  	val UseMarkerScope ums = new UseMarkerScope(null,null,null,ns);
-        pendingWheres.add(ums);
+	  	inj.addInject(ns.getEnclosingFnDef(),ums);
+        //pendingWheres.add(ums);
 	  }
+	  if (parent instanceof FileScope) (parent as FileScope).addDeclaration(ns);
 	  return ns;
     }
 
@@ -1052,7 +1125,7 @@ PrimaryExpression returns Expr:
             		val Tuple t = v.expr as Tuple;
             		params = typeFromTuple(t);
             	}
-            	ns.addFunctionDef(fnName,currentFunction,currentFile,bootPkg,params,0);
+            	ns.addFunctionDef(fnName,currentFunction,currentFile,bootPkg,params,0,0);
             }
           }
         }
@@ -1384,6 +1457,8 @@ PrimaryExpression returns Expr:
           if (isExpression.right instanceof ListLiteral) {
             val ListLiteral ll = (isExpression.right as ListLiteral);
 	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
+	        // following is to trigger extra lines in SPAD code.
+	        ns.addInsertLines(lt);
 	        val ArrayList<String> vs = lt.variables();
 	        for (String v:vs) {
 	          if (refType != RefType.Parameter)
@@ -1444,7 +1519,12 @@ PrimaryExpression returns Expr:
 	    }»«
 	    » = «
 	    compile(indent,16,lhs,isExpression.right,scope)»«ENDIF»«
-	    {pendingStatements = lt.output(listName,":SExpression");null}»«
+	    scope.outputInserted(indent)»«
+	    //TODO move to resolveLinks pass.
+//	    {
+//	    	pendingStatements = lt.output(listName,":SExpression");
+//	    	null
+//	    }»«
 	    cop(16,precedence)»'''
 
     /**
@@ -1768,7 +1848,7 @@ PrimaryExpression |
     /**
      * Block */
 	def NamespaceScope setNamespace(NamespaceScope parent,int precedence,Block expr,RefType refType) {
-		val NamespaceScope ns = new NamespaceScope(parent,expr,null);
+		val BlockScope ns = new BlockScope(parent,expr,null);
 	    parent.addSubscope(ns);
 	    for (Statement x:expr.s)
 	        setNamespace(ns,0,x,RefType.InsideFunction);
@@ -1813,14 +1893,13 @@ PrimaryExpression |
 	  }*/
 	  //try {
 	    val NamespaceScope scope =parentScope.getScope(expr);
-	    return
-	    '''
-	    «FOR s:pendingStatements»«
-	      newline(indent+1)»«
-	      s»«
-	    ENDFOR»«
-	    {pendingStatements.clear();null}»«
-	    IF expr.c2»(«
+//	    «FOR s:pendingStatements»« //TODO move
+//	      newline(indent+1)»«
+//	      s»«
+//	    ENDFOR»«
+//	    {pendingStatements.clear();null}»«
+	    return '''
+	    «IF expr.c2»(«
 	      FOR x:expr.s»«
 	        newline(indent+1)»«
 	        compile(indent+1,0,lhs,x,scope)»«
@@ -1899,6 +1978,7 @@ PrimaryExpression |
 	      	if (u.uop == ":") isVar=true;
 	      }
 	    }
+	    //System.err.println("EditorGenerator.compile: called with isVar:"+isVar);
 	    if(isVar) {
 	      return compileVar(indent,precedence,lhs,varOrFunction,parentScope)
 	    } else {
@@ -1956,8 +2036,8 @@ PrimaryExpression |
 	    cleanID(varOrFunction.name)»«
 	    if (addSpace) " " else ""»«
 	    IF varOrFunction.expr !== null»«compile(indent,48,lhs,varOrFunction.expr,scope)»«ENDIF»«
-	    IF vars.isLispFunction(cleanID(varOrFunction.name))»$Lisp«
-	    ENDIF»«
+//	    IF vars.isLispFunction(cleanID(varOrFunction.name))»$Lisp«
+//	    ENDIF»«
 	    ccp(48,precedence)»'''
 
     /**

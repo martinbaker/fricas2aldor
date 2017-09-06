@@ -12,6 +12,8 @@ public class FunctionSignature {
   private ArrayList<VariableTree> params = new ArrayList<VariableTree>();
   /** number inner functions */
   private int number = 0;
+  /** how many trailing primes in this function name */
+  private int numPrimes = 0;
   /** local variables used by this function, where not initially assigned in function.*/
 //  private ArrayList<String> locals = new ArrayList<String>();
   /** global variables read by this function, where not initially assigned in function.*/
@@ -20,13 +22,14 @@ public class FunctionSignature {
 //  private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
-  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<VariableTree> pars,int num) {
+  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<VariableTree> pars,int num,int nPrimes) {
 	  name =n;
       parent =p;
       file =f;
       bootPkg = bootPkgIn;
       if (pars != null) params =pars;
       number = num;
+      numPrimes = nPrimes;
   }
 
   String getName() {
@@ -64,6 +67,9 @@ public class FunctionSignature {
     if (number > 0) ret = ret+number;
 	ret = ret.replaceAll("'","P");
 	ret = ret.replaceAll("/$","D");
+	for (int i=0; i<numPrimes; i++) {
+		ret = ret+"P";
+	}
 	return ret;
   }
 
@@ -165,7 +171,7 @@ public class FunctionSignature {
 	  else res = "function";
 	  if (file != null) res = res + " file=" + file;
 	  if (parent != null) res = res + " parent="+ parent;
-	  res = res + " name="+name +"(";
+	  res = res + " name="+getSafeName() +"(";
 	  boolean follow=false;
 	  for (VariableTree param:params) {
 		  if (follow) res = res + ",";
@@ -215,6 +221,7 @@ public class FunctionSignature {
       FunctionSignature other1 = (FunctionSignature)other;
 	  
 	  if (!name.equals(other1.getName())) return false;
+	  if (numPrimes == other1.getNumPrimes()) return false;
 	  if (parent != null) {
 	    if (!parent.equals(other1.getParent())) return false;
 	  } else {
@@ -228,4 +235,8 @@ public class FunctionSignature {
 	  }
 	  return true;
   }
+
+public int getNumPrimes() {
+	return numPrimes;
+}
 }

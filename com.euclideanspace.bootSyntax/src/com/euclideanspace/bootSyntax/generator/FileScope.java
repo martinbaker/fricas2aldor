@@ -13,6 +13,10 @@ import com.euclideanspace.bootSyntax.editor.Expr;
  *
  */
 public class FileScope extends NamespaceScope {
+	  /** subnodes */
+	  private ArrayList<DeclarationScope> declarations = new ArrayList<DeclarationScope>();
+	  /** no need for a subnode to store package name just store it here */
+	  private String packageName = "";
 	  /** functions defined in this package */
 	  private ArrayList<FunctionDefScope> functionDefs = new ArrayList<FunctionDefScope>();
 	  /** variables defined in this package */
@@ -30,6 +34,54 @@ public class FileScope extends NamespaceScope {
    */
   public FileScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+  }
+
+  /** add a child
+   * 
+   * @param s subscope to be added
+   */
+  public void addDeclaration(DeclarationScope d) {
+	  declarations.add(d);
+  }
+
+  public DeclarationScope lastDeclaration() {
+	  if (declarations.size() < 1) return null;
+	  return declarations.get(declarations.size() - 1);
+  }
+
+  /** Rather than have a seperate subnode information from Package is stored directly in FileScope */
+  public void setPackageName(String p) {
+	  packageName = p;
+  }
+
+  /**
+   * Output SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
+   * @param callback temporary TODO remove
+   * @return
+   * 
+   * 
+   */
+  @Override
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+	  res.append(EditorGenerator.newline(indent));
+	  res.append("Implementation ==> add");
+	  res.append(EditorGenerator.newline(indent+1));
+      // import from BootEnvir
+	  Imports imp= new Imports(this,callback.getVars());
+	  for (String x:imp.display()) {
+		  res.append(EditorGenerator.newline(indent+1));
+	      res.append(x);
+	  }
+	  res.append(EditorGenerator.newline(indent+1));
+	  for (DeclarationScope x: declarations) {
+		  res.append(x.outputSPAD(indent+1,precedence,lhs,callback));
+		  //compile(indent+1,precedence,false,x,scope);
+	  }
+	  return res;
   }
 
   /** Override function in NamespaceScope
@@ -250,7 +302,7 @@ public class FileScope extends NamespaceScope {
 	    cols =0;
 	  } else cols = cols+1;
 	  res.append(" "+fc);
-	  if (isLispFunction(fc)) res.append("$Lisp");
+//	  if (isLispFunction(fc)) res.append("$Lisp");
 	}
 	res.append("\n fn defs:\n");
 	ArrayList<FunctionDefScope> fns =getFunctionDefs();

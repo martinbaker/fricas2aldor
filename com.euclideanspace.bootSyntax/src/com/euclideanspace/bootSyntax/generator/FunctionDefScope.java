@@ -4,11 +4,36 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class FunctionDefScope extends NamespaceScope {
+import com.euclideanspace.bootSyntax.editor.FunctionDef;
+import com.euclideanspace.bootSyntax.editor.LambdaExpression;
+import com.euclideanspace.bootSyntax.generator.ParameterScope;
+import com.euclideanspace.bootSyntax.generator.StatementScope;
 
+public class FunctionDefScope extends NamespaceScope implements DeclarationScope {
+
+  /** fs is set by addFunctionDef function below */
   private FunctionSignature fs = null;
+  /** cache of variable definitions used in this function */
   private ArrayList<VariableSpec> variableDefs = new ArrayList<VariableSpec>();
-  
+
+  private ArrayList<ParameterScope> parameters = new ArrayList<ParameterScope>();
+
+  private StatementScope contents = null;
+
+  private WhereScope where = null;
+
+/*
+ * FunctionDef:
+    name=TK_ID fp+=KW_PRIME*
+    (
+      (KW_OPAREN (params+=Expression (KW_COMMA params+=Expression)*)? KW_CPAREN)
+      |  j=TK_ID // support juxtapose
+    )
+	((KW_EQ2|m?=KW_MARROW) st=Statement)? // FunctionDef may be abstract
+	
+	(NL w=Where)?
+
+ */
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
@@ -22,6 +47,9 @@ public class FunctionDefScope extends NamespaceScope {
   /**
    * Set function signature on this function, then recurse up the layers to
    * set details in file and global.
+   * 
+   * called by setNamespace in EditorGenerator
+   * 
    * @param n name
    * @param p parent in case this is lambda inside other function
    * @param f name of file where function is defined which is also package name.
@@ -29,8 +57,8 @@ public class FunctionDefScope extends NamespaceScope {
    * @param packageName
    * @return false if duplicate.
    */
-  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<VariableTree> pars,int num) {
-	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num);
+  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<VariableTree> pars,int num,int numP) {
+	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num,numP);
 	  return parentScope.addFunctionDef(this);
   }
 
@@ -207,7 +235,16 @@ public class FunctionDefScope extends NamespaceScope {
 	  }
 	  return res;
   }
-  
+
+  /**
+   * If this scope is inside a function def then return it.
+   * @return enclosing Fn Def
+   */
+  @Override
+  public FunctionDefScope getEnclosingFnDef() {
+      return this;   
+  }
+
   @Override
   public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
@@ -218,6 +255,54 @@ public class FunctionDefScope extends NamespaceScope {
 	  if (!(".LambdaExpressionImpl".equals(typ)))
 	    System.err.println("FunctionDefScope: Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
+  }
+
+  /**
+   * Output SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
+   * @param callback temporary TODO remove
+   * @return
+   * 
+   * Function Definition:
+FunctionDef:
+    name=TK_ID fp+=KW_PRIME*
+    (
+      (KW_OPAREN (params+=Expression (KW_COMMA params+=Expression)*)? KW_CPAREN)
+      |  j=TK_ID // support juxtapose
+    )
+	((KW_EQ2|m?=KW_MARROW) st=Statement)? // FunctionDef may be abstract
+	
+	(NL w=Where)?
+   */
+  @Override
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+	  res.append(qualifiedFunctionName());
+	  res.append("(");
+	  boolean followOn = false;
+	  for (ParameterScope par:  parameters) {
+		  if (followOn) res.append(",");
+		  res.append(par.outputSPAD(indent,precedence,lhs,callback));
+		  followOn = true;
+	  }
+	  res.append(")");
+	  if (fs.getMacro()) res.append(" ==>");
+	  else res.append(" ==");
+	  if (contents != null) res.append(contents.outputSPAD(indent,precedence,lhs,callback));
+      if(where != null) {
+    	  res.append(EditorGenerator.newline(indent));
+    	  res.append(where.outputSPAD(indent,precedence,lhs,callback));
+      }
+      res.append(EditorGenerator.newline(indent));
+	  ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
+	  for ( FunctionDefScope ifds:innerFn) {
+	      res.append(EditorGenerator.newline(indent));
+	      ifds.outputSPAD(indent+1,precedence,lhs,callback);
+	      res.append(EditorGenerator.newline(indent));
+	  }
+	  return res;
   }
 
   /**
@@ -233,5 +318,13 @@ public class FunctionDefScope extends NamespaceScope {
       if ("lambda".equals(n)) return super.showScopes(level);
       return new StringBuilder("");
   }
+
+public void addParameter(ParameterScope scope) {
+	parameters.add(scope);
+}
+
+public void setStatement(StatementScope class1) {
+	contents = class1;
+}
 
 }

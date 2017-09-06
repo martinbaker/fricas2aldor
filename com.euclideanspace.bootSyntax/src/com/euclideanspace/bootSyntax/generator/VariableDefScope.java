@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
  * @author mjb
  *
  */
-public class VariableDefScope extends NamespaceScope {
+public class VariableDefScope extends NamespaceScope implements DeclarationScope {
 
   /**
    * constructor for FunctionDefScope
