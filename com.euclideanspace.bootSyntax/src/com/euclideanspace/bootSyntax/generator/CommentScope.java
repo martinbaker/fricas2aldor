@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class CommentScope extends NamespaceScope implements DeclarationScope {
+public class CommentScope extends NamespaceScope implements DeclarationScope,StatementScope {
 
   private ArrayList<String> comments = new ArrayList<String>();
 
@@ -42,4 +42,22 @@ public class CommentScope extends NamespaceScope implements DeclarationScope {
 	  return res;
   }
 
+  /** Override function in NamespaceScope
+   * used by displayDetail() and showScopes which is used by EditorGenerator
+   * fsa.generateFile("scopes.txt",vars.showScopes(0))
+   * @return description of this scope
+   */
+  @Override
+  public String nameAndType() {
+	  String typ = "null";
+	  if (emfElement != null) {
+		  typ = emfElement.getClass().toString();
+		  typ = typ.substring(typ.lastIndexOf('.'));
+	  }
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "comment "+n+":"+typ;
+  }
 }

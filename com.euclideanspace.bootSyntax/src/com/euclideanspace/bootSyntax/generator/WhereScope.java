@@ -2,7 +2,7 @@ package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class WhereScope extends NamespaceScope implements DeclarationScope {
+public class WhereScope extends NamespaceScope implements DeclarationScope,StatementScope {
 	/** If there is an inner function under this 'where' then point to it here*/
 	private FunctionDefScope innerFnDef = null;
 	// TODO setup this pointer to innerfun when reading it.

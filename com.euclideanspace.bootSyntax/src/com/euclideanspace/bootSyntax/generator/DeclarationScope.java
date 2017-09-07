@@ -9,6 +9,18 @@ package com.euclideanspace.bootSyntax.generator;
  * information from Package is stored directly in FileScope
  * @author Martin Baker
  *
+ *Map EObjects to Structure as follows:
+ * Package -> FileScope
+ * Comment -> CommentScope
+ * Documentation -> CommentScope
+ * Defparameter -> VariableDefScope
+ * Defconstant -> VariableDefScope
+ * Defconst -> VariableDefScope
+ * Defvar -> VariableDefScope
+ * FunctionDef -> FunctionDefScope
+ * Where -> WhereScope
+ * GlobalVariable -> VariableDefScope 
+
  */
 public interface DeclarationScope {
 	public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback);
