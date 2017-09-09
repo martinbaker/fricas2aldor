@@ -1,6 +1,7 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
  * This may be either a Global Lexical Variable (a variable assignment
@@ -11,6 +12,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class VariableDefScope extends NamespaceScope implements DeclarationScope {
 
+  private VariableSpec vspec = null;
+  private NamespaceScope initialValue = null;
+
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
@@ -20,6 +24,10 @@ public class VariableDefScope extends NamespaceScope implements DeclarationScope
   public VariableDefScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
+
+  public void setInitialValue(NamespaceScope scope) {
+		initialValue = scope;
+	}
 
   /**
    * when the scope tree is complete use this to walk the tree to
@@ -52,6 +60,21 @@ public class VariableDefScope extends NamespaceScope implements DeclarationScope
 		  n=name;
 	  }
 	  return "var def "+n+":"+typ;
+  }
+
+  /**
+   * Called from first pass (setNamespace) when Defparameter,Defconstant,
+   * Defconst or Defvar found. Adds variable to namespace.
+   * @param vs type of variable (Defparameter,Defconstant,
+   * Defconst or Defvar)
+   * @return
+   */
+  @Override
+  public boolean addVariableDef(VariableSpec vs) {
+	  vspec = vs;
+	  if (parentScope != null) return parentScope.addVariableDef(vs);
+	  System.err.println("NamespaceScope.addVariableDef: cant add variable:"+vs);
+	  return true;
   }
 
 }

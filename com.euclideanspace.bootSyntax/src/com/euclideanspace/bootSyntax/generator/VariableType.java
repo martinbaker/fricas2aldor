@@ -15,5 +15,6 @@ public enum VariableType {
 	Parameter,
 	OuterParameter,
 	Lex,
-	Local;
+	Local,
+	Notset;
 }

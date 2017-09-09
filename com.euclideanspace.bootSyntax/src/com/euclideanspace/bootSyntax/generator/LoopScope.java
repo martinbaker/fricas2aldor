@@ -7,8 +7,8 @@ public class LoopScope extends NamespaceScope implements StatementScope {
 
   private ArrayList<LoopCond> loopConditions = new ArrayList<LoopCond>();
   private NamespaceScope bar = null;
-  private NamespaceScope statement;
-  String oper;
+  private NamespaceScope statement =null;
+  String oper = null;
 
 /* Loop:
 	c+=LoopCondition* (KW_BAR e=Expression)? 'repeat' b=Statement
@@ -66,9 +66,9 @@ For:
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    StringBuilder res = new StringBuilder("");
     for (LoopCond lc: loopConditions) {
-      res.append(lc);
+      res.append(lc.outputSPAD(indent,precedence,lhs,callback));
     }
     if (bar != null) {
     	res.append(bar.outputSPAD(indent,precedence,lhs,callback));

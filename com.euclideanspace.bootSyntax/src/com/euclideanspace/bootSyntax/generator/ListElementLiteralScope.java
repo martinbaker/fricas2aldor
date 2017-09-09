@@ -1,14 +1,26 @@
 package com.euclideanspace.bootSyntax.generator;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
-public class BinaryOpScope extends NamespaceScope implements ExprScope {
+/**
+ * ListElement:
+	(
+		(c?=KW_COLON? e?=KW_EQ)? l2=IfExpression |
+		c2?=KW_COLON? d?=KW_DOT
+	)
+ * @author Martin Baker
+ *
+ */
+public class ListElementLiteralScope extends NamespaceScope implements ExprScope {
 
-  NamespaceScope left;
-  NamespaceScope right;
-  NamespaceScope by; // used in 'in'
-  String oper;
+  private boolean c = false;
+  private boolean e = false;
+  private NamespaceScope l2 = null;
+  private boolean c2 = false;
+  private boolean d = false;
 
   /**
    * constructor for FunctionDefScope
@@ -16,19 +28,17 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
    * @param e emfElement
    * @param n name
    */
-  public BinaryOpScope(NamespaceScope p,EObject e,String n) {
+  public ListElementLiteralScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
-  public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
-	  left =lft;
-	  right =rht;
-	  oper = op;
+  public void setLEL(boolean c1,boolean e1,NamespaceScope l21,boolean c21,boolean d1) {
+	  c = c1;
+	  e = e1;
+	  l2 = l21;
+	  c2 = c21;
+	   d = d1;
   }
-
-  public void setBy(NamespaceScope scope) {
-	  by = scope;
-	}
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
@@ -42,7 +52,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  typ = emfElement.getClass().toString();
 		  typ = typ.substring(typ.lastIndexOf('.'));
 	  }
-	  return "binary op "+oper+":"+typ;
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "literal "+n+":"+typ;
   }
 
   /**
@@ -58,13 +72,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
-	  if (oper != null) res.append(oper);
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
-	  if (by != null) {
-		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs,callback));
-	  }
+      if (c) res.append(":");
+      if (e) res.append("=");
+	  if (l2 != null) res.append(l2.outputSPAD(indent+1,precedence,lhs,callback));
+      if (c2) res.append(":");
+      if (d) res.append(".");
 	  return res;
   }
 

@@ -1,36 +1,27 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
-public class LocalVarScope extends NamespaceScope {
+public class WhereExprScope extends NamespaceScope implements DeclarationScope,StatementScope {
 
-  private String nam = null;
+	private NamespaceScope left = null;
+	private NamespaceScope wh = null;
+
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
    * @param e emfElement
    * @param n name
    */
-  public LocalVarScope(NamespaceScope p,EObject e,String n) {
+  public WhereExprScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
-	  nam=n;
   }
 
-  /**
-   * when the scope tree is complete use this to walk the tree to
-   * make sure all links are resolved
-   * @return true if successful.
-   */
-  @Override
-  public boolean resolveLinks() {
-	  if (nam != null) {
-		  resolveVariableName(nam);
-	  }
-	  for (NamespaceScope s:subscopes) {
-		  if (!s.resolveLinks()) return false;
-	  }
-	  return true;
-  }
+  public void setContent(NamespaceScope l,NamespaceScope w) {
+		left = l;
+		wh=w;
+	}
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
@@ -48,7 +39,7 @@ public class LocalVarScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "local var "+n+":"+typ;
+	  return "where expr "+n+":"+typ;
   }
 
 }

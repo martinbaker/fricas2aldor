@@ -2,32 +2,38 @@ package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
 
-import com.euclideanspace.bootSyntax.editor.VarOrFunction;
+/**
+ * Holds variable (which is not a parameter). That is when a variable
+ * is being used (in VarOrFunction) not necessarily when it is defined.
+ * Although it may also be definition.
+ * @author Martin Baker
+ *
+ */
+public class VarCallScope extends NamespaceScope {
 
-public class ParameterScope extends NamespaceScope {
-
+  private String nam = null;
+  private VariableSpec vs =null;
   /**
-   * constructor for FunctionDefScope
+   * constructor for VarCallScope
    * @param p parentScope
    * @param e emfElement
    * @param n name
    */
-  public ParameterScope(NamespaceScope p,EObject e,String n) {
+  public VarCallScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+	  nam=n;
   }
 
   /**
    * Called from first pass (setNamespace) when a given variable name is used.
-   * 
-   * No need to add variable for parameter
-   * 
    * @param nam name of variable
    * @param write true when variable is being written. Example: on left of
    * assignment.
    * @return
    */
   public boolean addVariableCall(String nam,boolean write) {
-//	  System.err.println("ParameterScope.addVariablecall: cant add variable:"+nam+" in:"+displayDetail());
+	  if (parentScope != null) return parentScope.addVariableCall(nam,write);
+	  System.err.println("LocalVarScope.addVariablecall: cant add variable:"+nam+" in:"+displayDetail());
 	  return false;
   }
 
@@ -39,6 +45,22 @@ public class ParameterScope extends NamespaceScope {
   @Override
   public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
  	  
+  }
+
+  /**
+   * when the scope tree is complete use this to walk the tree to
+   * make sure all links are resolved
+   * @return true if successful.
+   */
+  @Override
+  public boolean resolveLinks() {
+	  if (nam != null) {
+		  vs = resolveVariableName(nam);
+	  }
+	  for (NamespaceScope s:subscopes) {
+		  if (!s.resolveLinks()) return false;
+	  }
+	  return true;
   }
 
   /**
@@ -54,13 +76,11 @@ public class ParameterScope extends NamespaceScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (emfElement instanceof VarOrFunction) {
-		VarOrFunction function = (VarOrFunction)emfElement;
-	    res.append(callback.compile(indent,precedence,lhs,function,parentScope));
-	    //System.err.println("ParameterScope.outputSPAD: emfElement(VarOrFunction):"+emfElement);
-	  } else System.err.println("ParameterScope.outputSPAD: emfElement:"+emfElement);
+	  if (vs != null) res.append(vs.toString());
+	  else if (nam != null) res.append(nam);
 	  return res;
   }
+
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
@@ -78,7 +98,7 @@ public class ParameterScope extends NamespaceScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "parameter "+n+":"+typ;
+	  return "local var "+n+":"+typ;
   }
 
 }

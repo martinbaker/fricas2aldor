@@ -8,7 +8,21 @@ import com.euclideanspace.bootSyntax.editor.FunctionDef;
 import com.euclideanspace.bootSyntax.editor.LambdaExpression;
 import com.euclideanspace.bootSyntax.generator.ParameterScope;
 import com.euclideanspace.bootSyntax.generator.StatementScope;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
+/**
+ * FunctionDef:
+    name=TK_ID fp+=KW_PRIME*
+    (
+      (KW_OPAREN (params+=Expression (KW_COMMA params+=Expression)*)? KW_CPAREN)
+      |  j=TK_ID // support juxtapose
+    )
+	((KW_EQ2|m?=KW_MARROW) st=Statement)? // FunctionDef may be abstract
+	
+	(NL w=Where)?
+ * @author Martin Baker
+ *
+ */
 public class FunctionDefScope extends NamespaceScope implements DeclarationScope {
 
   /** fs is set by addFunctionDef function below */
@@ -18,7 +32,7 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 
   private ArrayList<ParameterScope> parameters = new ArrayList<ParameterScope>();
 
-  private StatementScope contents = null;
+  private NamespaceScope contents = null;
 
   private WhereScope where = null;
 
@@ -42,6 +56,10 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
    */
   public FunctionDefScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+  }
+
+  public void setStatement(NamespaceScope class1) {
+		contents = class1;
   }
 
   /**
@@ -92,6 +110,10 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 	  //System.err.println("FunctionDefScope.addVariableCall: cant add variable:"+nam+" wr:"+write);
 	  return false;
   }
+
+  public void setWhere(NamespaceScope scope) {
+		if (scope instanceof WhereScope) where = (WhereScope)scope;
+	}
 
   /**
    * Lookup variable name to find info about it.
@@ -323,8 +345,5 @@ public void addParameter(ParameterScope scope) {
 	parameters.add(scope);
 }
 
-public void setStatement(StatementScope class1) {
-	contents = class1;
-}
 
 }

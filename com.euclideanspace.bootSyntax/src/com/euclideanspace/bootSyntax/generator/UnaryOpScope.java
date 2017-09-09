@@ -1,7 +1,26 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
+/**
+ * UnaryExpression returns Expr:
+PrimaryExpression  |
+({VarOrFunction} name=TK_ID expr=UnaryExpression?) |
+({UnaryExpression} uop='not' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON expr=UnaryExpression) |
+({UnaryExpression} uop='or/' expr=UnaryExpression) |
+({UnaryExpression} uop='and/' expr=UnaryExpression) |
+({UnaryExpression} uop='+/' expr=UnaryExpression) |
+({UnaryExpression} uop='*./' expr=UnaryExpression) | // needs . otherwise causes errors in xtext files
+({UnaryExpression} uop='return' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_SHARP expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON loc?='local')
+;
+
+ * @author Martin Baker
+ *
+ */
 public class UnaryOpScope extends NamespaceScope implements ExprScope {
 
   NamespaceScope expr;
@@ -17,7 +36,7 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
 	  super(p,e,n);
   }
 
-  public void setBinOp(NamespaceScope e,String op) {
+  public void setUnaryOp(NamespaceScope e, String op) {
 	  expr = e;
 	  oper = op;
   }
@@ -58,6 +77,7 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
 	  if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs,callback));
 	  return res;
   }
+
 
 
 }

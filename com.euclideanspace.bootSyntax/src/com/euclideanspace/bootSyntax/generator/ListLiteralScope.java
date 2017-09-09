@@ -1,14 +1,25 @@
 package com.euclideanspace.bootSyntax.generator;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
-public class BinaryOpScope extends NamespaceScope implements ExprScope {
+/**
+ * ListLiteral:
+// may be empty list so ob ensures literal is created
+ob?= KW_OBRACK
+le+=ListElement?
+(KW_COMMA NL? le+=ListElement)*
+sl+=ListComprehension*
+KW_CBRACK
+ * @author Martin Baker
+ *
+ */
+public class ListLiteralScope extends NamespaceScope implements ExprScope {
 
-  NamespaceScope left;
-  NamespaceScope right;
-  NamespaceScope by; // used in 'in'
-  String oper;
+  private ListElementLiteralScope listElement = null;
+  private ListComprehensionLiteralScope listComprehension = null;
 
   /**
    * constructor for FunctionDefScope
@@ -16,18 +27,18 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
    * @param e emfElement
    * @param n name
    */
-  public BinaryOpScope(NamespaceScope p,EObject e,String n) {
+  public ListLiteralScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
-  public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
-	  left =lft;
-	  right =rht;
-	  oper = op;
-  }
+  public void setSLL(NamespaceScope scope) {
+	  if (scope instanceof ListElementLiteralScope)
+		  listElement = (ListElementLiteralScope)scope;
+	  else if (scope instanceof ListComprehensionLiteralScope)
+		  listComprehension = (ListComprehensionLiteralScope)scope;
+      else
+        System.err.println("ListLiteralScope.setLL: error-"+scope);
 
-  public void setBy(NamespaceScope scope) {
-	  by = scope;
 	}
 
   /** Override function in NamespaceScope
@@ -42,7 +53,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  typ = emfElement.getClass().toString();
 		  typ = typ.substring(typ.lastIndexOf('.'));
 	  }
-	  return "binary op "+oper+":"+typ;
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "literal "+n+":"+typ;
   }
 
   /**
@@ -58,14 +73,8 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
-	  if (oper != null) res.append(oper);
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
-	  if (by != null) {
-		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs,callback));
-	  }
+	  if (listElement != null) res.append(listElement.outputSPAD(indent+1,precedence,lhs,callback));
+	  if (listComprehension != null) res.append(listComprehension.outputSPAD(indent+1,precedence,lhs,callback));
 	  return res;
   }
-
 }

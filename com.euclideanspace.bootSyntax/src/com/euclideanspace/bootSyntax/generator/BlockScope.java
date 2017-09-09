@@ -6,9 +6,34 @@ import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Block;
 
+/**
+ * PrimaryExpression returns Expr:
+  (
+	Literal
+	|
+	({Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)?
+    KW_CPAREN)
+	|
+	({Block} b?=BEGIN
+		(s+=Statement NL)*
+	END )
+	|
+	({Block} c2?=KW_OCURLY (s+=Statement NL)* KW_CCURLY )
+	|
+	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
+	
+  )
+  d?=KW_2DOT? // for segment with no end part
+;
+
+ * @author Martin Baker
+ *
+ */
 public class BlockScope extends NamespaceScope implements ExprScope {
 
   private ArrayList<NamespaceScope> statements= new ArrayList<NamespaceScope>();
+  private WhereScope where = null;
+  private boolean minus = false;
 
   /**
    * constructor for FunctionDefScope
@@ -22,6 +47,12 @@ public class BlockScope extends NamespaceScope implements ExprScope {
 
   public void addStatement(NamespaceScope s) {
 	  statements.add(s);
+  }
+
+  public void setWhere(NamespaceScope where1,boolean minus1) {
+	  if (where1 instanceof WhereScope) where = (WhereScope)where1;
+	  else System.err.println("BlockScope.setWhere error:"+where1);
+	  minus = minus1;
   }
 
   /**
@@ -39,6 +70,11 @@ public class BlockScope extends NamespaceScope implements ExprScope {
     StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
     for (NamespaceScope statement: statements) {
     	if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs,callback));
+    }
+    if (where != null) {
+      res.append(EditorGenerator.newline(indent));
+      if (minus) res.append("-");
+      res.append(where.outputSPAD(indent+1,precedence,lhs,callback));
     }
     return res;
   }

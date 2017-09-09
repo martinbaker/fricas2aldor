@@ -1,14 +1,21 @@
 package com.euclideanspace.bootSyntax.generator;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
-public class BinaryOpScope extends NamespaceScope implements ExprScope {
+/**
+ * LispLiteral:
+  KW_AT? pr+=KW_PRIME+ sll=SubLispLiteral
+ *
+ * @author Martin Baker
+ *
+ */
+public class LispLiteralScope extends NamespaceScope implements ExprScope {
 
-  NamespaceScope left;
-  NamespaceScope right;
-  NamespaceScope by; // used in 'in'
-  String oper;
+  private int numPrimes = 0;
+  private LispSubLiteralScope lispSubLiteralScope = null;
 
   /**
    * constructor for FunctionDefScope
@@ -16,19 +23,17 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
    * @param e emfElement
    * @param n name
    */
-  public BinaryOpScope(NamespaceScope p,EObject e,String n) {
+  public LispLiteralScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
-  public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
-	  left =lft;
-	  right =rht;
-	  oper = op;
+  public void setLL(int numPrimes1,NamespaceScope lispSubLiteralScope1) {
+	  numPrimes = numPrimes1;
+	  if (lispSubLiteralScope1 instanceof LispSubLiteralScope)
+	    lispSubLiteralScope = (LispSubLiteralScope)lispSubLiteralScope1;
+	  else
+		System.err.println("LispLiteralScope.setLL: error-"+lispSubLiteralScope1);
   }
-
-  public void setBy(NamespaceScope scope) {
-	  by = scope;
-	}
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
@@ -42,7 +47,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  typ = emfElement.getClass().toString();
 		  typ = typ.substring(typ.lastIndexOf('.'));
 	  }
-	  return "binary op "+oper+":"+typ;
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "literal "+n+":"+typ;
   }
 
   /**
@@ -58,13 +67,8 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
-	  if (oper != null) res.append(oper);
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
-	  if (by != null) {
-		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs,callback));
-	  }
+	  for (int i=0; i<numPrimes; i++) res.append("'");
+	  if (lispSubLiteralScope != null) res.append(lispSubLiteralScope.outputSPAD(indent+1,precedence,lhs,callback));
 	  return res;
   }
 

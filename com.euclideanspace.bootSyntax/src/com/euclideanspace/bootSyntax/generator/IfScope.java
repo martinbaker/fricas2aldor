@@ -1,10 +1,18 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import java.util.ArrayList;
-
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
+/**
+ * 
+ * @author Martin Baker
+ *
+ */
 public class IfScope extends NamespaceScope implements StatementScope {
+
+  private NamespaceScope ifPart = null;
+  private NamespaceScope thenPart = null;
+  private NamespaceScope elsePart = null;
 
   /**
    * constructor for FunctionDefScope
@@ -47,12 +55,26 @@ public class IfScope extends NamespaceScope implements StatementScope {
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
-//	  for (String x: comments) {
-//		  res.append(EditorGenerator.newline(indent));
-//		  res.append(x);
-//	  }
+	  StringBuilder res = new StringBuilder("");
+	  if (ifPart != null) {
+		  res.append("if ");
+		  res.append(ifPart.outputSPAD(indent+1,precedence,lhs,callback));
+	  }
+	  if (thenPart != null) {
+		  res.append("then ");
+		  res.append(thenPart.outputSPAD(indent+1,precedence,lhs,callback));
+	  }
+	  if (elsePart != null) {
+		  res.append("else ");
+		  res.append(elsePart.outputSPAD(indent+1,precedence,lhs,callback));
+	  }
 	  return res;
   }
+
+public void setExpressions(NamespaceScope scope, NamespaceScope scope2, NamespaceScope scope3) {
+  ifPart = scope;
+  thenPart = scope2;
+  elsePart = scope3;
+}
 
 }

@@ -1,14 +1,24 @@
 package com.euclideanspace.bootSyntax.generator;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
-public class BinaryOpScope extends NamespaceScope implements ExprScope {
+/**
+ * ListComprehension:
+  (sl1=('for'|'while'|'where'|KW_BAR) sl2=Expression
+  	|
+  	r?='repeat'
+  )
+ * @author Martin Baker
+ *
+ */
+public class ListComprehensionLiteralScope extends NamespaceScope implements ExprScope {
 
-  NamespaceScope left;
-  NamespaceScope right;
-  NamespaceScope by; // used in 'in'
-  String oper;
+  private NamespaceScope sl2 = null;
+  private String sl1 = null;
+  private boolean r = false;
 
   /**
    * constructor for FunctionDefScope
@@ -16,18 +26,14 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
    * @param e emfElement
    * @param n name
    */
-  public BinaryOpScope(NamespaceScope p,EObject e,String n) {
+  public ListComprehensionLiteralScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
 
-  public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
-	  left =lft;
-	  right =rht;
-	  oper = op;
-  }
-
-  public void setBy(NamespaceScope scope) {
-	  by = scope;
+  public void setLC(NamespaceScope sl21,String sl11,boolean r1) {
+	  sl2 = sl21;
+	  sl1 = sl11;
+	  r = r1;
 	}
 
   /** Override function in NamespaceScope
@@ -42,7 +48,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  typ = emfElement.getClass().toString();
 		  typ = typ.substring(typ.lastIndexOf('.'));
 	  }
-	  return "binary op "+oper+":"+typ;
+	  String n = "noname";
+	  if (name != null) {
+		  n=name;
+	  }
+	  return "literal "+n+":"+typ;
   }
 
   /**
@@ -58,14 +68,9 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
-	  if (oper != null) res.append(oper);
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
-	  if (by != null) {
-		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs,callback));
-	  }
+	  if (sl1 != null) res.append(sl1);
+	  if (sl2 != null) res.append(sl2.outputSPAD(indent+1,precedence,lhs,callback));
+      if (r) res.append(" repeat ");
 	  return res;
   }
-
 }

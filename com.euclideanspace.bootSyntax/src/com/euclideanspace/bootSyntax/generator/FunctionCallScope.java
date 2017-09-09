@@ -2,7 +2,30 @@ package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class FunctionCallScope extends NamespaceScope {
+import com.euclideanspace.bootSyntax.editor.Expr;
+
+/**
+ * UnaryExpression returns Expr:
+PrimaryExpression  |
+({VarOrFunction} name=TK_ID expr=UnaryExpression?) |
+({UnaryExpression} uop='not' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON expr=UnaryExpression) |
+({UnaryExpression} uop='or/' expr=UnaryExpression) |
+({UnaryExpression} uop='and/' expr=UnaryExpression) |
+({UnaryExpression} uop='+/' expr=UnaryExpression) |
+({UnaryExpression} uop='*./' expr=UnaryExpression) | // needs . otherwise causes errors in xtext files
+({UnaryExpression} uop='return' expr=UnaryExpression) |
+({UnaryExpression} uop=KW_SHARP expr=UnaryExpression) |
+({UnaryExpression} uop=KW_COLON loc?='local')
+;
+
+ * @author Martin Baker
+ *
+ */
+public class FunctionCallScope extends NamespaceScope implements ExprScope {
+
+  private String nam = null;
+  private NamespaceScope e= null;
 
   /**
    * constructor for FunctionDefScope
@@ -12,7 +35,39 @@ public class FunctionCallScope extends NamespaceScope {
    */
   public FunctionCallScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+	  nam = n;
   }
+
+  /** stores function call in FileScope defined by f
+   * 
+   * We need to know where functions are called so that we can add in the
+   * appropriate includes.
+   * 
+   * called by setNamespace when it is called with VarOrFunction
+   * @param nam name of function being called
+   * @param params parameter values when called
+   * @param fnDef called within function definition (not the function definition of called function)
+   * @param f file where it is read
+   * @return void
+   */
+  @Override
+  public void addFunctionCall(String nam,Expr params,String fnDef,String f) {
+	  if (parentScope != null) {
+		  parentScope.addFunctionCall(nam,params,fnDef,f);
+		  return;
+	  }
+      System.err.println("FunctionCallScope: cant addFunctionCall:"+nam);
+  }
+
+ /**
+  * Called in EditorGenerator.setNamespace to set name and expr for 
+  * @param nam name of function or variable
+  * @param expr parameter
+  */
+ @Override
+ public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
+	  
+ }
 
   /**
    * when the scope tree is complete use this to walk the tree to
@@ -26,6 +81,26 @@ public class FunctionCallScope extends NamespaceScope {
 		  if (!s.resolveLinks()) return false;
 	  }
 	  return true;
+  }
+
+  /**
+   * Output SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
+   * @param callback temporary TODO remove
+   * @return
+   * 
+   * 
+   */
+  @Override
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  StringBuilder res = new StringBuilder("");
+	  if (nam != null) res.append(nam);
+	  res.append("(");
+	  if (e != null) res.append(e.outputSPAD(indent,precedence,lhs,callback));
+	  res.append(")");
+	  return res;
   }
 
   /** Override function in NamespaceScope

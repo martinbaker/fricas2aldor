@@ -3,6 +3,7 @@ package com.euclideanspace.bootSyntax.generator;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class CommentScope extends NamespaceScope implements DeclarationScope,StatementScope {
 
@@ -20,6 +21,10 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
 
   public void setComment(String c) {
 	  comments.add(c);
+  }
+
+  public void setSwitch(NamespaceScope scope) {
+    //TODO store true or false from this
   }
 
   /**

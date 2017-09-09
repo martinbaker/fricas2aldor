@@ -3,8 +3,35 @@ package com.euclideanspace.bootSyntax.generator;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
+/**
+ * PrimaryExpression returns Expr:
+  (
+	Literal
+	|
+	({Tuple} p?=KW_OPAREN m2?=KW_MINUS? (t3=WhereExpression NL? (KW_COMMA t5+=WhereExpression)*)?
+    KW_CPAREN)
+	|
+	({Block} b?=BEGIN
+		(s+=Statement NL)*
+	END )
+	|
+	({Block} c2?=KW_OCURLY (s+=Statement NL)* KW_CCURLY )
+	|
+	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
+	
+  )
+  d?=KW_2DOT? // for segment with no end part
+;
+
+ * @author Martin Baker
+ *
+ */
 public class TupleScope extends NamespaceScope implements ExprScope {
+
+  private ArrayList<NamespaceScope> params= new ArrayList<NamespaceScope>();
+  private boolean m2 = false;
 
   /**
    * constructor for FunctionDefScope
@@ -14,6 +41,10 @@ public class TupleScope extends NamespaceScope implements ExprScope {
    */
   public TupleScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
+  }
+
+  public void addParam(NamespaceScope scope) {
+    params.add(scope);
   }
 
   /** Override function in NamespaceScope
@@ -47,12 +78,16 @@ public class TupleScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
-//	  for (String x: comments) {
-//		  res.append(EditorGenerator.newline(indent));
-//		  res.append(x);
-//	  }
-	  return res;
+	StringBuilder res = new StringBuilder("");
+	if (m2) res.append("-");
+	boolean followon = false;
+	for (NamespaceScope statement: params) {
+	  if(followon) res.append(",");
+	  if (statement != null) res.append(statement.outputSPAD(indent,precedence,lhs,callback));
+	  followon = true;
+	}
+	return res;
   }
+
 
 }

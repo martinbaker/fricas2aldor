@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class NamespaceScope {
   /**
@@ -38,7 +39,19 @@ public class NamespaceScope {
 	  emfElement = e;
 	  name = n;
   }
-  
+
+  /**
+   * Called in EditorGenerator.setNamespace to set name and expr for 
+   * 
+   * implemented in FunctionCallScope, parameterScope and LocalVarScope
+   * 
+   * @param nam name of function or variable
+   * @param expr parameter
+   */
+  public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
+	  System.err.println("NamespaceScope.setVarOrFunctionExpr: error in:"+nam);
+	}
+
   /** add a child
    * 
    * @param s subscope to be added
@@ -474,5 +487,7 @@ public class NamespaceScope {
 	  }
 	  return res;
   }
+
+
 
 }

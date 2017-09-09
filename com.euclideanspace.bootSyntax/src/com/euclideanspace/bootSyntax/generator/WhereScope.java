@@ -1,11 +1,13 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import org.eclipse.emf.ecore.EObject;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class WhereScope extends NamespaceScope implements DeclarationScope,StatementScope {
 	/** If there is an inner function under this 'where' then point to it here*/
 	private FunctionDefScope innerFnDef = null;
 	// TODO setup this pointer to innerfun when reading it.
+	private NamespaceScope content = null;
 
   /**
    * constructor for FunctionDefScope
@@ -16,6 +18,10 @@ public class WhereScope extends NamespaceScope implements DeclarationScope,State
   public WhereScope(NamespaceScope p,EObject e,String n) {
 	  super(p,e,n);
   }
+
+  public void setContent(NamespaceScope scope) {
+		content = scope;
+	}
 
   public FunctionDefScope getInnerFnDef() {
 		return innerFnDef;
