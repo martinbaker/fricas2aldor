@@ -35,6 +35,9 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
   private NamespaceScope contents = null;
 
   private WhereScope where = null;
+  /** if true innerFunction indicates this is not a top level function but is
+   * defined inside another function */
+  private boolean innerFunction = false;
 
 /*
  * FunctionDef:
@@ -76,6 +79,7 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
    * @return false if duplicate.
    */
   public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<VariableTree> pars,int num,int numP) {
+	  innerFunction = (p != null);
 	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num,numP);
 	  return parentScope.addFunctionDef(this);
   }
@@ -243,11 +247,11 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
    * @return array of inner functions.
    */
   public ArrayList<FunctionDefScope> getInnerFuncDefs() {
-	  //System.out.println("getInnerFuncDefs");
+	  //System.out.println("FunctionDefScope.getInnerFuncDefs"+fs.toString());
 	  ArrayList<FunctionDefScope> res = new ArrayList<FunctionDefScope>();
 	  ArrayList<UseMarkerScope> us =getUseScopes();
 	  for (UseMarkerScope s:us) {
-		  //System.out.println("getInnerFuncDefs use="+s);
+		  //System.out.println("FunctionDefScope.getInnerFuncDefs use="+s);
 		  WhereScope wh = s.getWhere();
 		  FunctionDefScope c = null;
 		  if (wh != null) {
@@ -279,6 +283,36 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 	  return new NullScope(null,null,null);
   }
 
+/* for lambda we have:
+ * 
+ * 
+ * 	def CharSequence compile(int indent,int precedence,boolean lhs,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
+        val NamespaceScope scope =parentScope.getScope(lambdaExpression);
+        var fnName="cantGetName";
+        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
+        var FunctionDefScope fds = null;
+        if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
+        else {
+        	System.err.println("in LambdaExpression scope not FunctionDefScope:"+scope.displayDetail())
+        	if (parentScope !== null) System.err.println("parentScope:"+parentScope.displayDetail())
+        };
+        if (fds !== null) {
+          val FunctionSignature fs = fds.getFunctionSignature();
+          if (fs !== null) {
+          	fnName = fs.getSafeName();
+          	params = fs.params;
+          }
+        }
+      return
+        '''«fnName»«
+        showParams(params)» == «
+        IF lambdaExpression.right !== null»«
+          IF !(lambdaExpression.right instanceof Block)»«newline(indent)»«ENDIF»«
+          compile(indent,12,lhs,lambdaExpression.right,scope)»«
+        ENDIF»«
+        newline(indent)»'''
+        }
+ */
   /**
    * Output SPAD code.
    * @param indent to give block structure
@@ -300,6 +334,7 @@ FunctionDef:
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  //System.out.println("FunctionDefScope.outputSPAD name="+qualifiedFunctionName());
 	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
 	  res.append(qualifiedFunctionName());
 	  res.append("(");
@@ -319,12 +354,119 @@ FunctionDef:
       }
       res.append(EditorGenerator.newline(indent));
 	  ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
-	  for ( FunctionDefScope ifds:innerFn) {
-	      res.append(EditorGenerator.newline(indent));
-	      ifds.outputSPAD(indent+1,precedence,lhs,callback);
+	  for (FunctionDefScope ifds:innerFn) {
+		  //System.out.println("FunctionDefScope.outputSPAD use="+ifds);
+	      //res.append(EditorGenerator.newline(indent));
+	      res.append(ifds.outputSPAD(indent,precedence,lhs,callback));
 	      res.append(EditorGenerator.newline(indent));
 	  }
 	  return res;
+  }
+
+  /*     
+   * FunctionDef
+   * top level function definition, inner functions use lambda 
+  	def CharSequence compileExports(int indent,int precedence,FunctionDef function,NamespaceScope parentScope)
+          newline(indent)»«
+  	    fds.qualifiedFunctionName()»«
+  	    FOR x:function.fp»'«ENDFOR»: (BootEnvir«
+  	    IF function.j !== null»«function.j»«ELSE»«
+  	      FOR x:function.params», SExpression«ENDFOR»«
+  	    ENDIF») -> SExpression«
+  	    IF function.st !== null»«
+  	      compileExports(indent,precedence,function.st,scope)»«
+  	    ENDIF»«
+  	    IF function.w !== null»«
+  	      newline(indent)»«
+  	      compileExports(indent,precedence,function.w,scope)»«
+  	    ENDIF»«
+  	    var ArrayList<FunctionDefScope> innerFn =fds.getInnerFuncDefs()»«
+  	    FOR FunctionDefScope ifds:innerFn»«
+  	      val EObject eo = ifds.getEobj()»«
+  	      IF (eo instanceof LambdaExpression)»«
+  	        newline(indent)»«
+              compileExports(indent+1,precedence,eo as LambdaExpression,ifds.parentScope)»«
+  	      ENDIF»«
+  	    ENDFOR»«
+  	    »'''
+  	    
+or for LambdaExpression we have:
+
+
+ 	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
+        val NamespaceScope scope =parentScope.getScope(lambdaExpression);
+        var fnName="cantGetName";
+        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
+        var FunctionDefScope fds = null;
+        if (scope instanceof FunctionDefScope) fds=scope as FunctionDefScope
+        else {
+        	System.err.println("in LambdaExpression scope not FunctionDefScope:"+scope.displayDetail())
+        	if (parentScope !== null) System.err.println("parentScope:"+parentScope.displayDetail())
+        };
+        if (fds !== null) {
+          val FunctionSignature fs = fds.getFunctionSignature();
+          if (fs !== null) {
+          	fnName = fs.getSafeName();
+          	params = fs.params;
+          }
+        }
+      return
+        '''«fnName»: «
+        showParamTypes(params)» -> SExpression'''
+        }
+
+  */
+  public CharSequence outputInnerDefSPADExports(int indent,int precedence,EditorGenerator callback) {
+	    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+        String fnName="cantGetName";
+        ArrayList<VariableTree> params = new ArrayList<VariableTree>();
+        FunctionSignature fs = getFunctionSignature();
+        if (fs != null) {
+          fnName = fs.getSafeName();
+          params = fs.getParams();
+        }
+        res.append(fnName);
+        // TODO add primes?
+        res.append(": (BootEnvir");
+        res.append(callback.showParamTypes(params));
+        res.append(" -> SExpression");
+	    return res;
+	  }
+
+  /**
+   * Output export part of SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param callback temporary TODO remove
+   * @return
+   */
+  @Override
+  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+	if (innerFunction) return outputInnerDefSPADExports(indent,precedence,callback);
+    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    res.append(qualifiedFunctionName());
+    // TODO add primes?
+    res.append(": (BootEnvir");
+    boolean followOn = false;
+    for (ParameterScope par:  parameters) {
+      //if (followOn) res.append(",");
+      res.append(", SExpression");
+      followOn = true;
+    }
+    res.append(") -> SExpression");
+	if (contents != null) res.append(contents.outputSPADExports(indent,precedence,callback));
+    if(where != null) {
+  	  res.append(EditorGenerator.newline(indent));
+  	  res.append(where.outputSPADExports(indent,precedence,callback));
+    }
+	ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
+    for (FunctionDefScope ifds:innerFn) {
+      // TODO check that this is lambda
+      //res.append(EditorGenerator.newline(indent));
+      res.append(ifds.outputSPADExports(indent,precedence,callback));
+      //res.append(EditorGenerator.newline(indent));
+    }
+    return res;
   }
 
   /**

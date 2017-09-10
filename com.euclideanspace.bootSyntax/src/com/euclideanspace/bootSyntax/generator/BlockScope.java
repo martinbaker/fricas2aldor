@@ -55,6 +55,32 @@ public class BlockScope extends NamespaceScope implements ExprScope {
 	  minus = minus1;
   }
 
+/*
+ * 	def CharSequence compileExports(int indent,int precedence,Block expr,NamespaceScope parentScope)
+        '''
+	    «val NamespaceScope scope =parentScope.getScope(expr)»«
+        IF expr.b»«
+	      FOR x:expr.s»«
+	        compileExports(indent+1,0,x,scope)»«
+	      ENDFOR»«
+	    ENDIF»'''
+ */
+  /**
+   * Output export part of SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param callback temporary TODO remove
+   * @return
+   */
+  @Override
+  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+    StringBuilder res = new StringBuilder("");
+    for (NamespaceScope statement: statements) {
+    	if (statement != null) res.append(statement.outputSPADExports(indent+1,precedence,callback));
+    }
+    return res;
+  }
+
   /**
    * Output SPAD code.
    * @param indent to give block structure
@@ -67,8 +93,9 @@ public class BlockScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    StringBuilder res = new StringBuilder("");
     for (NamespaceScope statement: statements) {
+    	res.append(EditorGenerator.newline(indent+1));
     	if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs,callback));
     }
     if (where != null) {

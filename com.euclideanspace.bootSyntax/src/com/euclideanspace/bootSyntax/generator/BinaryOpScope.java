@@ -46,6 +46,21 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   }
 
   /**
+   * Output export part of SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param callback temporary TODO remove
+   * @return
+   */
+  @Override
+  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+    StringBuilder res = new StringBuilder("");
+	if (left != null) res.append(left.outputSPADExports(indent+1,precedence,callback));
+	if (right != null) res.append(right.outputSPADExports(indent+1,precedence,callback));
+    return res;
+  }
+
+  /**
    * Output SPAD code.
    * @param indent to give block structure
    * @param precedence for infix operators
@@ -59,7 +74,18 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
 	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
-	  if (oper != null) res.append(oper);
+	  if (oper != null) {
+		  if(oper.compareTo("in")==0) oper=oper+" ";
+		  else if (oper.compareTo("is")==0) oper=oper+" ";
+		  else if (oper.compareTo("isnt")==0) oper=oper+" ";
+		  else if (oper.compareTo("quo")==0) oper=oper+" ";
+		  else if (oper.compareTo("mod")==0) oper=oper+" ";
+		  else if (oper.compareTo("rem")==0) oper=oper+" ";
+		  else if (oper.compareTo("and")==0) oper=oper+" ";
+		  else if (oper.compareTo("or")==0) oper=oper+" ";
+		  else if (oper.compareTo("exquo")==0) oper=oper+" ";
+		  res.append(oper);
+	  }
 	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
 	  if (by != null) {
 		  res.append(" by ");

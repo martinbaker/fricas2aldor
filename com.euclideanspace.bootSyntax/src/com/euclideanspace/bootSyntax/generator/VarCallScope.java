@@ -43,8 +43,8 @@ public class VarCallScope extends NamespaceScope {
    * @param expr parameter
    */
   @Override
-  public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
- 	  
+  public void setVarOrFunctionExpr(String nam1,NamespaceScope expr) {
+ 	if (nam1 != null) nam = nam1;
   }
 
   /**
@@ -78,6 +78,7 @@ public class VarCallScope extends NamespaceScope {
 	  StringBuilder res = new StringBuilder("");
 	  if (vs != null) res.append(vs.toString());
 	  else if (nam != null) res.append(nam);
+	  res.append(" ");
 	  return res;
   }
 

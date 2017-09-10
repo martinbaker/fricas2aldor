@@ -18,7 +18,7 @@ KW_CBRACK
  */
 public class ListLiteralScope extends NamespaceScope implements ExprScope {
 
-  private ListElementLiteralScope listElement = null;
+  private ArrayList<ListElementLiteralScope> listElement= new ArrayList<ListElementLiteralScope>();
   private ListComprehensionLiteralScope listComprehension = null;
 
   /**
@@ -31,14 +31,18 @@ public class ListLiteralScope extends NamespaceScope implements ExprScope {
 	  super(p,e,n);
   }
 
-  public void setSLL(NamespaceScope scope) {
+  public void addSLL(NamespaceScope scope) {
 	  if (scope instanceof ListElementLiteralScope)
-		  listElement = (ListElementLiteralScope)scope;
-	  else if (scope instanceof ListComprehensionLiteralScope)
+		  listElement.add((ListElementLiteralScope)scope);
+      else
+        System.err.println("ListLiteralScope.addSLL: error-"+scope);
+	}
+
+  public void setSLL(NamespaceScope scope) {
+	  if (scope instanceof ListComprehensionLiteralScope)
 		  listComprehension = (ListComprehensionLiteralScope)scope;
       else
-        System.err.println("ListLiteralScope.setLL: error-"+scope);
-
+        System.err.println("ListLiteralScope.setSLL: error-"+scope);
 	}
 
   /** Override function in NamespaceScope
@@ -73,8 +77,15 @@ public class ListLiteralScope extends NamespaceScope implements ExprScope {
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
-	  if (listElement != null) res.append(listElement.outputSPAD(indent+1,precedence,lhs,callback));
+	  res.append("[");
+	  boolean followon = false; 
+	  for (ListElementLiteralScope listEle:listElement) {
+		  if( followon) res.append(","); 
+		  res.append(listEle.outputSPAD(indent+1,precedence,lhs,callback));
+		  followon = true; 
+	  }
 	  if (listComprehension != null) res.append(listComprehension.outputSPAD(indent+1,precedence,lhs,callback));
+	  res.append("]");
 	  return res;
   }
 }

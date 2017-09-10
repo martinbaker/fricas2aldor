@@ -31,7 +31,7 @@ public class LoopCond {
    * 
    */
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    StringBuilder res = new StringBuilder();
     res.append(typ);
     res.append(" ");
     res.append(expr.outputSPAD(indent,precedence,lhs,callback));

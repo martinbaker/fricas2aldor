@@ -72,10 +72,16 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
-	  if (oper != null) res.append(oper);
-	  if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs,callback));
-	  return res;
+	StringBuilder res = new StringBuilder("");
+	if (oper != null) {
+	  if(oper.compareTo("*./")==0) oper="*/" ;
+	  else if (oper.compareTo("not")==0) oper=oper+" ";
+	  else if (oper.compareTo("return")==0) oper=oper+" ";
+      res.append(oper);
+	}
+	res.append(" ");
+	if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs,callback));
+	return res;
   }
 
 

@@ -19,7 +19,7 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
 	  super(p,e,n);
   }
 
-  public void setComment(String c) {
+  public void addComment(String c) {
 	  comments.add(c);
   }
 
@@ -39,10 +39,12 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+	  StringBuilder res = new StringBuilder("");
+	  boolean followon = false;
 	  for (String x: comments) {
-		  res.append(EditorGenerator.newline(indent));
+		  if (followon) res.append(EditorGenerator.newline(indent));
 		  res.append(x);
+		  followon = true;
 	  }
 	  return res;
   }

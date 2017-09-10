@@ -84,6 +84,31 @@ public class FileScope extends NamespaceScope {
 	  return res;
   }
 
+/*
+ * 	def CharSequence compileExports(int indent,int precedence,Model model,NamespaceScope scope)
+	    '''
+	    «newline(indent)»Exports ==> with«
+	    FOR x:model.declarations»«compileExports(indent+1,precedence,x,scope)»«ENDFOR»'''
+
+ */
+  /**
+   * Output export part of SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param callback temporary TODO remove
+   * @return
+   */
+  @Override
+  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    res.append("Exports ==> with");
+    res.append(EditorGenerator.newline(indent+1));
+    for (DeclarationScope x: declarations) {
+      res.append(x.outputSPADExports(indent+1,precedence,callback));
+    }
+	return res;
+  }
+
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
    * fsa.generateFile("scopes.txt",vars.showScopes(0))

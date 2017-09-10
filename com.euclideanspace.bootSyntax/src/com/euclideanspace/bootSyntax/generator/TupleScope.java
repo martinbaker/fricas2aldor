@@ -81,11 +81,13 @@ public class TupleScope extends NamespaceScope implements ExprScope {
 	StringBuilder res = new StringBuilder("");
 	if (m2) res.append("-");
 	boolean followon = false;
+	res.append("(");
 	for (NamespaceScope statement: params) {
 	  if(followon) res.append(",");
 	  if (statement != null) res.append(statement.outputSPAD(indent,precedence,lhs,callback));
 	  followon = true;
 	}
+	res.append(")");
 	return res;
   }
 

@@ -13,4 +13,5 @@ package com.euclideanspace.bootSyntax.generator;
  */
 public interface StatementScope {
 	public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback);
+	public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback);
 }

@@ -446,6 +446,17 @@ public class NamespaceScope {
   }
 
   /**
+   * Output export part of SPAD code.
+   * @param indent to give block structure
+   * @param precedence for infix operators
+   * @param callback temporary TODO remove
+   * @return
+   */
+  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+	  return new StringBuilder("");
+  }
+
+  /**
    * Output function and variable definitions as a string
    * @return output
    */

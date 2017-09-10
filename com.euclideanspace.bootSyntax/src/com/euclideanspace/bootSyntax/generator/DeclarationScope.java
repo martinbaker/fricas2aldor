@@ -20,8 +20,8 @@ package com.euclideanspace.bootSyntax.generator;
  * FunctionDef -> FunctionDefScope
  * Where -> WhereScope
  * GlobalVariable -> VariableDefScope 
-
  */
 public interface DeclarationScope {
 	public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback);
+	public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback);
 }

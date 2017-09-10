@@ -7,7 +7,7 @@ public class LoopScope extends NamespaceScope implements StatementScope {
 
   private ArrayList<LoopCond> loopConditions = new ArrayList<LoopCond>();
   private NamespaceScope bar = null;
-  private NamespaceScope statement =null;
+  private NamespaceScope repeatBlock =null;
   String oper = null;
 
 /* Loop:
@@ -46,9 +46,14 @@ For:
 	  super(p,e,n);
   }
 
-  public void setLoop(NamespaceScope b,NamespaceScope s) {
-	  bar = b;
-	  statement = s;
+  /**
+   * 
+   * @param s bar statement
+   * @param b repeat block
+   */
+  public void setLoop(NamespaceScope s,NamespaceScope b) {
+	  bar = s;
+	  repeatBlock = b;
   }
 
   public void addCondition(LoopCond lc) {
@@ -71,10 +76,12 @@ For:
       res.append(lc.outputSPAD(indent,precedence,lhs,callback));
     }
     if (bar != null) {
+    	res.append(" | ");
     	res.append(bar.outputSPAD(indent,precedence,lhs,callback));
     }
-    if (statement != null) {
-    	res.append(statement.outputSPAD(indent,precedence,lhs,callback));
+    if (repeatBlock != null) {
+    	res.append(" repeat ");
+    	res.append(repeatBlock.outputSPAD(indent,precedence,lhs,callback));
     }
     return res;
   }

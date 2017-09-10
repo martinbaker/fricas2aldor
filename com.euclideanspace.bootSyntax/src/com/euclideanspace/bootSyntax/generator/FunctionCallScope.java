@@ -25,7 +25,7 @@ PrimaryExpression  |
 public class FunctionCallScope extends NamespaceScope implements ExprScope {
 
   private String nam = null;
-  private NamespaceScope e= null;
+  private NamespaceScope exp= null;
 
   /**
    * constructor for FunctionDefScope
@@ -65,8 +65,9 @@ public class FunctionCallScope extends NamespaceScope implements ExprScope {
   * @param expr parameter
   */
  @Override
- public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
-	  
+ public void setVarOrFunctionExpr(String nam1,NamespaceScope expr) {
+   nam = nam1;
+   exp= expr;
  }
 
   /**
@@ -97,9 +98,11 @@ public class FunctionCallScope extends NamespaceScope implements ExprScope {
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
 	  StringBuilder res = new StringBuilder("");
 	  if (nam != null) res.append(nam);
-	  res.append("(");
-	  if (e != null) res.append(e.outputSPAD(indent,precedence,lhs,callback));
-	  res.append(")");
+	  if (exp != null) {
+		if (!(exp instanceof TupleScope)) res.append("("); //tuple outputs its own parenthesis.
+		res.append(exp.outputSPAD(indent,precedence,lhs,callback));
+		if (!(exp instanceof TupleScope)) res.append(")"); //tuple outputs its own parenthesis.
+	  }
 	  return res;
   }
 

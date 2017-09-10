@@ -43,6 +43,47 @@ public class UseMarkerScope extends NamespaceScope {
 	  System.err.println("UseMarkerScope: error should not add subnodes here");
   }
 
+  /*
+   * 
+   */
+    /**
+     * Output SPAD code.
+     * @param indent to give block structure
+     * @param precedence for infix operators
+     * @param lhs if true this is part of left hand side of assignment.
+     * @param callback temporary TODO remove
+     * @return
+     * 
+     * 
+     */
+    @Override
+    public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+	  StringBuilder res = new StringBuilder("");
+	  //res.append("***UseMarkerScope.outputSPAD***");
+      return res;
+    }
+
+    /*
+     * Where
+  	def CharSequence compileExports(int indent,int precedence,Where where,NamespaceScope parentScope) {
+//  	    if ((where.b !== null)&& insideWhere != WhereState.WritingWhere) pendingWheres.add(new UseMarkerScope(null,where,null,parentScope))
+        return "";
+        }
+    */
+    /**
+     * Output export part of SPAD code.
+     * @param indent to give block structure
+     * @param precedence for infix operators
+     * @param callback temporary TODO remove
+     * @return
+     */
+    @Override
+    public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+      StringBuilder res = new StringBuilder("");
+      //res.append("***UseMarkerScope.outputSPADExports***");
+      return res;
+    }
+
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
    * fsa.generateFile("scopes.txt",vars.showScopes(0))
