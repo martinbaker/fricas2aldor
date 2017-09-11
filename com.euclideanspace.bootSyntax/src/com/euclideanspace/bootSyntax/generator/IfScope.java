@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -17,11 +16,10 @@ public class IfScope extends NamespaceScope implements StatementScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public IfScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public IfScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   /** Override function in NamespaceScope
@@ -31,42 +29,36 @@ public class IfScope extends NamespaceScope implements StatementScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "if "+n+":"+typ;
+	  return "if "+n+":";
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  if (ifPart != null) {
 		  res.append("if ");
-		  res.append(ifPart.outputSPAD(indent+1,precedence,lhs,callback));
+		  res.append(ifPart.outputSPAD(indent+1,precedence,lhs));
 	  }
 	  if (thenPart != null) {
 		  res.append("then ");
-		  res.append(thenPart.outputSPAD(indent+1,precedence,lhs,callback));
+		  res.append(thenPart.outputSPAD(indent+1,precedence,lhs));
 	  }
 	  if (elsePart != null) {
 		  res.append("else ");
-		  res.append(elsePart.outputSPAD(indent+1,precedence,lhs,callback));
+		  res.append(elsePart.outputSPAD(indent+1,precedence,lhs));
 	  }
 	  return res;
   }

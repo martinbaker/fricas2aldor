@@ -29,11 +29,10 @@ public class FileScope extends NamespaceScope {
   /**
    * constructor for GlobalScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public FileScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public FileScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   /** add a child
@@ -57,28 +56,27 @@ public class FileScope extends NamespaceScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
 	  res.append(EditorGenerator.newline(indent));
 	  res.append("Implementation ==> add");
 	  res.append(EditorGenerator.newline(indent+1));
       // import from BootEnvir
-	  Imports imp= new Imports(this,callback.getVars());
+	  Imports imp= new Imports(this,getGlobal());
 	  for (String x:imp.display()) {
 		  res.append(EditorGenerator.newline(indent+1));
 	      res.append(x);
 	  }
 	  res.append(EditorGenerator.newline(indent+1));
 	  for (DeclarationScope x: declarations) {
-		  res.append(x.outputSPAD(indent+1,precedence,lhs,callback));
+		  res.append(x.outputSPAD(indent+1,precedence,lhs));
 		  //compile(indent+1,precedence,false,x,scope);
 	  }
 	  return res;
@@ -94,17 +92,16 @@ public class FileScope extends NamespaceScope {
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
     StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
     res.append("Exports ==> with");
     res.append(EditorGenerator.newline(indent+1));
     for (DeclarationScope x: declarations) {
-      res.append(x.outputSPADExports(indent+1,precedence,callback));
+      res.append(x.outputSPADExports(indent+1,precedence));
     }
 	return res;
   }
@@ -116,29 +113,22 @@ public class FileScope extends NamespaceScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "file "+n+":"+typ;
+	  return "file "+n+":";
   }
 
-  @Override
+/*  @Override
   public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
 		  if (s.getEobj() == e) return s;
 	  }
 	  System.err.println("In "+name+" Can't find subscope for:"+e + " options are:");
-	  /*for (NamespaceScope s:subscopes) {
-		  System.err.println(":"+s.getEobj());
-	  }*/
-	  return new NullScope(null,null,null);
-  }
+	  
+	  return new NullScope(null,null);
+  }*/
 
   /** stores function call in FileScope defined by f
    * 

@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -29,11 +28,10 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public UnaryOpScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public UnaryOpScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setUnaryOp(NamespaceScope e, String op) {
@@ -48,30 +46,24 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "unary op "+n+":"+typ;
+	  return "unary op "+n+":";
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	StringBuilder res = new StringBuilder("");
 	if (oper != null) {
 	  if(oper.compareTo("*./")==0) oper="*/" ;
@@ -80,7 +72,7 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
       res.append(oper);
 	}
 	res.append(" ");
-	if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs,callback));
+	if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs));
 	return res;
   }
 

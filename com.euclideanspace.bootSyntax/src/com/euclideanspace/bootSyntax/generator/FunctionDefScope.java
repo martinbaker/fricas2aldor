@@ -54,11 +54,10 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public FunctionDefScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public FunctionDefScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setStatement(NamespaceScope class1) {
@@ -215,16 +214,11 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "fn def "+n+":"+typ;
+	  return "fn def "+n+":";
   }
 
   /** called by getInnerFuncDefs below to get all UseScopes under this
@@ -271,7 +265,7 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
       return this;   
   }
 
-  @Override
+/*  @Override
   public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
 		  if (s.getEobj() == e) return s;
@@ -280,8 +274,8 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 	  typ = typ.substring(typ.lastIndexOf('.'));
 	  if (!(".LambdaExpressionImpl".equals(typ)))
 	    System.err.println("FunctionDefScope: Can't find subscope for:"+typ+" in:"+displayDetail());
-	  return new NullScope(null,null,null);
-  }
+	  return new NullScope(null,null);
+  }*/
 
 /* for lambda we have:
  * 
@@ -316,9 +310,8 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * Function Definition:
@@ -333,7 +326,7 @@ FunctionDef:
 	(NL w=Where)?
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  //System.out.println("FunctionDefScope.outputSPAD name="+qualifiedFunctionName());
 	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
 	  res.append(qualifiedFunctionName());
@@ -341,23 +334,23 @@ FunctionDef:
 	  boolean followOn = false;
 	  for (ParameterScope par:  parameters) {
 		  if (followOn) res.append(",");
-		  res.append(par.outputSPAD(indent,precedence,lhs,callback));
+		  res.append(par.outputSPAD(indent,precedence,lhs));
 		  followOn = true;
 	  }
 	  res.append(")");
 	  if (fs.getMacro()) res.append(" ==>");
 	  else res.append(" ==");
-	  if (contents != null) res.append(contents.outputSPAD(indent,precedence,lhs,callback));
+	  if (contents != null) res.append(contents.outputSPAD(indent,precedence,lhs));
       if(where != null) {
     	  res.append(EditorGenerator.newline(indent));
-    	  res.append(where.outputSPAD(indent,precedence,lhs,callback));
+    	  res.append(where.outputSPAD(indent,precedence,lhs));
       }
       res.append(EditorGenerator.newline(indent));
 	  ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
 	  for (FunctionDefScope ifds:innerFn) {
 		  //System.out.println("FunctionDefScope.outputSPAD use="+ifds);
 	      //res.append(EditorGenerator.newline(indent));
-	      res.append(ifds.outputSPAD(indent,precedence,lhs,callback));
+	      res.append(ifds.outputSPAD(indent,precedence,lhs));
 	      res.append(EditorGenerator.newline(indent));
 	  }
 	  return res;
@@ -392,7 +385,6 @@ FunctionDef:
   	    
 or for LambdaExpression we have:
 
-
  	def CharSequence compileExports(int indent,int precedence,LambdaExpression lambdaExpression,NamespaceScope parentScope) {
         val NamespaceScope scope =parentScope.getScope(lambdaExpression);
         var fnName="cantGetName";
@@ -414,9 +406,18 @@ or for LambdaExpression we have:
         '''«fnName»: «
         showParamTypes(params)» -> SExpression'''
         }
-
   */
-  public CharSequence outputInnerDefSPADExports(int indent,int precedence,EditorGenerator callback) {
+  
+  /** : (BootEnvir, SExpression, SExpression, SExpression, SExpression) -> SExpression */
+  public CharSequence showParamTypes(ArrayList<VariableTree> params) {
+  	String res = "(BootEnvir";
+  	for (VariableTree s:params){
+  		res=res+",SExpression";
+  	}
+  	return res+")";
+  }
+  
+  public CharSequence outputInnerDefSPADExports(int indent,int precedence) {
 	    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
         String fnName="cantGetName";
         ArrayList<VariableTree> params = new ArrayList<VariableTree>();
@@ -428,7 +429,7 @@ or for LambdaExpression we have:
         res.append(fnName);
         // TODO add primes?
         res.append(": (BootEnvir");
-        res.append(callback.showParamTypes(params));
+        res.append(showParamTypes(params));
         res.append(" -> SExpression");
 	    return res;
 	  }
@@ -436,13 +437,12 @@ or for LambdaExpression we have:
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
-	if (innerFunction) return outputInnerDefSPADExports(indent,precedence,callback);
+  public CharSequence outputSPADExports(int indent,int precedence) {
+	if (innerFunction) return outputInnerDefSPADExports(indent,precedence);
     StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
     res.append(qualifiedFunctionName());
     // TODO add primes?
@@ -454,16 +454,16 @@ or for LambdaExpression we have:
       followOn = true;
     }
     res.append(") -> SExpression");
-	if (contents != null) res.append(contents.outputSPADExports(indent,precedence,callback));
+	if (contents != null) res.append(contents.outputSPADExports(indent,precedence));
     if(where != null) {
   	  res.append(EditorGenerator.newline(indent));
-  	  res.append(where.outputSPADExports(indent,precedence,callback));
+  	  res.append(where.outputSPADExports(indent,precedence));
     }
 	ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
     for (FunctionDefScope ifds:innerFn) {
       // TODO check that this is lambda
       //res.append(EditorGenerator.newline(indent));
-      res.append(ifds.outputSPADExports(indent,precedence,callback));
+      res.append(ifds.outputSPADExports(indent,precedence));
       //res.append(EditorGenerator.newline(indent));
     }
     return res;
@@ -486,6 +486,4 @@ or for LambdaExpression we have:
 public void addParameter(ParameterScope scope) {
 	parameters.add(scope);
 }
-
-
 }

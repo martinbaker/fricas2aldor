@@ -50,7 +50,12 @@ public class GlobalScope extends NamespaceScope {
    * @param n name
    */
   public GlobalScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+	  super(p,n);
+  }
+  
+  @Override
+  public GlobalScope getGlobal() {
+      return this;   
   }
 
   /** Override function in NamespaceScope

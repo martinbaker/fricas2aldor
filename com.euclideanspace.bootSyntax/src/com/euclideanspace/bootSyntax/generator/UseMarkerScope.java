@@ -16,7 +16,7 @@ public class UseMarkerScope extends NamespaceScope {
    * @param where
    */
   public UseMarkerScope(NamespaceScope p,EObject e,String n,WhereScope w) {
-	  super(p,e,n);
+	  super(p,n);
 	  where = w;
   }
 
@@ -51,13 +51,12 @@ public class UseMarkerScope extends NamespaceScope {
      * @param indent to give block structure
      * @param precedence for infix operators
      * @param lhs if true this is part of left hand side of assignment.
-     * @param callback temporary TODO remove
      * @return
      * 
      * 
      */
     @Override
-    public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+    public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  //res.append("***UseMarkerScope.outputSPAD***");
       return res;
@@ -74,11 +73,10 @@ public class UseMarkerScope extends NamespaceScope {
      * Output export part of SPAD code.
      * @param indent to give block structure
      * @param precedence for infix operators
-     * @param callback temporary TODO remove
      * @return
      */
     @Override
-    public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+    public CharSequence outputSPADExports(int indent,int precedence) {
       StringBuilder res = new StringBuilder("");
       //res.append("***UseMarkerScope.outputSPADExports***");
       return res;

@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -18,11 +17,10 @@ public class VariableDefScope extends NamespaceScope implements DeclarationScope
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public VariableDefScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public VariableDefScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setInitialValue(NamespaceScope scope) {
@@ -50,16 +48,11 @@ public class VariableDefScope extends NamespaceScope implements DeclarationScope
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "var def "+n+":"+typ;
+	  return "var def "+n+":";
   }
 
   /**

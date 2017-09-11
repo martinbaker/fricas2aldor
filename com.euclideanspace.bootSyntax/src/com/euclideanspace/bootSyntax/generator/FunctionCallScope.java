@@ -1,7 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
-
 import com.euclideanspace.bootSyntax.editor.Expr;
 
 /**
@@ -30,11 +28,10 @@ public class FunctionCallScope extends NamespaceScope implements ExprScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public FunctionCallScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public FunctionCallScope(NamespaceScope p,String n) {
+	  super(p,n);
 	  nam = n;
   }
 
@@ -87,20 +84,19 @@ public class FunctionCallScope extends NamespaceScope implements ExprScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  if (nam != null) res.append(nam);
 	  if (exp != null) {
 		if (!(exp instanceof TupleScope)) res.append("("); //tuple outputs its own parenthesis.
-		res.append(exp.outputSPAD(indent,precedence,lhs,callback));
+		res.append(exp.outputSPAD(indent,precedence,lhs));
 		if (!(exp instanceof TupleScope)) res.append(")"); //tuple outputs its own parenthesis.
 	  }
 	  return res;
@@ -113,16 +109,11 @@ public class FunctionCallScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "fn call "+n+":"+typ;
+	  return "fn call "+n+":";
   }
 
 }

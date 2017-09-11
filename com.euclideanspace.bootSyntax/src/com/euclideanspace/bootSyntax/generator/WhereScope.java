@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class WhereScope extends NamespaceScope implements DeclarationScope,StatementScope {
@@ -12,11 +11,10 @@ public class WhereScope extends NamespaceScope implements DeclarationScope,State
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public WhereScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public WhereScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setContent(NamespaceScope scope) {
@@ -41,15 +39,14 @@ public class WhereScope extends NamespaceScope implements DeclarationScope,State
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
       StringBuilder res = new StringBuilder("");
      // res.append("***WhereScope.outputSPADExports***");
     return res;
@@ -65,12 +62,11 @@ public class WhereScope extends NamespaceScope implements DeclarationScope,State
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
     StringBuilder res = new StringBuilder("");
     // res.append("***WhereScope.outputSPADExports***");
     //res.append(qualifiedFunctionName());
@@ -85,16 +81,11 @@ public class WhereScope extends NamespaceScope implements DeclarationScope,State
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "where "+n+":"+typ;
+	  return "where "+n+":";
   }
 
 }

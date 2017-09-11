@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class WhereExprScope extends NamespaceScope implements DeclarationScope,StatementScope {
@@ -11,11 +10,10 @@ public class WhereExprScope extends NamespaceScope implements DeclarationScope,S
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public WhereExprScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public WhereExprScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setContent(NamespaceScope l,NamespaceScope w) {
@@ -31,15 +29,14 @@ public class WhereExprScope extends NamespaceScope implements DeclarationScope,S
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
     StringBuilder res = new StringBuilder("");
-	if (left != null) res.append(left.outputSPADExports(indent+1,precedence,callback));
-	if (wh != null) res.append(wh.outputSPADExports(indent+1,precedence,callback));
+	if (left != null) res.append(left.outputSPADExports(indent+1,precedence));
+	if (wh != null) res.append(wh.outputSPADExports(indent+1,precedence));
     return res;
   }
 
@@ -51,18 +48,17 @@ public class WhereExprScope extends NamespaceScope implements DeclarationScope,S
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent+1,precedence,lhs,callback));
-	  if (wh != null) res.append(wh.outputSPAD(indent+1,precedence,lhs,callback));
+	  if (left != null) res.append(left.outputSPAD(indent+1,precedence,lhs));
+	  if (wh != null) res.append(wh.outputSPAD(indent+1,precedence,lhs));
 	  return res;
   }
 
@@ -73,16 +69,11 @@ public class WhereExprScope extends NamespaceScope implements DeclarationScope,S
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "where expr "+n+":"+typ;
+	  return "where expr "+n+":";
   }
 
 }

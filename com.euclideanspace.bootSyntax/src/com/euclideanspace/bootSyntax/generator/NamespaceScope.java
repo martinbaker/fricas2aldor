@@ -19,7 +19,7 @@ public class NamespaceScope {
   /**
    * link to element of emf model
    */
-  protected EObject emfElement = null;
+  //protected EObject emfElement = null;
 
   protected String name = null;
   /**
@@ -31,12 +31,11 @@ public class NamespaceScope {
    * constructor for NamespaceScope
    * 
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public NamespaceScope(NamespaceScope p,EObject e,String n) {
+  public NamespaceScope(NamespaceScope p,String n) {
 	  parentScope = p;
-	  emfElement = e;
+//	  emfElement = e;
 	  name = n;
   }
 
@@ -76,10 +75,10 @@ public class NamespaceScope {
    */
   public String nameAndType() {
 	  String typ = "null";
-	  if (emfElement != null) {
+/*	  if (emfElement != null) {
 		  typ = emfElement.getClass().toString();
 		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
+	  }*/
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
@@ -97,7 +96,7 @@ public class NamespaceScope {
 	  return res + ")";
   }
 
-  public NamespaceScope getScope(EObject e) {
+/*  public NamespaceScope getScope(EObject e) {
 	  for (NamespaceScope s:subscopes) {
 		  if (s.getEobj() == e) return s;
 	  }
@@ -105,7 +104,7 @@ public class NamespaceScope {
 	  typ = typ.substring(typ.lastIndexOf('.'));
 	  System.err.println("NamespaceScope: Can't find subscope for:"+typ+" in:"+displayDetail());
 	  return new NullScope(null,null,null);
-  }
+  }*/
 
   /**
    * When the scope tree is complete use this to walk the tree to
@@ -148,9 +147,9 @@ public class NamespaceScope {
     return null;
   }
 
-  public EObject getEobj() {
+/*  public EObject getEobj() {
 	  return emfElement;
-  }
+  }*/
 
   public WhereScope getWhereAncestor() {
 	  if (this instanceof WhereScope) return (WhereScope)this;
@@ -229,6 +228,16 @@ public class NamespaceScope {
 
   public String getName() {
 	  return name;  
+  }
+
+  /**
+   * 
+   * @return top level scope
+   */
+  public GlobalScope getGlobal() {
+	  if (parentScope != null) return parentScope.getGlobal();
+      System.err.println("NamespaceScope: cant getGlobal:"+this);
+      return null;   
   }
 
   /**
@@ -436,23 +445,21 @@ public class NamespaceScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    */
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  return new StringBuilder("");
   }
 
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
 	  return new StringBuilder("");
   }
 

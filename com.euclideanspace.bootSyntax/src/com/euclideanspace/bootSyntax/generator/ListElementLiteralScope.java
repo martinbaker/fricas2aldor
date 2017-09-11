@@ -2,7 +2,6 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -25,11 +24,10 @@ public class ListElementLiteralScope extends NamespaceScope implements ExprScope
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public ListElementLiteralScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public ListElementLiteralScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setLEL(boolean c1,boolean e1,NamespaceScope l21,boolean c21,boolean d1) {
@@ -47,34 +45,28 @@ public class ListElementLiteralScope extends NamespaceScope implements ExprScope
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":"+typ;
+	  return "literal "+n+":";
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
       if (c) res.append(":");
       if (e) res.append("=");
-	  if (l2 != null) res.append(l2.outputSPAD(indent+1,precedence,lhs,callback));
+	  if (l2 != null) res.append(l2.outputSPAD(indent+1,precedence,lhs));
       if (c2) res.append(":");
       if (d) res.append(".");
 	  return res;

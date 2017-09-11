@@ -22,6 +22,6 @@ package com.euclideanspace.bootSyntax.generator;
  * GlobalVariable -> VariableDefScope 
  */
 public interface DeclarationScope {
-	public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback);
-	public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback);
+	public CharSequence outputSPAD(int indent,int precedence,boolean lhs);
+	public CharSequence outputSPADExports(int indent,int precedence);
 }

@@ -1,7 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * Holds variable (which is not a parameter). That is when a variable
  * is being used (in VarOrFunction) not necessarily when it is defined.
@@ -16,11 +14,10 @@ public class VarCallScope extends NamespaceScope {
   /**
    * constructor for VarCallScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public VarCallScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public VarCallScope(NamespaceScope p,String n) {
+	  super(p,n);
 	  nam=n;
   }
 
@@ -66,15 +63,14 @@ public class VarCallScope extends NamespaceScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  if (vs != null) res.append(vs.toString());
 	  else if (nam != null) res.append(nam);
@@ -90,16 +86,11 @@ public class VarCallScope extends NamespaceScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "local var "+n+":"+typ;
+	  return "VarCall "+n+":";
   }
 
 }

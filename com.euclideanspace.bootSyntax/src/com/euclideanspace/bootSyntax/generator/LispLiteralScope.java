@@ -2,7 +2,6 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -20,11 +19,10 @@ public class LispLiteralScope extends NamespaceScope implements ExprScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public LispLiteralScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public LispLiteralScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setLL(int numPrimes1,NamespaceScope lispSubLiteralScope1) {
@@ -42,33 +40,27 @@ public class LispLiteralScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":"+typ;
+	  return "literal "+n+":";
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  for (int i=0; i<numPrimes; i++) res.append("'");
-	  if (lispSubLiteralScope != null) res.append(lispSubLiteralScope.outputSPAD(indent+1,precedence,lhs,callback));
+	  if (lispSubLiteralScope != null) res.append(lispSubLiteralScope.outputSPAD(indent+1,precedence,lhs));
 	  return res;
   }
 

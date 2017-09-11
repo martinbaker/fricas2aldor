@@ -1,19 +1,23 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.ArrayList;
 
-import com.euclideanspace.bootSyntax.editor.VarOrFunction;
+import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class ParameterScope extends NamespaceScope {
+  private VarCallScope vcs = null;
+  private BinaryOpScope bos = null;
+  private ListLiteralScope lls = null;
+  private UnaryOpScope uoss = null;
+  private VariableTree varInfo = null;
 
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public ParameterScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public ParameterScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   /**
@@ -37,28 +41,56 @@ public class ParameterScope extends NamespaceScope {
    * @param expr parameter
    */
   @Override
-  public void setVarOrFunctionExpr(String nam,NamespaceScope expr) {
- 	  
+  public void setVarOrFunctionExpr(String nam1,NamespaceScope expr1) {
+
   }
+
+  /**
+   * VarOrFunction
+   * {VarOrFunction} name=TK_ID expr=UnaryExpression?)
+   * If expr exists then this is usually a function
+   * except if it is UnaryExpression with loc=true
+   */
+  	/*def CharSequence compile(int indent,int precedence,boolean lhs,VarOrFunction varOrFunction,NamespaceScope parentScope) {
+  	    var boolean isVar=true;
+  	    if (varOrFunction.expr !== null) {
+  	      isVar=false;
+            if (varOrFunction.expr instanceof UnaryExpression) {
+  	      	var UnaryExpression u = varOrFunction.expr as UnaryExpression
+  	      	if (u.uop == ":") isVar=true;
+  	      }
+  	    }
+  	    //System.err.println("EditorGenerator.compile: called with isVar:"+isVar);
+  	    if(isVar) {
+  	      return compileVar(indent,precedence,lhs,varOrFunction,parentScope)
+  	    } else {
+  	      return compileFunction(indent,precedence,lhs,varOrFunction,parentScope)
+  	    }
+        }*/
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
-	  if (emfElement instanceof VarOrFunction) {
+	  if (varInfo  != null) {
+	    res.append(varInfo.variables());
+	    res.append(":parameter");
+      }
+	  else System.err.println("ParameterScope.outputSPAD: nam == null:");
+	  
+/*	  if (emfElement instanceof VarOrFunction) {
 		VarOrFunction function = (VarOrFunction)emfElement;
 	    res.append(callback.compile(indent,precedence,lhs,function,parentScope));
 	    //System.err.println("ParameterScope.outputSPAD: emfElement(VarOrFunction):"+emfElement);
-	  } else System.err.println("ParameterScope.outputSPAD: emfElement:"+emfElement);
+	  } else System.err.println("ParameterScope.outputSPAD: emfElement:"+emfElement);*/
 	  return res;
   }
 
@@ -69,16 +101,52 @@ public class ParameterScope extends NamespaceScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "parameter "+n+":"+typ;
+	  return "parameter "+n+":";
   }
+
+  /*          if (p instanceof VarOrFunction) {
+	val VarOrFunction pv = p as VarOrFunction;
+	n = pv.name;
+} else if (p instanceof IsExpression) {xxx
+	// TODO set variable info here
+} else if (p instanceof ListLiteral) {
+	// TODO set variable info here
+} else if (p instanceof UnaryExpression) {
+	// TODO set variable info here
+} else if (p instanceof AssignExpression) {
+	// TODO set variable info here
+} else {
+	System.err.println("EditorGenerator.setNamespace: unusual parameter:"+p);
+}
+val NamespaceScope parSc = setNamespace(ns,precedence,p,RefType.Parameter)
+if (parSc instanceof ParameterScope) {
+	var ParameterScope ps = parSc as ParameterScope;
+	ps.setVarOrFunctionExpr(n,null);
+	ns.addParameter(ps);
+	//System.err.println("EditorGenerator.setNamespace: added parameter as ParameterScope:"+p);
+} else {
+	//System.err.println("EditorGenerator.setNamespace: parameter not stored as ParameterScope:"+p);
+}
+val VariableTree par = new VariableTree(p);
+if (par !== null) params.add(par);*/
+
+public void addParameterInfo(NamespaceScope scope) {
+	if (scope instanceof VarCallScope) {
+	  vcs = (VarCallScope)scope;
+	  varInfo = new VariableTree(vcs.getName(),null);
+	} else if (scope instanceof BinaryOpScope) {
+	  bos = (BinaryOpScope)scope;
+	} else if (scope instanceof ListLiteralScope) {
+	  lls = (ListLiteralScope)scope;
+	} else if (scope instanceof UnaryOpScope) {
+	  uoss = (UnaryOpScope)scope;
+	} else {
+		System.err.println("ParameterScope.addParameterInfo: unusual parameter:"+scope.nameAndType());
+	}
+}
 
 }

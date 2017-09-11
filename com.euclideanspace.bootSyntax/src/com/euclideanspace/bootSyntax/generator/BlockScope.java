@@ -2,10 +2,6 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
-
-import com.euclideanspace.bootSyntax.editor.Block;
-
 /**
  * PrimaryExpression returns Expr:
   (
@@ -32,26 +28,26 @@ import com.euclideanspace.bootSyntax.editor.Block;
 public class BlockScope extends NamespaceScope implements ExprScope {
 
   private ArrayList<NamespaceScope> statements= new ArrayList<NamespaceScope>();
-  private WhereScope where = null;
+  //private WhereScope where = null;
   private boolean minus = false;
 
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public BlockScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public BlockScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void addStatement(NamespaceScope s) {
 	  statements.add(s);
   }
 
-  public void setWhere(NamespaceScope where1,boolean minus1) {
-	  if (where1 instanceof WhereScope) where = (WhereScope)where1;
-	  else System.err.println("BlockScope.setWhere error:"+where1);
+  public void setWhereExpr(NamespaceScope where1,boolean minus1) {
+	  //if (where1 instanceof WhereScope) where = (WhereScope)where1;
+	  //else System.err.println("BlockScope.setWhere error:"+where1);
+	  addStatement(where1);
 	  minus = minus1;
   }
 
@@ -68,15 +64,14 @@ public class BlockScope extends NamespaceScope implements ExprScope {
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
     StringBuilder res = new StringBuilder("");
     for (NamespaceScope statement: statements) {
-    	if (statement != null) res.append(statement.outputSPADExports(indent+1,precedence,callback));
+    	if (statement != null) res.append(statement.outputSPADExports(indent+1,precedence));
     }
     return res;
   }
@@ -84,25 +79,24 @@ public class BlockScope extends NamespaceScope implements ExprScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
     StringBuilder res = new StringBuilder("");
     for (NamespaceScope statement: statements) {
     	res.append(EditorGenerator.newline(indent+1));
-    	if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs,callback));
+    	if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs));
     }
-    if (where != null) {
+/*    if (where != null) {
       res.append(EditorGenerator.newline(indent));
       if (minus) res.append("-");
-      res.append(where.outputSPAD(indent+1,precedence,lhs,callback));
-    }
+      res.append(where.outputSPAD(indent+1,precedence,lhs));
+    }*/
     return res;
   }
 
@@ -122,16 +116,11 @@ public class BlockScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "block "+n+":"+typ;
+	  return "block "+n+":";
   }
 
 }

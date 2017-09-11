@@ -1,7 +1,6 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
-import org.eclipse.emf.ecore.EObject;
 
 public class LoopScope extends NamespaceScope implements StatementScope {
 
@@ -39,11 +38,10 @@ For:
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public LoopScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public LoopScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   /**
@@ -62,26 +60,25 @@ For:
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
     StringBuilder res = new StringBuilder("");
     for (LoopCond lc: loopConditions) {
-      res.append(lc.outputSPAD(indent,precedence,lhs,callback));
+      res.append(lc.outputSPAD(indent,precedence,lhs));
     }
     if (bar != null) {
     	res.append(" | ");
-    	res.append(bar.outputSPAD(indent,precedence,lhs,callback));
+    	res.append(bar.outputSPAD(indent,precedence,lhs));
     }
     if (repeatBlock != null) {
     	res.append(" repeat ");
-    	res.append(repeatBlock.outputSPAD(indent,precedence,lhs,callback));
+    	res.append(repeatBlock.outputSPAD(indent,precedence,lhs));
     }
     return res;
   }
@@ -116,15 +113,10 @@ For:
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "loop "+n+":"+typ;
+	  return "loop "+n+":";
   }
 }

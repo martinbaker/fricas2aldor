@@ -2,7 +2,6 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 /**
@@ -34,11 +33,10 @@ public class LispSubLiteralScope extends NamespaceScope implements ExprScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public LispSubLiteralScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public LispSubLiteralScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
   
   public void addAsl(NamespaceScope scope) {
@@ -61,30 +59,24 @@ public class LispSubLiteralScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":"+typ;
+	  return "literal "+n+":";
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  if (name != null) res.append(name);
 	  if (key != null) res.append(key);
@@ -92,7 +84,7 @@ public class LispSubLiteralScope extends NamespaceScope implements ExprScope {
 	  if (num != null) res.append(num);
 	  if (st != null) res.append(st);
 	  for (LispAnnotatedSubLiteralScope statement: asl) {
-	    if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs,callback));
+	    if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs));
 	  }
 	  return res;
   }

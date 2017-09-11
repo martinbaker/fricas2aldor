@@ -1,6 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class BinaryOpScope extends NamespaceScope implements ExprScope {
@@ -13,11 +12,10 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public BinaryOpScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public BinaryOpScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
 
   public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
@@ -37,43 +35,36 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
    */
   @Override
   public String nameAndType() {
-	  String typ = "null";
-	  if (emfElement != null) {
-		  typ = emfElement.getClass().toString();
-		  typ = typ.substring(typ.lastIndexOf('.'));
-	  }
-	  return "binary op "+oper+":"+typ;
+	  return "binary op "+oper+":";
   }
 
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
    * @return
    */
   @Override
-  public CharSequence outputSPADExports(int indent,int precedence,EditorGenerator callback) {
+  public CharSequence outputSPADExports(int indent,int precedence) {
     StringBuilder res = new StringBuilder("");
-	if (left != null) res.append(left.outputSPADExports(indent+1,precedence,callback));
-	if (right != null) res.append(right.outputSPADExports(indent+1,precedence,callback));
+	if (left != null) res.append(left.outputSPADExports(indent+1,precedence));
+	if (right != null) res.append(right.outputSPADExports(indent+1,precedence));
     return res;
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
-   * @param precedence for infix operators
-   * @param lhs if true this is part of left hand side of assignment.
-   * @param callback temporary TODO remove
+ * @param precedence for infix operators
+ * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
+  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs,callback));
+	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs));
 	  if (oper != null) {
 		  if(oper.compareTo("in")==0) oper=oper+" ";
 		  else if (oper.compareTo("is")==0) oper=oper+" ";
@@ -86,10 +77,10 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  else if (oper.compareTo("exquo")==0) oper=oper+" ";
 		  res.append(oper);
 	  }
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs,callback));
+	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs));
 	  if (by != null) {
 		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs,callback));
+		  res.append(by.outputSPAD(indent,precedence,lhs));
 	  }
 	  return res;
   }

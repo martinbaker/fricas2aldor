@@ -1,23 +1,20 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import org.eclipse.emf.ecore.EObject;
-
 public class NullScope extends NamespaceScope {
 
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
-   * @param e emfElement
-   * @param n name
+ * @param n name
    */
-  public NullScope(NamespaceScope p,EObject e,String n) {
-	  super(p,e,n);
+  public NullScope(NamespaceScope p,String n) {
+	  super(p,n);
   }
   
-  @Override
+/*  @Override
   public NamespaceScope getScope(EObject e) {
 	  return new NullScope(null,null,null);
-  }
+  }*/
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
