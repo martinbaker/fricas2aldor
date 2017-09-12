@@ -64,17 +64,17 @@ public class FileScope extends NamespaceScope {
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
-	  res.append(EditorGenerator.newline(indent));
+	  StringBuilder res = new StringBuilder(newline(indent));
+	  res.append(newline(indent));
 	  res.append("Implementation ==> add");
-	  res.append(EditorGenerator.newline(indent+1));
+	  res.append(newline(indent+1));
       // import from BootEnvir
 	  Imports imp= new Imports(this,getGlobal());
 	  for (String x:imp.display()) {
-		  res.append(EditorGenerator.newline(indent+1));
+		  res.append(newline(indent+1));
 	      res.append(x);
 	  }
-	  res.append(EditorGenerator.newline(indent+1));
+	  res.append(newline(indent+1));
 	  for (DeclarationScope x: declarations) {
 		  res.append(x.outputSPAD(indent+1,precedence,lhs));
 		  //compile(indent+1,precedence,false,x,scope);
@@ -97,9 +97,9 @@ public class FileScope extends NamespaceScope {
    */
   @Override
   public CharSequence outputSPADExports(int indent,int precedence) {
-    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    StringBuilder res = new StringBuilder(newline(indent));
     res.append("Exports ==> with");
-    res.append(EditorGenerator.newline(indent+1));
+    res.append(newline(indent+1));
     for (DeclarationScope x: declarations) {
       res.append(x.outputSPADExports(indent+1,precedence));
     }

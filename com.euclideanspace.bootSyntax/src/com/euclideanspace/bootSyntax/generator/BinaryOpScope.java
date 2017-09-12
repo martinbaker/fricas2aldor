@@ -4,6 +4,7 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class BinaryOpScope extends NamespaceScope implements ExprScope {
 
+  int thisPrecidence;
   NamespaceScope left;
   NamespaceScope right;
   NamespaceScope by; // used in 'in'
@@ -18,7 +19,8 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 	  super(p,n);
   }
 
-  public void setBinOp(NamespaceScope lft,NamespaceScope rht,String op) {
+  public void setBinOp(int p,NamespaceScope lft,NamespaceScope rht,String op) {
+	  thisPrecidence = p;
 	  left =lft;
 	  right =rht;
 	  oper = op;
@@ -55,16 +57,17 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
- * @param precedence for infix operators
- * @param lhs if true this is part of left hand side of assignment.
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
+  public CharSequence outputSPAD(int indent,int parentPrecedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
-	  if (left != null) res.append(left.outputSPAD(indent,precedence,lhs));
+	  res.append(cop(thisPrecidence,parentPrecedence)); //TODO set correct precedence for each oper
+	  if (left != null) res.append(left.outputSPAD(indent,thisPrecidence,lhs));
 	  if (oper != null) {
 		  if(oper.compareTo("in")==0) oper=oper+" ";
 		  else if (oper.compareTo("is")==0) oper=oper+" ";
@@ -77,11 +80,12 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
 		  else if (oper.compareTo("exquo")==0) oper=oper+" ";
 		  res.append(oper);
 	  }
-	  if (right != null) res.append(right.outputSPAD(indent,precedence,lhs));
+	  if (right != null) res.append(right.outputSPAD(indent,thisPrecidence,lhs));
 	  if (by != null) {
 		  res.append(" by ");
-		  res.append(by.outputSPAD(indent,precedence,lhs));
+		  res.append(by.outputSPAD(indent,thisPrecidence,lhs));
 	  }
+	  res.append(ccp(thisPrecidence,parentPrecedence)); //TODO set correct precedence for each oper
 	  return res;
   }
 

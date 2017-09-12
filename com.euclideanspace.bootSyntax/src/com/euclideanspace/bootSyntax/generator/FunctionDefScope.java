@@ -328,7 +328,7 @@ FunctionDef:
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  //System.out.println("FunctionDefScope.outputSPAD name="+qualifiedFunctionName());
-	  StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+	  StringBuilder res = new StringBuilder(newline(indent));
 	  res.append(qualifiedFunctionName());
 	  res.append("(");
 	  boolean followOn = false;
@@ -342,16 +342,16 @@ FunctionDef:
 	  else res.append(" ==");
 	  if (contents != null) res.append(contents.outputSPAD(indent,precedence,lhs));
       if(where != null) {
-    	  res.append(EditorGenerator.newline(indent));
+    	  res.append(newline(indent));
     	  res.append(where.outputSPAD(indent,precedence,lhs));
       }
-      res.append(EditorGenerator.newline(indent));
+      res.append(newline(indent));
 	  ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
 	  for (FunctionDefScope ifds:innerFn) {
 		  //System.out.println("FunctionDefScope.outputSPAD use="+ifds);
-	      //res.append(EditorGenerator.newline(indent));
+	      //res.append(newline(indent));
 	      res.append(ifds.outputSPAD(indent,precedence,lhs));
-	      res.append(EditorGenerator.newline(indent));
+	      res.append(newline(indent));
 	  }
 	  return res;
   }
@@ -418,7 +418,7 @@ or for LambdaExpression we have:
   }
   
   public CharSequence outputInnerDefSPADExports(int indent,int precedence) {
-	    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+	    StringBuilder res = new StringBuilder(newline(indent));
         String fnName="cantGetName";
         ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         FunctionSignature fs = getFunctionSignature();
@@ -443,7 +443,7 @@ or for LambdaExpression we have:
   @Override
   public CharSequence outputSPADExports(int indent,int precedence) {
 	if (innerFunction) return outputInnerDefSPADExports(indent,precedence);
-    StringBuilder res = new StringBuilder(EditorGenerator.newline(indent));
+    StringBuilder res = new StringBuilder(newline(indent));
     res.append(qualifiedFunctionName());
     // TODO add primes?
     res.append(": (BootEnvir");
@@ -456,15 +456,15 @@ or for LambdaExpression we have:
     res.append(") -> SExpression");
 	if (contents != null) res.append(contents.outputSPADExports(indent,precedence));
     if(where != null) {
-  	  res.append(EditorGenerator.newline(indent));
+  	  res.append(newline(indent));
   	  res.append(where.outputSPADExports(indent,precedence));
     }
 	ArrayList<FunctionDefScope> innerFn =getInnerFuncDefs();
     for (FunctionDefScope ifds:innerFn) {
       // TODO check that this is lambda
-      //res.append(EditorGenerator.newline(indent));
+      //res.append(newline(indent));
       res.append(ifds.outputSPADExports(indent,precedence));
-      //res.append(EditorGenerator.newline(indent));
+      //res.append(newline(indent));
     }
     return res;
   }

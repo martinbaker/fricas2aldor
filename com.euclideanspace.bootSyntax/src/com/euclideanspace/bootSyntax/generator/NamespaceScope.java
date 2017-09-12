@@ -39,6 +39,62 @@ public class NamespaceScope {
 	  name = n;
   }
 
+  public CharSequence newline(int indent) {
+		String s= System.lineSeparator();
+		for(int i=0; i<indent; i++) {
+			s=s+"  ";
+		}
+		return s;
+	}
+
+  /*
+   * cop (conditional open parenthesis)
+   * This inserts open parenthesis only if it is required by
+   * precedence rules.
+   */
+  public String cop(int innerprecedence,int outerprecedence) {
+		if (innerprecedence < outerprecedence) return "(";
+		else return "";
+	}
+
+  /*
+   * ccp (conditional close parenthesis)
+   * This inserts close parenthesis only if it is required by
+   * precedence rules.
+   */
+  public String ccp(int innerprecedence,int outerprecedence) {
+		if (innerprecedence < outerprecedence) return ")";
+		else return "";
+	}
+
+  /**
+   * called when a variable name is used
+   * used by compileVar which is used by compile on VarOrFunction
+   */
+/*	def String getVariable(String a,boolean lhs,NamespaceScope scope) {
+		if (scope !== null) {
+			val VariableSpec vs = scope.lookupVariableType(a);
+			if (vs !== null) return vs.toString();
+		}
+		return a+":cantResolve";
+	}*/
+
+  /*
+   * some keywords are changed so that they are not taken as keywords
+   * in our language. This changes them back to what they should be.
+   */
+  /*	def String cleanID(String a) {
+  		if (a.equals("if1")) return "if"
+  		if (a.equals("and1")) return "and"
+  		if (a.equals("or1")) return "or"
+  		if (a.equals("not1")) return "not"
+  		if (a.equals("is1")) return "is"
+  		if (a.equals("package1")) return "package"
+  		if (a.equals("local1")) return "local"
+  		if (a.equals("until1")) return "until"
+  		return a
+  	}*/
+
   /**
    * Called in EditorGenerator.setNamespace to set name and expr for 
    * 

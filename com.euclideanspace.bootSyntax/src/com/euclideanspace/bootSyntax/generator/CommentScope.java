@@ -7,11 +7,12 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 public class CommentScope extends NamespaceScope implements DeclarationScope,StatementScope {
 
   private ArrayList<String> comments = new ArrayList<String>();
+  private boolean wrapinif = false;
 
   /**
    * constructor for FunctionDefScope
    * @param p parentScope
- * @param n name
+   * @param n name
    */
   public CommentScope(NamespaceScope p,String n) {
 	  super(p,n);
@@ -21,29 +22,35 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
 	  comments.add(c);
   }
 
-  public void setSwitch(NamespaceScope scope) {
-    //TODO store true or false from this
+  public void setSwitch(NamespaceScope scope,boolean endif) {
+	  wrapinif = true;
   }
 
   /**
    * Output SPAD code.
    * @param indent to give block structure
- * @param precedence for infix operators
- * @param lhs if true this is part of left hand side of assignment.
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
    * @return
-   * 
-   * 
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
+	  if (wrapinif) {
+        res.append(newline(indent));
+        res.append(")if true");
+	  }
 	  boolean followon = false;
 	  for (String x: comments) {
-		  if (followon) res.append(EditorGenerator.newline(indent));
+		  if (followon) res.append(newline(indent));
 		  res.append(x);
 		  followon = true;
 	  }
-	  return res;
+      if (wrapinif) {
+        res.append(")endif");
+        res.append(newline(indent));
+      }
+      return res;
   }
 
   /** Override function in NamespaceScope

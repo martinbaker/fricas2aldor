@@ -23,8 +23,16 @@ public class InsertLine {
 	  prefix = p;
   }
 
+  public CharSequence newline(int indent) {
+		String s= System.lineSeparator();
+		for(int i=0; i<indent; i++) {
+			s=s+"  ";
+		}
+		return s;
+	}
+
   public String outputInserted(int indent) {
-	  String res=(String) EditorGenerator.newline(indent);
+	  String res=(String) newline(indent);
 	  res = res + "********";
 	  if (isList != null) {
 		  res = res + isList.output("listTree", "");

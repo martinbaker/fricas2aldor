@@ -22,6 +22,7 @@ PrimaryExpression  |
  */
 public class UnaryOpScope extends NamespaceScope implements ExprScope {
 
+  int thisPrecidence;
   NamespaceScope expr;
   String oper;
 
@@ -34,10 +35,24 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
 	  super(p,n);
   }
 
-  public void setUnaryOp(NamespaceScope e, String op) {
+  public void setUnaryOp(int p,NamespaceScope e, String op) {
+	  thisPrecidence = p;
 	  expr = e;
 	  oper = op;
   }
+
+  /**
+   * Due to an issue in parsing (distinguishing between unary minus and
+   * binary minus) this is called from a version of block
+   * @param scope expression being negated.
+   * @param b true if minus
+   */
+  public void setMinusExpr(NamespaceScope scope, boolean m) {
+	  thisPrecidence = 50;
+	  expr = scope;
+	  if (m) oper = "-";
+	  else oper = "+";
+	}
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
@@ -56,15 +71,16 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
- * @param precedence for infix operators
- * @param lhs if true this is part of left hand side of assignment.
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
    * @return
    * 
    * 
    */
   @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
+  public CharSequence outputSPAD(int indent,int parentPrecedence,boolean lhs) {
 	StringBuilder res = new StringBuilder("");
+	res.append(cop(thisPrecidence,parentPrecedence)); //TODO set correct precedence for each oper
 	if (oper != null) {
 	  if(oper.compareTo("*./")==0) oper="*/" ;
 	  else if (oper.compareTo("not")==0) oper=oper+" ";
@@ -72,10 +88,10 @@ public class UnaryOpScope extends NamespaceScope implements ExprScope {
       res.append(oper);
 	}
 	res.append(" ");
-	if (expr != null) res.append(expr.outputSPAD(indent,precedence,lhs));
+	if (expr != null) res.append(expr.outputSPAD(indent,parentPrecedence,lhs));
+	res.append(ccp(thisPrecidence,parentPrecedence)); //TODO set correct precedence for each oper
 	return res;
   }
-
 
 
 }

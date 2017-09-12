@@ -17,6 +17,7 @@ import java.util.ArrayList;
 	({Block} c2?=KW_OCURLY (s+=Statement NL)* KW_CCURLY )
 	|
 	({Block} c3?=KW_OCHEV m?=KW_MINUS? t4=WhereExpression KW_CCHEV )
+*** this is sent to UnaryOpScope ***
 	
   )
   d?=KW_2DOT? // for segment with no end part
@@ -28,14 +29,12 @@ import java.util.ArrayList;
 public class BlockScope extends NamespaceScope implements ExprScope {
 
   private ArrayList<NamespaceScope> statements= new ArrayList<NamespaceScope>();
-  //private WhereScope where = null;
-  private boolean minus = false;
 
-  /**
-   * constructor for FunctionDefScope
-   * @param p parentScope
+/**
+ * constructor for FunctionDefScope
+ * @param p parentScope
  * @param n name
-   */
+ */
   public BlockScope(NamespaceScope p,String n) {
 	  super(p,n);
   }
@@ -44,27 +43,10 @@ public class BlockScope extends NamespaceScope implements ExprScope {
 	  statements.add(s);
   }
 
-  public void setWhereExpr(NamespaceScope where1,boolean minus1) {
-	  //if (where1 instanceof WhereScope) where = (WhereScope)where1;
-	  //else System.err.println("BlockScope.setWhere error:"+where1);
-	  addStatement(where1);
-	  minus = minus1;
-  }
-
-/*
- * 	def CharSequence compileExports(int indent,int precedence,Block expr,NamespaceScope parentScope)
-        '''
-	    «val NamespaceScope scope =parentScope.getScope(expr)»«
-        IF expr.b»«
-	      FOR x:expr.s»«
-	        compileExports(indent+1,0,x,scope)»«
-	      ENDFOR»«
-	    ENDIF»'''
- */
   /**
    * Output export part of SPAD code.
    * @param indent to give block structure
- * @param precedence for infix operators
+   * @param precedence for infix operators
    * @return
    */
   @Override
@@ -79,35 +61,19 @@ public class BlockScope extends NamespaceScope implements ExprScope {
   /**
    * Output SPAD code.
    * @param indent to give block structure
- * @param precedence for infix operators
- * @param lhs if true this is part of left hand side of assignment.
+   * @param precedence for infix operators
+   * @param lhs if true this is part of left hand side of assignment.
    * @return
-   * 
-   * 
    */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
     StringBuilder res = new StringBuilder("");
     for (NamespaceScope statement: statements) {
-    	res.append(EditorGenerator.newline(indent+1));
+    	res.append(newline(indent+1));
     	if (statement != null) res.append(statement.outputSPAD(indent+1,precedence,lhs));
     }
-/*    if (where != null) {
-      res.append(EditorGenerator.newline(indent));
-      if (minus) res.append("-");
-      res.append(where.outputSPAD(indent+1,precedence,lhs));
-    }*/
     return res;
   }
-
-/*  @Override
-  public CharSequence outputSPAD(int indent,int precedence,boolean lhs,EditorGenerator callback) {
-	  StringBuilder res = new StringBuilder("");
-	  Block function = (Block)emfElement;
-	  res.append(callback.compile(indent,precedence,lhs,function,parentScope));
-	  return res;
-  }
-*/
   
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
