@@ -186,7 +186,7 @@ public class NamespaceScope {
    * Similar to lookupVariableType but caches result in Scope tree
    * 
    * @param nam variable name
-   * @return
+   * @return definition of that variable (may be VariableDefScope or Assign or ParameterScope)
    */
   public VariableSpec resolveVariableName(String nam) {
 	if (parentScope != null) return parentScope.resolveVariableName(nam);
@@ -292,6 +292,16 @@ public class NamespaceScope {
    */
   public GlobalScope getGlobal() {
 	  if (parentScope != null) return parentScope.getGlobal();
+      System.err.println("NamespaceScope: cant getGlobal:"+this);
+      return null;   
+  }
+
+  /**
+   * 
+   * @return file scope containing this
+   */
+  public FileScope getFile() {
+	  if (parentScope != null) return parentScope.getFile();
       System.err.println("NamespaceScope: cant getGlobal:"+this);
       return null;   
   }

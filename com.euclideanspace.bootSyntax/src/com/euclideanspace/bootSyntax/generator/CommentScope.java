@@ -23,6 +23,7 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
   }
 
   public void setSwitch(NamespaceScope scope,boolean endif) {
+	  //System.err.println("CommentScope.setSwitch: scope="+scope+" endif="+endif);
 	  wrapinif = true;
   }
 
@@ -36,17 +37,19 @@ public class CommentScope extends NamespaceScope implements DeclarationScope,Sta
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
+	  boolean followon = false;
 	  if (wrapinif) {
         res.append(newline(indent));
         res.append(")if true");
+        followon = true;
 	  }
-	  boolean followon = false;
 	  for (String x: comments) {
 		  if (followon) res.append(newline(indent));
 		  res.append(x);
 		  followon = true;
 	  }
       if (wrapinif) {
+        res.append(newline(indent));
         res.append(")endif");
         res.append(newline(indent));
       }

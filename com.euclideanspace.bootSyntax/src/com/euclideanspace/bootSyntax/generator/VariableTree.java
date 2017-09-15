@@ -34,6 +34,11 @@ public class VariableTree {
 	private VariableTree unary = null;
 	private String unaryType = "";
 
+    private boolean colonPre = false;
+    private boolean equals = false;
+    private boolean colonPost = false;
+    private boolean dot = false;
+
 /*
  * ListLiteral:
 // may be empty list so ob ensures literal is created
@@ -61,6 +66,54 @@ ListComprehension:
   )
 
  */
+
+  /**
+   * Construct from scope, for example, expression of parameter.
+   * @param scope
+   */
+  VariableTree(NamespaceScope scope) {
+    if (scope instanceof VarCallScope) {
+      VarCallScope vcs = (VarCallScope)scope;
+      n=vcs.getName();
+    } else if (scope instanceof BinaryOpScope) {
+      BinaryOpScope bos = (BinaryOpScope)scope;
+      VariableTree lft = new VariableTree(bos.left);
+      lst.add(lft);
+      VariableTree rht = new VariableTree(bos.right);
+      lst.add(rht);
+    } else if (scope instanceof ListLiteralScope) {
+      ListLiteralScope lls = (ListLiteralScope)scope;
+      for (NamespaceScope subscope : lls.subscopes) {
+        if (subscope instanceof ListElementLiteralScope) {
+          VariableTree lels = new VariableTree((ListElementLiteralScope)subscope);
+          lst.add(lels);
+        }
+      }
+    } else if (scope instanceof ListElementLiteralScope) {
+      ListElementLiteralScope lels = (ListElementLiteralScope)scope;
+      colonPre = lels.isC();
+      equals = lels.isE();
+      colonPost =  lels.isC2();
+      dot =  lels.isD();
+      if (lels.getL2() != null) {
+        VariableTree l2 = new VariableTree(lels.getL2());
+        lst.add(l2);
+      }
+      //System.err.println("VariableTree.construct: parameter:"+lls);
+    } else if (scope instanceof UnaryOpScope) {
+        UnaryOpScope uoss = (UnaryOpScope)scope;
+    	  unary = new VariableTree(uoss.expr);
+    	  unaryType = uoss.oper; 
+    } else if (scope instanceof LiteralScope) {
+      LiteralScope ls = (LiteralScope)scope;
+  	  n=ls.name; 
+    } else if (scope instanceof LispLiteralScope) {
+    	LispLiteralScope lls = (LispLiteralScope)scope;
+    	  n=lls.name; 
+    } else {
+      System.err.println("VariableTree.construct: unusual parameter:"+scope.nameAndType());
+    }
+  }
 
 	/**
 	 * Construct from expression
@@ -250,20 +303,34 @@ ListComprehension:
 		return res;
 	}
 	
-	/**
-	 * display is used by display() in FunctionSignature which is used
-	 * by fsa.generateFile("namespace.txt",vars.showDefs())
-	 * @return result
-	 */
-	public String display() {
-		String res = n;
-		if (lst.size() > 0) {
-		  res = res + "[";
-		  for (VariableTree sub:lst) {
-			  res = res + "," + sub.display();
-		  }
-		  res = res + "]";
-		}
-		return res;
+/**
+ * display is used by display() in FunctionSignature which is used
+ * by fsa.generateFile("namespace.txt",vars.showDefs())
+ * @return result
+ */
+  public String display() {
+	String res = "";
+	if (colonPre) res = res + ":";
+	if (equals) res = res + "=";
+	if (n != null) res = res + n;
+	if (colonPost) res = res + ":";
+	if (dot) res = res + ".";
+    if (unary != null) {
+    	res = res + unaryType;
+    	res = res + "(";
+    	res = res + unary.display();
+    	res = res + ")";
+    }
+	if (lst.size() > 0) {
+	  res = res + "[";
+	  boolean followon = false;
+	  for (VariableTree sub:lst) {
+		  if (followon) res = res + ",";
+		  res = res + sub.display();
+		  followon = true;
+	  }
+	  res = res + "]";
 	}
+	return res;
+  }
 }

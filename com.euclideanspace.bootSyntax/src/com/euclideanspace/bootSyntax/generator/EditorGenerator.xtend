@@ -87,7 +87,7 @@ class EditorGenerator extends AbstractGenerator {
      * in every function*/
     var String currentFile ="";
     var String currentFunction ="";
-    var String bootPkg ="";
+//    var String bootPkg ="";
     /** When walking the tree we cant insert because that could be
     * unstable, so store list of injects for later.*/
     Injects inj = new Injects();
@@ -109,11 +109,16 @@ class EditorGenerator extends AbstractGenerator {
         val ResourceSet rs = resource.resourceSet;
         val EList<Resource> res = rs.getResources();
         for (Resource r:res) {
-          className(r);// sets currentFile
+          val String fileName = className(r);// sets currentFile
           var EObject m = r.contents.head;
-          if (m instanceof Model)
+          if (m instanceof Model) {
             //printMem();
-            setNamespace(vars,m as Model);
+            val NamespaceScope ns = setNamespace(vars,m as Model);
+            if (ns instanceof FileScope) {
+            	val FileScope fs = ns as FileScope;
+            	fs.setFileName(fileName);
+            }
+          }
         }
         // inject extra nodes into tree that cant be done when walking tree
         inj.doIt();
@@ -136,9 +141,9 @@ class EditorGenerator extends AbstractGenerator {
       	System.err.println("EditorGenerator: doGenerate called before vars setup:"+resource.className);
       	return;
       }
-      className(resource); // sets currentFile
+      val String filename = className(resource); // sets currentFile
       //System.out.println("currentFile="+currentFile+" import="+vars.importList(currentFile));
-      if ("apply".equals(currentFile))
+      if ("apply".equals(filename))
         fsa.generateFile(resource.className+".spad", compile(0,0,false,resource.contents.head as Model,vars))
     }
 
@@ -234,7 +239,7 @@ class EditorGenerator extends AbstractGenerator {
 	/** Package */
 	def NamespaceScope setNamespace(NamespaceScope parent,Package package1) {
 		if (package1.p !== null) {
-			bootPkg = package1.p;
+//			bootPkg = package1.p;
 			if (parent instanceof FileScope) (parent as FileScope).setPackageName(package1.p); 
 		}
       // dont need separate node for package statement.
@@ -348,7 +353,9 @@ class EditorGenerator extends AbstractGenerator {
 		// setup parameters
         var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
         for (Expr p:function.params) {
-          var ParameterScope ps = new ParameterScope(parent,currentFunction);
+          var String nm = "unknown name";
+          //if (p != null) nm = p.display();
+          var ParameterScope ps = new ParameterScope(ns,nm);
           ns.addParameter(ps);
           ns.addSubscope(ps);
           val NamespaceScope parSc = setNamespace(ns,p)
@@ -359,7 +366,7 @@ class EditorGenerator extends AbstractGenerator {
           val VariableTree par = new VariableTree(function.j,null);
           if (par !== null) params.add(par);
         }
-        ns.addFunctionDef(function.name,null,currentFile,bootPkg,params,0,(function.fp).size());
+        ns.addFunctionDef(function.name,null,params,0,(function.fp).size());
         // statements which may be a block
 	    if (function.st !== null) {
 	      val NamespaceScope c = setNamespace(ns,function.st);
@@ -640,7 +647,7 @@ class EditorGenerator extends AbstractGenerator {
             		val Tuple t = v.expr as Tuple;
             		params = typeFromTuple(t);
             	}
-            	ns.addFunctionDef(fnName,currentFunction,currentFile,bootPkg,params,0,0);
+            	ns.addFunctionDef(fnName,currentFunction,params,0,0);
             }
           }
         }

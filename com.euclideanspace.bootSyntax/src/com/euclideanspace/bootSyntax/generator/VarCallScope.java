@@ -11,6 +11,8 @@ public class VarCallScope extends NamespaceScope {
 
   private String nam = null;
   private VariableSpec vs =null;
+  /** Definition of this variable, this is only for globals we need to like to locals and params also */
+  private FunctionDefScope VariableDefScope = null; //TODO set this
   /**
    * constructor for VarCallScope
    * @param p parentScope
@@ -60,15 +62,13 @@ public class VarCallScope extends NamespaceScope {
 	  return true;
   }
 
-  /**
-   * Output SPAD code.
-   * @param indent to give block structure
+/**
+ * Output SPAD code.
+ * @param indent to give block structure
  * @param precedence for infix operators
  * @param lhs if true this is part of left hand side of assignment.
-   * @return
-   * 
-   * 
-   */
+ * @return
+ */
   @Override
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");

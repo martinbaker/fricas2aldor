@@ -54,7 +54,7 @@ public class ListLiteralScope extends NamespaceScope implements ExprScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":";
+	  return "list literal "+n+":";
   }
 
   /**

@@ -1,7 +1,5 @@
 package com.euclideanspace.bootSyntax.generator;
 
-import java.util.ArrayList;
-
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
 public class ParameterScope extends NamespaceScope {
@@ -10,15 +8,37 @@ public class ParameterScope extends NamespaceScope {
   private ListLiteralScope lls = null;
   private UnaryOpScope uoss = null;
   private VariableTree varInfo = null;
+  private VariableSpec varSpec = null;
 
-  /**
-   * constructor for FunctionDefScope
-   * @param p parentScope
+/**
+ * constructor for FunctionDefScope
+ * @param p parentScope
  * @param n name
-   */
+ */
   public ParameterScope(NamespaceScope p,String n) {
-	  super(p,n);
+	super(p,n);
   }
+
+/**
+ * 
+ * @param scope
+ */
+  public void addParameterInfo(NamespaceScope scope) {
+		if (scope instanceof VarCallScope) {
+		  vcs = (VarCallScope)scope;
+		  varInfo = new VariableTree(vcs.getName(),null);
+		} else if (scope instanceof BinaryOpScope) {
+		  bos = (BinaryOpScope)scope;
+		} else if (scope instanceof ListLiteralScope) {
+		  lls = (ListLiteralScope)scope;
+		} else if (scope instanceof UnaryOpScope) {
+		  uoss = (UnaryOpScope)scope;
+		} else {
+			System.err.println("ParameterScope.addParameterInfo: unusual parameter:"+scope.nameAndType());
+		}
+		varInfo = new VariableTree(scope);
+		name = varInfo.display();
+	}
 
   /**
    * Called from first pass (setNamespace) when a given variable name is used.
@@ -46,6 +66,38 @@ public class ParameterScope extends NamespaceScope {
   }
 
   /**
+   * when the scope tree is complete use this to walk the tree to
+   * make sure all links are resolved.
+   * 
+   * Here we need to add parameters to variableDefs in FunctionDefScope.
+   * 
+   * @return true if successful.
+   */
+  @Override
+  public boolean resolveLinks() {
+    if (parentScope instanceof FunctionDefScope) {
+      FunctionDefScope fds = (FunctionDefScope)parentScope;
+      //System.err.println("ParameterScope.resolveLinks(): fds:"+fds);
+    } else {
+      System.err.println("ParameterScope.resolveLinks(): parentScope:"+parentScope);
+	}
+	// no need to go below this node 
+	return true;
+  }
+
+  /**
+   * Lookup variable name to find info about it.
+   * @param nam variable name
+   * @return
+   */
+/*  @Override
+  public VariableSpec resolveVariableName(String nam) {
+	if (nam.equals(name)) return varSpec;
+	if (parentScope != null) return parentScope.resolveVariableName(nam);
+    return null;
+  }*/
+
+  /**
    * VarOrFunction
    * {VarOrFunction} name=TK_ID expr=UnaryExpression?)
    * If expr exists then this is usually a function
@@ -60,7 +112,7 @@ public class ParameterScope extends NamespaceScope {
   	      	if (u.uop == ":") isVar=true;
   	      }
   	    }
-  	    //System.err.println("EditorGenerator.compile: called with isVar:"+isVar);
+  	    //System.err.println("ParameterScope.compile: called with isVar:"+isVar);
   	    if(isVar) {
   	      return compileVar(indent,precedence,lhs,varOrFunction,parentScope)
   	    } else {
@@ -81,11 +133,11 @@ public class ParameterScope extends NamespaceScope {
   public CharSequence outputSPAD(int indent,int precedence,boolean lhs) {
 	  StringBuilder res = new StringBuilder("");
 	  if (varInfo  != null) {
-	    res.append(varInfo.variables());
+	    res.append(varInfo.display());
 	    res.append(":parameter");
       }
 	  else System.err.println("ParameterScope.outputSPAD: nam == null:");
-	  
+
 /*	  if (emfElement instanceof VarOrFunction) {
 		VarOrFunction function = (VarOrFunction)emfElement;
 	    res.append(callback.compile(indent,precedence,lhs,function,parentScope));
@@ -104,6 +156,9 @@ public class ParameterScope extends NamespaceScope {
 	  String n = "noname";
 	  if (name != null) {
 		  n=name;
+	  }
+	  if (varInfo != null) {
+		  n=varInfo.display();
 	  }
 	  return "parameter "+n+":";
   }
@@ -134,19 +189,5 @@ if (parSc instanceof ParameterScope) {
 val VariableTree par = new VariableTree(p);
 if (par !== null) params.add(par);*/
 
-public void addParameterInfo(NamespaceScope scope) {
-	if (scope instanceof VarCallScope) {
-	  vcs = (VarCallScope)scope;
-	  varInfo = new VariableTree(vcs.getName(),null);
-	} else if (scope instanceof BinaryOpScope) {
-	  bos = (BinaryOpScope)scope;
-	} else if (scope instanceof ListLiteralScope) {
-	  lls = (ListLiteralScope)scope;
-	} else if (scope instanceof UnaryOpScope) {
-	  uoss = (UnaryOpScope)scope;
-	} else {
-		System.err.println("ParameterScope.addParameterInfo: unusual parameter:"+scope.nameAndType());
-	}
-}
 
 }

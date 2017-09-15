@@ -44,7 +44,7 @@ public class LispLiteralScope extends NamespaceScope implements ExprScope {
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":";
+	  return "lisp literal "+n+":";
   }
 
   /**

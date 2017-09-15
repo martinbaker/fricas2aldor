@@ -7,7 +7,7 @@ public class FunctionSignature {
   /** parent - for inner functions only */
   private String parent = null;
   /** file is same name as package */
-  private String file = null;
+  private FileScope file = null;
   private String bootPkg = null;
   private ArrayList<VariableTree> params = new ArrayList<VariableTree>();
   /** number inner functions */
@@ -22,11 +22,11 @@ public class FunctionSignature {
 //  private ArrayList<String> globalsWritten = new ArrayList<String>();
   private boolean macro = false;
   
-  FunctionSignature(String n,String p,String f,String bootPkgIn,ArrayList<VariableTree> pars,int num,int nPrimes) {
+  FunctionSignature(String n,String p,FileScope f,ArrayList<VariableTree> pars,int num,int nPrimes) {
 	  name =n;
       parent =p;
       file =f;
-      bootPkg = bootPkgIn;
+      bootPkg = file.getPkg();
       if (pars != null) params =pars;
       number = num;
       numPrimes = nPrimes;
@@ -75,14 +75,6 @@ public class FunctionSignature {
 
   String getParent() {
 	  return parent;
-  }
-
-  /**
-   * file is same name as package
-   * @return file/package name
-   */
-  String getFile() {
-	  return file;
   }
 
   /**
@@ -227,7 +219,8 @@ public class FunctionSignature {
 	  } else {
 		if (other1.getParent() != null) return false;
 	  }
-	  if (!file.equals(other1.getFile())) return false;
+// TODO check filenames are the same
+//	  if (!file.equals(other1.getFile())) return false;
 	  if (params != null) {
 	    if (!params.equals(other1.getParams())) return false;
 	  } else {

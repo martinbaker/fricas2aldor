@@ -45,7 +45,7 @@ public class ListComprehensionLiteralScope extends NamespaceScope implements Exp
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":";
+	  return "list comp "+n+":";
   }
 
   /**

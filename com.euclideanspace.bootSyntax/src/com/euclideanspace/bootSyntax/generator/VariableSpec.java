@@ -49,8 +49,7 @@ public class VariableSpec {
    * @param v Defvar
    * @param lg LexGlobal
    */
-  VariableSpec(String n,NamespaceScope whereDefined,VariableType typ/*boolean p,boolean c,boolean c2,boolean v,
-		  boolean lg,boolean par,boolean opar,boolean le,boolean lo*/) {
+  VariableSpec(String n,NamespaceScope whereDefined,VariableType typ) {
 	  name =n;
 	  scopeWhereDefined=whereDefined;
 	  switch (typ) {

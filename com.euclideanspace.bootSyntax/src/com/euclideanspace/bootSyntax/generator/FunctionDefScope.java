@@ -29,13 +29,15 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
   private FunctionSignature fs = null;
   /** cache of variable definitions used in this function */
   private ArrayList<VariableSpec> variableDefs = new ArrayList<VariableSpec>();
-
+  /** parameters (also held in subnodes, held in this list separately so we
+   * can output easily.
+   * 'parameters' are set by addParameter from EditorGenerator. */
   private ArrayList<ParameterScope> parameters = new ArrayList<ParameterScope>();
 
   private NamespaceScope contents = null;
 
   private WhereScope where = null;
-  /** if true innerFunction indicates this is not a top level function but is
+  /** if true 'innerFunction' indicates this is not a top level function but is
    * defined inside another function */
   private boolean innerFunction = false;
 
@@ -64,22 +66,23 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 		contents = class1;
   }
 
-  /**
-   * Set function signature on this function, then recurse up the layers to
-   * set details in file and global.
-   * 
-   * called by setNamespace in EditorGenerator
-   * 
-   * @param n name
-   * @param p parent in case this is lambda inside other function
-   * @param f name of file where function is defined which is also package name.
-   * @param pars parameters
-   * @param packageName
-   * @return false if duplicate.
-   */
-  public boolean addFunctionDef(String n,String p,String f,String bootPkg,ArrayList<VariableTree> pars,int num,int numP) {
+/**
+ * Set function signature on this function, then recurse up the layers to
+ * set details in file and global.
+ * 
+ * called by setNamespace in EditorGenerator
+ * 
+ * @param n name
+ * @param p parent in case this is lambda inside other function
+ * @param f name of file where function is defined which is also package name.
+ * @param pars parameters
+ * @param num
+ * @param numP
+ * @return false if duplicate.
+ */
+  public boolean addFunctionDef(String n,String p,ArrayList<VariableTree> pars,int num,int numP) {
 	  innerFunction = (p != null);
-	  fs = new FunctionSignature(n,p,f,bootPkg,pars,num,numP);
+	  fs = new FunctionSignature(n,p,getFile(),pars,num,numP);
 	  return parentScope.addFunctionDef(this);
   }
 

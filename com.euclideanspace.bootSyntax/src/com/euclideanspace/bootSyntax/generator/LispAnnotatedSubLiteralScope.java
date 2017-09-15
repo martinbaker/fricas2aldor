@@ -46,7 +46,7 @@ public class LispAnnotatedSubLiteralScope extends NamespaceScope implements Expr
 	  if (name != null) {
 		  n=name;
 	  }
-	  return "literal "+n+":";
+	  return "lisp annotated "+n+":";
   }
 
   /**

@@ -58,6 +58,16 @@ public class GlobalScope extends NamespaceScope {
       return this;   
   }
 
+  /**
+   * 
+   * @return file scope containing this
+   */
+  @Override
+  public FileScope getFile() {
+      System.err.println("GlobalScope: cant getFile:"+this);
+      return null;   
+  }
+
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator
    * fsa.generateFile("scopes.txt",vars.showScopes(0))
@@ -336,6 +346,7 @@ public class GlobalScope extends NamespaceScope {
    */
   @Override
   public StringBuilder showDefs() {
+	  //System.err.println("GlobalScope.showDefs():");
 	  StringBuilder res = new StringBuilder("");
 
 	  res.append("\nPackages\n");

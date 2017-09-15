@@ -2,8 +2,6 @@ package com.euclideanspace.bootSyntax.generator;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import com.euclideanspace.bootSyntax.editor.Expr;
 
 /**
@@ -15,6 +13,8 @@ import com.euclideanspace.bootSyntax.editor.Expr;
 public class FileScope extends NamespaceScope {
 	  /** subnodes */
 	  private ArrayList<DeclarationScope> declarations = new ArrayList<DeclarationScope>();
+	  /** name of this file */
+	  private String fileName = "";
 	  /** no need for a subnode to store package name just store it here */
 	  private String packageName = "";
 	  /** functions defined in this package */
@@ -29,10 +29,32 @@ public class FileScope extends NamespaceScope {
   /**
    * constructor for GlobalScope
    * @param p parentScope
- * @param n name
+   * @param n name
    */
   public FileScope(NamespaceScope p,String n) {
 	  super(p,n);
+	  fileName = n;
+  }
+
+  /**
+   * set name of this file
+   * @param n
+   */
+  public void setFileName(String n) {
+	  fileName = n;
+  }
+
+  public String getPkg() {
+		return packageName;
+  }
+
+  /**
+   * 
+   * @return file scope containing this
+   */
+  @Override
+  public FileScope getFile() {
+	  return this;   
   }
 
   /** add a child
@@ -48,7 +70,7 @@ public class FileScope extends NamespaceScope {
 	  return declarations.get(declarations.size() - 1);
   }
 
-  /** Rather than have a seperate subnode information from Package is stored directly in FileScope */
+  /** Rather than have a separate subnode information from Package is stored directly in FileScope */
   public void setPackageName(String p) {
 	  packageName = p;
   }
@@ -226,6 +248,10 @@ public class FileScope extends NamespaceScope {
 	  return true;
   }
 
+  /**
+   * all subscopes that are function defs.
+   * @return
+   */
   public ArrayList<FunctionDefScope> getFunctionDefScopes() {
 	  ArrayList<FunctionDefScope> res = new ArrayList<FunctionDefScope>(); 
 	  for (NamespaceScope ns2:subscopes) {
@@ -306,6 +332,7 @@ public class FileScope extends NamespaceScope {
    */
   @Override
   public StringBuilder showDefs() {
+	//System.err.println("FileScope.showDefs():");
 	StringBuilder res = new StringBuilder("");
 	res.append("-------- package:"+getName()+" ---------");
 	res.append("\n fn calls:");
@@ -344,5 +371,7 @@ public class FileScope extends NamespaceScope {
 	res.append("\n");
 	return res;
   }
+
+
 
 }
