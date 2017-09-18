@@ -111,7 +111,7 @@ ListComprehension:
     	LispLiteralScope lls = (LispLiteralScope)scope;
     	  n=lls.name; 
     } else {
-      System.err.println("VariableTree.construct: unusual parameter:"+scope.nameAndType());
+      System.err.println("VariableTree.construct: unusual parameter:"+scope);
     }
   }
 
@@ -121,7 +121,7 @@ ListComprehension:
 	 * a string or a list structure of strings.
 	 * @param p
 	 */
-	VariableTree(Expr p) {
+/*	VariableTree(Expr p) {
 	  if (p == null) {
 		  // allow p to be null
 	  } else if (p instanceof VarOrFunction) {
@@ -173,7 +173,7 @@ ListComprehension:
 			System.err.println("VariableTree: 1b try to construct VariableTree with:" + p);
 			lst.add(new VariableTree("error "+p,null));		  
 	  }
-	}
+	}*/
 
 	/**
 	 * Recursively construct tree.

@@ -1,6 +1,9 @@
 package com.euclideanspace.bootSyntax.generator;
 
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
+import com.euclideanspace.bootSyntax.generator.ParameterScope;
+import java.util.ArrayList;
+import com.euclideanspace.bootSyntax.generator.VariableTree;
 
 public class ParameterScope extends NamespaceScope {
   private VarCallScope vcs = null;
@@ -8,7 +11,8 @@ public class ParameterScope extends NamespaceScope {
   private ListLiteralScope lls = null;
   private UnaryOpScope uoss = null;
   private VariableTree varInfo = null;
-  private VariableSpec varSpec = null;
+
+private VariableSpec varSpec = null;
 
 /**
  * constructor for FunctionDefScope
@@ -39,6 +43,14 @@ public class ParameterScope extends NamespaceScope {
 		varInfo = new VariableTree(scope);
 		name = varInfo.display();
 	}
+  
+  public void addParameterInfo2(VariableTree tree) {
+	  varInfo = tree;
+  }
+
+  public VariableTree getVarInfo() {
+	return varInfo;
+}
 
   /**
    * Called from first pass (setNamespace) when a given variable name is used.
@@ -162,6 +174,7 @@ public class ParameterScope extends NamespaceScope {
 	  }
 	  return "parameter "+n+":";
   }
+
 
   /*          if (p instanceof VarOrFunction) {
 	val VarOrFunction pv = p as VarOrFunction;

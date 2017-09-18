@@ -66,6 +66,23 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
 		contents = class1;
   }
 
+  /** initialiseParams is used when initialising parameters when this is
+   * a lambda function.
+   * @param n name
+   * @param p parameters
+   */
+  public void initialiseParams(String n,ArrayList<ParameterScope> p) {
+	  name = n;
+	  parameters = p;
+	  innerFunction = true;
+	  ArrayList<VariableTree> pars = new ArrayList<VariableTree>();
+	  for (ParameterScope psc : p) {
+		  pars.add(psc.getVarInfo());
+	  }
+	  fs = new FunctionSignature(n,getOuterFnDef().getName(),getFile(),pars,0,0);
+	  //TODO set other params
+  }
+
 /**
  * Set function signature on this function, then recurse up the layers to
  * set details in file and global.
@@ -260,6 +277,16 @@ public class FunctionDefScope extends NamespaceScope implements DeclarationScope
   }
 
   /**
+   * 
+   * @return function definition scope containing this
+   */
+  @Override
+  public FunctionDefScope getOuterFnDef() {
+	  if ((parentScope != null) && innerFunction) return parentScope.getOuterFnDef();
+	  return this;   
+  }
+
+  /**
    * If this scope is inside a function def then return it.
    * @return enclosing Fn Def
    */
@@ -341,7 +368,7 @@ FunctionDef:
 		  followOn = true;
 	  }
 	  res.append(")");
-	  if (fs.getMacro()) res.append(" ==>");
+	  if (fs != null) if (fs.getMacro()) res.append(" ==>");
 	  else res.append(" ==");
 	  if (contents != null) res.append(contents.outputSPAD(indent,precedence,lhs));
       if(where != null) {

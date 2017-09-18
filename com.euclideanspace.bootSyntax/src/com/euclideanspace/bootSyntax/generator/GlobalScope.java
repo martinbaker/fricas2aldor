@@ -67,6 +67,16 @@ public class GlobalScope extends NamespaceScope {
       System.err.println("GlobalScope: cant getFile:"+this);
       return null;   
   }
+  
+  /**
+   * 
+   * @return function definition scope containing this
+   */
+  @Override
+  public FunctionDefScope getOuterFnDef() {
+      System.err.println("GlobalScope: cant get function definition:"+this);
+      return null;   
+  }
 
   /** Override function in NamespaceScope
    * used by displayDetail() and showScopes which is used by EditorGenerator

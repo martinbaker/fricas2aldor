@@ -98,7 +98,7 @@ public class NamespaceScope {
   /**
    * Called in EditorGenerator.setNamespace to set name and expr for 
    * 
-   * implemented in FunctionCallScope, parameterScope and LocalVarScope
+   * implemented in SignatureScope, FunctionCallScope, parameterScope and LocalVarScope
    * 
    * @param nam name of function or variable
    * @param expr parameter
@@ -302,7 +302,17 @@ public class NamespaceScope {
    */
   public FileScope getFile() {
 	  if (parentScope != null) return parentScope.getFile();
-      System.err.println("NamespaceScope: cant getGlobal:"+this);
+      System.err.println("NamespaceScope: cant getFile:"+this);
+      return null;   
+  }
+
+  /**
+   * 
+   * @return function definition scope containing this
+   */
+  public FunctionDefScope getOuterFnDef() {
+	  if (parentScope != null) return parentScope.getOuterFnDef();
+      System.err.println("NamespaceScope: cant getFnDef:"+this);
       return null;   
   }
 

@@ -613,43 +613,75 @@ class EditorGenerator extends AbstractGenerator {
 	  return ns;
 	}
 
-    /** This is a utility function which expects to have a tuple with all parameter
-     * names as IDs which it returns as Strings.
-     * Used by LambdaExpression below*/
-    def ArrayList<VariableTree> typeFromTuple(Tuple t) {
-    	var ArrayList<VariableTree> res = new ArrayList<VariableTree>();
-    	if (t === null) return res;
-    	if (t.t3 !== null) {
-    	  res.add(new VariableTree(t.t3));
-    	}
-    	for (Expr p: t.t5) {
-    		res.add(new VariableTree(p));
-    	}
-    	return res;
-    }
-
-    /** LambdaExpression */
+/** LambdaExpression :
+ * 
+ * LambdaExpression returns Expr:
+ * ExitExpression
+ * ({LambdaExpression.left=current} op=KW_EQ2 (
+ * right = ExitExpression
+ * )
+ * )*
+*/
 	def NamespaceScope setNamespace(NamespaceScope parent,LambdaExpression lambdaExpression) {
 		var String fnNam = "lambda"
 		val FunctionDefScope ns = new FunctionDefScope(parent,fnNam);
 	    parent.addSubscope(ns);
-        var VarOrFunction v =null;
-        var fnName="";
-        if (lambdaExpression.left !== null) {
-          var NamespaceScope lft = setNamespace(ns,lambdaExpression.left);
-          if (lft instanceof ParameterScope) ns.addParameter(lft);
-          if (lambdaExpression.left instanceof VarOrFunction) {
+//        var VarOrFunction v =null;
+//        var fnName="";
+        if (lambdaExpression.left instanceof VarOrFunction) {
+          var SignatureScope lft = compileSignature(ns as NamespaceScope,lambdaExpression.left as VarOrFunction);
+          ns.initialiseParams(lft.getName(),lft.getParameters());
+        } else {
+        	System.err.println("EditorGenerator.setNamespace.Lambda lft not VarOrFunction:"+lambdaExpression.left);
+/*           // this holds function name and parameters so initialise it
+          if (lft instanceof FunctionCallScope) {
+            val FunctionCallScope fcs=lft as FunctionCallScope;
+            //System.out.println("EditorGenerator.setNamespace.Lambda fcs="+fcs)
+            fcs.initialiseLambda();
+          } else if (lft instanceof VarCallScope) {
+            val VarCallScope vcs=lft as VarCallScope;
+            //System.out.println("EditorGenerator.setNamespace.Lambda vcs="+vcs)
+            vcs.initialiseLambda();
+          } else {
+            System.out.println("EditorGenerator.setNamespace.Lambda lft="+lft)          	
+          }*/
+/*
+          if (lft instanceof ParameterScope) {
+          	//TODO remove this option, I dont think its used
+          	ns.addParameter(lft);
+            System.out.println("EditorGenerator.setNamespace.Lambda lft="+lft)
+          } else if (lambdaExpression.left instanceof VarOrFunction) {
             v=lambdaExpression.left as VarOrFunction
-            if (v !== null) {
+            var NamespaceScope pars = setNamespace(lft,v);
+            //lft.addSubscope(pars);
+System.out.println("EditorGenerator.setNamespace.Lambda pars="+pars)
+*/
+
+
+		  // setup parameters
+/*          var ArrayList<VariableTree> params = new ArrayList<VariableTree>();
+          for (Expr p:function.params) {
+            var String nm = "unknown name";
+            //if (p != null) nm = p.display();
+            var ParameterScope ps = new ParameterScope(ns,nm);
+            ns.addParameter(ps);
+            ns.addSubscope(ps);
+            val NamespaceScope parSc = setNamespace(ns,p)
+            ps.addParameterInfo(parSc);
+          }*/
+
+
+
+ /*            if (v !== null) {
             	fnName=v.name;
             	var ArrayList<VariableTree> params = null;
             	if (v.expr instanceof Tuple) {
             		val Tuple t = v.expr as Tuple;
-            		params = typeFromTuple(t);
+            		//params = typeFromTuple(t);
             	}
             	ns.addFunctionDef(fnName,currentFunction,params,0,0);
             }
-          }
+          }*/
         }
         if (lambdaExpression.right !== null) {
           var NamespaceScope rht = setNamespace(ns,lambdaExpression.right);
@@ -984,12 +1016,14 @@ class EditorGenerator extends AbstractGenerator {
 	    parent.addSubscope(ns);
 	    var NamespaceScope t5 = null;
 	    var NamespaceScope t3 = null;
-	    if (expr.t3 !== null)
+	    if (expr.t3 !== null) {
 	        t3=setNamespace(ns,expr.t3);
 	        ns.addParam(t3);
-	    for (Statement x:expr.t5)
+	    }
+	    for (Statement x:expr.t5) {
 	        t5=setNamespace(ns,x);
 	        ns.addParam(t5);
+	    }
 	    return ns;
 	}
 
@@ -1052,6 +1086,135 @@ class EditorGenerator extends AbstractGenerator {
 	  }
       return ns;
     }
+
+    /**
+     * compileSignature: version of VarOrFunction for lambda */
+	def SignatureScope compileSignature(NamespaceScope parent,VarOrFunction varOrFunction) {
+      var String nam = varOrFunction.name;
+	  var SignatureScope ns = new SignatureScope(parent,nam);
+	  parent.addSubscope(ns);
+	  if (varOrFunction.expr !== null) {
+      	var ArrayList<ParameterScope> params = compileSignatureParams(ns,varOrFunction.expr);
+      	ns.setVarOrFunctionExpr(nam,params);
+	  }
+      return ns;
+    }
+
+    /** compileSignatureParams: reads params for lambda */
+	def  ArrayList<ParameterScope> compileSignatureParams(NamespaceScope parent,Expr exp) {
+	  if (exp instanceof Tuple) {
+	  	val Tuple t = exp as Tuple;
+	    return compileLambdaTuple(parent,t);
+	  } else if (exp instanceof VarOrFunction) {
+	  	val VarOrFunction t = exp as VarOrFunction;
+	    return compileLambdaVariable(parent,t);
+	  } else if (exp instanceof ListLiteral) {
+	  	val ListLiteral t = exp as ListLiteral;
+	    return compileLambdaList(parent,t);
+	  } else {
+	  	System.err.println("EditorGenerator.compileSignatureParams unexpected type: "+exp);
+	  	return new ArrayList<ParameterScope>();
+	  }
+    }
+
+    /** compileLambdaTuple : When reading parameters of lambda definition
+     * reads Tuple and converts to VariableTree list */
+	def ArrayList<ParameterScope> compileLambdaTuple(NamespaceScope parent,Tuple expr) {
+		var ArrayList<ParameterScope> res = new ArrayList<ParameterScope>();
+		val TupleScope ns = new TupleScope(parent,null);
+	    parent.addSubscope(ns);
+	    var NamespaceScope t5 = null;
+	    var NamespaceScope t3 = null;
+	    if (expr.t3 !== null) {
+	        t3=setNamespace(ns,expr.t3);
+	        val VariableTree vt = new VariableTree(t3);
+	        var ParameterScope par = new ParameterScope(parent,null)
+	        par.addParameterInfo2(vt);
+	        res.add(par);
+	    }
+	    for (Statement x:expr.t5) {
+	        t5=setNamespace(ns,x);
+	        val VariableTree vt = new VariableTree(t5);
+	        var ParameterScope par = new ParameterScope(parent,null)
+	        par.addParameterInfo2(vt);
+	        res.add(par);
+	    }
+	    return res;
+	}
+
+/** compileLambdaVariable : When reading single parameter of lambda definition
+ * reads variable and converts to VariableTree list */
+  def ArrayList<ParameterScope> compileLambdaVariable(NamespaceScope parent,VarOrFunction varOrFunction) {
+    var ArrayList<ParameterScope> res = new ArrayList<ParameterScope>();
+    var String nam = varOrFunction.name;
+    val VariableTree vt = new VariableTree(nam,null);
+    var ParameterScope par = new ParameterScope(parent,null)
+    par.addParameterInfo2(vt);
+    res.add(par);
+	if (varOrFunction.expr !== null) {
+		System.err.println("EditorGenerator.compileLambdaVariable: Lambda parameter is function"+varOrFunction.expr);
+	}
+	return res;
+  }
+
+/** compileLambdaVariable : When reading single parameter of lambda definition
+ * reads variable and converts to VariableTree list */
+  def ArrayList<ParameterScope> compileLambdaList(NamespaceScope parent,ListLiteral listLiteral) {
+    var ArrayList<ParameterScope> res = new ArrayList<ParameterScope>();
+    val VariableTree vt = new VariableTree(listLiteral,new ArrayList<Integer>());
+    var ParameterScope par = new ParameterScope(parent,null)
+    par.addParameterInfo2(vt);
+    res.add(par);
+	return res;
+  }
+
+  /** display parameters : used for debugging */
+  def StringBuilder displayParams(ArrayList<VariableTree> params){
+  	val StringBuilder res = new StringBuilder("(");
+    for (VariableTree p:params) {
+      if (p !== null) {
+      	res.append(p.display());
+      	res.append(",");
+      }
+    }
+    res.append(")");
+    return res;
+  }
+
+/*        var ArrayList<VariableTree> params = new ArrayList<VariableTree>();//typeFromTuple(t);
+        for (VariableTree p:params) {
+          var String nm = "unknown name";
+          //if (p != null) nm = p.display();
+          var ParameterScope ps = new ParameterScope(ns,nm);
+//          ns.addParameter(ps);
+          ns.addSubscope(ps);
+//          val NamespaceScope parSc = setNamespace(ns,p)
+//          ps.addParameterInfo(parSc);
+        }
+ 
+//      	var NamespaceScope expr = setNamespace(ns,varOrFunction.expr);
+//      	ns.setVarOrFunctionExpr(null,expr);
+	  }*/
+
+
+    /** This is a utility function which expects to have a tuple with all parameter
+     * names as IDs which it returns as Strings.
+     * Used by LambdaExpression below*/
+ /*   def ArrayList<VariableTree> typeFromTuple(Tuple t) {
+    	var ArrayList<VariableTree> res = new ArrayList<VariableTree>();
+    	if (t === null) return res;
+    	if (t.t3 !== null) {
+    	  res.add(new VariableTree(t.t3));
+    	}
+    	for (Expr p: t.t5) {
+    		res.add(new VariableTree(p));
+    	}
+
+
+
+    	return res;
+    }*/
+
 
     /**
      * Literal  */

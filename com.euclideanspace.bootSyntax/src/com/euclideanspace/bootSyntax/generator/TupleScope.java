@@ -42,7 +42,7 @@ public class TupleScope extends NamespaceScope implements ExprScope {
   }
 
   public void addParam(NamespaceScope scope) {
-    params.add(scope);
+    getParams().add(scope);
   }
 
   /** Override function in NamespaceScope
@@ -74,7 +74,7 @@ public class TupleScope extends NamespaceScope implements ExprScope {
 	if (m2) res.append("-");
 	boolean followon = false;
 	res.append("(");
-	for (NamespaceScope statement: params) {
+	for (NamespaceScope statement: getParams()) {
 	  if(followon) res.append(",");
 	  if (statement != null) res.append(statement.outputSPAD(indent,precedence,lhs));
 	  followon = true;
@@ -82,6 +82,14 @@ public class TupleScope extends NamespaceScope implements ExprScope {
 	res.append(")");
 	return res;
   }
+
+public ArrayList<NamespaceScope> getParams() {
+	return params;
+}
+
+public void setParams(ArrayList<NamespaceScope> params) {
+	this.params = params;
+}
 
 
 }
