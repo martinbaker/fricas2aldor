@@ -74,6 +74,9 @@ public ArrayList<ParameterScope> getParameters() {
  	 if (c instanceof TupleScope) {
  	   TupleScope ts = (TupleScope)c;
  	   for (NamespaceScope p: ts.getParams()) {
+ 		 if (p==null) {
+ 	 		 System.err.println("FunctionCallScope: initialiseLambda param==null"); 			 
+ 		 }
  		 VariableTree param = new VariableTree(p);
 // 		 fds.
  		 params.add(param);

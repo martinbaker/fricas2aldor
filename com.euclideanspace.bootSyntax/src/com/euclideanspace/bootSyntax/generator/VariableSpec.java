@@ -1,5 +1,7 @@
 package com.euclideanspace.bootSyntax.generator;
 
+import java.util.ArrayList;
+
 /** When determining the scope of a variable we need to know if
  * it is a parameter, global, local or so on. This class gives
  * such information about a given variable name.
@@ -11,6 +13,11 @@ package com.euclideanspace.bootSyntax.generator;
  */
 public class VariableSpec {
   private String name = null;
+  /** The variable may be held in a nested list, with other variables,
+   * this links to such definitions with a tree and a path through that tree.
+   */
+  private VariableTree tree = null;
+  private ArrayList<Integer> path = new ArrayList<Integer>();
   /**
    * pointer to the scope where this variable is defined
    */
@@ -62,7 +69,26 @@ public class VariableSpec {
         case OuterParameter: outerParameter =true;break;
         case Lex: lex =true;break;
         case Local: local =true;break;
+	    default: break;
 	  }
+  }
+
+  VariableSpec(String n,VariableTree vt,ArrayList<Integer> p,VariableType typ) {
+    name =n;
+    tree = vt;
+    path = p;
+    switch (typ) {
+      case Defparameter: defparameter =true;break;
+      case Defconstant: defconstant =true;break;
+      case Defconst: defconst =true;break;
+      case Defvar: defvar =true;break;
+      case LexGlobal: lexGlobal =true;break;
+      case Parameter: parameter =true;break;
+      case OuterParameter: outerParameter =true;break;
+      case Lex: lex =true;break;
+      case Local: local =true;break;
+	  default: break;
+    }
   }
 
   public String getName() {

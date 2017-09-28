@@ -10,11 +10,11 @@ public class BinaryOpScope extends NamespaceScope implements ExprScope {
   NamespaceScope by; // used in 'in'
   String oper;
 
-  /**
-   * constructor for FunctionDefScope
-   * @param p parentScope
+/**
+ * constructor for BinaryOpScope
+ * @param p parentScope
  * @param n name
-   */
+ */
   public BinaryOpScope(NamespaceScope p,String n) {
 	  super(p,n);
   }

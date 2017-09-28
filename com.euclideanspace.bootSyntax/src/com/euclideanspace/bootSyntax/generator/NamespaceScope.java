@@ -112,8 +112,8 @@ public class NamespaceScope {
    * @param s subscope to be added
    */
   public void addSubscope(NamespaceScope s) {
-	  if (debth(0) < 50) subscopes.add(s);
-	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 50 in:"+displayDetail());
+	  if (debth(0) < 1000) subscopes.add(s);
+	  else System.err.println("NamespaceScope: attempt to increase nesting beyond 1000 in:"+displayDetail());
   }
 
   /** list ancestors upto root */

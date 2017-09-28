@@ -77,14 +77,23 @@ ListComprehension:
       n=vcs.getName();
     } else if (scope instanceof BinaryOpScope) {
       BinaryOpScope bos = (BinaryOpScope)scope;
+	  if (bos.left == null) {
+ 	    System.err.println("VariableTree.constr bos.left ==null"); 			 
+ 	  }
       VariableTree lft = new VariableTree(bos.left);
       lst.add(lft);
+	  if (bos.right == null) {
+	 	System.err.println("VariableTree.constr bos.right ==null"); 			 
+	  }
       VariableTree rht = new VariableTree(bos.right);
       lst.add(rht);
     } else if (scope instanceof ListLiteralScope) {
       ListLiteralScope lls = (ListLiteralScope)scope;
       for (NamespaceScope subscope : lls.subscopes) {
         if (subscope instanceof ListElementLiteralScope) {
+      	  if (subscope == null) {
+      	 	System.err.println("VariableTree.constr subscope ==null"); 			 
+      	  }
           VariableTree lels = new VariableTree((ListElementLiteralScope)subscope);
           lst.add(lels);
         }
@@ -102,6 +111,9 @@ ListComprehension:
       //System.err.println("VariableTree.construct: parameter:"+lls);
     } else if (scope instanceof UnaryOpScope) {
         UnaryOpScope uoss = (UnaryOpScope)scope;
+    	  if (uoss.expr == null) {
+    	 	System.err.println("VariableTree.constr uoss.expr==null"); 			 
+    	  }
     	  unary = new VariableTree(uoss.expr);
     	  unaryType = uoss.oper; 
     } else if (scope instanceof LiteralScope) {
@@ -251,12 +263,37 @@ ListComprehension:
 		//System.out.println("construct ListTree" + n);
 	}
 
-    boolean hasParameterName(String nam) {
-    	if (nam.equals(n)) return true;
-    	return false;
-    }
+/** This VariableTree may contain multiple named variables. This
+ * function returns each one wrapped as a VariableSpec.
+ * @return
+ */
+public ArrayList<VariableSpec> getVariableSpecs(VariableType typ) {
+  ArrayList<Integer> path = new ArrayList<Integer>();
+  return getVariableSpecs(typ,path);
+}
 
-	String pathString() {
+public ArrayList<VariableSpec> getVariableSpecs(VariableType typ,ArrayList<Integer> path) {
+  ArrayList<VariableSpec> res = new ArrayList<VariableSpec>();
+  if (n != null) {
+	path.add(0);
+    VariableSpec vs= new VariableSpec(n,this,path,typ);
+    res.add(vs);
+  }
+  int i = 1;
+  for (VariableTree p:lst) {
+    path.add(i);
+    res.addAll(p.getVariableSpecs(typ,path));
+    i++;
+  }
+  return res;
+}
+
+boolean hasParameterName(String nam) {
+  if (nam.equals(n)) return true;
+  return false;
+}
+
+String pathString() {
 		String res = "";
 		if (path == null) {
 			return "VariableTree: path == null";
@@ -265,7 +302,7 @@ ListComprehension:
 			res = res +"."+p;
 		}
 		return res;
-	}
+}
 
 	ArrayList<String> variables(){
 		ArrayList<String> res = new ArrayList<String>();

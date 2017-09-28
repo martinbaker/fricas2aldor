@@ -498,6 +498,7 @@ class EditorGenerator extends AbstractGenerator {
 
     /** Expr */
 	def NamespaceScope setNamespace(NamespaceScope parent,Expr expr) {
+        //System.err.println("EditorGenerator.setNamespace expr="+expr);		
         if (expr instanceof WhereExpression) return setNamespace(parent,expr as WhereExpression);
 	    if (expr instanceof IfExpression) return setNamespace(parent,expr as IfExpression);
 	    if (expr instanceof Expression) return setNamespace(parent,expr as Expression);
@@ -713,23 +714,32 @@ System.out.println("EditorGenerator.setNamespace.Lambda pars="+pars)
     /**
      * AssignExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,AssignExpression assignExpression) {
-	  val BinaryOpScope ns = new BinaryOpScope(parent,null);
+      //System.err.println("EditorGenerator.setNamespace assign");
+	  val AssignScope ns = new AssignScope(parent,null);
 	  parent.addSubscope(ns);
  	  var NamespaceScope lft = null;
 	  var NamespaceScope rht = null;
       if (assignExpression.left !== null) {
-        if (assignExpression.left instanceof VarOrFunction) {
-          	val VarOrFunction v = assignExpression.left as VarOrFunction;
-          	ns.addVariableCall(v.name,true);
-        } else if (assignExpression.left instanceof ListLiteral) {
-            val ListLiteral ll = (assignExpression.left as ListLiteral);
-	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
-	        val ArrayList<String> vs = lt.variables();
-	        for (String v:vs) {
-          	  ns.addVariableCall(v,true);
-	        }
-        }
 	    lft=setNamespace(ns,assignExpression.left);
+        if (assignExpression.left instanceof VarOrFunction) {
+          val VarOrFunction v = assignExpression.left as VarOrFunction;
+	      val VariableTree lt = new VariableTree(v.name,null);
+	      ns.initVariable(lt);
+        } else if (assignExpression.left instanceof ListLiteral) {
+          val ListLiteral ll = assignExpression.left as ListLiteral;
+	      val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
+	      ns.initVariable(lt);
+        } else if (assignExpression.left instanceof AssignExpression) {
+          //val AssignExpression agn = assignExpression.left as AssignExpression;
+          //val NamespaceScope agnn = setNamespace(ns,agn);
+          ns.initVariableNestedAssign(lft);
+        } else if (assignExpression.left instanceof EltExpression) {
+          //val EltExpression elt = assignExpression.left as EltExpression;
+          //val NamespaceScope eltn = setNamespace(ns,elt);
+          ns.initVariableElt(lft);
+        } else {
+          System.err.println("EditorGenerator.setNamespace unexpected subnode in assign: "+assignExpression.left);
+        }
 	  }
 	  if (assignExpression.right !== null) {
 	    rht=setNamespace(ns,assignExpression.right);
@@ -793,27 +803,41 @@ System.out.println("EditorGenerator.setNamespace.Lambda pars="+pars)
     /**
      * IsExpression */
 	def NamespaceScope setNamespace(NamespaceScope parent,IsExpression isExpression){
-	  val BinaryOpScope ns = new BinaryOpScope(parent,null);
+      //System.err.println("EditorGenerator.setNamespace is begin");
+	  val IsScope ns = new IsScope(parent,null);
 	  parent.addSubscope(ns);
 	  var NamespaceScope lft = null;
 	  var NamespaceScope rht = null;
 	  if(isExpression.left !== null)
 	      lft=setNamespace(ns,isExpression.left);
 	  if(isExpression.right !== null) {
+          rht=setNamespace(ns,isExpression.right);
           if (isExpression.right instanceof ListLiteral) {
             val ListLiteral ll = (isExpression.right as ListLiteral);
 	        val VariableTree lt = new VariableTree(ll,new ArrayList<Integer>());
 	        // following is to trigger extra lines in SPAD code.
-	        ns.addInsertLines(lt);
-	        val ArrayList<String> vs = lt.variables();
-	        for (String v:vs) {
-	          //if (refType != RefType.Parameter)
-          	  ns.addVariableCall(v,true);
-	        }
+	        ns.initVariable(lt);
+          } else if (isExpression.right instanceof LispLiteral) {
+            //val LispLiteral lpl = (isExpression.right as LispLiteral);
+            //val NamespaceScope lpln = setNamespace(ns,lpl);
+            ns.initIsLispLiteral(rht);
+          } else if (isExpression.right instanceof Literal) {
+            //val Literal lit = (isExpression.right as Literal);
+            //val NamespaceScope litn = setNamespace(ns,lit);
+            ns.initIsLiteral(rht);
+          } else if (isExpression.right instanceof VarOrFunction) {
+            //val Literal lit = (isExpression.right as Literal);
+            //val NamespaceScope litn = setNamespace(ns,lit);
+            ns.initIsVariable(rht);
+          } else {
+            System.err.println("EditorGenerator.setNamespace unexpected subnode in 'is': "+isExpression.right);
           }
-          rht=setNamespace(ns,isExpression.right);
       }
 	  ns.setBinOp(26,lft,rht,isExpression.op);
+      //System.err.println("EditorGenerator.setNamespace is end");
+      if (ns === null) {
+		System.err.println("EditorGenerator.setNamespace(is): ns == null");
+	  }
       return ns;
 	}
 
@@ -1127,6 +1151,9 @@ System.out.println("EditorGenerator.setNamespace.Lambda pars="+pars)
 	    var NamespaceScope t3 = null;
 	    if (expr.t3 !== null) {
 	        t3=setNamespace(ns,expr.t3);
+	        if (t3 === null) {
+		      System.err.println("EditorGenerator.compileLambdaTuple: t3 == null");
+	        }
 	        val VariableTree vt = new VariableTree(t3);
 	        var ParameterScope par = new ParameterScope(parent,null)
 	        par.addParameterInfo2(vt);
@@ -1134,6 +1161,9 @@ System.out.println("EditorGenerator.setNamespace.Lambda pars="+pars)
 	    }
 	    for (Statement x:expr.t5) {
 	        t5=setNamespace(ns,x);
+	        if (t5 === null) {
+		      System.err.println("EditorGenerator.compileLambdaTuple: t5 == null");
+	        }
 	        val VariableTree vt = new VariableTree(t5);
 	        var ParameterScope par = new ParameterScope(parent,null)
 	        par.addParameterInfo2(vt);
