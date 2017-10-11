@@ -8,7 +8,7 @@ SPAD can be very powerful but it does have some serious shortcomings, for instan
 
 In order to fix these things it would be good to modify the underlying code which implements SPAD to give it a better type system and to allow it to run on top of other languages than Lisp. However this would be very hard, the existing SPAD implementations use a quirky compiler and consequences of changes are not very predictable or reliable. Therefore to make the changes I think the current SPAD compiler first needs to be replaced.
 
-I thought about a number of options for this, one thing I thought about is translating the current SPAD code library to <a href="http://www.euclideanspace.com/prog/scratchpad/aldor/index.htm">Aldor</a>. At least this uses a more conventional compiler and so should be easier to change but it would still reqire extensive modification to do the things I want. Also its build on a custom runtime called FOAM and I'm not convinced this is a good foundation for future development? Would it support parallel code execution for example?
+I thought about a number of options for this, one thing I thought about is translating the current SPAD code library to <a href="http://www.euclideanspace.com/prog/scratchpad/aldor/index.htm">Aldor</a>. At least this uses a more conventional compiler and so should be easier to change but it would still require extensive modification to do the things I want. Also its build on a custom runtime called FOAM and I'm not convinced this is a good foundation for future development? Would it support parallel code execution for example?
 
 Are there any better options? Is there a viable path to where SPAD code is built on top of some LLVM or JVM runtime for example?
 
@@ -16,17 +16,25 @@ The code here is all experimental to try to answer some of these questions.
 
 Convert SPAD code to Aldor
 --------------------------
-
-I have just started working on this, the code is not yet functional.
-
-This is first stage of attempt to convert SPAD code to Aldor.
-
-Direct conversion is difficult because:
+Direct conversion of library code is difficult because:
 
 * SPAD syntax is not well defined.
 * Pattern matching rules are not well defined.
 
-Therefore the only way to reliably build Abstract Syntax Tree (AST) is to use/modify existing boot code.
+We need to make the SPAD library code completely unambiguous so that we can build an Abstract Syntax Tree (AST) and then translate this to other languages. 
+I thought of 2 possible approaches to generate an AST from which other languages can be generated:
+1) Modify compiler (Boot code) to output AST. Possibly by modifing work done by <a href="https://github.com/cahirwpz/phd">Krystian Bacławski</a>. My attempt to do this is <a href="https://github.com/martinbaker/fricas2aldor/tree/master/fricas2aldor">here</a>. 
+2) Make SPAD code unambiguous. We can then use a more conventional compiler such as <a href="http://www.eclipse.org/Xtext/">Xtext</a>. This would be an adaption of my Boot to SPAD code below.
+
+If we could modify SPAD code to have fully qualified function names, for instance, instead of '+' we use '+@Integer'. Also insert parenthesis around every infix operator. By doing things like this we could make the library code unambiguous, it would not be so readable for humans but this is only a temporary stage before converting to another form.
+
+One way to do this might be to modify existing boot code to do it. However boot code is hard to work with so it would help if Boot code could be converted to SPAD (see below).
+
+Once this is done then I would like to use a more conventional compiler to build the AST. I prefer to use <a href="http://www.eclipse.org/Xtext/">Xtext</a>.
+
+I have just started working on this, the code is not yet functional.
+
+This is first stage of attempt to convert SPAD code to Aldor.
 
 The code tries to build the AST as an XML file.
 
@@ -34,6 +42,9 @@ This XML tree is then analysed and written as Aldor source by java code.
 
 Boot code to SPAD
 -----------------
+I would like to convert boot code to SPAD because:
+1) It would help to remove reliance on Lisp code and therefore allow more parallel code.
+2) It would help me to modify the compiler code as a first stage help to convert the library code to other languages.
 
 I managed to compile this boot code to an Abstract Syntax Tree (AST) I then wrote a code generator to write AST back to boot code. This code was different from the original (because the AST does not store format information) but when I compiled to Lisp the code generated was identical - all lines (except those starting with ';') were identical.
 
