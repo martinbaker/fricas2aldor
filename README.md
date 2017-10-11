@@ -62,7 +62,7 @@ I think it would be hard to change one function at a time because all these func
 
 I suspect it would only be possible to untangle all that mess if you have a very deep understanding of the interpreter and of boot. Since I would like to remove boot code I would rather not spend a lot of time learning about it.
 
-One thing that I can easily do, since I have an AST, is generate tables showing which functions use which variables and another showing which variables are used in which functions. But I think it would take more knowledge than I have to untangle them. I might even be able to infer which variables only get assigned to one type (int,float,string..) so that they could be assigned those types in SPAD. However many boot variables could be polymorphic or complicated list structures.
+One thing that I can easily do, since I have an AST, is generate tables showing which functions use which variables and another showing which variables are used in which functions. But I think it would take more knowledge than I have to untangle them. I might even be able to infer which variables only get assigned to one type (int,float,string..) so that they could be assigned those types in SPAD. However many boot variables could be polymorphic or complicated list structures. 
 
 > But how do you generate static
 > type language from a dynamic type language?
