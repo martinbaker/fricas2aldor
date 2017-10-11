@@ -1,3 +1,19 @@
+My Goal
+-------
+SPAD is a language for defining computer algebra structures used by <a href="http://www.axiom-developer.org/">Axiom</a> and <a href="http://fricas.sourceforge.net/">FriCAS</a>. I have written more about these programs <a href="http://www.euclideanspace.com/prog/scratchpad/index.htm">here</a>.
+
+SPAD can be very powerful but it does have some serious shortcomings, for instance,
+1) It can't work with category theory constructs like monad.
+2) It is built on top of Lisp and it can't handle parallel code which is a big performance constraint and will be more so in the future.
+
+In order to fix these things it would be good to modify the underlying code which implements SPAD to give it a better type system and to allow it to run on top of other languages than Lisp. However this would be very hard, the existing SPAD implementations use a quirky compiler and consequences of changes are not very predictable or reliable. Therefore to make the changes I think the current SPAD compiler first needs to be replaced.
+
+I thought about a number of options for this, one thing I thought about is translating the current SPAD code library to <a href="http://www.euclideanspace.com/prog/scratchpad/aldor/index.htm">Aldor</a>. At least this uses a more conventional compiler and so should be easier to change but it would still reqire extensive modification to do the things I want. Also its build on a custom runtime called FOAM and I'm not convinced this is a good foundation for future development? Would it support parallel code execution for example?
+
+Are there any better options? Is there a viable path to where SPAD code is built on top of some LLVM or JVM runtime for example?
+
+The code here is all experimental to try to answer some of these questions.
+
 Convert SPAD code to Aldor
 --------------------------
 
@@ -26,7 +42,7 @@ So I am sure my AST contains all the information from the boot files.
 Its then not difficult to generate SPAD or Aldor or any other language from this AST. But the problems are:
 
 1) how to handle global variables, especially dynamic variables. I think each function would have to have an additional parameter to pass around the runtime values of these dynamic variables.
-2) The boot 'where' keword seems to hold inner fuctions and variables. How should inner functions be converted to SPAD? SPAD has lambdas but can SPAD lambda capture variables (closures)?
+2) The boot 'where' keyword seems to hold inner functions and variables. How should inner functions be converted to SPAD? SPAD has lambdas but can SPAD lambda capture variables (closures)?
 3) The native Lisp code would have to be translated by hand, to handle input/output to console, files and database (which would be different for each language).
 
 Perhaps another option would be to just translate boot to SPAD manually but that's hard because Boot/Lisp passes everything around in global variables whereas well written SPAD should encapsulate information in domains. This means you cant just translate one function at a time and check if it works before going on to the next.
