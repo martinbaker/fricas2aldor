@@ -3,6 +3,8 @@ package com.euclideanspace.bootSyntax.generator;
 import java.util.ArrayList;
 
 /** For a given file this lists other files which it uses and why.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class Imports {

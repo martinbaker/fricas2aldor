@@ -20,9 +20,11 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 	((KW_EQ2|m?=KW_MARROW) st=Statement)? // FunctionDef may be abstract
 	
 	(NL w=Where)?
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
+
 public class FunctionDefScope extends NamespaceScope implements DeclarationScope {
 
   /** fs is set by addFunctionDef function below */

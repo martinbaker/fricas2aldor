@@ -66,18 +66,13 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.common.util.EList
 
-/* rules for indentation
- * ---------------------
- * newline(indent) inserted after every declaration
- * newline(indent) inserted after every statement in block
- * 
- * should these be before?
- */
-
 /**
  * Generates code from your model files on save.
  * 
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 class EditorGenerator extends AbstractGenerator {
 

@@ -10,8 +10,9 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 		(c?=KW_COLON? e?=KW_EQ)? l2=IfExpression |
 		c2?=KW_COLON? d?=KW_DOT
 	)
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class ListElementLiteralScope extends NamespaceScope implements ExprScope {
 

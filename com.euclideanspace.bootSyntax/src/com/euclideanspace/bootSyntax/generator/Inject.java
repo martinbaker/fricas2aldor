@@ -2,6 +2,8 @@ package com.euclideanspace.bootSyntax.generator;
 
 /** When walking the tree we cant insert because that could be
  * unstable, so store here to inject later.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class Inject {

@@ -5,6 +5,10 @@ import com.euclideanspace.bootSyntax.generator.ParameterScope;
 import java.util.ArrayList;
 import com.euclideanspace.bootSyntax.generator.VariableTree;
 
+/**
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
+ */
 public class ParameterScope extends NamespaceScope {
   private VarCallScope vcs = null;
   private BinaryOpScope bos = null;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /** For a given import this lists which function defs and variables it
  * is needed for.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class Import {

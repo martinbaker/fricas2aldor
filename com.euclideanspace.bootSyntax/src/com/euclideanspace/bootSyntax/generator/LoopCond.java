@@ -3,6 +3,8 @@ package com.euclideanspace.bootSyntax.generator;
 /** Used by LoopScope to store loop condition
  * which is one of:
  * While, Do, Until, For.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class LoopCond {

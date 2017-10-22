@@ -19,8 +19,9 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 	NL? st=TK_STRING
 	|
 	( NL? oparen?=KW_OPAREN asl+=AnnotatedSubLispLiteral* KW_CPAREN)
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class LispSubLiteralScope extends NamespaceScope implements ExprScope {
 

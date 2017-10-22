@@ -14,45 +14,10 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with EuclideanSpace. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
- 
- /*
-  * Preformatting
-  * boot code must first be preformatted manually.
-  * 
-  * Whitespace
-  * ----------
-  * comments must be on separate line and at same indent as adjacent statements.
-  * Lines cannot be extended by indenting.
-  * Line folding:
-  *   Lists can only be split after comma
-  * Lisp literal: new line must start with '('
-  * if-then-else must be on 1 line or
-  * if a then
-  *    b
-  * else
-  *    c  * 
-  * Keywords
-  * --------
-  * if changed to if1
-  * and changed to and1
-  * or changed to or1
-  * not changed to not1
-  * is changed to is1
-  * package changed to package1
-  * local changed to local1
-  * until changed to until1
-  * FunctionDef [x] == changed to FunctionDef([x])==
-  * 
-  * unary int
-  * ---------
-  * -1 changed to (-1)
-  * 
-  * open ended segment
-  * ------------------
-  * parenthesis must be added around start if not int or ID
-  * [i for i in (index+1)..]
-  */
 
 grammar com.euclideanspace.bootSyntax.Editor hidden (WS)
 

@@ -21,6 +21,8 @@ import com.euclideanspace.bootSyntax.editor.ListElement;
  * This can cause multiple variables inside the list to be assigned.
  * To allow us to do this it is useful to hold this recursively
  * defined list as a tree.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class VariableTree {

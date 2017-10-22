@@ -2,6 +2,10 @@ package com.euclideanspace.bootSyntax.generator;
 
 import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 
+/**
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
+ */
 public class BinaryOpScope extends NamespaceScope implements ExprScope {
 
   int thisPrecidence;

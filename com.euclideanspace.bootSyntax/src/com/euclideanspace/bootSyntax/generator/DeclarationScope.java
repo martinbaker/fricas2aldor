@@ -7,7 +7,6 @@ package com.euclideanspace.bootSyntax.generator;
  * FunctionDefScope comes from FunctionDef
  * Comment | Documentation;
  * information from Package is stored directly in FileScope
- * @author Martin Baker
  *
  *Map EObjects to Structure as follows:
  * Package -> FileScope
@@ -20,7 +19,11 @@ package com.euclideanspace.bootSyntax.generator;
  * FunctionDef -> FunctionDefScope
  * Where -> WhereScope
  * GlobalVariable -> VariableDefScope 
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
+
 public interface DeclarationScope {
 	public CharSequence outputSPAD(int indent,int precedence,boolean lhs);
 	public CharSequence outputSPADExports(int indent,int precedence);

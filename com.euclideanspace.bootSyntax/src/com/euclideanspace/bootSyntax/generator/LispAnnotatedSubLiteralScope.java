@@ -9,9 +9,11 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
 	p?=KW_PRIME? sl=SubLispLiteral d?=KW_DOT?
 ;
 
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
+
 public class LispAnnotatedSubLiteralScope extends NamespaceScope implements ExprScope {
 
   private boolean p = false;

@@ -24,8 +24,9 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
   d?=KW_2DOT? // for segment with no end part
 ;
 
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class TupleScope extends NamespaceScope implements ExprScope {
 

@@ -7,6 +7,10 @@ import org.eclipse.emf.ecore.EObject;
 
 import com.euclideanspace.bootSyntax.editor.Expr;
 
+/**
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
+ */
 public class GlobalScope extends NamespaceScope {
 
   /**

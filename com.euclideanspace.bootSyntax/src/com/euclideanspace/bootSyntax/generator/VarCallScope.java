@@ -4,8 +4,9 @@ package com.euclideanspace.bootSyntax.generator;
  * Holds variable (which is not a parameter). That is when a variable
  * is being used (in VarOrFunction) not necessarily when it is defined.
  * Although it may also be definition.
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class VarCallScope extends NamespaceScope {
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * This is a sort of cache for this information about a variable
  * and it is held in various place. For instance
  * lists of VariableSpec are held in FileScope and GlobalScope
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class VariableSpec {

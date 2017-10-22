@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /** When walking the tree we cant insert because that could be
  * unstable, so store list of injects for later.
+ *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
  * @author Martin Baker
  */
 public class Injects {

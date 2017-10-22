@@ -1,7 +1,6 @@
 package com.euclideanspace.bootSyntax.generator;
 
 /**
- * @author Martin Baker
  *
  * Map EObjects to Structure as follows:
  * WhereExpression -> WhereScope
@@ -35,7 +34,10 @@ package com.euclideanspace.bootSyntax.generator;
  * 
  * otherwise if b1 then b2 or b2i else b3
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
+
 public interface ExprScope extends StatementScope {
 
 }

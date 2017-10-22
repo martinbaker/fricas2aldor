@@ -6,8 +6,9 @@ import com.euclideanspace.bootSyntax.generator.NamespaceScope;
  * This may be either a Global Lexical Variable (a variable assignment
  * outside scope of a function definition) or a dynamic (special)
  * variable (Defparameter, Defconstant, Defconst, Defvar).
- * @author mjb
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class VariableDefScope extends NamespaceScope implements DeclarationScope {
 

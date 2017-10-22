@@ -7,8 +7,9 @@ import com.euclideanspace.bootSyntax.editor.Expr;
 /**
  * Scope files allow names to be matched to their definitions.
  * This is for files which will correspond to a spad 'package'.
- * @author Martin Baker
  *
+ * @see <a href="http://www.euclideanspace.com/prog/spad2aldor/boot/index.htm">compiling Boot code</a>
+ * @author Martin Baker
  */
 public class FileScope extends NamespaceScope {
 	  /** subnodes */
